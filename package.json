@@ -1,0 +1,42 @@
+{
+  "name": "unimate",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "next start -p $PORT",
+    "dev": "env-cmd -f ./env/.dev next dev -p 6001",
+    "dev:local": "env-cmd -f ./env/.local node dev-server",
+    "build:dev": "env-cmd -f ./env/.dev next build",
+    "build:prod": "env-cmd -f ./env/.prod next build",
+    "lint": "eslint --fix --ext .js,.jsx,.ts,.tsx src"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.64.1",
+    "@tanstack/react-query-devtools": "^5.64.1",
+    "axios": "^1.7.9",
+    "dayjs": "^1.11.13",
+    "env-cmd": "^10.1.0",
+    "next": "14.2.23",
+    "react": "^18",
+    "react-dom": "^18",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "@typescript-eslint/eslint-plugin": "^8.20.0",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^8",
+    "eslint-config-next": "^15.1.5",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-prettier": "^5.2.3",
+    "eslint-plugin-unused-imports": "^4.1.4",
+    "postcss": "^8",
+    "prettier": "^3.4.2",
+    "tailwindcss": "^3.4.1",
+    "typescript": "5.2"
+  }
+}

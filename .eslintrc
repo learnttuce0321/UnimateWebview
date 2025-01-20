@@ -1,0 +1,84 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es2021": true,
+  },
+  "settings": {
+    "react": {
+      "version": "detect",
+    },
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@next/next/recommended",
+    "eslint-config-prettier",
+    "plugin:prettier/recommended",
+  ],
+  "overrides": [],
+  "plugins": [
+    "react",
+    "react-hooks",
+    "import",
+    "unused-imports",
+    "@typescript-eslint",
+  ],
+  "rules": {
+    "@next/next/no-img-element": "off",
+    "@next/next/no-css-tags": "off",
+    "react/prop-types": 0,
+    "react/react-in-jsx-scope": "off",
+    "react-hooks/rules-of-hooks": "warn",
+    "react-hooks/exhaustive-deps": "warn",
+    "prettier/prettier": "warn",
+    "prefer-const": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/ban-types": "off",
+    "import/order": [
+      "error",
+      {
+        "groups": [["builtin", "external"], "internal", "object"],
+        "alphabetize": {
+          "order": "asc",
+          "orderImportKind": "ignore",
+          "caseInsensitive": true,
+        },
+        "warnOnUnassignedImports": true,
+        "pathGroups": [
+          {
+            "pattern": "{react*,react/**}",
+            "group": "builtin",
+            "position": "before",
+          },
+          {
+            "pattern": "{next*,next/**}",
+            "group": "builtin",
+            "position": "before",
+          },
+          {
+            "pattern": "@tanstack/*",
+            "group": "builtin",
+            "position": "before",
+          },
+          {
+            "pattern": "{*/**,app.*}",
+            "group": "internal",
+            "position": "before",
+          },
+        ],
+        "pathGroupsExcludedImportTypes": ["app.**"],
+        "newlines-between": "never",
+      },
+    ],
+  },
+}
