@@ -1,3 +1,3 @@
 export default function Page() {
-  return <div>test</div>;
+  return <div>신민재-test-push</div>;
 }
