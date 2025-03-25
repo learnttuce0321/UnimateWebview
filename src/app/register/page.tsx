@@ -4,7 +4,7 @@ import RegisterForm from './_components/registerForm/RegisterForm';
 
 export default function RegisterPage() {
   return (
-    <div className="w-full p-[16px]">
+    <div className="w-full">
       <RegisterHeader />
       <RegisterForm />
     </div>

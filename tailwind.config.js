@@ -11,7 +11,9 @@ module.exports = {
       colors: {
         blue_gray: {
           900: 'rgb(37, 41, 47)',
+          600: 'rgb(122, 128, 134)',
         },
+        'outline-black-light': 'rgba(0, 0, 0, 0.05)',
       },
     },
   },

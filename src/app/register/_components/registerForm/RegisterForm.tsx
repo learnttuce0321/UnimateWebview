@@ -5,7 +5,7 @@ import RegisterCategoryInput from './RegisterCategoryInput';
 
 export default function RegisterForm() {
   return (
-    <form>
+    <form className="bg-gray-50 p-[16px]">
       <RegisterImageForm />
       <RegisterInput type="text" placeholder="글 제목을 입력해주세요." />
       <RegisterCategoryInput />
