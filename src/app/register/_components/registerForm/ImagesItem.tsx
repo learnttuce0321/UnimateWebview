@@ -4,11 +4,21 @@ type Props = {
   images: string;
   index: number;
   onRemoveImage: (index: number) => void;
+  onDragStart: (index: number) => void;
 };
 
-export default function ImagesItem({ images, index, onRemoveImage }: Props) {
+export default function ImagesItem({
+  images,
+  index,
+  onRemoveImage,
+  onDragStart,
+}: Props) {
   return (
-    <div className="relative w-[65px] h-[65px]">
+    <div
+      className="relative w-[65px] h-[65px]"
+      draggable
+      onDragStart={() => onDragStart(index)}
+    >
       {/* 삭제 버튼 */}
       <button
         type="button"

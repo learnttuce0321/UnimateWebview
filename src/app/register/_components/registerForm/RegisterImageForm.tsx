@@ -9,8 +9,10 @@ export default function RegisterImageForm() {
   // TODO : 임시로 확인을 위한 상태 선언
   const [images, setImages] = useState<string[]>([
     '/images/test_images/product_example.png',
-    '/images/test_images/product_example.png',
+    '/images/test_images/product_example_2.png',
   ]);
+
+  const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
 
   // TODO : 네이티브 통신을 사용한 디바이스 사진첩에 접근해야함
   const handleClickUploadButton = () => {
@@ -23,6 +25,24 @@ export default function RegisterImageForm() {
 
   const handleRemoveImage = (index: number) => {
     setImages(images.filter((_, i) => i !== index));
+  };
+
+  const handleDragStart = (index: number) => {
+    setDraggedIndex(index);
+  };
+
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = (dropIndex: number) => {
+    if (draggedIndex === null || draggedIndex === dropIndex) return;
+
+    const updatedImages = [...images];
+    const draggedItem = updatedImages.splice(draggedIndex, 1)[0];
+    updatedImages.splice(dropIndex, 0, draggedItem);
+    setImages(updatedImages);
+    setDraggedIndex(null);
   };
 
   return (
@@ -47,12 +67,18 @@ export default function RegisterImageForm() {
       {/* 상품 이미지 리스트 */}
       <div className="flex gap-[16px]">
         {images.map((image, index) => (
-          <ImagesItem
+          <div
             key={index}
-            images={image}
-            index={index}
-            onRemoveImage={handleRemoveImage}
-          />
+            onDragOver={handleDragOver}
+            onDrop={() => handleDrop(index)}
+          >
+            <ImagesItem
+              images={image}
+              index={index}
+              onRemoveImage={handleRemoveImage}
+              onDragStart={handleDragStart}
+            />
+          </div>
         ))}
       </div>
     </div>
