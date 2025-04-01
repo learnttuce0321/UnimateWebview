@@ -13,6 +13,8 @@ export default function ImagesItem({
   onRemoveImage,
   onDragStart,
 }: Props) {
+  const isMainImage = index === 0;
+
   return (
     <div
       className="relative w-[65px] h-[65px]"
@@ -23,7 +25,7 @@ export default function ImagesItem({
       <button
         type="button"
         onClick={() => onRemoveImage(index)}
-        className="absolute top-[-5px] right-[-5px] bg-blue_gray-600  text-white w-[20px] h-[20px] text-xs rounded-full flex items-center justify-center"
+        className="absolute top-[-5px] right-[-5px] bg-blue_gray-600  text-white w-[20px] h-[20px] text-xs rounded-[5px] flex items-center justify-center"
       >
         <img src="/images/svg/icon-system-close-image.svg" alt="닫기" />
       </button>
@@ -36,6 +38,12 @@ export default function ImagesItem({
           className="w-full h-full rounded-[5px]"
         />
       </div>
+
+      {isMainImage && (
+        <div className="absolute bottom-0 w-full h-[18px] bg-blue-600_P flex items-center justify-center text-[10px] text-white rounded-b-[5px]">
+          대표 사진
+        </div>
+      )}
     </div>
   );
 }
