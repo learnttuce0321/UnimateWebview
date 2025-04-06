@@ -1,20 +1,48 @@
 'use client';
 
 import React, { useState } from 'react';
-import ImagesItem from './ImagesItem';
+import {
+  DndContext,
+  closestCenter,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  horizontalListSortingStrategy,
+  SortableContext,
+} from '@dnd-kit/sortable';
+import SortableImageItem from './SortableImageItem';
 
 const MAX_IMAGES_COUNT = 10;
 
 export default function RegisterImageForm() {
-  // TODO : 임시로 확인을 위한 상태 선언
   const [images, setImages] = useState<string[]>([
     '/images/test_images/product_example.png',
     '/images/test_images/product_example_2.png',
   ]);
 
-  const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 5, // 드래그 인식 최소 거리
+      },
+    })
+  );
 
-  // TODO : 네이티브 통신을 사용한 디바이스 사진첩에 접근해야함
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (active.id !== over?.id) {
+      const oldIndex = images.findIndex((_, i) => i.toString() === active.id);
+      const newIndex = images.findIndex((_, i) => i.toString() === over?.id);
+
+      setImages((images) => arrayMove(images, oldIndex, newIndex));
+    }
+  };
+
   const handleClickUploadButton = () => {
     if (images.length < MAX_IMAGES_COUNT) {
       setImages([...images, '/images/test_images/product_example.png']);
@@ -27,26 +55,8 @@ export default function RegisterImageForm() {
     setImages(images.filter((_, i) => i !== index));
   };
 
-  const handleDragStart = (index: number) => {
-    setDraggedIndex(index);
-  };
-
-  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-  };
-
-  const handleDrop = (dropIndex: number) => {
-    if (draggedIndex === null || draggedIndex === dropIndex) return;
-
-    const updatedImages = [...images];
-    const draggedItem = updatedImages.splice(draggedIndex, 1)[0];
-    updatedImages.splice(dropIndex, 0, draggedItem);
-    setImages(updatedImages);
-    setDraggedIndex(null);
-  };
-
   return (
-    <div className="h-[73px] flex items-end overflow-x-auto no-scrollbar">
+    <div className="h-[73px] flex items-end overflow-x-auto overflow-y-hidden no-scrollbar">
       {/* 상품 등록 버튼 */}
       <div className="flex-shrink-0 mr-[16px]">
         <button
@@ -64,23 +74,29 @@ export default function RegisterImageForm() {
         </button>
       </div>
 
-      {/* 상품 이미지 리스트 */}
-      <div className="flex gap-[16px]">
-        {images.map((image, index) => (
-          <div
-            key={index}
-            onDragOver={handleDragOver}
-            onDrop={() => handleDrop(index)}
-          >
-            <ImagesItem
-              images={image}
-              index={index}
-              onRemoveImage={handleRemoveImage}
-              onDragStart={handleDragStart}
-            />
+      {/* 드래그 가능한 이미지 리스트 */}
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}
+      >
+        <SortableContext
+          items={images.map((_, i) => i.toString())}
+          strategy={horizontalListSortingStrategy}
+        >
+          <div className="flex gap-[16px]">
+            {images.map((image, index) => (
+              <SortableImageItem
+                key={index}
+                id={index.toString()}
+                image={image}
+                index={index}
+                onRemoveImage={handleRemoveImage}
+              />
+            ))}
           </div>
-        ))}
-      </div>
+        </SortableContext>
+      </DndContext>
     </div>
   );
 }

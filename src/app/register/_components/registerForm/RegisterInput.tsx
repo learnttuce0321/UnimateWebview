@@ -20,6 +20,7 @@ export default function RegisterInput({
   errorMessage = '입력이 필요합니다.',
 }: Props) {
   // TODO : 우선은 제목 form만 했음, 다만 다른 입력 폼들도 props로 구분해서 중복 로직 없도록 할 예정
+
   return (
     <div className="mb-4 mt-[30px] flex flex-col gap-[16px] justify-start">
       <label
