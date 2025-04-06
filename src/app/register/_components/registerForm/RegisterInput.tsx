@@ -5,7 +5,7 @@ type Props = {
   type: string;
   placeholder: string;
   name: string;
-  register: any;
+  register: any; // TODO : register의 타입 잡기
   required?: boolean;
   error?: any;
   errorMessage?: string;
@@ -21,7 +21,7 @@ export default function RegisterInput({
   errorMessage = '입력이 필요합니다.',
 }: Props) {
   const isTextarea = type === 'textarea';
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
   // textarea일 때만 자동 높이 조절 훅 사용
   if (isTextarea) {
@@ -41,17 +41,20 @@ export default function RegisterInput({
           <textarea
             id={`register-product-${name}`}
             placeholder={placeholder}
-            className="w-full resize-none overflow-hidden outline-none font-[16px]"
-            {...register(name, { required })}
+            className="w-full resize-none overflow-hidden outline-none font-[16px] placeholder:font-medium placeholder:text-blue_gray-600"
             rows={1}
-            ref={textareaRef}
+            {...register(name, { required })}
+            ref={(el) => {
+              register(name, { required }).ref(el);
+              textareaRef.current = el;
+            }}
           />
         ) : (
           <input
             id={`register-product-${name}`}
             type={type}
             placeholder={placeholder}
-            className="w-full outline-none font-[16px]"
+            className="w-full outline-none font-[16px] placeholder:font-medium placeholder:text-blue_gray-600"
             {...register(name, { required })}
           />
         )}
