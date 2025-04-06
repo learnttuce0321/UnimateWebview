@@ -1,9 +1,14 @@
 'use client';
 
 import React from 'react';
-import RegisterImageForm from './RegisterImageForm';
 import RegisterInput from './RegisterInput';
 import { useForm } from 'react-hook-form';
+import dynamic from 'next/dynamic';
+
+// RegisterImageForm을 클라이언트 전용으로 불러오기 (SSR mismatch 에러)
+const RegisterImageForm = dynamic(() => import('./RegisterImageForm'), {
+  ssr: false,
+});
 
 export default function RegisterForm() {
   const {
@@ -12,8 +17,8 @@ export default function RegisterForm() {
     formState: { errors },
   } = useForm();
 
-  // TODO : 임시로 타입 any 설정
   const onSubmit = (data: any) => {
+    console.log('onSubmit 실행!!');
     console.log('123123 data >>', data);
   };
 
@@ -21,7 +26,7 @@ export default function RegisterForm() {
     <form className="bg-gray-50 p-[16px]" onSubmit={handleSubmit(onSubmit)}>
       <RegisterImageForm />
       <RegisterInput
-        type="text"
+        type="textarea"
         placeholder="글 제목을 입력해주세요."
         register={register}
         name="title"
