@@ -9,6 +9,7 @@ type Props = {
   required?: boolean;
   error?: any;
   errorMessage?: string;
+  label: string;
 };
 
 export default function RegisterInput({
@@ -19,6 +20,7 @@ export default function RegisterInput({
   required = false,
   error,
   errorMessage = '입력이 필요합니다.',
+  label,
 }: Props) {
   const isTextarea = type === 'textarea';
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
@@ -34,7 +36,7 @@ export default function RegisterInput({
         htmlFor={`register-product-${name}`}
         className="text-gray-900 font-bold text-[14px]"
       >
-        제목
+        {label}
       </label>
       <div className="flex min-h-[50px] border-[1px] bg-white border-gray-200 border-solid py-[14px] px-[16px] rounded">
         {isTextarea ? (

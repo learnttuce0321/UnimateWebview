@@ -1,0 +1,10 @@
+<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#xatbwbhuha)">
+        <circle cx="10" cy="10" r="9.5" fill="#fff" stroke="#EEE"/>
+    </g>
+    <defs>
+        <clipPath id="xatbwbhuha">
+            <path fill="#fff" d="M0 0h20v20H0z"/>
+        </clipPath>
+    </defs>
+</svg>

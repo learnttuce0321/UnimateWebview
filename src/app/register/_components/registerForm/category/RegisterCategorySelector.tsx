@@ -1,14 +1,25 @@
 import { useState } from 'react';
 import CategoryModal from './CategoryModal';
-import { UseFormSetValue, UseFormWatch } from 'react-hook-form';
+import {
+  UseFormRegister,
+  UseFormSetValue,
+  UseFormWatch,
+} from 'react-hook-form';
 import { FormDataType } from '@/app/register/_type/registerType';
 
 type Props = {
+  register: UseFormRegister<FormDataType>;
   setValue: UseFormSetValue<FormDataType>;
   watch: UseFormWatch<FormDataType>;
+  error?: any;
 };
 
-export default function RegisterCategorySelector({ setValue, watch }: Props) {
+export default function RegisterCategorySelector({
+  register,
+  setValue,
+  watch,
+  error,
+}: Props) {
   const [modalOpen, setModalOpen] = useState(false);
   const selectedCategory = watch('category');
 
@@ -46,12 +57,19 @@ export default function RegisterCategorySelector({ setValue, watch }: Props) {
           )}
         </div>
 
-        {/* 카테고리 선택 Modal */}
+        <input
+          type="hidden"
+          {...register('category', { required: '카테고리를 선택해주세요.' })}
+        />
+        {error && <p className="text-red-500 text-sm mt-1">{error.message}</p>}
       </div>
+
+      {/* 카테고리 선택 Modal */}
       {modalOpen && (
         <CategoryModal
           onClickCategory={handleClickCategory}
           setValue={setValue}
+          register={register}
         />
       )}
     </>

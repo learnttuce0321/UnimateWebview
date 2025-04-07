@@ -1,15 +1,17 @@
 import { FormDataType } from '@/app/register/_type/registerType';
 import { categoryTestDataType } from '@/testDatas/categoryTestData';
-import { UseFormSetValue } from 'react-hook-form';
+import { UseFormRegister, UseFormSetValue } from 'react-hook-form';
 
 type Props = {
   categoryData: categoryTestDataType[];
+  register: UseFormRegister<FormDataType>;
   setValue: UseFormSetValue<FormDataType>;
   onClickCategory: () => void;
 };
 
 export default function CategoryList({
   categoryData,
+  register,
   setValue,
   onClickCategory,
 }: Props) {

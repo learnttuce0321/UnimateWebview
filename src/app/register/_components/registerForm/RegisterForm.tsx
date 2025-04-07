@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import dynamic from 'next/dynamic';
 import RegisterCategorySelector from './category/RegisterCategorySelector';
 import { FormDataType } from '../../_type/registerType';
+import RegisterPriceInfo from './price/RegisterPriceInfo';
 
 // RegisterImageForm을 클라이언트 전용으로 불러오기 (SSR mismatch 에러)
 const RegisterImageForm = dynamic(() => import('./RegisterImageForm'), {
@@ -36,10 +37,25 @@ export default function RegisterForm() {
         name="title"
         required={true}
         error={errors.title}
+        label="제목"
       />
-      <RegisterCategorySelector setValue={setValue} watch={watch} />
-      <button type="submit" className="mt-4 bg-blue-500 text-white p-2 rounded">
-        제출하기
+      {/* TODO: useForm의 메소드들을 따로 보내지말고 useFormContext()를 사용해서 보내도록 수정예정 */}
+      <RegisterCategorySelector
+        register={register}
+        setValue={setValue}
+        watch={watch}
+        error={errors.category}
+      />
+      <RegisterPriceInfo
+        register={register}
+        setValue={setValue}
+        watch={watch}
+      />
+      <button
+        type="submit"
+        className="mt-4 w-full h-[50px] bg-blue-600_P text-white p-2 rounded-[10px]"
+      >
+        등록하기
       </button>
     </form>
   );
