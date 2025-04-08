@@ -7,8 +7,6 @@ type Props = {
   name: string;
   register: any; // TODO : register의 타입 잡기
   required?: boolean;
-  error?: any;
-  errorMessage?: string;
   label: string;
 };
 
@@ -18,8 +16,6 @@ export default function RegisterInput({
   name,
   register,
   required = false,
-  error,
-  errorMessage = '입력이 필요합니다.',
   label,
 }: Props) {
   const isTextarea = type === 'textarea';
@@ -31,7 +27,7 @@ export default function RegisterInput({
   }
 
   return (
-    <div className="mb-4 mt-[30px] flex flex-col gap-[16px] justify-start">
+    <div className="flex flex-col gap-[16px] justify-start">
       <label
         htmlFor={`register-product-${name}`}
         className="text-gray-900 font-bold text-[14px]"
@@ -61,7 +57,6 @@ export default function RegisterInput({
           />
         )}
       </div>
-      {error && <p className="text-red-500 text-sm mt-1">{errorMessage}</p>}
     </div>
   );
 }

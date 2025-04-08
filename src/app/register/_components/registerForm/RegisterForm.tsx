@@ -14,13 +14,7 @@ const RegisterImageForm = dynamic(() => import('./RegisterImageForm'), {
 });
 
 export default function RegisterForm() {
-  const {
-    register,
-    setValue,
-    watch,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormDataType>();
+  const { register, setValue, watch, handleSubmit } = useForm<FormDataType>();
 
   const onSubmit = (data: FormDataType) => {
     console.log('onSubmit 실행!!');
@@ -28,7 +22,10 @@ export default function RegisterForm() {
   };
 
   return (
-    <form className="bg-gray-50 p-[16px]" onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className="flex flex-col gap-[30px] first-letter:bg-gray-50 p-[16px]"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <RegisterImageForm />
       <RegisterInput
         type="textarea"
@@ -36,7 +33,6 @@ export default function RegisterForm() {
         register={register}
         name="title"
         required={true}
-        error={errors.title}
         label="제목"
       />
       {/* TODO: useForm의 메소드들을 따로 보내지말고 useFormContext()를 사용해서 보내도록 수정예정 */}
@@ -44,7 +40,6 @@ export default function RegisterForm() {
         register={register}
         setValue={setValue}
         watch={watch}
-        error={errors.category}
       />
       <RegisterPriceInfo
         register={register}

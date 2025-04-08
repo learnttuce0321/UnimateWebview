@@ -11,14 +11,12 @@ type Props = {
   register: UseFormRegister<FormDataType>;
   setValue: UseFormSetValue<FormDataType>;
   watch: UseFormWatch<FormDataType>;
-  error?: any;
 };
 
 export default function RegisterCategorySelector({
   register,
   setValue,
   watch,
-  error,
 }: Props) {
   const [modalOpen, setModalOpen] = useState(false);
   const selectedCategory = watch('category');
@@ -29,7 +27,7 @@ export default function RegisterCategorySelector({
 
   return (
     <>
-      <div className="mb-4 mt-[30px] flex flex-col gap-[16px] justify-start">
+      <div className="flex flex-col gap-[16px] justify-start">
         <span className="text-gray-900 font-bold text-[14px]">카테고리</span>
         <div
           className="relative flex items-center justify-between h-[50px] border-[1px] bg-white border-gray-200 border-solid py-[14px] px-[16px] rounded font-medium text-blue_gray-600"
@@ -56,12 +54,6 @@ export default function RegisterCategorySelector({
             />
           )}
         </div>
-
-        <input
-          type="hidden"
-          {...register('category', { required: '카테고리를 선택해주세요.' })}
-        />
-        {error && <p className="text-red-500 text-sm mt-1">{error.message}</p>}
       </div>
 
       {/* 카테고리 선택 Modal */}
