@@ -94,8 +94,7 @@ export default function RegisterPriceInfo({
           disabled={isForGiveaway}
           value={isForGiveaway ? '' : price || ''}
           onChange={(e) => setValue('priceInfo.price', Number(e.target.value))}
-          className={`w-full h-[50px] outline-none font-[16px] border-[1px] border-solid py-[14px] px-[16px] rounded placeholder:font-medium placeholder:text-blue_gray-600
-    ${isForGiveaway ? 'bg-gray-100' : 'bg-white'} border-gray-200`}
+          className="w-full h-[50px] outline-none font-[16px] border-[1px] border-solid py-[14px] px-[16px] rounded placeholder:font-medium placeholder:text-blue_gray-600 disabled:bg-gray-100 bg-white border-gray-200"
         />
 
         <label className="w-fit flex items-center gap-[6px]">

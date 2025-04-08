@@ -20,6 +20,7 @@ export default function RegisterInput({
 }: Props) {
   const isTextarea = type === 'textarea';
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+  const registerProps = register(name, { required });
 
   // textarea일 때만 자동 높이 조절 훅 사용
   if (isTextarea) {
@@ -34,16 +35,18 @@ export default function RegisterInput({
       >
         {label}
       </label>
-      <div className="flex min-h-[50px] border-[1px] bg-white border-gray-200 border-solid py-[14px] px-[16px] rounded">
+      <div
+        className={`flex ${name === 'desc' ? 'min-h-[120px]' : 'min-h-[50px]'} border-[1px] bg-white border-gray-200 border-solid py-[14px] px-[16px] rounded`}
+      >
         {isTextarea ? (
           <textarea
             id={`register-product-${name}`}
             placeholder={placeholder}
             className="w-full resize-none overflow-hidden outline-none font-[16px] placeholder:font-medium placeholder:text-blue_gray-600"
             rows={1}
-            {...register(name, { required })}
+            {...registerProps}
             ref={(el) => {
-              register(name, { required }).ref(el);
+              registerProps.ref(el);
               textareaRef.current = el;
             }}
           />

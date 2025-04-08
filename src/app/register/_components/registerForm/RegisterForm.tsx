@@ -14,7 +14,13 @@ const RegisterImageForm = dynamic(() => import('./RegisterImageForm'), {
 });
 
 export default function RegisterForm() {
-  const { register, setValue, watch, handleSubmit } = useForm<FormDataType>();
+  const {
+    register,
+    setValue,
+    watch,
+    handleSubmit,
+    formState: { isValid },
+  } = useForm<FormDataType>();
 
   const onSubmit = (data: FormDataType) => {
     console.log('onSubmit 실행!!');
@@ -46,9 +52,18 @@ export default function RegisterForm() {
         setValue={setValue}
         watch={watch}
       />
+      <RegisterInput
+        type="textarea"
+        placeholder={`상품에 대한 자세한 설명을 적어주세요.\n자세히 작성할수록 판매 확률이 올라갑니다!`}
+        register={register}
+        name="desc"
+        required={true}
+        label="상품 설명"
+      />
       <button
         type="submit"
-        className="mt-4 w-full h-[50px] bg-blue-600_P text-white p-2 rounded-[10px]"
+        disabled={!isValid}
+        className="mt-4 w-full h-[50px] bg-blue-600_P text-white p-2 rounded-[10px] disabled:bg-blue_gray-500"
       >
         등록하기
       </button>
