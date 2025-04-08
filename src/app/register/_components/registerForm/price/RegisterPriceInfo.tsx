@@ -43,6 +43,7 @@ export default function RegisterPriceInfo({
       </span>
 
       <div className="flex flex-col gap-[14px] w-full">
+        {/* TODO : 달러 및 원화 표시 버튼 리팩토링 => 중복된 로직이 너무 많음 */}
         <div className="flex items-center gap-[12px]">
           <div className="flex gap-[6px]">
             <button type="button" onClick={() => handleCurrencyChange(false)}>
@@ -52,10 +53,13 @@ export default function RegisterPriceInfo({
                     ? '/images/svg/icon-toggle-radio.svg'
                     : '/images/svg/icon-toggle-radio-none.svg'
                 }
+                className="rounded-full"
                 alt="원화"
               />
             </button>
-            <span>원화</span>
+            <span className="font-medium text-[14px] leading-[20px] text-blue_gray-900">
+              원화
+            </span>
           </div>
           <div className="flex gap-[6px]">
             <button type="button" onClick={() => handleCurrencyChange(true)}>
@@ -65,30 +69,54 @@ export default function RegisterPriceInfo({
                     ? '/images/svg/icon-toggle-radio.svg'
                     : '/images/svg/icon-toggle-radio-none.svg'
                 }
+                className="rounded-full"
                 alt="달러"
               />
             </button>
-            <span>달러</span>
+            <span className="font-medium text-[14px] leading-[20px] text-blue_gray-900">
+              달러
+            </span>
           </div>
         </div>
 
         <input
           type="number"
+          placeholder={
+            isForGiveaway
+              ? isDollar
+                ? '$ 0'
+                : '₩ 0'
+              : isDollar
+                ? '$ 가격을 입력해주세요.'
+                : '₩ 가격을 입력해주세요.'
+          }
           {...register('priceInfo.price', { required: !isForGiveaway })}
           disabled={isForGiveaway}
-          value={isForGiveaway ? '0' : price || ''}
+          value={isForGiveaway ? '' : price || ''}
           onChange={(e) => setValue('priceInfo.price', Number(e.target.value))}
-          className="w-full h-[50px] outline-none font-[16px] border-[1px] bg-white border-gray-200 border-solid py-[14px] px-[16px] rounded"
+          className={`w-full h-[50px] outline-none font-[16px] border-[1px] border-solid py-[14px] px-[16px] rounded placeholder:font-medium placeholder:text-blue_gray-600
+    ${isForGiveaway ? 'bg-gray-100' : 'bg-white'} border-gray-200`}
         />
 
-        <label>
+        <label className="w-fit flex items-center gap-[6px]">
           <input
             type="checkbox"
             {...register('priceInfo.isForGiveaway')}
             checked={isForGiveaway}
             onChange={handleGiveawayToggle}
+            className="sr-only"
           />
-          무료나눔
+          <img
+            src={
+              isForGiveaway
+                ? '/images/svg/icon-toggle-radio.svg'
+                : '/images/svg/icon-toggle-none.svg'
+            }
+            alt="무료나눔"
+          />
+          <span className="font-medium text-[14px] leading-[20px] text-blue_gray-900">
+            무료나눔
+          </span>
         </label>
       </div>
     </div>

@@ -23,7 +23,7 @@ export default function RegisterForm() {
 
   return (
     <form
-      className="flex flex-col gap-[30px] first-letter:bg-gray-50 p-[16px]"
+      className="flex flex-col gap-[30px] bg-gray-50 first-letter:bg-gray-50 p-[16px]"
       onSubmit={handleSubmit(onSubmit)}
     >
       <RegisterImageForm />
