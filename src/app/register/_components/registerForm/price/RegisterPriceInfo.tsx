@@ -20,6 +20,7 @@ export default function RegisterPriceInfo({
   const isDollar = watch('priceInfo.isDollar');
   const isForGiveaway = watch('priceInfo.isForGiveaway');
   const price = watch('priceInfo.price');
+  const currencySymbol = isDollar ? '$' : '₩';
 
   const handleCurrencyChange = (toDollar: boolean) => {
     setValue('priceInfo.isDollar', toDollar);
@@ -79,23 +80,27 @@ export default function RegisterPriceInfo({
           </div>
         </div>
 
-        <input
-          type="number"
-          placeholder={
-            isForGiveaway
-              ? isDollar
-                ? '$ 0'
-                : '₩ 0'
-              : isDollar
-                ? '$ 가격을 입력해주세요.'
-                : '₩ 가격을 입력해주세요.'
-          }
-          {...register('priceInfo.price', { required: !isForGiveaway })}
-          disabled={isForGiveaway}
-          value={isForGiveaway ? '' : price || ''}
-          onChange={(e) => setValue('priceInfo.price', Number(e.target.value))}
-          className="w-full h-[50px] outline-none font-[16px] border-[1px] border-solid py-[14px] px-[16px] rounded placeholder:font-medium placeholder:text-blue_gray-600 disabled:bg-gray-100 bg-white border-gray-200"
-        />
+        <div className="relative w-full">
+          <span
+            className={`absolute left-[16px] top-1/2 -translate-y-1/2 text-[16px] transition-colors duration-150 ${
+              price ? 'text-blue_gray-900' : 'text-blue_gray-600'
+            }`}
+          >
+            {currencySymbol}
+          </span>
+
+          <input
+            type="number"
+            placeholder={isForGiveaway ? '0' : '가격을 입력해주세요.'}
+            {...register('priceInfo.price', { required: !isForGiveaway })}
+            disabled={isForGiveaway}
+            value={isForGiveaway ? '' : price || ''}
+            onChange={(e) =>
+              setValue('priceInfo.price', Number(e.target.value))
+            }
+            className="w-full h-[50px] pl-[32px] pr-[16px] outline-none text-[16px] font-bold text-blue_gray-900 border-[1px] border-solid py-[14px] rounded placeholder:font-medium placeholder:text-blue_gray-600 disabled:bg-gray-100 bg-white border-gray-200"
+          />
+        </div>
 
         <label className="w-fit flex items-center gap-[6px]">
           <input
