@@ -7,7 +7,7 @@ type Props = {
   name: string;
   register: any; // TODO : register의 타입 잡기
   required?: boolean;
-  label: string;
+  label?: string;
 };
 
 export default function RegisterInput({
@@ -29,12 +29,14 @@ export default function RegisterInput({
 
   return (
     <div className="flex flex-col gap-[16px] justify-start">
-      <label
-        htmlFor={`register-product-${name}`}
-        className="text-gray-900 font-bold text-[14px]"
-      >
-        {label}
-      </label>
+      {label && (
+        <label
+          htmlFor={`register-product-${name}`}
+          className="text-gray-900 font-bold text-[14px]"
+        >
+          {label}
+        </label>
+      )}
       <div
         className={`flex ${name === 'desc' ? 'min-h-[120px]' : 'min-h-[50px]'} border-[1px] bg-white border-gray-200 border-solid py-[14px] px-[16px] rounded`}
       >

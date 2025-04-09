@@ -7,6 +7,7 @@ import dynamic from 'next/dynamic';
 import RegisterCategorySelector from './category/RegisterCategorySelector';
 import { FormDataType } from '../../_type/registerType';
 import RegisterPriceInfo from './price/RegisterPriceInfo';
+import RegisterTradeInfo from './trade/RegisterTradeInfo';
 
 // RegisterImageForm을 클라이언트 전용으로 불러오기 (SSR mismatch 에러)
 const RegisterImageForm = dynamic(() => import('./RegisterImageForm'), {
@@ -59,6 +60,11 @@ export default function RegisterForm() {
         name="desc"
         required={true}
         label="상품 설명"
+      />
+      <RegisterTradeInfo
+        register={register}
+        setValue={setValue}
+        watch={watch}
       />
       <button
         type="submit"

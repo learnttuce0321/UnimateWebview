@@ -4,12 +4,16 @@ export interface PriceType {
   isForGiveaway: boolean; // 나눔 여부
 }
 
+export interface TradeInfo {
+  isRemote: boolean; // 직거래(false) vs 비대면(true)
+  tradeLocation: string; // 거래 희망 장소
+}
+
 export interface FormDataType {
   images: string[]; // 이미지 경로 배열(수정 예정)
   title: string; // 글 제목
   category: string; // 카테고리명
   priceInfo: PriceType;
   desc: string; // 상세 설명
-  isRemote: boolean; // 직거래(false) vs 비대면(true)
-  tradeLocation: string; // 거래 희망 장소
+  tradeInfo: TradeInfo;
 }
