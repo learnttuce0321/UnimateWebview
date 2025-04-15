@@ -1,13 +1,13 @@
 'use client';
 
 import React from 'react';
-import RegisterInput from './RegisterInput';
 import { useForm } from 'react-hook-form';
 import dynamic from 'next/dynamic';
 import RegisterCategorySelector from './category/RegisterCategorySelector';
-import { FormDataType } from '../../_type/registerType';
 import RegisterPriceInfo from './price/RegisterPriceInfo';
+import RegisterInput from './RegisterInput';
 import RegisterTradeInfo from './trade/RegisterTradeInfo';
+import { FormDataType } from '../../_type/registerType';
 
 // RegisterImageForm을 클라이언트 전용으로 불러오기 (SSR mismatch 에러)
 const RegisterImageForm = dynamic(() => import('./RegisterImageForm'), {
@@ -43,11 +43,7 @@ export default function RegisterForm() {
         label="제목"
       />
       {/* TODO: useForm의 메소드들을 따로 보내지말고 useFormContext()를 사용해서 보내도록 수정예정 */}
-      <RegisterCategorySelector
-        register={register}
-        setValue={setValue}
-        watch={watch}
-      />
+      <RegisterCategorySelector setValue={setValue} watch={watch} />
       <RegisterPriceInfo
         register={register}
         setValue={setValue}

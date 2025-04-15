@@ -1,23 +1,18 @@
 import { useState } from 'react';
-import CategoryModal from './CategoryModal';
 import {
   UseFormRegister,
   UseFormSetValue,
   UseFormWatch,
 } from 'react-hook-form';
 import { FormDataType } from '@/app/register/_type/registerType';
+import CategoryModal from './CategoryModal';
 
 type Props = {
-  register: UseFormRegister<FormDataType>;
   setValue: UseFormSetValue<FormDataType>;
   watch: UseFormWatch<FormDataType>;
 };
 
-export default function RegisterCategorySelector({
-  register,
-  setValue,
-  watch,
-}: Props) {
+export default function RegisterCategorySelector({ setValue, watch }: Props) {
   const [modalOpen, setModalOpen] = useState(false);
   const selectedCategory = watch('category');
 
@@ -54,7 +49,6 @@ export default function RegisterCategorySelector({
         <CategoryModal
           onClickCategory={handleClickCategory}
           setValue={setValue}
-          register={register}
         />
       )}
     </>

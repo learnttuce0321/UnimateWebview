@@ -1,5 +1,5 @@
-import { useAutoResizeTextarea } from '@/hooks/useAutoResizeTextarea';
 import React, { useRef } from 'react';
+import { useAutoResizeTextarea } from '@/hooks/useAutoResizeTextarea';
 
 type Props = {
   type: string;
@@ -22,10 +22,7 @@ export default function RegisterInput({
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const registerProps = register(name, { required });
 
-  // textarea일 때만 자동 높이 조절 훅 사용
-  if (isTextarea) {
-    useAutoResizeTextarea(textareaRef);
-  }
+  useAutoResizeTextarea(textareaRef);
 
   return (
     <div className="flex flex-col gap-[16px] justify-start">
@@ -38,7 +35,9 @@ export default function RegisterInput({
         </label>
       )}
       <div
-        className={`flex ${name === 'desc' ? 'min-h-[120px]' : 'min-h-[50px]'} border-[1px] bg-white border-gray-200 border-solid py-[14px] px-[16px] rounded`}
+        className={`flex ${
+          name === 'desc' ? 'min-h-[120px]' : 'min-h-[50px]'
+        } border-[1px] bg-white border-gray-200 border-solid py-[14px] px-[16px] rounded`}
       >
         {isTextarea ? (
           <textarea

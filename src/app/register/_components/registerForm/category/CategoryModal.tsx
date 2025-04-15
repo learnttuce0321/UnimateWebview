@@ -1,20 +1,15 @@
+import { UseFormRegister, UseFormSetValue } from 'react-hook-form';
+import { FormDataType } from '@/app/register/_type/registerType';
 import { categoryTestData } from '@/testDatas/categoryTestData';
 import CategoryList from './CategoryList';
 import RegisterCategoryHeader from './RegisterCategoryHeader';
-import { UseFormRegister, UseFormSetValue } from 'react-hook-form';
-import { FormDataType } from '@/app/register/_type/registerType';
 
 type Props = {
-  register: UseFormRegister<FormDataType>;
   setValue: UseFormSetValue<FormDataType>;
   onClickCategory: () => void;
 };
 
-export default function CategoryModal({
-  register,
-  setValue,
-  onClickCategory,
-}: Props) {
+export default function CategoryModal({ setValue, onClickCategory }: Props) {
   const categoryData = categoryTestData;
 
   return (
@@ -24,7 +19,6 @@ export default function CategoryModal({
         categoryData={categoryData}
         setValue={setValue}
         onClickCategory={onClickCategory}
-        register={register}
       />
     </div>
   );

@@ -1,9 +1,9 @@
-import { FormDataType } from '@/app/register/_type/registerType';
 import {
   UseFormRegister,
   UseFormSetValue,
   UseFormWatch,
 } from 'react-hook-form';
+import { FormDataType } from '@/app/register/_type/registerType';
 import RegisterInput from '../RegisterInput';
 
 type Props = {
@@ -18,7 +18,6 @@ export default function RegisterTradeInfo({
   watch,
 }: Props) {
   const isRemote = watch('tradeInfo.isRemote');
-  const tradeLocation = watch('tradeInfo.tradeLocation');
 
   const handleCurrencyChange = (isRemote: boolean) => {
     setValue('tradeInfo.isRemote', isRemote);
