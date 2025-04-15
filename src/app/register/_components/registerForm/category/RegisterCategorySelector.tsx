@@ -34,15 +34,8 @@ export default function RegisterCategorySelector({
           onClick={handleClickCategory}
         >
           {selectedCategory ? (
-            <div>
-              <div className="flex items-center">
-                <span>전체</span>
-                <img
-                  src="/images/svg/icon-arrow-check-right.svg"
-                  alt="하위_카테고리"
-                />
-                <p className="text-blue_gray-900">{selectedCategory}</p>
-              </div>
+            <div className="flex items-center">
+              <p className="text-blue_gray-900">{selectedCategory}</p>
             </div>
           ) : (
             '카테고리를 선택해주세요.'
