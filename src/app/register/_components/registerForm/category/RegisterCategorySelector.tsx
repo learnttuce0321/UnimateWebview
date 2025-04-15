@@ -1,9 +1,5 @@
 import { useState } from 'react';
-import {
-  UseFormRegister,
-  UseFormSetValue,
-  UseFormWatch,
-} from 'react-hook-form';
+import { UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import { FormDataType } from '@/app/register/_type/registerType';
 import CategoryModal from './CategoryModal';
 

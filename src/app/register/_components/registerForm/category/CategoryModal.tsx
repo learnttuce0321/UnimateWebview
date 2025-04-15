@@ -1,4 +1,4 @@
-import { UseFormRegister, UseFormSetValue } from 'react-hook-form';
+import { UseFormSetValue } from 'react-hook-form';
 import { FormDataType } from '@/app/register/_type/registerType';
 import { categoryTestData } from '@/testDatas/categoryTestData';
 import CategoryList from './CategoryList';
