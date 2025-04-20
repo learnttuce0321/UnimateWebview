@@ -8,17 +8,17 @@ import { parse } from 'url';
 
 const dev = process.env.UNIMATE_NODE_ENV === 'local';
 const port = parseInt(process.env.PORT, 10) || 443;
-const hostname = process.env.UNIMATE_HOST || 'local.unimate.site';
+const hostname = process.env.UNIMATE_HOST || 'local.uni-mate.co.kr';
 
 // when using middleware `hostname` and `port` must be provided below
-const app = next({ dev, hostname, port });
+const app = next({ dev: true, hostname, port });
 const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
   createServer(
     {
-      key: readFileSync('local.unimate.site-key.pem'),
-      cert: readFileSync('local.unimate.site.pem'),
+      key: readFileSync('local.uni-mate.co.kr-key.pem'),
+      cert: readFileSync('local.uni-mate.co.kr.pem'),
     },
     async (req, res) => {
       try {
