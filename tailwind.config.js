@@ -19,6 +19,9 @@ module.exports = {
         },
         'outline-black-light': 'rgba(0, 0, 0, 0.05)',
       },
+      height: {
+        navigation: '54px',
+      },
     },
   },
   plugins: [],
