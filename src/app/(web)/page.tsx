@@ -5,7 +5,7 @@ const Page = () => {
     <div>
       <h1 className="mb-8 text-2xl font-bold">웹 페이지로 만들 경로입니다.</h1>
       <p className="font-bold ">
-        @김승겸 님, 웹뷰 시작경로 <strong>"/inapp"</strong> 입니다. 참고
+        @김승겸 님, 웹뷰 시작경로 <strong>/inapp</strong> 입니다. 참고
         부탁드립니다.
       </p>
       <Link
