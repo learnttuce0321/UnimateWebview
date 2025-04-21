@@ -2,7 +2,7 @@ import ProductCard from './ProductCard';
 
 const ProductList = () => {
   return (
-    <main className="min-h-full-without-navigation p-[16px] ">
+    <main className="min-h-full-without-navigation p-[16px] bg-gray-50">
       <ProductCard product={{}} />
       <ProductCard product={{}} />
       <ProductCard product={{}} />
