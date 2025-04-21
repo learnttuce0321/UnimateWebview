@@ -2,7 +2,7 @@ interface Props {
   likeCount: number;
   chatCount: number;
 }
-const ProductUserReaction = ({ likeCount, chatCound }: Props) => {
+const ProductUserReaction = ({ likeCount, chatCount }: Props) => {
   return (
     <div className="flex justify-end w-full gap-[5px]">
       <span className="text-blue_gray-600 h-[12px] text-[12px] leading-[12px] flex gap-[3.5px]">

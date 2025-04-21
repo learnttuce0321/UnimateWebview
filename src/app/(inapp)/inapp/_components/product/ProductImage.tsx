@@ -2,7 +2,7 @@ interface Props {
   imageUrl: string;
 }
 
-const ProductImage = ({ imageUrl }) => {
+const ProductImage = ({ imageUrl }: Props) => {
   return (
     <img
       src="/images/test_images/product_example.png"
