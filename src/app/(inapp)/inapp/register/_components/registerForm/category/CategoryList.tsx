@@ -1,5 +1,5 @@
 import { UseFormSetValue } from 'react-hook-form';
-import { FormDataType } from '@/app/register/_type/registerType';
+import { FormDataType } from '@/app/(inapp)/inapp/register/_type/registerType';
 import { categoryTestDataType } from '@/testDatas/categoryTestData';
 
 type Props = {

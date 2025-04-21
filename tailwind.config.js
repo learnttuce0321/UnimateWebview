@@ -9,6 +9,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        gray: {
+          50: 'rgb(250, 250, 250)',
+        },
         blue_gray: {
           500: 'rgb(164 169 176)',
           600: 'rgb(122, 128, 134)',
@@ -18,6 +21,10 @@ module.exports = {
           '600_P': 'rgb(60 141 255)',
         },
         'outline-black-light': 'rgba(0, 0, 0, 0.05)',
+      },
+      height: {
+        navigation: '54px',
+        'full-without-navigation': 'calc(100vh - 54px)',
       },
     },
   },
