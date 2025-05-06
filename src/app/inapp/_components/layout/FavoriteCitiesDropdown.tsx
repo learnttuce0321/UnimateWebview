@@ -1,6 +1,11 @@
+'use client';
+
 const FavoriteCitiesDropdown = () => {
   return (
-    <div className="font-bold text-[24px] text-900 flex gap-[8px]">
+    <div
+      className="font-bold text-[24px] text-900 flex gap-[8px]"
+      // onClick={() => openWeb('/inapp/register')}
+    >
       <p>San Francisco</p>
       <img
         src="/images/svg/icon-arrow-chevron-down.svg"

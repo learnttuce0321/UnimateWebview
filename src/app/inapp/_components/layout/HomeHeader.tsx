@@ -1,6 +1,6 @@
-import AlarmButton from 'app/(inapp)/inapp/_components/layout/AlarmButton';
-import FavoriteCitiesDropdown from 'app/(inapp)/inapp/_components/layout/FavoriteCitiesDropdown';
-import SearchButton from 'app/(inapp)/inapp/_components/layout/SearchButton';
+import AlarmButton from 'app/inapp/_components/layout/AlarmButton';
+import FavoriteCitiesDropdown from 'app/inapp/_components/layout/FavoriteCitiesDropdown';
+import SearchButton from 'app/inapp/_components/layout/SearchButton';
 
 const HomeHeader = () => {
   return (

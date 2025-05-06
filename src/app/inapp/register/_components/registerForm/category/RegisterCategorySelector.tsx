@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { UseFormSetValue, UseFormWatch } from 'react-hook-form';
-import { FormDataType } from 'app/(inapp)/inapp/register/_type/registerType';
+import { FormDataType } from 'app/inapp/register/_type/registerType';
 import CategoryModal from './CategoryModal';
 
 type Props = {
