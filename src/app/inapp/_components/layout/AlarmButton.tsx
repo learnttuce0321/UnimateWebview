@@ -2,7 +2,7 @@ const AlarmButton = () => {
   return (
     <>
       <img
-        src="/images/svg/icon-system-notification.svg"
+        src="/images/svg/home/icon-system-notification.svg"
         alt="알림 아이콘"
         width="24"
         height="24"

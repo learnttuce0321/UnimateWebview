@@ -15,7 +15,7 @@ const ProductRegistrationMeta = ({
         34분 전
         {/* ·
                 <img
-                  src="/images/svg/badge-verified.svg"
+                  src="/images/svg/home/badge-verified.svg"
                   alt="대학 인증 뱃지"
                   width="12"
                   height="12px"

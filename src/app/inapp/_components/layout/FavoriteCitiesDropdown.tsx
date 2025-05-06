@@ -8,7 +8,7 @@ const FavoriteCitiesDropdown = () => {
     >
       <p>San Francisco</p>
       <img
-        src="/images/svg/icon-arrow-chevron-down.svg"
+        src="/images/svg/home/icon-arrow-chevron-down.svg"
         alt="관심 도시 설정 아이콘"
         width="24"
         height="24"
