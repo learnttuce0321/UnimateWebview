@@ -1,5 +1,5 @@
 import { UseFormSetValue } from 'react-hook-form';
-import { FormDataType } from 'app/(inapp)/inapp/register/_type/registerType';
+import { FormDataType } from 'app/inapp/register/_type/registerType';
 import { categoryTestData } from 'app/testDatas/categoryTestData';
 import CategoryList from './CategoryList';
 import RegisterCategoryHeader from './RegisterCategoryHeader';

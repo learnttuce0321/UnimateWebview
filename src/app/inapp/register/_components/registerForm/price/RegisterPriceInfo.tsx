@@ -4,7 +4,7 @@ import {
   UseFormSetValue,
   UseFormWatch,
 } from 'react-hook-form';
-import { FormDataType } from 'app/(inapp)/inapp/register/_type/registerType';
+import { FormDataType } from 'app/inapp/register/_type/registerType';
 
 type Props = {
   register: UseFormRegister<FormDataType>;
@@ -51,8 +51,8 @@ export default function RegisterPriceInfo({
               <img
                 src={
                   !isDollar
-                    ? '/images/svg/icon-toggle-radio.svg'
-                    : '/images/svg/icon-toggle-radio-none.svg'
+                    ? '/images/svg/register/icon-toggle-radio.svg'
+                    : '/images/svg/register/icon-toggle-radio-none.svg'
                 }
                 className="rounded-full"
                 alt="원화"
@@ -67,8 +67,8 @@ export default function RegisterPriceInfo({
               <img
                 src={
                   isDollar
-                    ? '/images/svg/icon-toggle-radio.svg'
-                    : '/images/svg/icon-toggle-radio-none.svg'
+                    ? '/images/svg/register/icon-toggle-radio.svg'
+                    : '/images/svg/register/icon-toggle-radio-none.svg'
                 }
                 className="rounded-full"
                 alt="달러"
@@ -113,8 +113,8 @@ export default function RegisterPriceInfo({
           <img
             src={
               isForGiveaway
-                ? '/images/svg/icon-toggle-radio.svg'
-                : '/images/svg/icon-toggle-none.svg'
+                ? '/images/svg/home/icon-toggle-radio.svg'
+                : '/images/svg/home/icon-toggle-none.svg'
             }
             alt="무료나눔"
           />

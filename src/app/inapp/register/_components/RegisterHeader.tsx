@@ -15,7 +15,7 @@ export default function RegisterHeader() {
         물건 등록하기
       </h2>
       <img
-        src="/images/svg/icon-system-close.svg"
+        src="/images/svg/register/icon-system-close.svg"
         alt="닫기 버튼"
         onClick={handleClickCloseButton}
         className="w-[24px] ml-auto cursor-pointer"

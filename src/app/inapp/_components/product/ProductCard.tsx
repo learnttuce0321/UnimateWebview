@@ -1,4 +1,4 @@
-import ProductImage from 'app/(inapp)/inapp/_components/product/ProductImage';
+import ProductImage from 'app/inapp/_components/product/ProductImage';
 import ProductInfo from './ProductInfo';
 
 interface Props {

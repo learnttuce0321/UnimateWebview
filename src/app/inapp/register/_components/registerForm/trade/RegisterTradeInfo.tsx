@@ -3,7 +3,7 @@ import {
   UseFormSetValue,
   UseFormWatch,
 } from 'react-hook-form';
-import { FormDataType } from 'app/(inapp)/inapp/register/_type/registerType';
+import { FormDataType } from 'app/inapp/register/_type/registerType';
 import RegisterInput from '../RegisterInput';
 
 type Props = {
@@ -36,8 +36,8 @@ export default function RegisterTradeInfo({
               <img
                 src={
                   !isRemote
-                    ? '/images/svg/icon-toggle-radio.svg'
-                    : '/images/svg/icon-toggle-radio-none.svg'
+                    ? '/images/svg/home/icon-toggle-radio.svg'
+                    : '/images/svg/home/icon-toggle-radio-none.svg'
                 }
                 className="rounded-full"
                 alt="직거래"
@@ -53,8 +53,8 @@ export default function RegisterTradeInfo({
               <img
                 src={
                   isRemote
-                    ? '/images/svg/icon-toggle-radio.svg'
-                    : '/images/svg/icon-toggle-radio-none.svg'
+                    ? '/images/svg/home/icon-toggle-radio.svg'
+                    : '/images/svg/home/icon-toggle-radio-none.svg'
                 }
                 className="rounded-full"
                 alt="비대면거래"
