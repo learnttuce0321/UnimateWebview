@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html>
-      <body>{children}</body>
+      <body className="w-screen h-screen">{children}</body>
     </html>
   );
 }

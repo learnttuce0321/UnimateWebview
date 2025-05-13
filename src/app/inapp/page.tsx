@@ -2,11 +2,13 @@
 import HomeHeader from 'app/inapp/_components/layout/HomeHeader';
 import ProductList from './_components/product/ProductList';
 
-export default function Page() {
+const Page = () => {
   return (
     <>
       <HomeHeader />
       <ProductList />
     </>
   );
-}
+};
+
+export default Page;
