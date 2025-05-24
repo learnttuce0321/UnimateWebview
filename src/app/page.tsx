@@ -1,7 +1,6 @@
 import Link from 'next/link';
 
-export default function Page() {
-  // 등록하기 개발후 테섭 배포하고 기획분들이 확인하기 편하게 Link로 우선 이동하도록 변경
+export default async function Page() {
   return (
     <div className="flex justify-center">
       <Link
