@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import FavoriteCitiesDropdown from 'app/_components/layout/FavoriteCitiesDropdown';
+import FavoriteCitiesDropdownButton from 'app/_components/favoriteCitiesDropdown/FavoriteCitiesDropdownButton';
 
 interface Props {
   inputValue: string;
@@ -17,7 +17,7 @@ const SearchedCitiesList = ({ inputValue, handleFocus }: Props) => {
       >
         asdfasdf
       </p>
-      <FavoriteCitiesDropdown />
+      <FavoriteCitiesDropdownButton />
     </div>
   );
 };
