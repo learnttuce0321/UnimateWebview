@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import FavoriteCitiesDropdownButton from 'app/_components/favoriteCitiesDropdown/FavoriteCitiesDropdownButton';
+import { ActionType } from 'app/favorite/_types/search';
 
 interface Props {
   inputValue: string;
-  handleFocus: (isFocused: boolean) => void;
+  handleChangeActionType: (actionType: ActionType) => void;
 }
 
-const SearchedCitiesList = ({ inputValue, handleFocus }: Props) => {
+const SearchedCitiesList = ({ inputValue, handleChangeActionType }: Props) => {
   const [selectedCitiesId, setSelectedCities] = useState<number | null>(null);
 
   return (
@@ -17,7 +17,6 @@ const SearchedCitiesList = ({ inputValue, handleFocus }: Props) => {
       >
         asdfasdf
       </p>
-      <FavoriteCitiesDropdownButton />
     </div>
   );
 };

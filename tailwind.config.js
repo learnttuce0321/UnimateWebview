@@ -11,6 +11,7 @@ module.exports = {
       colors: {
         gray: {
           50: 'rgb(250, 250, 250)',
+          500: 'rgb(158, 158, 158)',
         },
         blue_gray: {
           50: 'rgb(246,252,255)',
