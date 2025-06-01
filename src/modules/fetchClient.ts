@@ -1,4 +1,4 @@
-import { processEnvBaseUrl } from '@/constant/environments';
+import { processEnvBaseUrl } from 'constants/environments';
 
 export interface ApiRequest {
   url: string;
