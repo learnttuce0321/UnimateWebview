@@ -1,4 +1,4 @@
-import ProductCard from 'app/inapp/_components/product/ProductCard';
+import ProductCard from 'app/_components/product/ProductCard';
 
 const ProductList = () => {
   return (

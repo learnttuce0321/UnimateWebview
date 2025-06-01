@@ -3,15 +3,15 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import dynamic from 'next/dynamic';
-import RegisterCategorySelector from 'app/inapp/register/_components/registerForm/category/RegisterCategorySelector';
-import RegisterPriceInfo from 'app/inapp/register/_components/registerForm/price/RegisterPriceInfo';
-import RegisterInput from 'app/inapp/register/_components/registerForm/RegisterInput';
-import RegisterTradeInfo from 'app/inapp/register/_components/registerForm/trade/RegisterTradeInfo';
-import { FormDataType } from 'app/inapp/register/_type/registerType';
+import RegisterCategorySelector from 'app/register/_components/registerForm/category/RegisterCategorySelector';
+import RegisterPriceInfo from 'app/register/_components/registerForm/price/RegisterPriceInfo';
+import RegisterInput from 'app/register/_components/registerForm/RegisterInput';
+import RegisterTradeInfo from 'app/register/_components/registerForm/trade/RegisterTradeInfo';
+import { FormDataType } from 'app/register/_type/registerType';
 
 // RegisterImageForm을 클라이언트 전용으로 불러오기 (SSR mismatch 에러)
 const RegisterImageForm = dynamic(
-  () => import('app/inapp/register/_components/registerForm/RegisterImageForm'),
+  () => import('app/register/_components/registerForm/RegisterImageForm'),
   {
     ssr: false,
   }

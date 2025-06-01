@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import SearchInputIcon from 'app/inapp/favorite/_components/search/SearchInputIcon';
+import SearchInputIcon from 'app/favorite/_components/search/SearchInputIcon';
 // import { debounce } from 'app/modules/util';
 
 interface Props {

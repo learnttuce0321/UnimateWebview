@@ -1,5 +1,5 @@
-import ProductImage from 'app/inapp/_components/product/ProductImage';
-import ProductInfo from 'app/inapp/_components/product/ProductInfo';
+import ProductImage from 'app/_components/product/ProductImage';
+import ProductInfo from 'app/_components/product/ProductInfo';
 
 interface Props {
   product: any;
