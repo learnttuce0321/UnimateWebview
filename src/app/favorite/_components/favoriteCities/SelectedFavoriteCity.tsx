@@ -18,7 +18,7 @@ const SelectedFavoriteCity = ({ city }: Props) => {
   const cityId = searchParams.get('currentCityId');
   const isActive = city.id === cityId;
 
-  const handleDeleteCity = () => {
+  const handleDeleteCityClick = () => {
     setOpenDeleteCityModal(true);
   };
 
@@ -28,7 +28,7 @@ const SelectedFavoriteCity = ({ city }: Props) => {
 
   const handleConfirmDelete = () => {
     console.log(`삭제된 도시 ID: ${cityId}`);
-    setOpenDeleteCityModal(false);
+    handleCloseModal();
   };
 
   return (
@@ -37,7 +37,7 @@ const SelectedFavoriteCity = ({ city }: Props) => {
         className={`px-[16px] py-[10px] flex justify-between items-center ${isActive ? 'text-blue-600_P' : 'text-blue_gray-700'} ${isActive && 'bg-blue_gray-50'} ${isActive ? 'border-blue-600_P' : 'border-blue_gray-300'} border-[1px] rounded-[10px] border-solid `}
       >
         <p className="max-w-[calc(100%-24px)] truncate">{city.name}</p>
-        <button type="button" onClick={handleDeleteCity}>
+        <button type="button" onClick={handleDeleteCityClick}>
           <img
             src="/images/svg/favorite/icon-system-close-small.svg"
             alt="삭제"
