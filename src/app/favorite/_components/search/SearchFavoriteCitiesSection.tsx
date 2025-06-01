@@ -1,25 +1,29 @@
 'use client';
 
 import { useState } from 'react';
+import SelectedFavoriteCitiesList from 'app/favorite/_components/favoriteCities/SelectedFavoriteCitiesList';
 import SearchedCitiesList from 'app/favorite/_components/search/SearchedCitiesList';
 import SearchFavoriteCitiesInput from 'app/favorite/_components/search/SearchFavoriteCitiesInput';
-import SelectedFavoriteCitiesList from 'app/favorite/_components/search/SelectedFavoriteCitiesList';
+import { ActionType } from 'app/favorite/_types/search';
 
 const SearchFavoriteCitiesSection = () => {
-  const [isInputFocused, setIsInputFocused] = useState(false);
+  const [actionType, setActionType] = useState<ActionType>('setting');
 
-  const handleFocus = (isInputFocused: boolean) => {
-    setIsInputFocused(isInputFocused);
+  const handleChangeActionType = (value: ActionType) => {
+    setActionType(value);
   };
 
   return (
     <section>
       <SearchFavoriteCitiesInput
-        isInputFocused={isInputFocused}
-        handleFocus={handleFocus}
+        actionType={actionType}
+        handleChangeActionType={handleChangeActionType}
       />
-      {isInputFocused ? (
-        <SearchedCitiesList inputValue="" handleFocus={handleFocus} />
+      {actionType === 'search' ? (
+        <SearchedCitiesList
+          inputValue=""
+          handleChangeActionType={handleChangeActionType}
+        />
       ) : (
         <SelectedFavoriteCitiesList />
       )}

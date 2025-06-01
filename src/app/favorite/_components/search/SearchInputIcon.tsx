@@ -1,12 +1,14 @@
+import { ActionType } from 'app/favorite/_types/search';
+
 interface Props {
-  isInputFocused: boolean;
+  actionType: ActionType;
   onDelete: () => void;
 }
 
-const SearchInputIcon = ({ isInputFocused, onDelete }: Props) => {
+const SearchInputIcon = ({ actionType, onDelete }: Props) => {
   return (
     <span className="absolute right-[16px] top-1/2 -translate-y-1/2 h-[20px]">
-      {isInputFocused ? (
+      {actionType ? (
         <button>
           <img
             src="/images/svg/favorite/icon-system-close-circle.svg"

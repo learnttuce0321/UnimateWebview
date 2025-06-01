@@ -1,16 +1,65 @@
+'use client';
+
+import { useState } from 'react';
+import { ActionType } from 'app/favorite/_types/search';
+import Modal from 'components/modal/Modal';
+
 interface Props {
-  selectedCitiesId: number | null;
+  selectedCity: {
+    id: string;
+    name: string;
+  } | null;
+  handleChangeActionType: (actionType: ActionType) => void;
 }
 
-const AddFavoriteCityButton = ({ selectedCitiesId }: Props) => {
+const AddFavoriteCityButton = ({
+  selectedCity,
+  handleChangeActionType,
+}: Props) => {
+  const [openAddFavoriteCityModal, setOpenAddFavoriteCityModal] =
+    useState<boolean>(false);
+
+  const handleAddFavoriteCityClick = () => {
+    if (!selectedCity) return;
+
+    setOpenAddFavoriteCityModal(true);
+  };
+
+  const handleModalClose = () => {
+    setOpenAddFavoriteCityModal(false);
+  };
+
+  const handleConfirmClick = () => {
+    console.log(`Adding ${selectedCity?.name} to favorite cities...`);
+    handleChangeActionType('setting');
+    handleModalClose();
+  };
+
   return (
-    <div className="fixed bottom-[0px] px-[16px] left-[0px] h-[70px] py-[10px] w-screen shadow-[0px_-1px_10px_rgba(0,0,0,0.08)]">
+    <>
       <button
-        className={`w-full text-white font-bold text-[18px] leading-[50px] rounded-[10px] ${selectedCitiesId ? 'bg-blue-600_P' : 'bg-blue_gray-500'}`}
+        type="button"
+        className={`fixed bottom-[10px] rounded-[10px] w-[calc(100%-32px)] h-[50px] text-white ${selectedCity ? 'bg-blue-600_P' : 'bg-blue_gray-500'}`}
+        onClick={handleAddFavoriteCityClick}
       >
         등록하기
       </button>
-    </div>
+      {openAddFavoriteCityModal && (
+        <Modal
+          isOpened={openAddFavoriteCityModal}
+          confirmText="예"
+          onConfirm={handleConfirmClick}
+          cancelText="아니요"
+          onCancel={handleModalClose}
+          onOverlayClick={handleModalClose}
+        >
+          <p className="text-[16px] leading-[22.4px] font-medium text-gray-900">
+            <span className="text-blue-600_P">{selectedCity?.name}</span>
+            을(를) 관심도시에 추가하시겠습니까?
+          </p>
+        </Modal>
+      )}
+    </>
   );
 };
 

@@ -1,24 +1,44 @@
 import { useState } from 'react';
-import FavoriteCitiesDropdownButton from 'app/_components/favoriteCitiesDropdown/FavoriteCitiesDropdownButton';
+import AddFavoriteCityButton from 'app/favorite/_components/search/AddFavoriteCityButton';
+import SearchedCity from 'app/favorite/_components/search/SearchedCity';
+import { ActionType } from 'app/favorite/_types/search';
 
 interface Props {
   inputValue: string;
-  handleFocus: (isFocused: boolean) => void;
+  handleChangeActionType: (actionType: ActionType) => void;
 }
 
-const SearchedCitiesList = ({ inputValue, handleFocus }: Props) => {
-  const [selectedCitiesId, setSelectedCities] = useState<number | null>(null);
+const SearchedCitiesList = ({ inputValue, handleChangeActionType }: Props) => {
+  const [selectedCity, setSelectedCity] = useState<{
+    id: string;
+    name: string;
+  } | null>(null);
+
+  const handleCityClick = (cityId: { id: string; name: string }) => {
+    setSelectedCity(cityId);
+  };
 
   return (
-    <div>
-      <p
-        className={`w-full h-[45px] line-clamp-1 text-[16px] pl-[16px] flex items-center border-[1px] ${selectedCitiesId === 1 ? 'border-blue-600_P rounded-[10px] bg-blue_gray-50' : 'border-white'}`}
-        onClick={() => setSelectedCities(1)}
-      >
-        asdfasdf
-      </p>
-      <FavoriteCitiesDropdownButton />
-    </div>
+    <>
+      <ul className="flex flex-col gap-[10px]">
+        {[
+          { id: '1', name: 'Seoul' },
+          { id: '2', name: 'Busan' },
+          { id: '3', name: 'Incheon' },
+        ].map((city) => (
+          <SearchedCity
+            key={city.id}
+            city={city}
+            currentSelectedCityId={selectedCity?.id}
+            onClick={handleCityClick}
+          />
+        ))}
+      </ul>
+      <AddFavoriteCityButton
+        selectedCity={selectedCity}
+        handleChangeActionType={handleChangeActionType}
+      />
+    </>
   );
 };
 

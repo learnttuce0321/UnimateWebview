@@ -1,3 +1,5 @@
+import { MODAL_OVERLAY_Z_INDEX } from 'app/constants/zIndex';
+
 interface Props {
   backgroundColor?: string;
   children?: React.ReactNode;
@@ -11,7 +13,7 @@ const Overlay = ({
 }: Props) => {
   return (
     <div
-      className={`fixed w-screen h-screen top-0 left-0 z-[10]`}
+      className={`fixed w-screen h-screen top-0 left-0 z-[${MODAL_OVERLAY_Z_INDEX}]`}
       style={{ backgroundColor }}
       onClick={onClick}
     >
