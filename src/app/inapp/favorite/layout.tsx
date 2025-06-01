@@ -1,4 +1,4 @@
-import NavigationBar from 'app/_components/navigation/NavigationBar';
+import NavigationBar from 'components/navigation/NavigationBar';
 
 interface Props {
   children: React.ReactNode;

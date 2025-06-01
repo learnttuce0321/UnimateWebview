@@ -1,8 +1,8 @@
 import { UseFormSetValue } from 'react-hook-form';
+import CategoryList from 'app/inapp/register/_components/registerForm/category/CategoryList';
+import RegisterCategoryHeader from 'app/inapp/register/_components/registerForm/category/RegisterCategoryHeader';
 import { FormDataType } from 'app/inapp/register/_type/registerType';
 import { categoryTestData } from 'app/testDatas/categoryTestData';
-import CategoryList from './CategoryList';
-import RegisterCategoryHeader from './RegisterCategoryHeader';
 
 type Props = {
   setValue: UseFormSetValue<FormDataType>;

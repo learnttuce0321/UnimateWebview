@@ -1,6 +1,6 @@
 import React from 'react';
-import RegisterForm from './_components/registerForm/RegisterForm';
-import RegisterHeader from './_components/RegisterHeader';
+import RegisterForm from 'app/inapp/register/_components/registerForm/RegisterForm';
+import RegisterHeader from 'app/inapp/register/_components/RegisterHeader';
 
 export default function RegisterPage() {
   return (

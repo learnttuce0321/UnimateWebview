@@ -14,7 +14,7 @@ import {
   horizontalListSortingStrategy,
   SortableContext,
 } from '@dnd-kit/sortable';
-import SortableImageItem from './SortableImageItem';
+import SortableImageItem from 'app/inapp/register/_components/registerForm/SortableImageItem';
 
 const MAX_IMAGES_COUNT = 10;
 

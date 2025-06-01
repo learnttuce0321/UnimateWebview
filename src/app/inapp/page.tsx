@@ -1,6 +1,6 @@
 // import Link from 'next/link';
 import HomeHeader from 'app/inapp/_components/layout/HomeHeader';
-import ProductList from './_components/product/ProductList';
+import ProductList from 'app/inapp/_components/product/ProductList';
 
 const Page = () => {
   return (

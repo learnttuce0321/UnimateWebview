@@ -1,7 +1,7 @@
-import ProductPrice from './ProductPrice';
-import ProductRegistrationMeta from './ProductRegistrationMeta';
-import ProductTitle from './ProductTitle';
-import ProductUserReaction from './ProductUserReaction';
+import ProductPrice from 'app/inapp/_components/product/ProductPrice';
+import ProductRegistrationMeta from 'app/inapp/_components/product/ProductRegistrationMeta';
+import ProductTitle from 'app/inapp/_components/product/ProductTitle';
+import ProductUserReaction from 'app/inapp/_components/product/ProductUserReaction';
 
 interface Props {
   title: string;
