@@ -1,12 +1,14 @@
 'use client';
 
 import { FormEvent, useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
-const SearchInput = () => {
+interface Props {
+  q: string;
+}
+
+const SearchInput = ({ q: initialQuery }: Props) => {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const initialQuery = searchParams.get('q') || '';
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
