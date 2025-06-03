@@ -1,4 +1,5 @@
 import SearchResultHeader from 'app/search/result/_components/header/SearchResultHeader';
+import { normalizeString } from 'modules/normalize';
 
 interface Props {
   searchParams: {
@@ -9,7 +10,7 @@ interface Props {
 const Page = ({ searchParams }: Props) => {
   return (
     <div>
-      <SearchResultHeader />
+      <SearchResultHeader q={normalizeString(searchParams.q)} />
       search result {searchParams.q}
     </div>
   );

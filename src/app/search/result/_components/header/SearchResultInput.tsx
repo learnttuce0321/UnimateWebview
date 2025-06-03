@@ -1,12 +1,13 @@
 'use client';
 
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
-const SearchResultInput = () => {
+interface Props {
+  q: string;
+}
+
+const SearchResultInput = ({ q }: Props) => {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const q = searchParams.get('q') || '';
-
   const handleClick = () => {
     console.log('here');
     router.replace(`/search?q=${q}`);
