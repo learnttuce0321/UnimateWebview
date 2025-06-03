@@ -30,7 +30,7 @@ const Modal = ({
     <>
       <Overlay onClick={onOverlayClick} />
       <div
-        className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-[10px] pt-[30px] pb-[20px] px-[20px] w-[calc(100%-140px)] max-w-md z-[${MODAL_CONTENT_Z_INDEX}]`}
+        className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-[10px] pt-[30px] pb-[20px] px-[20px] w-[calc(100%-140px)] max-w-[400px] z-[${MODAL_CONTENT_Z_INDEX}]`}
       >
         <div>{children}</div>
         <div className="flex justify-between items-center gap-[10px] mt-[16px]">
