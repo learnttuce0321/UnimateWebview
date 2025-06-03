@@ -55,7 +55,10 @@ const SelectedFavoriteCity = ({ city }: Props) => {
           onCancel={handleCloseModal}
           onOverlayClick={handleCloseModal}
         >
-          asdf
+          <p className="text-[16px] leading-[22.4px] font-medium text-gray-900">
+            <span className="text-blue-600_P">{city.name}</span>
+            을(를) 관심도시에서 해제하시겠습니까?
+          </p>
         </Modal>
       )}
     </>
