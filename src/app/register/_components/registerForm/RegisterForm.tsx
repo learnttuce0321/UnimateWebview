@@ -1,13 +1,13 @@
 'use client';
 
-import React from 'react';
-import { useForm } from 'react-hook-form';
 import dynamic from 'next/dynamic';
+import { useForm } from 'react-hook-form';
+import { categoryTestData } from '../../../../testDatas/categoryTestData';
+import { FormDataType } from '../../_type/registerType';
+import RegisterInput from './RegisterInput';
 import RegisterCategorySelector from './category/RegisterCategorySelector';
 import RegisterPriceInfo from './price/RegisterPriceInfo';
-import RegisterInput from './RegisterInput';
 import RegisterTradeInfo from './trade/RegisterTradeInfo';
-import { FormDataType } from '../../_type/registerType';
 
 // RegisterImageForm을 클라이언트 전용으로 불러오기 (SSR mismatch 에러)
 const RegisterImageForm = dynamic(() => import('./RegisterImageForm'), {
@@ -23,9 +23,64 @@ export default function RegisterForm() {
     formState: { isValid },
   } = useForm<FormDataType>();
 
+  const getServerCategory = (displayCategory: string): string => {
+    const categoryItem = categoryTestData.find(
+      (item) => item.category === displayCategory
+    );
+    return categoryItem?.serverCategory || 'OTHER_GOODS';
+  };
+
+  // TODO
+  // API 만 연결함 대충
+  // request 툴 만들어지면 수정만 하면 될듯
+  const submitProductPost = async (data: FormDataType) => {
+    try {
+      // 이미지는 우선 예시용 이미지 업로드
+      const imageUrls =
+        Array.isArray(data.images) && data.images.length > 0
+          ? data.images.slice(0, 10)
+          : ['https://example.com/default-image.jpg'];
+
+      const requestBody = {
+        title: data.title,
+        imageUrls,
+        category: getServerCategory(data.category),
+        price: Number(data.priceInfo?.price) || 0,
+        currencyType: data.priceInfo?.isDollar ? 'USD' : 'KRW',
+        description: data.desc,
+        tradeType: data.tradeInfo?.isRemote ? 'REMOTE' : 'DIRECT',
+        tradeTypeDescription: data.tradeInfo?.tradeLocation || '',
+        regionId: '3651000',
+      };
+
+      const response = await fetch(
+        'https://dev-api.uni-mate.co.kr/api/v1/product-posts',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization:
+              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInByb3ZpZGVyIjoiS0FLQU8iLCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzQ2OTY1NzQ1LCJleHAiOjE3NDk1NTc3NDV9.ARlNELfX283BKEmgaz6jZCTgVo_yUPdL4-s5fWutn38',
+          },
+          body: JSON.stringify(requestBody),
+        }
+      );
+
+      if (response.ok) {
+        console.log('상품 등록 성공!');
+        // TODO: 성공 시 페이지 이동 또는 성공 메시지 표시
+      } else {
+        console.error('상품 등록 실패:', response.status);
+      }
+    } catch (error) {
+      console.error('API 호출 오류:', error);
+    }
+  };
+
   const onSubmit = (data: FormDataType) => {
     console.log('onSubmit 실행!!');
-    console.log('123123 data >>', data);
+    console.log('form data >>', data);
+    submitProductPost(data);
   };
 
   return (
