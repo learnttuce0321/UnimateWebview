@@ -8,8 +8,8 @@ export type {
   Product,
 } from './createAppStore';
 
-export { StoreProvider, useAppStore } from '../providers/ZustandProvider';
+export { default as ZustandProvider, useAppStore } from '../providers/ZustandProvider';
+export { initializeStore, StoreProvider } from './rootStore';
+export type { Store, InitialStore } from './rootStore';
 
 export * from './selectors';
-
-export { useHydration } from '../hooks/useHydration';

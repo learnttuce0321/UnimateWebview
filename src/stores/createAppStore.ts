@@ -1,10 +1,8 @@
+import { type StoreApi } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 import { createStore } from 'zustand/vanilla';
 
-// 앱 상태 타입 정의한 부분은 별도 타입 파일로 분리해도 좋을 것 같습니다.
-// 현재는 간단하게 이 파일에 모두 넣어놨습니다.
-// 본인이 작업한 부분에 맞도록 파일 분리해도 무방합니다.
 export interface City {
   id: string;
   name: string;
@@ -72,13 +70,14 @@ const defaultInitialState: AppState = {
   error: null,
 };
 
-export const createAppStore = (initialState?: Partial<AppState>) => {
+// SSR 안전한 팩토리 함수
+export const createAppStore = (initialState?: Partial<AppState>): StoreApi<AppStore> => {
   const mergedInitialState = { ...defaultInitialState, ...initialState };
 
   return createStore<AppStore>()(
     devtools(
       persist(
-        immer((set, get) => ({
+        immer((set) => ({
           ...mergedInitialState,
 
           // 도시 관련 액션
@@ -152,14 +151,13 @@ export const createAppStore = (initialState?: Partial<AppState>) => {
           // 초기화
           reset: () => set(mergedInitialState),
         })),
-        // 여기서 persist 미들웨어를 통해 저장된 상태는 `store.persist.rehydrate()`로 복원 가능
         {
           name: 'unimate-storage',
           partialize: (state) => ({
             favoriteCities: state.favoriteCities,
             selectedCityId: state.selectedCityId,
           }),
-          skipHydration: true, // SSR 지원을 위해 hydration 건너뛰기
+          skipHydration: true,
         }
       ),
       {

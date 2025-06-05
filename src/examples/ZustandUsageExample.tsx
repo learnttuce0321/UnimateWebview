@@ -2,6 +2,7 @@
 // 사용한 프롬포트: 현재 프로젝트의 Zustand 스토어를 사용해서 우리 프로젝트에서 사용할 수 있는 예제 코드를 만들어줘. 예제 코드는 최대한 간결하게 만들어줘.
 'use client';
 
+import { useAppStore } from 'providers/ZustandProvider';
 import {
   selectError,
   selectFavoriteCities,
@@ -9,7 +10,6 @@ import {
   selectProducts,
   selectSelectedCity,
 } from 'stores/selectors';
-import { useAppStore } from 'stores/useAppStore';
 
 export const BasicUsageExample = () => {
   // 상태 선택

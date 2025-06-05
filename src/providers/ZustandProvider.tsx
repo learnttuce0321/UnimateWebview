@@ -1,51 +1,43 @@
 'use client';
 
-import { useHydration } from 'hooks/useHydration';
-import { ReactNode, createContext, useContext, useEffect, useRef } from 'react';
-import { AppState, AppStore, createAppStore } from 'stores/createAppStore';
+import { useRef } from 'react';
 import { useStore } from 'zustand';
+import {
+  initializeStore,
+  InitialStore,
+  Store,
+  StoreProvider as Provider,
+  StoreContext,
+} from 'stores/rootStore';
+import { AppStore } from 'stores/createAppStore';
+import { useContext } from 'react';
 
-const StoreContext = createContext<ReturnType<typeof createAppStore> | null>(
-  null
-);
-
-export interface StoreProviderProps {
-  children: ReactNode;
-  initialState?: Partial<AppState>;
+interface ZustandProviderProps {
+  children: React.ReactNode;
+  initialState?: InitialStore;
 }
 
-export const StoreProvider = ({
+const ZustandProvider: React.FC<ZustandProviderProps> = ({
   children,
   initialState,
-}: StoreProviderProps) => {
-  const storeRef = useRef<ReturnType<typeof createAppStore>>();
-  const hydrated = useHydration();
+}) => {
+  const storeRef = useRef<Store>();
 
   if (!storeRef.current) {
-    storeRef.current = createAppStore(initialState);
+    storeRef.current = initializeStore(initialState);
   }
 
-  // SSR hydration 처리
-  // CSR 환경임을 보장하고, persist 미들웨어의 rehydrate 함수 호출
-  useEffect(() => {
-    if (hydrated && storeRef.current) {
-      storeRef.current.persist.rehydrate();
-    }
-  }, [hydrated]);
-
-  return (
-    <StoreContext.Provider value={storeRef.current}>
-      {children}
-    </StoreContext.Provider>
-  );
+  return <Provider value={storeRef.current}>{children}</Provider>;
 };
 
 export const useAppStore = <T,>(selector: (store: AppStore) => T): T => {
   const storeContext = useContext(StoreContext);
 
   if (!storeContext) {
-    throw new Error('useAppStore must be used within StoreProvider');
+    throw new Error('useAppStore must be used within ZustandProvider');
   }
 
   return useStore(storeContext, selector);
 };
+
+export default ZustandProvider;
