@@ -71,7 +71,9 @@ const defaultInitialState: AppState = {
 };
 
 // SSR 안전한 팩토리 함수
-export const createAppStore = (initialState?: Partial<AppState>): StoreApi<AppStore> => {
+export const createAppStore = (
+  initialState?: Partial<AppState>
+): StoreApi<AppStore> => {
   const mergedInitialState = { ...defaultInitialState, ...initialState };
 
   return createStore<AppStore>()(

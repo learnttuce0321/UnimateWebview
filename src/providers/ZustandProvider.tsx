@@ -1,16 +1,15 @@
 'use client';
 
-import { useRef } from 'react';
-import { useStore } from 'zustand';
-import {
-  initializeStore,
-  InitialStore,
-  Store,
-  StoreProvider as Provider,
-  StoreContext,
-} from 'stores/rootStore';
+import { useContext, useRef } from 'react';
 import { AppStore } from 'stores/createAppStore';
-import { useContext } from 'react';
+import {
+  InitialStore,
+  StoreProvider as Provider,
+  Store,
+  StoreContext,
+  initializeStore,
+} from 'stores/rootStore';
+import { useStore } from 'zustand';
 
 interface ZustandProviderProps {
   children: React.ReactNode;
