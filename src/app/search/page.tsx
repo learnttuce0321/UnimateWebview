@@ -1,4 +1,8 @@
+'use client';
+
+import { useState } from 'react';
 import SearchHeader from 'app/search/_components/header/SearchHeader';
+import RecentSearches from 'app/search/_components/recentSearch/RecentSearches';
 import { normalizeString } from 'modules/normalize';
 
 interface Props {
@@ -8,10 +12,21 @@ interface Props {
 }
 
 const Page = ({ searchParams }: Props) => {
+  const [searchKeyword, setSearchKeyword] = useState<string>(
+    normalizeString(searchParams.q)
+  );
+
   return (
     <>
-      <SearchHeader q={normalizeString(searchParams.q)} />
-      <div className="w-full h-[calc(100vh-50px)] pt-[30px] px-[16px]"></div>
+      <SearchHeader
+        searchKeyword={searchKeyword}
+        onSearchKeywordChange={(enteredKeyword) =>
+          setSearchKeyword(enteredKeyword)
+        }
+      />
+      <div className="w-full h-[calc(100vh-50px)] pt-[16px] px-[16px]">
+        <RecentSearches />
+      </div>
     </>
   );
 };
