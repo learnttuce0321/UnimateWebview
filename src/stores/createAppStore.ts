@@ -23,34 +23,12 @@ export interface Product {
 }
 
 export interface AppState {
-  // 사용자 설정
-  favoriteCities: City[];
-  selectedCityId: string | null;
-
-  // 상품 관련
-  products: Product[];
-  searchKeyword: string;
-
   // UI 상태
   isLoading: boolean;
   error: string | null;
 }
 
 export interface AppActions {
-  // 도시 관련 액션
-  addFavoriteCity: (city: City) => void;
-  removeFavoriteCity: (cityId: string) => void;
-  setSelectedCity: (cityId: string | null) => void;
-
-  // 상품 관련 액션
-  setProducts: (products: Product[]) => void;
-  addProduct: (product: Product) => void;
-  updateProduct: (productId: string, updates: Partial<Product>) => void;
-  removeProduct: (productId: string) => void;
-
-  // 검색 관련 액션
-  setSearchKeyword: (keyword: string) => void;
-
   // UI 상태 액션
   setLoading: (isLoading: boolean) => void;
   setError: (error: string | null) => void;
@@ -62,83 +40,24 @@ export interface AppActions {
 export type AppStore = AppState & AppActions;
 
 const defaultInitialState: AppState = {
-  favoriteCities: [],
-  selectedCityId: null,
-  products: [],
-  searchKeyword: '',
   isLoading: false,
   error: null,
 };
 
-// SSR 안전한 팩토리 함수
+let appStore: StoreApi<AppStore> | null = null;
+
 export const createAppStore = (
   initialState?: Partial<AppState>
 ): StoreApi<AppStore> => {
+  if (appStore) return appStore;
+
   const mergedInitialState = { ...defaultInitialState, ...initialState };
 
-  return createStore<AppStore>()(
+  appStore = createStore<AppStore>()(
     devtools(
       persist(
         immer((set) => ({
           ...mergedInitialState,
-
-          // 도시 관련 액션
-          addFavoriteCity: (city) =>
-            set((state) => {
-              const exists = state.favoriteCities.some((c) => c.id === city.id);
-              if (!exists) {
-                state.favoriteCities.push(city);
-              }
-            }),
-
-          removeFavoriteCity: (cityId) =>
-            set((state) => {
-              state.favoriteCities = state.favoriteCities.filter(
-                (c) => c.id !== cityId
-              );
-              if (state.selectedCityId === cityId) {
-                state.selectedCityId = null;
-              }
-            }),
-
-          setSelectedCity: (cityId) =>
-            set((state) => {
-              state.selectedCityId = cityId;
-            }),
-
-          // 상품 관련 액션
-          setProducts: (products) =>
-            set((state) => {
-              state.products = products;
-            }),
-
-          addProduct: (product) =>
-            set((state) => {
-              state.products.push(product);
-            }),
-
-          updateProduct: (productId, updates) =>
-            set((state) => {
-              const index = state.products.findIndex((p) => p.id === productId);
-              if (index !== -1) {
-                state.products[index] = {
-                  ...state.products[index],
-                  ...updates,
-                };
-              }
-            }),
-
-          removeProduct: (productId) =>
-            set((state) => {
-              state.products = state.products.filter((p) => p.id !== productId);
-            }),
-
-          // 검색 관련 액션
-          setSearchKeyword: (keyword) =>
-            set((state) => {
-              state.searchKeyword = keyword;
-            }),
-
           // UI 상태 액션
           setLoading: (isLoading) =>
             set((state) => {
@@ -156,8 +75,7 @@ export const createAppStore = (
         {
           name: 'unimate-storage',
           partialize: (state) => ({
-            favoriteCities: state.favoriteCities,
-            selectedCityId: state.selectedCityId,
+            // 새로고침시 유지되어야 하는 상태 필드
           }),
           skipHydration: true,
         }
@@ -167,4 +85,16 @@ export const createAppStore = (
       }
     )
   );
+
+  return appStore;
 };
+
+// 사용법
+// import { useAppStore } from '../stores';
+
+// const MyComponent = () => {
+//   const products = useAppStore((state) => state.products);
+//   const addProduct = useAppStore((state) => state.addProduct);
+
+//   return <div>{products.length}개 상품</div>;
+// };
