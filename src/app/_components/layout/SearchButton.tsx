@@ -1,9 +1,18 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useRecentSearchStore } from '../../search/_hooks/useRecentSearchKeyword';
 
 const SearchButton = () => {
   const router = useRouter();
+  const initializeFromStorage = useRecentSearchStore(
+    (state) => state.initializeFromStorage
+  );
+
+  useEffect(() => {
+    initializeFromStorage();
+  }, [initializeFromStorage]);
 
   return (
     <button onClick={() => router.push('/search')}>
