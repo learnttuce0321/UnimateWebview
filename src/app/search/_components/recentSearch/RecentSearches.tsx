@@ -1,3 +1,5 @@
+'use client';
+
 import NoneRecentSearch from 'app/search/_components/recentSearch/NoneRecentSearch';
 import { useRecentSearchStore } from 'app/search/_hooks/useRecentSearchKeyword';
 import { useShallow } from 'zustand/shallow';
