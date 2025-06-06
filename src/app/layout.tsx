@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import ZustandProvider from 'providers/ZustandProvider';
+import ZustandProvider from '../providers/ZustandProvider';
 import './global.css';
 
 export const metadata: Metadata = {

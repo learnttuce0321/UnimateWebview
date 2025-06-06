@@ -1,64 +1,7 @@
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
-
-export interface City {
-  id: string;
-  name: string;
-  country: string;
-}
-
-export interface Product {
-  id: string;
-  title: string;
-  price: number;
-  currency: 'USD' | 'KRW';
-  images: string[];
-  description: string;
-  cityId: string;
-  userId: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
-export interface AppState {
-  // 사용자 설정
-  favoriteCities: City[];
-  selectedCityId: string | null;
-
-  // 상품 관련
-  products: Product[];
-  searchKeyword: string;
-
-  // UI 상태
-  isLoading: boolean;
-  error: string | null;
-}
-
-export interface AppActions {
-  // 도시 관련 액션
-  addFavoriteCity: (city: City) => void;
-  removeFavoriteCity: (cityId: string) => void;
-  setSelectedCity: (cityId: string | null) => void;
-
-  // 상품 관련 액션
-  setProducts: (products: Product[]) => void;
-  addProduct: (product: Product) => void;
-  updateProduct: (productId: string, updates: Partial<Product>) => void;
-  removeProduct: (productId: string) => void;
-
-  // 검색 관련 액션
-  setSearchKeyword: (keyword: string) => void;
-
-  // UI 상태 액션
-  setLoading: (isLoading: boolean) => void;
-  setError: (error: string | null) => void;
-
-  // 초기화
-  reset: () => void;
-}
-
-export type AppStore = AppState & AppActions;
+import { AppState, AppStore } from './createAppStore';
 
 const initialState: AppState = {
   favoriteCities: [],

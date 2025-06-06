@@ -1,15 +1,15 @@
 // claude code를 사용해서 만든 예제 코드입니다.
 // 사용한 프롬포트: 현재 프로젝트의 Zustand 스토어를 사용해서 우리 프로젝트에서 사용할 수 있는 예제 코드를 만들어줘. 예제 코드는 최대한 간결하게 만들어줘.
 'use client';
-
-import { useAppStore } from 'providers/ZustandProvider';
+import React from 'react';
+import { useAppStore } from '../providers/ZustandProvider';
 import {
   selectError,
   selectFavoriteCities,
   selectIsLoading,
   selectProducts,
   selectSelectedCity,
-} from 'stores/selectors';
+} from '../stores/selectors';
 
 export const BasicUsageExample = () => {
   // 상태 선택
@@ -55,11 +55,13 @@ export const BasicUsageExample = () => {
       {/* 관심 도시 목록 */}
       <div>
         <h3>관심 도시 목록</h3>
-        <button onClick={handleAddCity}>서울 추가</button>
+        <button type="button" onClick={handleAddCity}>
+          서울 추가
+        </button>
         <ul>
           {favoriteCities.map((city) => (
             <li key={city.id}>
-              <button onClick={() => handleSelectCity(city.id)}>
+              <button type="button" onClick={() => handleSelectCity(city.id)}>
                 {city.name} ({city.country})
               </button>
             </li>
