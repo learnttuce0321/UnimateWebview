@@ -33,7 +33,9 @@ export const useRecentSearchStore = create<RecentSearchState>((set, get) => ({
     if (!keyword || recentSearches.includes(keyword)) return;
 
     const updatedSearches = [keyword, ...recentSearches].slice(0, 5);
-    set({ recentSearches: updatedSearches });
+    setTimeout(() => {
+      set({ recentSearches: updatedSearches });
+    }, 300);
 
     localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedSearches));
   },

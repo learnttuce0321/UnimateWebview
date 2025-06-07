@@ -9,7 +9,6 @@ interface Props {
 const SearchResultInput = ({ q }: Props) => {
   const router = useRouter();
   const handleClick = () => {
-    console.log('here');
     router.replace(`/search?q=${q}`);
   };
 
