@@ -1,11 +1,10 @@
-export { createAppStore } from './createAppStore';
 export type {
   AppActions,
   AppState,
   AppStore,
   City,
   Product,
-} from './createAppStore';
+} from './rootStore';
 
 export {
   default as ZustandProvider,

@@ -2,8 +2,8 @@
 
 import React, { useContext, useRef } from 'react';
 import { useStore } from 'zustand';
-import { AppStore } from '../stores/createAppStore';
 import {
+  AppStore,
   InitialStore,
   StoreProvider as Provider,
   Store,
