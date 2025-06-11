@@ -1,5 +1,5 @@
 import { type StoreApi } from 'zustand';
-import { devtools, persist } from 'zustand/middleware';
+import { devtools } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 import { createStore } from 'zustand/vanilla';
 
@@ -55,31 +55,22 @@ export const createAppStore = (
 
   appStore = createStore<AppStore>()(
     devtools(
-      persist(
-        immer((set) => ({
-          ...mergedInitialState,
-          // UI 상태 액션
-          setLoading: (isLoading) =>
-            set((state) => {
-              state.isLoading = isLoading;
-            }),
-
-          setError: (error) =>
-            set((state) => {
-              state.error = error;
-            }),
-
-          // 초기화
-          reset: () => set(mergedInitialState),
-        })),
-        {
-          name: 'unimate-storage',
-          partialize: (state) => ({
-            // 새로고침시 유지되어야 하는 상태 필드
+      immer((set) => ({
+        ...mergedInitialState,
+        // UI 상태 액션
+        setLoading: (isLoading) =>
+          set((state) => {
+            state.isLoading = isLoading;
           }),
-          skipHydration: true,
-        }
-      ),
+
+        setError: (error) =>
+          set((state) => {
+            state.error = error;
+          }),
+
+        // 초기화
+        reset: () => set(mergedInitialState),
+      })),
       {
         name: 'unimate-store',
       }
