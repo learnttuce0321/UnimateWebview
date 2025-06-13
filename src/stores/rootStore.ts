@@ -4,12 +4,6 @@ import { devtools } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 import { createStore } from 'zustand/vanilla';
 
-export interface City {
-  id: string;
-  name: string;
-  country: string;
-}
-
 export interface Product {
   id: string;
   title: string;
