@@ -8,7 +8,6 @@ interface Props {
   };
 }
 const Page = ({ searchParams: { cityId } }: Props) => {
-  console.log('here')
   return (
     <>
       <HomeHeader />
