@@ -4,19 +4,6 @@ import { devtools } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 import { createStore } from 'zustand/vanilla';
 
-export interface Product {
-  id: string;
-  title: string;
-  price: number;
-  currency: 'USD' | 'KRW';
-  images: string[];
-  description: string;
-  cityId: string;
-  userId: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
 export interface AppState {
   // UI 상태
   isLoading: boolean;

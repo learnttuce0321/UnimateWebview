@@ -1,4 +1,4 @@
-export type { AppActions, AppState, AppStore, Product } from './rootStore';
+export type { AppActions, AppState, AppStore } from './rootStore';
 
 export {
   default as ZustandProvider,
