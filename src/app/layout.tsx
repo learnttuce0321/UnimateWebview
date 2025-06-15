@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import './global.css';
+import ReactQueryProvider from 'components/ReactQueryProvider';
 
 export const metadata: Metadata = {
   title: '유니메이트 - UniMate',
@@ -20,7 +21,9 @@ export default function RootLayout({
 }>) {
   return (
     <html>
-      <body>{children}</body>
+      <body>
+        <ReactQueryProvider>{children}</ReactQueryProvider>
+      </body>
     </html>
   );
 }
