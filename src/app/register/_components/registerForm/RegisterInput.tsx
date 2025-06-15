@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { useAutoResizeTextarea } from '@/hooks/useAutoResizeTextarea';
+import { useAutoResizeTextarea } from 'hooks/useAutoResizeTextarea';
 
 type Props = {
   type: string;

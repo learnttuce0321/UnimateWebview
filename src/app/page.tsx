@@ -1,14 +1,19 @@
-import Link from 'next/link';
+import HomeHeader from 'app/_components/layout/HomeHeader';
+import ProductList from 'app/_components/product/ProductList';
+import { normalizeString } from 'modules/normalize';
 
-export default async function Page() {
-  return (
-    <div className="flex justify-center">
-      <Link
-        href={'/register'}
-        className="bg-blue-600_P w-[200px] h-[50px] flex items-center justify-center rounded-[15px] mt-[10px] text-white"
-      >
-        등록하기 페이지 이동
-      </Link>
-    </div>
-  );
+interface Props {
+  searchParams: {
+    cityId: string | string[] | undefined;
+  };
 }
+const Page = ({ searchParams: { cityId } }: Props) => {
+  return (
+    <>
+      <HomeHeader />
+      <ProductList cityId={normalizeString(cityId)} />
+    </>
+  );
+};
+
+export default Page;

@@ -14,7 +14,7 @@ import {
   horizontalListSortingStrategy,
   SortableContext,
 } from '@dnd-kit/sortable';
-import SortableImageItem from './SortableImageItem';
+import SortableImageItem from 'app/register/_components/registerForm/SortableImageItem';
 
 const MAX_IMAGES_COUNT = 10;
 
@@ -64,7 +64,10 @@ export default function RegisterImageForm() {
           onClick={handleClickUploadButton}
           className="w-[65px] h-[65px] bg-gray-100 rounded-[5px] border border-solid box-border outline-gray-200 flex flex-col justify-center items-center"
         >
-          <img src="/images/svg/icon-system-camera.svg" alt="사진 등록" />
+          <img
+            src="/images/svg/register/icon-system-camera.svg"
+            alt="사진 등록"
+          />
           <div className="flex items-center text-[14px]">
             <p className="font-medium text-center text-blue-600">
               {images.length}

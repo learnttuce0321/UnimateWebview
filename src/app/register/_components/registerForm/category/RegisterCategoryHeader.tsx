@@ -6,7 +6,7 @@ export default function RegisterCategoryHeader({ onClickCategory }: Props) {
   return (
     <div className="flex relative items-center h-[50px] bg-white px-4 border border-gray-200 ">
       <img
-        src="/images/svg/icon-arrow-back.svg"
+        src="/images/svg/register/icon-arrow-back.svg"
         alt="닫기 버튼"
         onClick={onClickCategory}
         className="w-[24px] mr-auto"

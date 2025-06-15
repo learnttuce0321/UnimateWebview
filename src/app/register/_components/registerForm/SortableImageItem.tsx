@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import ImagesItem from './ImagesItem';
+import ImagesItem from 'app/register/_components/registerForm/ImagesItem';
 
 type Props = {
   id: string;

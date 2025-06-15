@@ -17,7 +17,10 @@ export default function ImagesItem({ images, index, onRemoveImage }: Props) {
         onClick={() => onRemoveImage(index)}
         className="absolute top-[-5px] right-[-5px] bg-blue_gray-600 text-white w-[20px] h-[20px] text-xs rounded-full flex items-center justify-center"
       >
-        <img src="/images/svg/icon-system-close-image.svg" alt="닫기" />
+        <img
+          src="/images/svg/register/icon-system-close-image.svg"
+          alt="닫기"
+        />
       </button>
       {/* 이미지 */}
       <div className="w-full h-full rounded-[5px] border border-solid outline-outline-black-light box-border flex flex-col justify-center items-center">
