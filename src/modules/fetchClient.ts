@@ -74,7 +74,7 @@ const request = async <TResponse>(
   // TODO: vanilla/zustand를 통해 accessToken 가져오기
   // const accessToken = sessionStore.getState().getAccessToken();
   const token =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInByb3ZpZGVyIjoiS0FLQU8iLCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzQ2OTY1NzQ1LCJleHAiOjE3NDk1NTc3NDV9.ARlNELfX283BKEmgaz6jZCTgVo_yUPdL4-s5fWutn38';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInByb3ZpZGVyIjoiS0FLQU8iLCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzQ5OTY5MzI0LCJleHAiOjE3NTc3NDUzMjR9.bDpurCfyQ906gPYbPzEnOkzoZpBxLElwXjKY3rwWj9Q';
 
   const headers = new Headers(init.headers);
   if (token) headers.set('Authorization', `Bearer ${token}`);
@@ -106,13 +106,7 @@ const request = async <TResponse>(
       isError: true,
     };
 
-    const isServer = typeof window === 'undefined';
-
-    if (isServer) {
-      return errorResponse;
-    } else {
-      throw errorResponse;
-    }
+    throw errorResponse;
   }
 };
 
