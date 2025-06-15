@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from 'next';
 import ZustandProvider from '../providers/ZustandProvider';
 import './global.css';
+import React from 'react';
+import ReactQueryProvider from '../components/ReactQueryProvider';
 
 export const metadata: Metadata = {
   title: '유니메이트 - UniMate',
@@ -21,8 +23,10 @@ export default function RootLayout({
 }>) {
   return (
     <html>
-      <body className="w-screen h-screen">
-        <ZustandProvider>{children}</ZustandProvider>
+      <body>
+        <ReactQueryProvider>
+          <ZustandProvider>{children}</ZustandProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   );
