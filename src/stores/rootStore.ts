@@ -8,21 +8,12 @@ export interface AppState {
   // UI 상태
   isLoading: boolean;
   error: string | null;
-
-  // 인증 상태
-  accessToken: string | null;
-  refreshToken: string | null;
 }
 
 export interface AppActions {
   // UI 상태 액션
   setLoading: (isLoading: boolean) => void;
   setError: (error: string | null) => void;
-
-  // 인증 액션
-  setAccessToken: (token: string | null) => void;
-  setRefreshToken: (token: string | null) => void;
-  getAccessToken: () => string | null;
 
   // 초기화
   reset: () => void;
@@ -35,8 +26,6 @@ export type InitialStore = Partial<AppState>;
 const defaultInitialState: AppState = {
   isLoading: false,
   error: null,
-  accessToken: null,
-  refreshToken: null,
 };
 
 let appStore: StoreApi<AppStore> | null = null;
@@ -60,19 +49,6 @@ export const initializeStore = (initialState?: InitialStore): Store => {
           set((state) => {
             state.error = error;
           }),
-
-        // 인증 액션
-        setAccessToken: (token) =>
-          set((state) => {
-            state.accessToken = token;
-          }),
-
-        setRefreshToken: (token) =>
-          set((state) => {
-            state.refreshToken = token;
-          }),
-
-        getAccessToken: () => appStore?.getState().accessToken || null,
 
         // 초기화
         reset: () => set(mergedInitialState),
