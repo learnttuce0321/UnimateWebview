@@ -22,7 +22,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html>
+    <html className="font-pretendard">
       <body>
         <ReactQueryProvider>
           <ZustandProvider>{children}</ZustandProvider>
