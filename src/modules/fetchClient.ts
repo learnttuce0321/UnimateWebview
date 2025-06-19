@@ -1,4 +1,5 @@
 import { processEnvBaseUrl } from 'constants/environments';
+import { initializeStore } from 'stores/createAppStore';
 
 export interface ApiRequest {
   url: string;
@@ -71,10 +72,8 @@ const request = async <TResponse>(
   { url, params, body }: ApiRequest,
   init: Omit<RequestInit, 'credentials'> = {}
 ) => {
-  // TODO: vanilla/zustand를 통해 accessToken 가져오기
-  // const accessToken = sessionStore.getState().getAccessToken();
-  const token =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInByb3ZpZGVyIjoiS0FLQU8iLCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzQ2OTY1NzQ1LCJleHAiOjE3NDk1NTc3NDV9.ARlNELfX283BKEmgaz6jZCTgVo_yUPdL4-s5fWutn38';
+  const sessionStore = initializeStore();
+  const token = sessionStore.getState().accessToken;
 
   const headers = new Headers(init.headers);
   if (token) headers.set('Authorization', `Bearer ${token}`);
@@ -106,13 +105,7 @@ const request = async <TResponse>(
       isError: true,
     };
 
-    const isServer = typeof window === 'undefined';
-
-    if (isServer) {
-      return errorResponse;
-    } else {
-      throw errorResponse;
-    }
+    throw errorResponse;
   }
 };
 

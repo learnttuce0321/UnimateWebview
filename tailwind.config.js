@@ -17,6 +17,7 @@ module.exports = {
           50: 'rgb(246,252,255)',
           100: 'rgb(241, 247, 255)',
           500: 'rgb(164 169 176)',
+          400: 'rgb (93 199 207)',
           600: 'rgb(122, 128, 134)',
           700: 'rgb(102, 107, 114)',
           900: 'rgb(37, 41, 47)',
@@ -29,6 +30,9 @@ module.exports = {
       height: {
         navigation: '54px',
         'full-without-navigation': 'calc(100vh - 54px)',
+      },
+      fontFamily: {
+        pretendard: ['Pretendard', 'sans-serif'],
       },
     },
   },
