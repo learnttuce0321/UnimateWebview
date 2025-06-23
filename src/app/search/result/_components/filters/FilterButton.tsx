@@ -9,18 +9,17 @@ const FilterButton = ({ filterName }: Props) => {
   return (
     <button
       type="button"
-      className="flex gap-0 pl-[12px] pr-[6px] items-center w-auto h-[30px] border-[0.5px] rounded-[5px] border-blue_gray-400 bg-white"
+      className="h-[30px] flex items-center justify-between border-[0.5px] border-solid border-blue_gray-400 rounded-[5px] min-w-[79px] pl-[12px] pr-[6px] flex-shrink-0 overflow-hidden"
     >
-      <p className="w-auto h-auto font-medium text-[14px] leading-[30px] text-blue_gray-900">
+      <p className="text-blue_gray-900 text-[14px] leading-[30px] whitespace-nowrap">
         {filterName}
       </p>
       <img
         src="/images/svg/search/iconArrowChevronDownSmall24.svg"
         alt={filterName}
-        className="w-[24px] h-[24px]"
+        className="w-[16px] h-[16px] ml-[4px] flex-shrink-0"
       />
     </button>
   );
 };
-
 export default FilterButton;

@@ -1,8 +1,8 @@
-import type { Metadata, Viewport } from 'next';
-import ZustandProvider from '../providers/ZustandProvider';
-import './global.css';
 import React from 'react';
+import type { Metadata, Viewport } from 'next';
+import './global.css';
 import ReactQueryProvider from '../components/ReactQueryProvider';
+import ZustandProvider from '../providers/ZustandProvider';
 
 export const metadata: Metadata = {
   title: '유니메이트 - UniMate',
