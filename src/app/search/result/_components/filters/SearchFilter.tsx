@@ -2,9 +2,9 @@ import React from 'react';
 
 const SearchFilter = () => {
   return (
-    <div className="h-[50px] flex items-center gap-[8px] px-[16px] w-full overflow-x-auto overflow-y-hidden scrollbar-hide">
-      <button className="flex items-center border-[0.5px] border-solid border-blue_gray-400 rounded-[5px] min-w-[79px] pl-[12px] pr-[6px] flex-shrink-0">
-        <p className="text-blue_gray-900 text-[14px] leading-[30px]">대학교</p>
+    <div className="scrollbar-hide flex h-[50px] w-full items-center gap-[8px] overflow-x-auto overflow-y-hidden px-[16px]">
+      <button className="flex min-w-[79px] flex-shrink-0 items-center rounded-[5px] border-[0.5px] border-solid border-blue_gray-400 pl-[12px] pr-[6px]">
+        <p className="text-[14px] leading-[30px] text-blue_gray-900">대학교</p>
         <img
           src="/images/svg/search/iconArrowChev"
           alt="dropdown icon"
@@ -12,8 +12,8 @@ const SearchFilter = () => {
           height={24}
         />
       </button>
-      <button className="flex items-center border-[0.5px] border-solid border-blue_gray-400 rounded-[5px] pl-[12px] pr-[6px] flex-shrink-0">
-        <p className="text-blue_gray-900 text-[14px] leading-[30px]">가격</p>
+      <button className="flex flex-shrink-0 items-center rounded-[5px] border-[0.5px] border-solid border-blue_gray-400 pl-[12px] pr-[6px]">
+        <p className="text-[14px] leading-[30px] text-blue_gray-900">가격</p>
         <img
           src="/images/svg/search/iconArrowChev"
           alt="dropdown icon"
@@ -21,8 +21,8 @@ const SearchFilter = () => {
           height={24}
         />
       </button>
-      <button className="flex items-center border-[0.5px] border-solid border-blue_gray-400 rounded-[5px] pl-[12px] pr-[6px] flex-shrink-0">
-        <p className="text-blue_gray-900 text-[14px] leading-[30px]">
+      <button className="flex flex-shrink-0 items-center rounded-[5px] border-[0.5px] border-solid border-blue_gray-400 pl-[12px] pr-[6px]">
+        <p className="text-[14px] leading-[30px] text-blue_gray-900">
           카테고리
         </p>
         <img
@@ -32,8 +32,8 @@ const SearchFilter = () => {
           height={24}
         />
       </button>
-      <button className="flex items-center border-[0.5px] border-solid border-blue_gray-400 rounded-[5px] pl-[12px] pr-[6px] flex-shrink-0">
-        <p className="text-blue_gray-900 text-[14px] leading-[30px]">최신순</p>
+      <button className="flex flex-shrink-0 items-center rounded-[5px] border-[0.5px] border-solid border-blue_gray-400 pl-[12px] pr-[6px]">
+        <p className="text-[14px] leading-[30px] text-blue_gray-900">최신순</p>
         <img
           src="/images/svg/search/iconArrowChev"
           alt="dropdown icon"
@@ -41,8 +41,8 @@ const SearchFilter = () => {
           height={24}
         />
       </button>
-      <button className="flex items-center border-[0.5px] border-solid border-blue_gray-400 rounded-[5px] pl-[12px] pr-[6px] flex-shrink-0">
-        <p className="text-blue_gray-900 text-[14px] leading-[30px]">
+      <button className="flex flex-shrink-0 items-center rounded-[5px] border-[0.5px] border-solid border-blue_gray-400 pl-[12px] pr-[6px]">
+        <p className="text-[14px] leading-[30px] text-blue_gray-900">
           거래완료 제외
         </p>
         <img

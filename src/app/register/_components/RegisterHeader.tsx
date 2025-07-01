@@ -10,15 +10,15 @@ export default function RegisterHeader() {
   };
 
   return (
-    <div className="sticky top-0 z-10 flex items-center h-[50px] bg-white px-4">
-      <h2 className="absolute inset-x-0 pointer-events-none flex justify-center text-[18px] font-bold text-blue_gray-900">
+    <div className="sticky top-0 z-10 flex h-[50px] items-center bg-white px-4">
+      <h2 className="pointer-events-none absolute inset-x-0 flex justify-center text-[18px] font-bold text-blue_gray-900">
         물건 등록하기
       </h2>
       <img
         src="/images/svg/register/icon-system-close.svg"
         alt="닫기 버튼"
         onClick={handleClickCloseButton}
-        className="w-[24px] ml-auto cursor-pointer"
+        className="ml-auto w-[24px] cursor-pointer"
       />
     </div>
   );

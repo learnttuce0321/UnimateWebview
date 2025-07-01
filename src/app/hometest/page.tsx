@@ -1,8 +1,8 @@
 import { HydrationBoundary, dehydrate } from '@tanstack/react-query';
 import { ProductPostsResponse } from 'app/register/_type/registerType';
+import { API_PRODUCTS_LIST } from 'modules/keyFactory';
 import { createSSRQueryClient } from 'modules/queryClient.server';
 import ProductPostList from './_components/ProductPostsList';
-import { API_PRODUCTS_LIST } from 'modules/keyFactory';
 
 export default async function TestHomePage() {
   const { queryClient, fetchQuery } = createSSRQueryClient();

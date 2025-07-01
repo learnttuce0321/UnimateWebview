@@ -15,14 +15,14 @@ const SearchResultInput = ({ q }: Props) => {
   return (
     <button
       type="button"
-      className="box-border w-[calc(100%-24px)] h-[40px] relative"
+      className="relative box-border h-[40px] w-[calc(100%-24px)]"
       onClick={handleClick}
     >
       <input
         type="text"
         name="q"
         placeholder="어떤 물건을 찾으시나요?"
-        className="w-full h-full px-[16px] py-[12px] pr-[46px] bg-gray-100 rounded-[40px] overflow-x-auto"
+        className="h-full w-full overflow-x-auto rounded-[40px] bg-gray-100 px-[16px] py-[12px] pr-[46px]"
         readOnly
         defaultValue={q}
       />

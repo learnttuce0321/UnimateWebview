@@ -1,7 +1,11 @@
 'use client';
 
 import { createContext } from 'react';
-import { initializeStore, type Store, type InitialStore } from './createAppStore';
+import {
+  initializeStore,
+  type Store,
+  type InitialStore,
+} from './createAppStore';
 
 export const StoreContext = createContext<Store | null>(null);
 export const StoreProvider = StoreContext.Provider;

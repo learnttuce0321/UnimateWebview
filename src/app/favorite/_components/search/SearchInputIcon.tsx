@@ -7,7 +7,7 @@ interface Props {
 
 const SearchInputIcon = ({ actionType, onDelete }: Props) => {
   return (
-    <span className="absolute right-[16px] top-1/2 -translate-y-1/2 h-[20px]">
+    <span className="absolute right-[16px] top-1/2 h-[20px] -translate-y-1/2">
       {actionType ? (
         <button>
           <img
