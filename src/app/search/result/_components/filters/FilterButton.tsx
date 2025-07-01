@@ -1,23 +1,32 @@
+'use client';
+
 import React from 'react';
-import { filterType } from '../../_type/searchResultFilter';
+import { useSearchFilterBottomSheetStore } from 'stores/searchFilterBottomSheet.store';
+import {
+  FilterType,
+  FilterTypeLabel,
+} from '../../_type/searchResultFilter.type';
 
 interface Props {
-  filterName: filterType;
+  filterName: FilterType;
 }
 
 const FilterButton = ({ filterName }: Props) => {
+  const openSheet = useSearchFilterBottomSheetStore((s) => s.openSheet);
+
   return (
     <button
       type="button"
-      className="h-[30px] flex items-center justify-between border-[0.5px] border-solid border-blue_gray-400 rounded-[5px] min-w-[79px] pl-[12px] pr-[6px] flex-shrink-0 overflow-hidden"
+      onClick={() => openSheet(filterName)}
+      className="flex h-[30px] min-w-[79px] flex-shrink-0 items-center justify-between overflow-hidden rounded-[5px] border-[0.5px] border-solid border-blue_gray-400 pl-[12px] pr-[6px]"
     >
-      <p className="text-blue_gray-900 text-[14px] leading-[30px] whitespace-nowrap">
-        {filterName}
+      <p className="whitespace-nowrap text-[14px] leading-[30px] text-blue_gray-900">
+        {FilterTypeLabel[filterName]}
       </p>
       <img
         src="/images/svg/search/iconArrowChevronDownSmall24.svg"
-        alt={filterName}
-        className="w-[16px] h-[16px] ml-[4px] flex-shrink-0"
+        alt={FilterTypeLabel[filterName]}
+        className="ml-[4px] h-[16px] w-[16px] flex-shrink-0"
       />
     </button>
   );
