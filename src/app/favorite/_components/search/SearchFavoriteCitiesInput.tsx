@@ -26,10 +26,10 @@ const SearchFavoriteCitiesInput = ({
   };
 
   return (
-    <div className="w-full h-[50px] relative mb-[20px]">
+    <div className="relative mb-[20px] h-[50px] w-full">
       <input
         type="text"
-        className="bg-gray-100 w-full h-full rounded-[40px] py-[17px] px-[16px]"
+        className="h-full w-full rounded-[40px] bg-gray-100 px-[16px] py-[17px]"
         placeholder="도시명을 검색하세요"
         onFocus={() => handleChangeActionType('search')}
         value={inputValue}

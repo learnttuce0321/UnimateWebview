@@ -8,7 +8,7 @@ const Layout = ({ children }: Props) => {
   return (
     <>
       <NavigationBar title="관심 도시 설정" />
-      <div className="w-full h-[calc(100vh-50px)] pt-[30px] px-[16px]">
+      <div className="h-[calc(100vh-50px)] w-full px-[16px] pt-[30px]">
         {children}
       </div>
     </>

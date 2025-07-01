@@ -7,7 +7,7 @@ interface Props {
 
 const SearchResultHeader = ({ q }: Props) => {
   return (
-    <header className="h-[50px] px-[16px] py-[5px] flex justify-between gap-[8px]">
+    <header className="flex h-[50px] justify-between gap-[8px] px-[16px] py-[5px]">
       <BackButton className="py-[8px]" />
       <SearchResultInput q={q} />
     </header>

@@ -4,7 +4,7 @@ import SearchButton from 'app/_components/layout/SearchButton';
 
 const HomeHeader = () => {
   return (
-    <header className="flex items-center justify-between w-full h-navigation py-[13px] pl-[16px] pr-[12px] bg-white">
+    <header className="flex h-navigation w-full items-center justify-between bg-white py-[13px] pl-[16px] pr-[12px]">
       <FavoriteCitiesDropdownButton />
       <div className="flex gap-[22px]">
         <AlarmButton />

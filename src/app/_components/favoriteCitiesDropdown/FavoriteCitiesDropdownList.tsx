@@ -29,7 +29,7 @@ const FavoriteCitiesDropdownList = ({ onClose }: Props) => {
   };
 
   return (
-    <div className="absolute z-[11] ">
+    <div className="absolute z-[11]">
       <div className="w-[163px] rounded-[10px] bg-white py-[8px]">
         {favoriteCities.map((city) => (
           <FavoriteCitiesItem
@@ -39,7 +39,7 @@ const FavoriteCitiesDropdownList = ({ onClose }: Props) => {
           />
         ))}
         <p
-          className="w-full h-[30px] text-blue_gray-600 px-[26px] text-[14px] leading-[30px] hover:cursor-pointer"
+          className="h-[30px] w-full px-[26px] text-[14px] leading-[30px] text-blue_gray-600 hover:cursor-pointer"
           onClick={handleSetFavoriteCityClick}
         >
           관심 도시 설정

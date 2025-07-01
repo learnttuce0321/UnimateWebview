@@ -10,7 +10,7 @@ const ProductRegistrationMeta = ({
   university,
 }: Props) => {
   return (
-    <p className="h-[12px] text-[12px] leading-[12px] text-blue_gray-600 flex">
+    <p className="flex h-[12px] text-[12px] leading-[12px] text-blue_gray-600">
       <span className="flex">
         34분 전
         {/* ·

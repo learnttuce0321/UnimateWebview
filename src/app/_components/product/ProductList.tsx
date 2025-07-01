@@ -6,7 +6,7 @@ interface Props {
 
 const ProductList = ({ cityId }: Props) => {
   return (
-    <main className="min-h-full-without-navigation p-[16px] bg-gray-50">
+    <main className="min-h-full-without-navigation bg-gray-50 p-[16px]">
       <ProductCard product={{}} />
       <ProductCard product={{}} />
       <ProductCard product={{}} />

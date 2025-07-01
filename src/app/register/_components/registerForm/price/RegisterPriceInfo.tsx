@@ -39,11 +39,11 @@ export default function RegisterPriceInfo({
 
   return (
     <div className="flex flex-col items-start">
-      <span className="text-gray-900 font-bold text-[14px] mb-[16px]">
+      <span className="mb-[16px] text-[14px] font-bold text-gray-900">
         가격
       </span>
 
-      <div className="flex flex-col gap-[14px] w-full">
+      <div className="flex w-full flex-col gap-[14px]">
         {/* TODO : 달러 및 원화 표시 버튼 리팩토링 => 중복된 로직이 너무 많음 */}
         <div className="flex items-center gap-[12px]">
           <div className="flex gap-[6px]">
@@ -58,7 +58,7 @@ export default function RegisterPriceInfo({
                 alt="원화"
               />
             </button>
-            <span className="font-medium text-[14px] leading-[20px] text-blue_gray-900">
+            <span className="text-[14px] font-medium leading-[20px] text-blue_gray-900">
               원화
             </span>
           </div>
@@ -74,7 +74,7 @@ export default function RegisterPriceInfo({
                 alt="달러"
               />
             </button>
-            <span className="font-medium text-[14px] leading-[20px] text-blue_gray-900">
+            <span className="text-[14px] font-medium leading-[20px] text-blue_gray-900">
               달러
             </span>
           </div>
@@ -98,11 +98,11 @@ export default function RegisterPriceInfo({
             onChange={(e) =>
               setValue('priceInfo.price', Number(e.target.value))
             }
-            className="w-full h-[50px] pl-[32px] pr-[16px] outline-none text-[16px] font-bold text-blue_gray-900 border-[1px] border-solid py-[14px] rounded placeholder:font-medium placeholder:text-blue_gray-600 disabled:bg-gray-100 bg-white border-gray-200"
+            className="h-[50px] w-full rounded border-[1px] border-solid border-gray-200 bg-white py-[14px] pl-[32px] pr-[16px] text-[16px] font-bold text-blue_gray-900 outline-none placeholder:font-medium placeholder:text-blue_gray-600 disabled:bg-gray-100"
           />
         </div>
 
-        <label className="w-fit flex items-center gap-[6px]">
+        <label className="flex w-fit items-center gap-[6px]">
           <input
             type="checkbox"
             {...register('priceInfo.isForGiveaway')}
@@ -118,7 +118,7 @@ export default function RegisterPriceInfo({
             }
             alt="무료나눔"
           />
-          <span className="font-medium text-[14px] leading-[20px] text-blue_gray-900">
+          <span className="text-[14px] font-medium leading-[20px] text-blue_gray-900">
             무료나눔
           </span>
         </label>

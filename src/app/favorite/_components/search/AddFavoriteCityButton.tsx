@@ -39,7 +39,7 @@ const AddFavoriteCityButton = ({
     <>
       <button
         type="button"
-        className={`fixed bottom-[10px] rounded-[10px] w-[calc(100%-32px)] h-[50px] text-white ${selectedCity ? 'bg-blue-600_P' : 'bg-blue_gray-500'}`}
+        className={`fixed bottom-[10px] h-[50px] w-[calc(100%-32px)] rounded-[10px] text-white ${selectedCity ? 'bg-blue-600_P' : 'bg-blue_gray-500'}`}
         onClick={handleAddFavoriteCityClick}
       >
         등록하기
@@ -53,7 +53,7 @@ const AddFavoriteCityButton = ({
           onCancel={handleModalClose}
           onOverlayClick={handleModalClose}
         >
-          <p className="text-[16px] leading-[22.4px] font-medium text-gray-900">
+          <p className="text-[16px] font-medium leading-[22.4px] text-gray-900">
             <span className="text-blue-600_P">{selectedCity?.name}</span>
             을(를) 관심도시에 추가하시겠습니까?
           </p>
