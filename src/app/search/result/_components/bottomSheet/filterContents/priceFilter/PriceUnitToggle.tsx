@@ -1,18 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 type Currency = 'KRW' | 'USD';
 
-const PriceUnitToggle = () => {
-  const [currency, setCurrency] = useState<Currency>('KRW');
+interface PriceUnitToggleProps {
+  currency: Currency;
+  onCurrencyChange: (currency: Currency) => void;
+}
 
+const PriceUnitToggle = ({ currency, onCurrencyChange }: PriceUnitToggleProps) => {
   const handleCurrencySelect = (selected: Currency) => {
-    setCurrency(selected);
+    onCurrencyChange(selected);
   };
 
   return (
     <>
       {/* 통화 선택 */}
-      <div className="flex h-[20px] gap-[12px] leading-[20px]">
+      <div className="flex h-[20px] gap-[12px] text-[14px] font-medium leading-[20px] text-blue_gray-900">
         {/* 원화 */}
         <div
           className="flex gap-[6px]"

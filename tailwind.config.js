@@ -34,6 +34,9 @@ module.exports = {
       fontFamily: {
         pretendard: ['Pretendard', 'sans-serif'],
       },
+      borderWidth: {
+        0.5: '0.5px',
+      },
     },
   },
   plugins: [],
