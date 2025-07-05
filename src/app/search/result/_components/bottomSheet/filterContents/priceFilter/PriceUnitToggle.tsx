@@ -7,7 +7,10 @@ interface PriceUnitToggleProps {
   onCurrencyChange: (currency: Currency) => void;
 }
 
-const PriceUnitToggle = ({ currency, onCurrencyChange }: PriceUnitToggleProps) => {
+const PriceUnitToggle = ({
+  currency,
+  onCurrencyChange,
+}: PriceUnitToggleProps) => {
   const handleCurrencySelect = (selected: Currency) => {
     onCurrencyChange(selected);
   };

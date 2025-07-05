@@ -17,6 +17,11 @@ const PriceFilterContent = ({ closeSheet }: Props) => {
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
 
+  const handleApplyPriceFilter = () => {
+    // 가격 필터링 적용해서 refetch 하는 로직 추가
+    closeSheet();
+  };
+
   const handlePriceChange = (min: string, max: string) => {
     setMinPrice(min);
     setMaxPrice(max);
@@ -42,7 +47,7 @@ const PriceFilterContent = ({ closeSheet }: Props) => {
 
       <button
         type="button"
-        onClick={closeSheet}
+        onClick={handleApplyPriceFilter}
         className="mt-[10px] flex h-[50px] w-full items-center justify-center rounded-[10px] bg-blue-600_P text-[18px] font-bold leading-[50px] text-white"
       >
         확인
