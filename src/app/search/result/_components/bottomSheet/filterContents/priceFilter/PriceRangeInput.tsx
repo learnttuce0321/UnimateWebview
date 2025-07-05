@@ -47,6 +47,8 @@ const PriceRangeInput = ({
       <div className="flex h-full flex-1 items-center justify-center rounded-[8px] border-0.5 border-blue_gray-400 pr-2">
         <input
           type="text"
+          inputMode="numeric"
+          pattern="[0-9]*"
           value={minPrice}
           onChange={handleMinPriceChange}
           placeholder={placeholders.min}
@@ -64,6 +66,8 @@ const PriceRangeInput = ({
       <div className="flex h-full flex-1 items-center justify-center rounded-[8px] border-0.5 border-blue_gray-400 pr-2">
         <input
           type="text"
+          inputMode="numeric"
+          pattern="[0-9]*"
           value={maxPrice}
           onChange={handleMaxPriceChange}
           placeholder={placeholders.max}
