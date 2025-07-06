@@ -8,25 +8,47 @@ import {
   FilterTypeLabel,
 } from '../../_type/searchResultFilter.type';
 import { formatNumber } from '../../../../../utils/formatNumber';
+import { categoryTestData } from '../../../../testDatas/categoryTestData';
 
 interface Props {
   filterName: FilterType;
 }
 
+// 필터별 설정 객체
+const FILTER_CONFIGS = {
+  price: {
+    paramKey: 'price',
+    formatDisplayText: (value: string) => `${formatNumber(value)}원 이상`,
+  },
+  category: {
+    paramKey: 'category',
+    formatDisplayText: (value: string) => {
+      const categoryItem = categoryTestData.find(
+        (item) => item.categoryEN === value
+      );
+      return categoryItem ? categoryItem.category : value;
+    },
+  },
+  // 최신순이나 다른 필터는 작업 후 추가 예정
+} as const;
+
 const FilterButton = ({ filterName }: Props) => {
   const searchParams = useSearchParams();
   const openSheet = useSearchFilterBottomSheetStore((s) => s.openSheet);
 
-  // 가격 필터 활성화 여부 확인
-  const isFilterActive = filterName === 'price' && searchParams.get('price');
+  // 현재 필터의 설정 가져오기
+  const filterConfig =
+    FILTER_CONFIGS[filterName as keyof typeof FILTER_CONFIGS];
+
+  // 필터 활성화 여부 확인
+  const paramValue = filterConfig
+    ? searchParams.get(filterConfig.paramKey)
+    : null;
+  const isFilterActive = Boolean(paramValue);
 
   const getDisplayText = () => {
-    if (filterName === 'price') {
-      const priceParam = searchParams.get('price');
-      if (priceParam) {
-        const formattedPrice = formatNumber(priceParam);
-        return `${formattedPrice}원 이상`;
-      }
+    if (filterConfig && paramValue) {
+      return filterConfig.formatDisplayText(paramValue);
     }
     return FilterTypeLabel[filterName];
   };

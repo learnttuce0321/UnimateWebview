@@ -20,7 +20,7 @@ const SearchFilterBottomSheetContainer = () => {
       case 'price':
         return <PriceFilterContent closeSheet={closeSheet} />;
       case 'category':
-        return <CategoryFilterContent />;
+        return <CategoryFilterContent closeSheet={closeSheet} />;
       case 'latest':
         return <LatestFilterContent />;
       case 'excludeSold':
