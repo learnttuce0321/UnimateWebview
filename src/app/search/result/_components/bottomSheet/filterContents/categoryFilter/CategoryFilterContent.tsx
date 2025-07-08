@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import TitleBottomSheet from '../priceFilter/TitleBottomSheet';
 import CategoryListWrapper from './CategoryListWrapper';
 
@@ -7,6 +8,7 @@ interface Props {
 }
 
 const CategoryFilterContent = ({ closeSheet }: Props) => {
+  const searchParams = useSearchParams();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const handleApplyCategoryFilter = () => {
@@ -21,6 +23,14 @@ const CategoryFilterContent = ({ closeSheet }: Props) => {
       closeSheet();
     }
   };
+
+  // URL에서 카테고리 파라미터를 가져와서 초기값으로 설정
+  useEffect(() => {
+    const categoryParam = searchParams.get('category');
+    if (categoryParam) {
+      setSelectedCategory(categoryParam);
+    }
+  }, [searchParams]);
 
   return (
     <div className="flex h-full w-full flex-col">

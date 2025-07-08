@@ -6,7 +6,7 @@ interface Props {
 
 const TitleBottomSheet = ({ title }: Props) => {
   return (
-    <span className="text-[20px] font-bold leading-[20px] text-blue_gray-900">
+    <span className="text-[20px] font-bold leading-5 text-blue_gray-900">
       {title}
     </span>
   );
