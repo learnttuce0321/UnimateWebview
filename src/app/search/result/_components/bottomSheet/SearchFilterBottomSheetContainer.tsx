@@ -6,8 +6,8 @@ import BottomSheetDimmed from './BottomSheetDimmed';
 import FilterBottomSheet from './FilterBottomSheet';
 import CategoryFilterContent from './filterContents/categoryFilter/CategoryFilterContent';
 import ExcludeSoldFilterContent from './filterContents/excludeSoldFilter/ExcludeSoldFilterContent';
-import LatestFilterContent from './filterContents/latestFilter/LatestFilterContent';
 import PriceFilterContent from './filterContents/priceFilter/PriceFilterContent';
+import SortFilterContent from './filterContents/sortFilter/SortFilterContent';
 
 const SearchFilterBottomSheetContainer = () => {
   const { isOpen, openedFilter, closeSheet } =
@@ -22,7 +22,7 @@ const SearchFilterBottomSheetContainer = () => {
       case 'category':
         return <CategoryFilterContent closeSheet={closeSheet} />;
       case 'latest':
-        return <LatestFilterContent />;
+        return <SortFilterContent closeSheet={closeSheet} />;
       case 'excludeSold':
         return <ExcludeSoldFilterContent />;
       default:

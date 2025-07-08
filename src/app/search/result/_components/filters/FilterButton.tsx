@@ -29,7 +29,16 @@ const FILTER_CONFIGS = {
       return categoryItem ? categoryItem.category : value;
     },
   },
-  // 최신순이나 다른 필터는 작업 후 추가 예정
+  latest: {
+    paramKey: 'sort',
+    formatDisplayText: (value: string) => {
+      const sortLabels = {
+        latest: '최신순',
+        oldest: '오래된순',
+      };
+      return sortLabels[value as keyof typeof sortLabels] || value;
+    },
+  },
 } as const;
 
 const FilterButton = ({ filterName }: Props) => {
