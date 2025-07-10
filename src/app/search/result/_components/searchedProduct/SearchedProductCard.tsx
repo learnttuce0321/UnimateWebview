@@ -8,7 +8,7 @@ interface Props {
 const SearchedProductCard = ({ product }: Props) => {
   return (
     <a href={`/products/${product.id}`}>
-      <div className="p-[16px] h-[140px] flex gap-[12px] justify-between bg-white rounded-[8px] shadow-[0px_0px_10px_rgba(0,0,0,0.05)] mb-[8px]">
+      <div className="mb-[8px] flex h-[140px] justify-between gap-[12px] rounded-[8px] bg-white p-[16px] shadow-[0px_0px_10px_rgba(0,0,0,0.05)]">
         <ProductImage imageUrl={product.imageUrl} />
         <ProductInfo {...product} />
       </div>

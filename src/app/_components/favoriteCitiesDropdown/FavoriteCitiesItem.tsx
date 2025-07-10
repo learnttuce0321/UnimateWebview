@@ -16,7 +16,7 @@ const FavoriteCitiesItem = ({ city, onClick }: Props) => {
 
   return (
     <p
-      className={`w-full h-[30px] ${isActive && 'bg-blue_gray-100'} ${isActive ? 'text-blue-600_P' : 'text-blue_gray-600'} px-[26px] text-[14px] leading-[30px] hover:cursor-pointer`}
+      className={`h-[30px] w-full ${isActive && 'bg-blue_gray-100'} ${isActive ? 'text-blue-600_P' : 'text-blue_gray-600'} px-[26px] text-[14px] leading-[30px] hover:cursor-pointer`}
       onClick={() => onClick(city.id)}
     >
       {city.name}

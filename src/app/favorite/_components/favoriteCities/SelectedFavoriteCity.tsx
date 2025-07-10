@@ -34,7 +34,7 @@ const SelectedFavoriteCity = ({ city }: Props) => {
   return (
     <>
       <li
-        className={`px-[16px] py-[10px] flex justify-between items-center ${isActive ? 'text-blue-600_P' : 'text-blue_gray-700'} ${isActive && 'bg-blue_gray-50'} ${isActive ? 'border-blue-600_P' : 'border-blue_gray-300'} border-[1px] rounded-[10px] border-solid `}
+        className={`flex items-center justify-between px-[16px] py-[10px] ${isActive ? 'text-blue-600_P' : 'text-blue_gray-700'} ${isActive && 'bg-blue_gray-50'} ${isActive ? 'border-blue-600_P' : 'border-blue_gray-300'} rounded-[10px] border-[1px] border-solid`}
       >
         <p className="max-w-[calc(100%-24px)] truncate">{city.name}</p>
         <button type="button" onClick={handleDeleteCityClick}>
@@ -55,7 +55,7 @@ const SelectedFavoriteCity = ({ city }: Props) => {
           onCancel={handleCloseModal}
           onOverlayClick={handleCloseModal}
         >
-          <p className="text-[16px] leading-[22.4px] font-medium text-gray-900">
+          <p className="text-[16px] font-medium leading-[22.4px] text-gray-900">
             <span className="text-blue-600_P">{city.name}</span>
             을(를) 관심도시에서 해제하시겠습니까?
           </p>

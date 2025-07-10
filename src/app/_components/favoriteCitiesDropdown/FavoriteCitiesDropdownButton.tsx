@@ -10,7 +10,7 @@ const FavoriteCitiesDropdownButton = () => {
   return (
     <div className="relative">
       <div
-        className="font-bold text-[24px] text-900 flex gap-[8px]"
+        className="text-900 flex gap-[8px] text-[24px] font-bold"
         onClick={() => setOpenFavoriteCitiesDropdown(true)}
       >
         <p>San Francisco</p>

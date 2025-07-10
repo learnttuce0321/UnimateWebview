@@ -13,7 +13,7 @@ export default function CategoryModal({ setValue, onClickCategory }: Props) {
   const categoryData = categoryTestData;
 
   return (
-    <div className="fixed top-0 left-0 z-50 w-full h-full bg-white">
+    <div className="fixed left-0 top-0 z-50 h-full w-full bg-white">
       <RegisterCategoryHeader onClickCategory={onClickCategory} />
       <CategoryList
         categoryData={categoryData}

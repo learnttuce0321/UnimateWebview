@@ -33,7 +33,7 @@ export default function RegisterForm() {
 
   return (
     <form
-      className="flex flex-col gap-[30px] bg-gray-50 first-letter:bg-gray-50 p-[16px]"
+      className="flex flex-col gap-[30px] bg-gray-50 p-[16px] first-letter:bg-gray-50"
       onSubmit={handleSubmit(onSubmit)}
     >
       <RegisterImageForm />
@@ -68,7 +68,7 @@ export default function RegisterForm() {
       <button
         type="submit"
         disabled={!isValid}
-        className="mt-4 w-full h-[50px] bg-blue-600_P text-white p-2 rounded-[10px] disabled:bg-blue_gray-500"
+        className="mt-4 h-[50px] w-full rounded-[10px] bg-blue-600_P p-2 text-white disabled:bg-blue_gray-500"
       >
         등록하기
       </button>

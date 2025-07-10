@@ -14,13 +14,13 @@ const NavigationBar = ({
   className,
 }: Props) => {
   return (
-    <header className={`h-[50px] relative px-[16px] py-[14px] ${className}`}>
+    <header className={`relative h-[50px] px-[16px] py-[14px] ${className}`}>
       {showBackButton ? <BackButton className="absolute left-[14px]" /> : null}
-      <h1 className="text-center h-[24px] text-[18px] font-bold text-blue_gray-900">
+      <h1 className="h-[24px] text-center text-[18px] font-bold text-blue_gray-900">
         {title}
       </h1>
       {renderOptionButtons ? (
-        <span className="absolute right-[14px] h-[22px] top-[14px]">
+        <span className="absolute right-[14px] top-[14px] h-[22px]">
           {renderOptionButtons}
         </span>
       ) : null}

@@ -4,7 +4,7 @@ interface Props {
 
 const SearchedProductTitle = ({ title }: Props) => {
   return (
-    <h2 className="text-[16px] font-medium h-[19px] leading-[19.2px]">
+    <h2 className="h-[19px] text-[16px] font-medium leading-[19.2px]">
       Rice Cooker for Sale
     </h2>
   );
