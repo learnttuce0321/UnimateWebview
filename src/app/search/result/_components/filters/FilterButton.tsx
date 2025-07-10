@@ -39,6 +39,18 @@ const FILTER_CONFIGS = {
       return sortLabels[value as keyof typeof sortLabels] || value;
     },
   },
+  excludeSold: {
+    paramKey: 'excludeSold',
+    formatDisplayText: (value: string) => {
+      const excludeSoldLabels = {
+        exclude_completed: '거래완료 제외',
+        include_completed: '거래완료 포함',
+      };
+      return (
+        excludeSoldLabels[value as keyof typeof excludeSoldLabels] || value
+      );
+    },
+  },
 } as const;
 
 const FilterButton = ({ filterName }: Props) => {

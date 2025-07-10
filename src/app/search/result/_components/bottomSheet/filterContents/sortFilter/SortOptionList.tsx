@@ -7,9 +7,14 @@ interface Props {
   onSortSelect: (sort: SortType) => void;
 }
 
-const sortOptions = [
-  { value: 'latest' as const, label: '최신순' },
-  { value: 'oldest' as const, label: '오래된순' },
+type SortOptionItem = {
+  value: SortType;
+  label: string;
+};
+
+const sortOptions: SortOptionItem[] = [
+  { value: 'latest', label: '최신순' },
+  { value: 'oldest', label: '오래된순' },
 ];
 
 const SortOptionList = ({ selectedSort, onSortSelect }: Props) => {

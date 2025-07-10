@@ -24,7 +24,7 @@ const SearchFilterBottomSheetContainer = () => {
       case 'latest':
         return <SortFilterContent closeSheet={closeSheet} />;
       case 'excludeSold':
-        return <ExcludeSoldFilterContent />;
+        return <ExcludeSoldFilterContent closeSheet={closeSheet} />;
       default:
         return null;
     }
