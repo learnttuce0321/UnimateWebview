@@ -17,7 +17,7 @@ const RecentSearches = () => {
   if (!recentSearches.length) return <NoneRecentSearch />;
   return (
     <div>
-      <section className="flex justify-between items-center text-[14px]">
+      <section className="flex items-center justify-between text-[14px]">
         <p className="text-blue_gray-900">최근 검색어</p>
         <button
           type="button"
@@ -32,7 +32,7 @@ const RecentSearches = () => {
           return (
             <li
               key={keyword}
-              className="flex gap-[5px] items-center w-full py-[8px]"
+              className="flex w-full items-center gap-[5px] py-[8px]"
             >
               <img
                 src="/images/svg/search/icon-system-history.svg"
@@ -40,7 +40,7 @@ const RecentSearches = () => {
                 height={24}
                 alt="최근 검색 아이콘"
               />
-              <p className="flex-grow-[1] flex-shrink-[1] pl-[5px]">
+              <p className="flex-shrink-[1] flex-grow-[1] pl-[5px]">
                 {keyword}
               </p>
               <button type="button" onClick={() => deleteRecentSearch(keyword)}>

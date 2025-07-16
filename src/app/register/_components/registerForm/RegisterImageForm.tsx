@@ -56,23 +56,23 @@ export default function RegisterImageForm() {
   };
 
   return (
-    <div className="h-[73px] flex items-end overflow-x-auto overflow-y-hidden no-scrollbar">
+    <div className="no-scrollbar flex h-[73px] items-end overflow-x-auto overflow-y-hidden">
       {/* 상품 등록 버튼 */}
-      <div className="flex-shrink-0 mr-[16px]">
+      <div className="mr-[16px] flex-shrink-0">
         <button
           type="button"
           onClick={handleClickUploadButton}
-          className="w-[65px] h-[65px] bg-gray-100 rounded-[5px] border border-solid box-border outline-gray-200 flex flex-col justify-center items-center"
+          className="box-border flex h-[65px] w-[65px] flex-col items-center justify-center rounded-[5px] border border-solid bg-gray-100 outline-gray-200"
         >
           <img
             src="/images/svg/register/icon-system-camera.svg"
             alt="사진 등록"
           />
           <div className="flex items-center text-[14px]">
-            <p className="font-medium text-center text-blue-600">
+            <p className="text-center font-medium text-blue-600">
               {images.length}
             </p>
-            <p className="font-normal text-center">/{MAX_IMAGES_COUNT}</p>
+            <p className="text-center font-normal">/{MAX_IMAGES_COUNT}</p>
           </div>
         </button>
       </div>

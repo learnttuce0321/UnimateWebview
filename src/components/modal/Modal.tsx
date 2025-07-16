@@ -30,20 +30,20 @@ const Modal = ({
     <>
       <Overlay onClick={onOverlayClick} />
       <div
-        className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-[10px] pt-[30px] pb-[20px] px-[20px] w-[calc(100%-140px)] max-w-[400px] z-[${MODAL_CONTENT_Z_INDEX}]`}
+        className={`fixed left-1/2 top-1/2 w-[calc(100%-140px)] max-w-[400px] -translate-x-1/2 -translate-y-1/2 transform rounded-[10px] bg-white p-6 px-[20px] pb-[20px] pt-[30px] z-[${MODAL_CONTENT_Z_INDEX}]`}
       >
         <div>{children}</div>
-        <div className="flex justify-between items-center gap-[10px] mt-[16px]">
+        <div className="mt-[16px] flex items-center justify-between gap-[10px]">
           {cancelText && (
             <button
-              className="h-[40px] bg-gray-500 text-white rounded-[10px] w-full flex justify-center items-center"
+              className="flex h-[40px] w-full items-center justify-center rounded-[10px] bg-gray-500 text-white"
               onClick={() => onCancel?.()}
             >
               {cancelText}
             </button>
           )}
           <button
-            className="h-[40px] bg-blue-600_P text-white rounded-[10px] w-full flex justify-center items-center"
+            className="flex h-[40px] w-full items-center justify-center rounded-[10px] bg-blue-600_P text-white"
             onClick={onConfirm}
           >
             {confirmText}

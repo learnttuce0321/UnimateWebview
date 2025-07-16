@@ -19,12 +19,12 @@ export default function CategoryList({
   };
 
   return (
-    <ul className="flex flex-col w-full  font-semibold text-[16px] leading-[55px] text-blue_gray-900">
+    <ul className="flex w-full flex-col text-[16px] font-semibold leading-[55px] text-blue_gray-900">
       {categoryData.map((item) => {
         return (
           <li
             key={item.category}
-            className="flex w-full pl-[16px] items-center h-[55px] active:bg-gray-50 active:font-bold active:text-blue-600_P"
+            className="flex h-[55px] w-full items-center pl-[16px] active:bg-gray-50 active:font-bold active:text-blue-600_P"
             onClick={() => handleClickCategory(item.category)}
           >
             {item.category}
