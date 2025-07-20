@@ -25,11 +25,11 @@ export default function RegisterInput({
   useAutoResizeTextarea(textareaRef);
 
   return (
-    <div className="flex flex-col gap-[16px] justify-start">
+    <div className="flex flex-col justify-start gap-[16px]">
       {label && (
         <label
           htmlFor={`register-product-${name}`}
-          className="text-gray-900 font-bold text-[14px]"
+          className="text-[14px] font-bold text-gray-900"
         >
           {label}
         </label>
@@ -37,13 +37,13 @@ export default function RegisterInput({
       <div
         className={`flex ${
           name === 'desc' ? 'min-h-[120px]' : 'min-h-[50px]'
-        } border-[1px] bg-white border-gray-200 border-solid py-[14px] px-[16px] rounded`}
+        } rounded border-[1px] border-solid border-gray-200 bg-white px-[16px] py-[14px]`}
       >
         {isTextarea ? (
           <textarea
             id={`register-product-${name}`}
             placeholder={placeholder}
-            className="w-full resize-none overflow-hidden outline-none font-[16px] placeholder:font-medium placeholder:text-blue_gray-600"
+            className="w-full resize-none overflow-hidden font-[16px] outline-none placeholder:font-medium placeholder:text-blue_gray-600"
             rows={1}
             {...registerProps}
             ref={(el) => {
@@ -56,7 +56,7 @@ export default function RegisterInput({
             id={`register-product-${name}`}
             type={type}
             placeholder={placeholder}
-            className="w-full outline-none font-[16px] placeholder:font-medium placeholder:text-blue_gray-600"
+            className="w-full font-[16px] outline-none placeholder:font-medium placeholder:text-blue_gray-600"
             {...register(name, { required })}
           />
         )}

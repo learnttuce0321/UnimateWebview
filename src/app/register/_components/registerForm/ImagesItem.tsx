@@ -10,12 +10,12 @@ export default function ImagesItem({ images, index, onRemoveImage }: Props) {
   const isMainImage = index === 0;
 
   return (
-    <div className="relative w-[65px] h-[65px]">
+    <div className="relative h-[65px] w-[65px]">
       {/* 삭제 버튼 */}
       <button
         type="button"
         onClick={() => onRemoveImage(index)}
-        className="absolute top-[-5px] right-[-5px] bg-blue_gray-600 text-white w-[20px] h-[20px] text-xs rounded-full flex items-center justify-center"
+        className="absolute right-[-5px] top-[-5px] flex h-[20px] w-[20px] items-center justify-center rounded-full bg-blue_gray-600 text-xs text-white"
       >
         <img
           src="/images/svg/register/icon-system-close-image.svg"
@@ -23,16 +23,16 @@ export default function ImagesItem({ images, index, onRemoveImage }: Props) {
         />
       </button>
       {/* 이미지 */}
-      <div className="w-full h-full rounded-[5px] border border-solid outline-outline-black-light box-border flex flex-col justify-center items-center">
+      <div className="box-border flex h-full w-full flex-col items-center justify-center rounded-[5px] border border-solid outline-outline-black-light">
         <img
           src={images}
           alt={`상품 이미지 ${index + 1}`}
-          className="w-full h-full rounded-[5px]"
+          className="h-full w-full rounded-[5px]"
         />
       </div>
 
       {isMainImage && (
-        <div className="absolute bottom-0 w-full h-[18px] bg-blue-600_P flex items-center justify-center text-[10px] text-white rounded-b-[5px]">
+        <div className="absolute bottom-0 flex h-[18px] w-full items-center justify-center rounded-b-[5px] bg-blue-600_P text-[10px] text-white">
           대표 사진
         </div>
       )}

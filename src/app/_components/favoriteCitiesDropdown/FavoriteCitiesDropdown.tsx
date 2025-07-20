@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import FavoriteCitiesDropdownList from 'app/_components/favoriteCitiesDropdown/FavoriteCitiesDropdownList';
 import Overlay from 'components/modal/Overlay';
 
@@ -8,7 +9,9 @@ interface Props {
 const FavoriteCitesDropdown = ({ onClose }: Props) => {
   return (
     <>
-      <FavoriteCitiesDropdownList onClose={onClose} />
+      <Suspense>
+        <FavoriteCitiesDropdownList onClose={onClose} />
+      </Suspense>
       <Overlay onClick={onClose} />
     </>
   );

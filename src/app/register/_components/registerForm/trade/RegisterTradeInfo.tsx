@@ -25,11 +25,11 @@ export default function RegisterTradeInfo({
 
   return (
     <div className="flex flex-col items-start">
-      <span className="text-gray-900 font-bold text-[14px] mb-[16px]">
+      <span className="mb-[16px] text-[14px] font-bold text-gray-900">
         거래 방식
       </span>
 
-      <div className="flex flex-col gap-[14px] w-full">
+      <div className="flex w-full flex-col gap-[14px]">
         <div className="flex items-center gap-[12px]">
           <div className="flex gap-[6px]">
             <button type="button" onClick={() => handleCurrencyChange(false)}>
@@ -43,7 +43,7 @@ export default function RegisterTradeInfo({
                 alt="직거래"
               />
             </button>
-            <span className="font-medium text-[14px] leading-[20px] text-blue_gray-900">
+            <span className="text-[14px] font-medium leading-[20px] text-blue_gray-900">
               직거래
             </span>
           </div>
@@ -60,7 +60,7 @@ export default function RegisterTradeInfo({
                 alt="비대면거래"
               />
             </button>
-            <span className="font-medium text-[14px] leading-[20px] text-blue_gray-900">
+            <span className="text-[14px] font-medium leading-[20px] text-blue_gray-900">
               비대면거래
             </span>
           </div>

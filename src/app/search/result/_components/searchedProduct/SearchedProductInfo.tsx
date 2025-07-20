@@ -23,8 +23,8 @@ const SearchedProductInfo = ({
   chatCount,
 }: Props) => {
   return (
-    <div className="flex flex-col justify-between w-[calc(100%-108px)]">
-      <div className="flex flex-col gap-[6px] justify-start w-full">
+    <div className="flex w-[calc(100%-108px)] flex-col justify-between">
+      <div className="flex w-full flex-col justify-start gap-[6px]">
         <SearchedProductTitle title={title} />
         <SearchedProductRegistrationMeta
           createdAt={createdAt}

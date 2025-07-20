@@ -12,7 +12,7 @@ interface Props {
 const SearchedCity = ({ city, currentSelectedCityId, onClick }: Props) => {
   return (
     <li
-      className={`w-full h-[45px] line-clamp-1 text-[16px] pl-[16px] flex items-center border-[1px] ${currentSelectedCityId === city.id ? 'border-blue-600_P rounded-[10px] bg-blue_gray-50 text-blue-600_P' : 'border-white'}`}
+      className={`line-clamp-1 flex h-[45px] w-full items-center border-[1px] pl-[16px] text-[16px] ${currentSelectedCityId === city.id ? 'rounded-[10px] border-blue-600_P bg-blue_gray-50 text-blue-600_P' : 'border-white'}`}
       onClick={() => onClick(city)}
     >
       {city.name}
