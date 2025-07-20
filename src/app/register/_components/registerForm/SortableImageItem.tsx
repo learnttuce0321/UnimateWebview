@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
 import ImagesItem from 'app/register/_components/registerForm/ImagesItem';
 
 type Props = {
@@ -16,18 +15,11 @@ export default function SortableImageItem({
   index,
   onRemoveImage,
 }: Props) {
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    isDragging,
-  } = useSortable({ id });
+  const { attributes, listeners, setNodeRef, transform, isDragging } =
+    useSortable({ id });
 
   const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
+    transform: transform ? `translateX(${transform.x}px)` : undefined, // Y축 제거
     opacity: isDragging ? 0.5 : 1,
   };
 

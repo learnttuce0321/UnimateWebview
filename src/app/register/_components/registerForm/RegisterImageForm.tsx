@@ -9,6 +9,7 @@ import {
   useSensors,
   DragEndEvent,
 } from '@dnd-kit/core';
+import { restrictToHorizontalAxis } from '@dnd-kit/modifiers';
 import {
   arrayMove,
   horizontalListSortingStrategy,
@@ -28,6 +29,7 @@ export default function RegisterImageForm() {
     useSensor(PointerSensor, {
       activationConstraint: {
         distance: 5, // 드래그 인식 최소 거리
+        delay: 100,
       },
     })
   );
@@ -56,7 +58,7 @@ export default function RegisterImageForm() {
   };
 
   return (
-    <div className="no-scrollbar flex h-[73px] items-end overflow-x-auto overflow-y-hidden">
+    <div className="no-scrollbar flex h-[73px] w-full items-end overflow-x-auto overflow-y-hidden">
       {/* 상품 등록 버튼 */}
       <div className="mr-[16px] flex-shrink-0">
         <button
@@ -82,6 +84,7 @@ export default function RegisterImageForm() {
         sensors={sensors}
         collisionDetection={closestCenter}
         onDragEnd={handleDragEnd}
+        modifiers={[restrictToHorizontalAxis]}
       >
         <SortableContext
           items={images.map((_, i) => i.toString())}
@@ -90,7 +93,7 @@ export default function RegisterImageForm() {
           <div className="flex gap-[16px]">
             {images.map((image, index) => (
               <SortableImageItem
-                key={index}
+                key={`${image}-${index}`}
                 id={index.toString()}
                 image={image}
                 index={index}
