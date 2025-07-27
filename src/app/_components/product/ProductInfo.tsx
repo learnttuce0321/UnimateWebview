@@ -7,7 +7,6 @@ interface Props {
   title: string;
   createdAt: string;
   price: number;
-  isVerified: boolean;
   universityName: string;
   likeCount: number;
   chatRoomCount: number;
@@ -17,7 +16,6 @@ const ProductInfo = ({
   title,
   createdAt,
   price,
-  isVerified,
   universityName,
   likeCount,
   chatRoomCount,
@@ -28,7 +26,6 @@ const ProductInfo = ({
         <ProductTitle title={title} />
         <ProductRegistrationMeta
           createdAt={createdAt}
-          isVerified={isVerified}
           universityName={universityName}
         />
         <ProductPrice price={price} />

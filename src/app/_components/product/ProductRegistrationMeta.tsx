@@ -2,20 +2,15 @@ import { formatTimeAgo } from '../../../utils/formatTime';
 
 interface Props {
   createdAt: string;
-  isVerified: boolean;
   universityName: string | null;
 }
 
-const ProductRegistrationMeta = ({
-  createdAt,
-  isVerified,
-  universityName,
-}: Props) => {
+const ProductRegistrationMeta = ({ createdAt, universityName }: Props) => {
   return (
     <p className="flex h-[12px] text-[12px] leading-[12px] text-blue_gray-600">
       <span className="flex">
         {formatTimeAgo(createdAt)}
-        {isVerified && (
+        {universityName && (
           <>
             ·
             <img
@@ -24,7 +19,7 @@ const ProductRegistrationMeta = ({
               width="12"
               height="12px"
             />
-            {universityName && <span>{universityName}</span>}
+            <span>{universityName}</span>
           </>
         )}
       </span>

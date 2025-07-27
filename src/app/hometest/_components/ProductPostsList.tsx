@@ -14,9 +14,9 @@ export default function ProductPostList() {
   return (
     <div className="flex flex-col items-center justify-center">
       <ul className="flex flex-col gap-2">
-        {productPosts.content.map((productItem) => (
+        {/* {productPosts.content.map((productItem) => (
           <li key={productItem.id}>{productItem.title}</li>
-        ))}
+        ))} */}
       </ul>
     </div>
   );
