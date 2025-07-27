@@ -8,6 +8,7 @@ export interface AppState {
   isLoading: boolean;
   error: string | null;
   accessToken: string | null;
+  isWebview: boolean;
 }
 
 export interface AppActions {
@@ -30,6 +31,7 @@ const defaultInitialState: AppState = {
   isLoading: false,
   error: null,
   accessToken: '',
+  isWebview: false,
 };
 
 let appStore: StoreApi<AppStore> | null = null;
