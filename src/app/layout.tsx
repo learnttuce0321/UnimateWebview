@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Metadata, Viewport } from 'next';
+import { headers } from 'next/headers';
 import './global.css';
 import ReactQueryProvider from '../components/ReactQueryProvider';
 import ZustandProvider from '../providers/ZustandProvider';
@@ -21,11 +22,24 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const header = headers();
+
+  const authHeader = header.get('Authorization');
+  const accessToken = authHeader?.startsWith('Bearer ')
+    ? authHeader.substring(7)
+    : authHeader;
+
   return (
-    <html className="font-pretendard">
+    <html>
       <body>
         <ReactQueryProvider>
-          <ZustandProvider>{children}</ZustandProvider>
+          <ZustandProvider
+            initialState={{
+              accessToken: accessToken, // ?? 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInByb3ZpZGVyIjoiS0FLQU8iLCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzQ5OTY5MzI0LCJleHAiOjE3NTc3NDUzMjR9.bDpurCfyQ906gPYbPzEnOkzoZpBxLElwXjKY3rwWj9Q',
+            }}
+          >
+            {children}
+          </ZustandProvider>
         </ReactQueryProvider>
       </body>
     </html>

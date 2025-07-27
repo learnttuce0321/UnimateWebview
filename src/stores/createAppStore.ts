@@ -29,8 +29,7 @@ export type InitialStore = Partial<AppState>;
 const defaultInitialState: AppState = {
   isLoading: false,
   error: null,
-  accessToken:
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInByb3ZpZGVyIjoiS0FLQU8iLCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzQ5OTY5MzI0LCJleHAiOjE3NTc3NDUzMjR9.bDpurCfyQ906gPYbPzEnOkzoZpBxLElwXjKY3rwWj9Q',
+  accessToken: '',
 };
 
 let appStore: StoreApi<AppStore> | null = null;
