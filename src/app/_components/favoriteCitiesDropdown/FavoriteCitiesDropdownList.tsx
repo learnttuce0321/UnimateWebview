@@ -1,14 +1,15 @@
 'use client';
 
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import FavoriteCitiesItem from 'app/_components/favoriteCitiesDropdown/FavoriteCitiesItem';
+import navigationScheme from '../../../utils/navigationScheme';
 
 interface Props {
   onClose: () => void;
 }
 
 const FavoriteCitiesDropdownList = ({ onClose }: Props) => {
-  const router = useRouter();
+  const { openWeb } = navigationScheme();
   const searchParams = useSearchParams();
   const cityId = searchParams.get('cityId');
 
@@ -20,12 +21,12 @@ const FavoriteCitiesDropdownList = ({ onClose }: Props) => {
   ];
 
   const handleCityClick = (selectedCityId: string) => {
-    router.push(`/?cityId=${selectedCityId}`);
+    openWeb(`/?cityId= `);
     onClose();
   };
 
   const handleSetFavoriteCityClick = () => {
-    router.push(`/favorite?currentCityId=${cityId}`);
+    openWeb(`/favorite?cityId=${1}`);
   };
 
   return (
