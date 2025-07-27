@@ -22,7 +22,7 @@ const ProductInfo = ({
 }: Props) => {
   return (
     <div className="flex w-[calc(100%-108px)] flex-col justify-between">
-      <div className="flex w-full flex-col justify-start gap-[6px]">
+      <div className="flex w-full flex-col justify-start gap-[6px] text-start">
         <ProductTitle title={title} />
         <ProductRegistrationMeta
           createdAt={createdAt}

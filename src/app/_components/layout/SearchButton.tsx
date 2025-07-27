@@ -1,21 +1,21 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import navigationScheme from '../../../utils/navigationScheme';
 import { useRecentSearchStore } from '../../search/_hooks/useRecentSearchKeyword';
 
 const SearchButton = () => {
-  const router = useRouter();
   const initializeFromStorage = useRecentSearchStore(
     (state) => state.initializeFromStorage
   );
+  const { openWeb } = navigationScheme();
 
   useEffect(() => {
     initializeFromStorage();
   }, [initializeFromStorage]);
 
   return (
-    <button onClick={() => router.push('/search')}>
+    <button onClick={() => openWeb('/search')}>
       <img
         src="/images/svg/home/icon-system-search.svg"
         alt="검색 아이콘"
