@@ -29,7 +29,9 @@ module.exports = {
       },
       height: {
         navigation: '54px',
-        'full-without-navigation': 'calc(100vh - 54px)',
+      },
+      minHeight: {
+        full_without_navigation: 'calc(100vh - 54px)',
       },
       fontFamily: {
         pretendard: ['Pretendard', 'sans-serif'],

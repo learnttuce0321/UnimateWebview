@@ -34,6 +34,6 @@ export interface ProductPost {
 }
 
 export interface ProductPostsResponse {
-  content: ProductPost[];
+  contents: ProductPost[];
   hasNext: boolean;
 }

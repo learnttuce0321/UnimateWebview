@@ -1,8 +1,8 @@
 interface Props {
   likeCount: number;
-  chatCount: number;
+  chatRoomCount: number;
 }
-const ProductUserReaction = ({ likeCount, chatCount }: Props) => {
+const ProductUserReaction = ({ likeCount, chatRoomCount }: Props) => {
   return (
     <div className="flex w-full justify-end gap-[5px]">
       <span className="flex h-[12px] gap-[3.5px] text-[12px] leading-[12px] text-blue_gray-600">
@@ -12,7 +12,7 @@ const ProductUserReaction = ({ likeCount, chatCount }: Props) => {
           width="12"
           height="12"
         />
-        14
+        {likeCount}
       </span>
       <span className="flex h-[12px] gap-[3.5px] text-[12px] leading-[12px] text-blue_gray-600">
         <img
@@ -21,7 +21,7 @@ const ProductUserReaction = ({ likeCount, chatCount }: Props) => {
           width="12"
           height="12"
         />
-        7
+        {chatRoomCount}
       </span>
     </div>
   );
