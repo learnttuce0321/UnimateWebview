@@ -1,4 +1,4 @@
-import { formatTimeAgo } from '../../../utils/\bformatTime';
+import { formatTimeAgo } from '../../../utils/formatTime';
 
 interface Props {
   createdAt: string;
