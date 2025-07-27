@@ -8,11 +8,10 @@ interface Props {
   };
 }
 const Page = ({ searchParams: { cityId } }: Props) => {
-  console.log('here');
   return (
     <>
       <HomeHeader />
-      <ProductList cityId={normalizeString(cityId)} />
+      <ProductList regionId={normalizeString(cityId)} />
     </>
   );
 };

@@ -8,9 +8,9 @@ interface Props {
   createdAt: string;
   price: number;
   isVerified: boolean;
-  university: string;
+  universityName: string;
   likeCount: number;
-  chatCount: number;
+  chatRoomCount: number;
 }
 
 const ProductInfo = ({
@@ -18,9 +18,9 @@ const ProductInfo = ({
   createdAt,
   price,
   isVerified,
-  university,
+  universityName,
   likeCount,
-  chatCount,
+  chatRoomCount,
 }: Props) => {
   return (
     <div className="flex w-[calc(100%-108px)] flex-col justify-between">
@@ -29,11 +29,14 @@ const ProductInfo = ({
         <ProductRegistrationMeta
           createdAt={createdAt}
           isVerified={isVerified}
-          university={university}
+          universityName={universityName}
         />
         <ProductPrice price={price} />
       </div>
-      <ProductUserReaction likeCount={likeCount} chatCount={chatCount} />
+      <ProductUserReaction
+        likeCount={likeCount}
+        chatRoomCount={chatRoomCount}
+      />
     </div>
   );
 };
