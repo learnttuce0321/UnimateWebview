@@ -2,10 +2,10 @@
 
 import { useRef } from 'react';
 import ProductCard from 'app/_components/product/ProductCard';
-import { ProductPostsResponse } from 'app/register/_type/registerType';
 import { useInfiniteQueryWithObserver } from 'hooks/useInifiniteQueryWithObserver';
 import fetchClient from 'modules/fetchClient';
-import { API_PRODUCTS_LIST } from 'modules/keyFactory';
+import { API_PRODUCTS_LIST } from 'modules/keyFactory.product';
+import { ProductPostsResponse } from '../../../types/Product';
 
 interface Props {
   regionId: string;

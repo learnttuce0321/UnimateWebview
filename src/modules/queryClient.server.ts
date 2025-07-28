@@ -4,6 +4,7 @@ import fetchClient from './fetchClient';
 interface FetchQueryParams {
   url: string;
   params?: Record<string, any>;
+  accessToken?: string;
 }
 
 export const createSSRQueryClient = () => {
@@ -25,10 +26,11 @@ export const createSSRQueryClient = () => {
     fetchQuery: async <T = unknown>({
       url,
       params,
+      accessToken,
     }: FetchQueryParams): Promise<T> => {
       return await queryClient.fetchQuery({
         queryKey: [url, params],
-        queryFn: () => fetchClient.GET<T>({ url, params }),
+        queryFn: () => fetchClient.GET<T>({ url, params, accessToken }),
       });
     },
   };

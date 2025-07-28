@@ -4,6 +4,7 @@ import { headers } from 'next/headers';
 import './global.css';
 import ReactQueryProvider from '../components/ReactQueryProvider';
 import ZustandProvider from '../providers/ZustandProvider';
+import { fetchUserInterestRegion } from './_query/fetchUserRegion';
 
 export const metadata: Metadata = {
   title: '유니메이트 - UniMate',
@@ -17,7 +18,7 @@ export const viewport: Viewport = {
   userScalable: false,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -30,14 +31,17 @@ export default function RootLayout({
     : authHeader;
   const isWebview = header.get('IsWebview') === 'true';
 
+  const userInterestRegion = await fetchUserInterestRegion(accessToken);
+
   return (
     <html>
       <body>
         <ReactQueryProvider>
           <ZustandProvider
             initialState={{
-              accessToken: accessToken, // ?? 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInByb3ZpZGVyIjoiS0FLQU8iLCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzQ5OTY5MzI0LCJleHAiOjE3NTc3NDUzMjR9.bDpurCfyQ906gPYbPzEnOkzoZpBxLElwXjKY3rwWj9Q',
+              accessToken, // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInByb3ZpZGVyIjoiS0FLQU8iLCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzQ5OTY5MzI0LCJleHAiOjE3NTc3NDUzMjR9.bDpurCfyQ906gPYbPzEnOkzoZpBxLElwXjKY3rwWj9Q'
               isWebview,
+              userInterestRegion,
             }}
           >
             {children}

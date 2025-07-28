@@ -5,6 +5,7 @@ export interface ApiRequest {
   url: string;
   params?: Record<string, any>;
   body?: Record<string, any>;
+  accessToken?: string;
 }
 export interface ApiResponse {
   status: number;
@@ -18,40 +19,40 @@ export interface ApiResponseError extends ApiResponse {
 
 const fetchClient = () => {
   const GET = async <TResponse = unknown>(
-    { url, params }: ApiRequest,
+    { url, params, accessToken }: ApiRequest,
     init: Omit<RequestInit, 'credentials' | 'method'> = {}
   ) => {
     return await request<TResponse>(
-      { url, params },
+      { url, params, accessToken },
       { method: 'GET', ...init }
     );
   };
 
   const POST = async <TResponse = unknown>(
-    { url, params, body }: ApiRequest,
+    { url, params, body, accessToken }: ApiRequest,
     init: Omit<RequestInit, 'credentials'> = {}
   ) => {
     return await request<TResponse>(
-      { url, params, body },
+      { url, params, body, accessToken },
       { method: 'POST', ...init }
     );
   };
 
   const PUT = async <TResponse = unknown>(
-    { url, params, body }: ApiRequest,
+    { url, params, body, accessToken }: ApiRequest,
     init: Omit<RequestInit, 'credentials'> = {}
   ) => {
     return await request<TResponse>(
-      { url, params, body },
+      { url, params, body, accessToken },
       { method: 'PUT', ...init }
     );
   };
   const DELETE = async <TResponse = unknown>(
-    { url, params, body }: ApiRequest,
+    { url, params, body, accessToken }: ApiRequest,
     init: Omit<RequestInit, 'credentials'> = {}
   ) => {
     return await request<TResponse>(
-      { url, params, body },
+      { url, params, body, accessToken },
       { method: 'DELETE', ...init }
     );
   };
@@ -69,11 +70,11 @@ export default fetchClient();
  * @description Fetch API를 사용하여 HTTP 요청을 보내는 함수입니다. 호출하는 위치에 따라 에러 리턴이 다릅니다.
  */
 const request = async <TResponse>(
-  { url, params, body }: ApiRequest,
+  { url, params, body, accessToken }: ApiRequest,
   init: Omit<RequestInit, 'credentials'> = {}
 ) => {
   const sessionStore = initializeStore();
-  const token = sessionStore.getState().accessToken;
+  const token = accessToken ?? sessionStore.getState().accessToken;
 
   const headers = new Headers(init.headers);
   if (token) headers.set('Authorization', `Bearer ${token}`);

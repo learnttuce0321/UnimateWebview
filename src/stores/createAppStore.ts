@@ -2,6 +2,7 @@ import { type StoreApi } from 'zustand';
 import { devtools } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 import { createStore } from 'zustand/vanilla';
+import { Region, UserInterestRegions } from '../types/Region';
 
 export interface AppState {
   // UI 상태
@@ -9,6 +10,7 @@ export interface AppState {
   error: string | null;
   accessToken: string | null;
   isWebview: boolean;
+  userInterestRegion: UserInterestRegions;
 }
 
 export interface AppActions {
@@ -21,6 +23,10 @@ export interface AppActions {
 
   // 토큰 관련 액션
   setAccessToken: (token: string | null) => void;
+
+  // 관심도시 설정
+  addInterestRegion: (region: Region) => void;
+  removeInterestRegion: (region: Region) => void;
 }
 
 export type AppStore = AppState & AppActions;
@@ -32,6 +38,7 @@ const defaultInitialState: AppState = {
   error: null,
   accessToken: '',
   isWebview: false,
+  userInterestRegion: [],
 };
 
 let appStore: StoreApi<AppStore> | null = null;
@@ -64,6 +71,20 @@ export const initializeStore = (initialState?: InitialStore): Store => {
           set((state) => {
             state.accessToken = token;
           }),
+
+        addInterestRegion: (region) => {
+          set((state) => {
+            state.userInterestRegion = [...state.userInterestRegion, region];
+          });
+        },
+
+        removeInterestRegion: (removeRegion) => {
+          set((state) => {
+            state.userInterestRegion = state.userInterestRegion.filter(
+              (userRegion) => userRegion.regionId !== removeRegion.regionId
+            );
+          });
+        },
       })),
       {
         name: 'unimate-store',
