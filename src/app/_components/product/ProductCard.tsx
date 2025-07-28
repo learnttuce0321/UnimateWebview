@@ -2,7 +2,7 @@
 
 import ProductImage from 'app/_components/product/ProductImage';
 import ProductInfo from 'app/_components/product/ProductInfo';
-import { ProductPost } from 'app/register/_type/registerType';
+import { ProductPost } from '../../../types/Product';
 import navigationScheme from '../../../utils/navigationScheme';
 
 interface Props {
