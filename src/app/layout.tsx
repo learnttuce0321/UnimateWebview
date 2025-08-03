@@ -5,6 +5,7 @@ import './global.css';
 import ReactQueryProvider from '../components/ReactQueryProvider';
 import ZustandProvider from '../providers/ZustandProvider';
 import { fetchUserInterestRegion } from './_query/fetchUserRegion';
+import { getInitialCommonData } from 'modules/getInitialCommonData';
 
 export const metadata: Metadata = {
   title: '유니메이트 - UniMate',
@@ -23,27 +24,13 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const header = headers();
-
-  const authHeader = header.get('Authorization');
-  const accessToken = authHeader?.startsWith('Bearer ')
-    ? authHeader.substring(7)
-    : authHeader;
-  const isWebview = header.get('IsWebview') === 'true';
-
-  const userInterestRegion = await fetchUserInterestRegion(accessToken);
+  const initialData = await getInitialCommonData();
 
   return (
     <html>
       <body>
         <ReactQueryProvider>
-          <ZustandProvider
-            initialState={{
-              accessToken, // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInByb3ZpZGVyIjoiS0FLQU8iLCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzQ5OTY5MzI0LCJleHAiOjE3NTc3NDUzMjR9.bDpurCfyQ906gPYbPzEnOkzoZpBxLElwXjKY3rwWj9Q'
-              isWebview,
-              userInterestRegion,
-            }}
-          >
+          <ZustandProvider initialState={initialData}>
             {children}
           </ZustandProvider>
         </ReactQueryProvider>

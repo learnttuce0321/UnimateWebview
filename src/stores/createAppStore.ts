@@ -10,7 +10,7 @@ export interface AppState {
   error: string | null;
   accessToken: string | null;
   isWebview: boolean;
-  userInterestRegion: UserInterestRegions;
+  userInterestRegions: UserInterestRegions;
 }
 
 export interface AppActions {
@@ -38,7 +38,7 @@ const defaultInitialState: AppState = {
   error: null,
   accessToken: '',
   isWebview: false,
-  userInterestRegion: [],
+  userInterestRegions: [],
 };
 
 let appStore: StoreApi<AppStore> | null = null;
@@ -74,13 +74,13 @@ export const initializeStore = (initialState?: InitialStore): Store => {
 
         addInterestRegion: (region) => {
           set((state) => {
-            state.userInterestRegion = [...state.userInterestRegion, region];
+            state.userInterestRegions = [...state.userInterestRegions, region];
           });
         },
 
         removeInterestRegion: (removeRegion) => {
           set((state) => {
-            state.userInterestRegion = state.userInterestRegion.filter(
+            state.userInterestRegions = state.userInterestRegions.filter(
               (userRegion) => userRegion.regionId !== removeRegion.regionId
             );
           });

@@ -11,10 +11,14 @@ export const fetchUserInterestRegion = async (accessToken: string | null) => {
   const { fetchQuery } = createSSRQueryClient();
 
   try {
-    userRegion = await fetchQuery<UserInterestRegions>({
+    const userRegionResponse = await fetchQuery<{
+      interestRegions: UserInterestRegions;
+    }>({
       url: API_USER_REGION,
       accessToken,
     });
+
+    userRegion = userRegionResponse.interestRegions;
   } catch (error) {
     console.error('Failed to fetch user region:', error);
   }
