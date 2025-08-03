@@ -1,11 +1,9 @@
 import React from 'react';
 import type { Metadata, Viewport } from 'next';
-import { headers } from 'next/headers';
+import { getInitialCommonData } from 'modules/getInitialCommonData';
 import './global.css';
 import ReactQueryProvider from '../components/ReactQueryProvider';
 import ZustandProvider from '../providers/ZustandProvider';
-import { fetchUserInterestRegion } from './_query/fetchUserRegion';
-import { getInitialCommonData } from 'modules/getInitialCommonData';
 
 export const metadata: Metadata = {
   title: '유니메이트 - UniMate',

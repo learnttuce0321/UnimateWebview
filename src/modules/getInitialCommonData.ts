@@ -19,7 +19,6 @@ export const getInitialCommonData: () => Promise<InitialData> = async () => {
   const isWebview = header.get('IsWebview') === 'true';
 
   const userInterestRegions = await fetchUserInterestRegion(accessToken);
-  console.log(userInterestRegions);
 
   return {
     accessToken,
