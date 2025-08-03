@@ -1,7 +1,8 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
 import FavoriteCitiesItem from 'app/_components/favoriteCitiesDropdown/FavoriteCitiesItem';
+import { useMutationChangePrimaryRegion } from 'app/_hooks/useMutationChangePrimaryRegion';
+import { useAppStore } from '../../../stores';
 import navigationScheme from '../../../utils/navigationScheme';
 
 interface Props {
@@ -10,33 +11,39 @@ interface Props {
 
 const FavoriteCitiesDropdownList = ({ onClose }: Props) => {
   const { openWeb } = navigationScheme();
-  const searchParams = useSearchParams();
-  const cityId = searchParams.get('cityId');
+  const { mutate } = useMutationChangePrimaryRegion();
 
-  // TODO: Zustand
-  const favoriteCities = [
-    { id: '1', name: 'san' },
-    { id: '2', name: 'san' },
-    { id: '3', name: 'san' },
-  ];
+  const userInterestRegions = useAppStore((state) => state.userInterestRegions);
+  const changePrimaryRegion = useAppStore((state) => state.changePrimaryRegion);
 
-  const handleCityClick = (selectedCityId: string) => {
-    openWeb(`/?cityId= `);
-    onClose();
+  const handleCityClick = (selectedCityId: string, regionPrimary: boolean) => {
+    if (regionPrimary) {
+      return onClose();
+    }
+
+    mutate(
+      { regionId: selectedCityId },
+      {
+        onSettled: () => {
+          changePrimaryRegion(selectedCityId);
+          onClose();
+        },
+      }
+    );
   };
 
   const handleSetFavoriteCityClick = () => {
-    openWeb(`/favorite?cityId=${1}`);
+    openWeb(`/favorite`);
   };
 
   return (
     <div className="absolute z-[11]">
       <div className="w-[163px] rounded-[10px] bg-white py-[8px]">
-        {favoriteCities.map((city) => (
+        {userInterestRegions.map((region) => (
           <FavoriteCitiesItem
-            key={city.id}
-            city={city}
-            onClick={handleCityClick}
+            key={region.regionId}
+            region={region}
+            onClick={() => handleCityClick(region.regionId, region.isPrimary)}
           />
         ))}
         <p

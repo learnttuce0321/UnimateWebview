@@ -1,25 +1,22 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
-import { normalizeString } from 'modules/normalize';
+import { Region } from '../../../types/Region';
 
 interface Props {
-  city: { id: string; name: string };
+  region: Region;
   onClick: (cityId: string) => void;
 }
 
-const FavoriteCitiesItem = ({ city, onClick }: Props) => {
-  const searchParams = useSearchParams();
-  const cityId = searchParams.get('cityId');
-
-  const isActive = city.id === normalizeString(cityId);
-
+const FavoriteCitiesItem = ({
+  region: { regionId, regionName, isPrimary },
+  onClick,
+}: Props) => {
   return (
     <p
-      className={`h-[30px] w-full ${isActive && 'bg-blue_gray-100'} ${isActive ? 'text-blue-600_P' : 'text-blue_gray-600'} px-[26px] text-[14px] leading-[30px] hover:cursor-pointer`}
-      onClick={() => onClick(city.id)}
+      className={`h-[30px] w-full ${isPrimary && 'bg-blue_gray-100'} ${isPrimary ? 'text-blue-600_P' : 'text-blue_gray-600'} px-[26px] text-[14px] leading-[30px] hover:cursor-pointer`}
+      onClick={() => onClick(regionId)}
     >
-      {city.name}
+      {regionName}
     </p>
   );
 };

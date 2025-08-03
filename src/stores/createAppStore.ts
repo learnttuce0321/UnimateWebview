@@ -12,8 +12,10 @@ export interface AppState {
 
 export interface AppActions {
   // 관심도시 설정
+  getPrimaryRegion: () => Region | undefined;
   addInterestRegion: (region: Region) => void;
-  removeInterestRegion: (region: Region) => void;
+  removeInterestRegion: (regionId: string) => void;
+  changePrimaryRegion: (regionId: string) => void;
 }
 
 export type AppStore = AppState & AppActions;
@@ -35,7 +37,7 @@ export const initializeStore = (initialState?: InitialStore): Store => {
 
   appStore = createStore<AppStore>()(
     devtools(
-      immer((set) => ({
+      immer((set, get) => ({
         ...mergedInitialState,
         addInterestRegion: (region) => {
           set((state) => {
@@ -43,10 +45,25 @@ export const initializeStore = (initialState?: InitialStore): Store => {
           });
         },
 
-        removeInterestRegion: (removeRegion) => {
+        getPrimaryRegion: () => {
+          return get().userInterestRegions.find((region) => region.isPrimary);
+        },
+
+        removeInterestRegion: (regionId) => {
           set((state) => {
             state.userInterestRegions = state.userInterestRegions.filter(
-              (userRegion) => userRegion.regionId !== removeRegion.regionId
+              (userRegion) => userRegion.regionId !== regionId
+            );
+          });
+        },
+
+        changePrimaryRegion: (regionId) => {
+          set((state) => {
+            state.userInterestRegions = state.userInterestRegions.map(
+              (region) => ({
+                ...region,
+                isPrimary: region.regionId === regionId,
+              })
             );
           });
         },

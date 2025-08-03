@@ -5,14 +5,12 @@ import ProductCard from 'app/_components/product/ProductCard';
 import { useInfiniteQueryWithObserver } from 'hooks/useInifiniteQueryWithObserver';
 import fetchClient from 'modules/fetchClient';
 import { API_PRODUCTS_LIST } from 'modules/keyFactory.product';
+import { useAppStore } from 'providers/ZustandProvider';
 import { ProductPostsResponse } from '../../../types/Product';
 
-interface Props {
-  regionId: string;
-}
-
-const ProductList = ({ regionId }: Props) => {
+const ProductList = () => {
   const infiniteTarget = useRef<HTMLDivElement>(null);
+  const getPrimaryRegion = useAppStore((state) => state.getPrimaryRegion);
 
   const {
     data: productPosts,
@@ -29,7 +27,7 @@ const ProductList = ({ regionId }: Props) => {
             url: API_PRODUCTS_LIST,
             params: {
               pageNumber: pageParam,
-              regionId,
+              regionId: getPrimaryRegion()?.regionId ?? '',
             },
           });
 
