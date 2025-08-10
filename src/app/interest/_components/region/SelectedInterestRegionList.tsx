@@ -2,14 +2,10 @@
 
 import { Suspense } from 'react';
 import SelectedInterestRegion from 'app/interest/_components/region/SelectedInterestRegion';
+import { useAppStore } from 'providers/ZustandProvider';
 
 const SelectedInterestRegionList = () => {
-  // TODO: Zustand
-  const InterestRegion = [
-    { id: '1', name: 'san' },
-    { id: '2', name: 'san' },
-    { id: '3', name: 'san' },
-  ];
+  const userInterestRegions = useAppStore((state) => state.userInterestRegions);
 
   return (
     <>
@@ -18,8 +14,8 @@ const SelectedInterestRegionList = () => {
       </h3>
       <ul className="flex flex-col gap-[10px]">
         <Suspense>
-          {InterestRegion.map((city) => (
-            <SelectedInterestRegion key={city.id} city={city} />
+          {userInterestRegions.map((region) => (
+            <SelectedInterestRegion key={region.regionId} region={region} />
           ))}
         </Suspense>
       </ul>

@@ -3,24 +3,22 @@
 import { useState } from 'react';
 import { ActionType } from 'app/interest/_types/search';
 import Modal from 'components/modal/Modal';
+import { SearchedRegion } from 'types/Region';
 
 interface Props {
-  selectedCity: {
-    id: string;
-    name: string;
-  } | null;
+  selectedRegion: SearchedRegion | null;
   handleChangeActionType: (actionType: ActionType) => void;
 }
 
 const AddInterestRegionButton = ({
-  selectedCity,
+  selectedRegion,
   handleChangeActionType,
 }: Props) => {
   const [openAddInterestRegionModal, setOpenAddInterestRegionModal] =
     useState<boolean>(false);
 
   const handleAddInterestRegionClick = () => {
-    if (!selectedCity) return;
+    if (!selectedRegion) return;
 
     setOpenAddInterestRegionModal(true);
   };
@@ -30,7 +28,6 @@ const AddInterestRegionButton = ({
   };
 
   const handleConfirmClick = () => {
-    console.log(`Adding ${selectedCity?.name} to favorite cities...`);
     handleChangeActionType('setting');
     handleModalClose();
   };
@@ -39,7 +36,7 @@ const AddInterestRegionButton = ({
     <>
       <button
         type="button"
-        className={`fixed bottom-[10px] h-[50px] w-[calc(100%-32px)] rounded-[10px] text-white ${selectedCity ? 'bg-blue-600_P' : 'bg-blue_gray-500'}`}
+        className={`fixed bottom-[10px] h-[50px] w-[calc(100%-32px)] rounded-[10px] text-white ${selectedRegion ? 'bg-blue-600_P' : 'bg-blue_gray-500'}`}
         onClick={handleAddInterestRegionClick}
       >
         등록하기
@@ -54,7 +51,7 @@ const AddInterestRegionButton = ({
           onOverlayClick={handleModalClose}
         >
           <p className="text-[16px] font-medium leading-[22.4px] text-gray-900">
-            <span className="text-blue-600_P">{selectedCity?.name}</span>
+            <span className="text-blue-600_P">{selectedRegion?.name}</span>
             을(를) 관심도시에 추가하시겠습니까?
           </p>
         </Modal>

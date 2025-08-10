@@ -1,21 +1,20 @@
 'use client';
 
+import { SearchedRegion } from 'types/Region';
+
 interface Props {
-  city: {
-    id: string;
-    name: string;
-  };
-  currentSelectedCityId: string | undefined;
-  onClick: (cityId: { id: string; name: string }) => void;
+  region: SearchedRegion;
+  isSelectedRegion: boolean;
+  onClick: (region: SearchedRegion) => void;
 }
 
-const SearchedCity = ({ city, currentSelectedCityId, onClick }: Props) => {
+const SearchedCity = ({ region, isSelectedRegion, onClick }: Props) => {
   return (
     <li
-      className={`line-clamp-1 flex h-[45px] w-full items-center border-[1px] pl-[16px] text-[16px] ${currentSelectedCityId === city.id ? 'rounded-[10px] border-blue-600_P bg-blue_gray-50 text-blue-600_P' : 'border-white'}`}
-      onClick={() => onClick(city)}
+      className={`line-clamp-1 flex h-[45px] w-full items-center border-[1px] pl-[16px] text-[16px] ${isSelectedRegion ? 'rounded-[10px] border-blue-600_P bg-blue_gray-50 text-blue-600_P' : 'border-white'}`}
+      onClick={() => onClick(region)}
     >
-      {city.name}
+      {region.name}
     </li>
   );
 };

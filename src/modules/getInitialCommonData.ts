@@ -1,11 +1,11 @@
 import { headers } from 'next/headers';
 import { fetchUserInterestRegion } from 'app/_query/fetchUserRegion';
-import { UserInterestRegions } from '../types/Region';
+import { Region } from 'types/Region';
 
 interface InitialData {
   accessToken: string;
   isWebview: boolean;
-  userInterestRegions: UserInterestRegions;
+  userInterestRegions: Region[];
 }
 export const getInitialCommonData: () => Promise<InitialData> = async () => {
   const header = headers();

@@ -7,10 +7,15 @@ import SearchInterestRegionInput from 'app/interest/_components/search/SearchInt
 import { ActionType } from 'app/interest/_types/search';
 
 const SearchInterestRegionSection = () => {
+  const [inputValue, setInputValue] = useState<string>('');
   const [actionType, setActionType] = useState<ActionType>('setting');
 
   const handleChangeActionType = (value: ActionType) => {
     setActionType(value);
+  };
+
+  const handleInputValueChange = (value: string) => {
+    setInputValue(value);
   };
 
   return (
@@ -18,10 +23,12 @@ const SearchInterestRegionSection = () => {
       <SearchInterestRegionInput
         actionType={actionType}
         handleChangeActionType={handleChangeActionType}
+        inputValue={inputValue}
+        handleInputValueChange={handleInputValueChange}
       />
       {actionType === 'search' ? (
         <SearchedCitiesList
-          inputValue=""
+          inputValue={inputValue}
           handleChangeActionType={handleChangeActionType}
         />
       ) : (
