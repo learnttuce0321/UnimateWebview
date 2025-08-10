@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import {
   DndContext,
   closestCenter,
@@ -15,14 +16,24 @@ import {
   SortableContext,
 } from '@dnd-kit/sortable';
 import SortableImageItem from 'app/register/_components/registerForm/SortableImageItem';
+import { FormDataType } from '../../_type/registerType';
+import { registerApi } from '../../_api/registerApi';
 
 const MAX_IMAGES_COUNT = 10;
 
-export default function RegisterImageForm() {
-  const [images, setImages] = useState<string[]>([
-    '/images/test_images/product_example.png',
-    '/images/test_images/product_example_2.png',
-  ]);
+interface RegisterImageFormProps {
+  setValue: UseFormSetValue<FormDataType>;
+}
+
+export default function RegisterImageForm({
+  setValue,
+}: RegisterImageFormProps) {
+  const [images, setImages] = useState<string[]>([]);
+  const [imageKeys, setImageKeys] = useState<string[]>([]);
+
+  useEffect(() => {
+    setValue('images', imageKeys);
+  }, [imageKeys, setValue]);
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -43,16 +54,38 @@ export default function RegisterImageForm() {
     }
   };
 
-  const handleClickUploadButton = () => {
-    if (images.length < MAX_IMAGES_COUNT) {
-      setImages([...images, '/images/test_images/product_example.png']);
-    } else {
+  const handleClickUploadButton = async () => {
+    if (images.length >= MAX_IMAGES_COUNT) {
       alert('최대 이미지 개수를 초과했습니다.');
+      return;
+    }
+
+    // MEMO : 실제 파일 선택 로직이 필요하지만, 지금은 테스트용으로 고정된 파일명 사용
+    const testFileName = `product_example_${Date.now()}.png`;
+
+    try {
+      console.log('Requesting presigned URL for:', testFileName);
+
+      const response = await registerApi.getPresignedUrl({
+        fileNames: [testFileName],
+      });
+
+      console.log('Presigned URL response:', response);
+
+      const newImageUrl = '/images/test_images/product_example.png';
+      const newImageKey = response.urlList[0].key;
+
+      setImages([...images, newImageUrl]);
+      setImageKeys([...imageKeys, newImageKey]);
+    } catch (error) {
+      console.error('Failed to get presigned URL:', error);
+      alert('이미지 업로드에 실패했습니다.');
     }
   };
 
   const handleRemoveImage = (index: number) => {
     setImages(images.filter((_, i) => i !== index));
+    setImageKeys(imageKeys.filter((_, i) => i !== index));
   };
 
   return (
