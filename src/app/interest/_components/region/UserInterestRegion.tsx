@@ -2,16 +2,23 @@
 
 import { useState } from 'react';
 import Modal from 'components/modal/Modal';
+import { useMutationDeleteInterestRegion } from 'hooks/users/useMutationDeleteInterestRegion';
+import { useAppStore } from 'providers/ZustandProvider';
 import { Region } from 'types/Region';
 
 interface Props {
   region: Region;
 }
 
-const SelectedInterestRegion = ({ region }: Props) => {
+const UserInterestRegion = ({ region }: Props) => {
   const { regionName, isPrimary } = region;
   const [openDeleteCityModal, setOpenDeleteCityModal] =
     useState<boolean>(false);
+
+  const { mutate } = useMutationDeleteInterestRegion();
+  const removeInterestRegion = useAppStore(
+    (state) => state.removeInterestRegion
+  );
 
   const handleDeleteCityClick = () => {
     setOpenDeleteCityModal(true);
@@ -22,7 +29,17 @@ const SelectedInterestRegion = ({ region }: Props) => {
   };
 
   const handleConfirmDelete = () => {
-    handleCloseModal();
+    mutate(
+      { regionId: region.regionId },
+      {
+        onSuccess: (_, { regionId }) => {
+          removeInterestRegion(regionId);
+        },
+        onSettled: () => {
+          handleCloseModal();
+        },
+      }
+    );
   };
 
   return (
@@ -59,4 +76,4 @@ const SelectedInterestRegion = ({ region }: Props) => {
   );
 };
 
-export default SelectedInterestRegion;
+export default UserInterestRegion;

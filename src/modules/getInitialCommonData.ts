@@ -1,5 +1,5 @@
 import { headers } from 'next/headers';
-import { fetchUserInterestRegion } from 'app/_query/fetchUserRegion';
+import { fetchUserInterestRegion } from 'modules/fetchUserRegion';
 import { Region } from 'types/Region';
 
 interface InitialData {

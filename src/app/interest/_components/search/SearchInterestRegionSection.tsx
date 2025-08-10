@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import SelectedInterestRegionList from 'app/interest/_components/region/SelectedInterestRegionList';
+import UserInterestRegionList from 'app/interest/_components/region/UserInterestRegionList';
 import SearchedCitiesList from 'app/interest/_components/search/SearchedInterestRegionList';
 import SearchInterestRegionInput from 'app/interest/_components/search/SearchInterestRegionInput';
 import { ActionType } from 'app/interest/_types/search';
@@ -32,7 +32,7 @@ const SearchInterestRegionSection = () => {
           handleChangeActionType={handleChangeActionType}
         />
       ) : (
-        <SelectedInterestRegionList />
+        <UserInterestRegionList />
       )}
     </section>
   );

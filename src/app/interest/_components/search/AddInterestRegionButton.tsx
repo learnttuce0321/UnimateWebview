@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import { ActionType } from 'app/interest/_types/search';
 import Modal from 'components/modal/Modal';
+import { useMutationAddInterestRegion } from 'hooks/users/useMutationAddInterestRegion';
+import { useAppStore } from 'providers/ZustandProvider';
 import { SearchedRegion } from 'types/Region';
 
 interface Props {
@@ -16,6 +18,8 @@ const AddInterestRegionButton = ({
 }: Props) => {
   const [openAddInterestRegionModal, setOpenAddInterestRegionModal] =
     useState<boolean>(false);
+  const { mutate } = useMutationAddInterestRegion();
+  const addInterestRegion = useAppStore((state) => state.addInterestRegion);
 
   const handleAddInterestRegionClick = () => {
     if (!selectedRegion) return;
@@ -28,8 +32,24 @@ const AddInterestRegionButton = ({
   };
 
   const handleConfirmClick = () => {
-    handleChangeActionType('setting');
-    handleModalClose();
+    if (!selectedRegion) return;
+
+    mutate(
+      { regionId: selectedRegion.id },
+      {
+        onSuccess: () => {
+          addInterestRegion({
+            regionId: selectedRegion.id,
+            regionName: selectedRegion.name,
+            isPrimary: false,
+          });
+          handleChangeActionType('setting');
+        },
+        onSettled: () => {
+          handleModalClose();
+        },
+      }
+    );
   };
 
   return (

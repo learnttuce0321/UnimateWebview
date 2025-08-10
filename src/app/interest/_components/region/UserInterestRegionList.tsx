@@ -1,10 +1,10 @@
 'use client';
 
 import { Suspense } from 'react';
-import SelectedInterestRegion from 'app/interest/_components/region/SelectedInterestRegion';
+import SelectedInterestRegion from 'app/interest/_components/region/UserInterestRegion';
 import { useAppStore } from 'providers/ZustandProvider';
 
-const SelectedInterestRegionList = () => {
+const UserInterestRegionList = () => {
   const userInterestRegions = useAppStore((state) => state.userInterestRegions);
 
   return (
@@ -23,4 +23,4 @@ const SelectedInterestRegionList = () => {
   );
 };
 
-export default SelectedInterestRegionList;
+export default UserInterestRegionList;

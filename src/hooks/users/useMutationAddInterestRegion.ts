@@ -6,17 +6,17 @@ interface AddInterestRegionParams {
   regionId: string;
 }
 
-const requestAddInterestRegion = (params: AddInterestRegionParams) => {
+const requestAddInterestRegion = (body: AddInterestRegionParams) => {
   return fetchClient.POST({
     url: API_USER_REGION,
-    params,
+    body,
   });
 };
 
 export const useMutationAddInterestRegion = () => {
   return useMutation({
-    mutationFn: (params: AddInterestRegionParams) => {
-      return requestAddInterestRegion(params);
+    mutationFn: (body: AddInterestRegionParams) => {
+      return requestAddInterestRegion(body);
     },
   });
 };

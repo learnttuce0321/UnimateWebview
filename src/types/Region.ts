@@ -4,7 +4,7 @@
 export interface Region {
   regionId: string;
   regionName: string;
-  isPrimary?: boolean;
+  isPrimary: boolean;
 }
 
 /**

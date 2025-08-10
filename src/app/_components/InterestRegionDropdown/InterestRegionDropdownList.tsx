@@ -1,7 +1,7 @@
 'use client';
 
 import InterestRegionItem from 'app/_components/InterestRegionDropdown/InterestRegionItem';
-import { useMutationChangePrimaryRegion } from 'app/_hooks/useMutationChangePrimaryRegion';
+import { useMutationChangePrimaryRegion } from 'hooks/users/useMutationChangePrimaryRegion';
 import { useAppStore } from 'providers/ZustandProvider';
 import navigationScheme from '../../../utils/navigationScheme';
 
@@ -34,6 +34,7 @@ const InterestRegionDropdownList = ({ onClose }: Props) => {
 
   const handleSetInterestRegionClick = () => {
     openWeb(`/interest`);
+    onClose();
   };
 
   return (

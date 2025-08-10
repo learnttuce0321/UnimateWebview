@@ -9,7 +9,7 @@ interface ChangeInterestRegionParams {
 const requestChangeInterestRegion = ({
   regionId,
 }: ChangeInterestRegionParams) => {
-  return fetchClient.POST({
+  return fetchClient.PATCH({
     url: API_USER_PRIMARY_REGION(regionId),
   });
 };

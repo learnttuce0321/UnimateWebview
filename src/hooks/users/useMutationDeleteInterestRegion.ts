@@ -9,7 +9,7 @@ interface DeleteInterestRegionParams {
 const requestDeleteInterestRegion = ({
   regionId,
 }: DeleteInterestRegionParams) => {
-  return fetchClient.POST({
+  return fetchClient.DELETE({
     url: API_USER_DELETE_REGION(regionId),
   });
 };
