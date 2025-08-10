@@ -17,3 +17,65 @@ export interface FormDataType {
   desc: string; // 상세 설명
   tradeInfo: TradeInfo;
 }
+
+export interface ProductPost {
+  id: number;
+  title: string;
+  createdAt: string;
+  universityName: string;
+  thumbnailUrl: string;
+  price: number;
+  currencyType: 'KRW' | 'USD' | string;
+  likeCount: number;
+  chatRoomCount: number;
+  regionId: string;
+  regionName: string;
+  tradeStatus: 'FOR_SALE' | 'RESERVED' | 'SOLD_OUT' | string;
+}
+
+export interface ProductPostsResponse {
+  content: ProductPost[];
+  hasNext: boolean;
+}
+
+export interface PresignedUrlRequest {
+  fileNames: string[];
+}
+
+export interface PresignedUrlResponse {
+  presignedUrl: string;
+  key: string;
+}
+
+export interface PresignedUrlListResponse {
+  urlList: PresignedUrlResponse[];
+}
+
+export type CategoryType =
+  | 'ELECTRONICS'
+  | 'HOME_APPLIANCES'
+  | 'FURNITURE_INTERIOR'
+  | 'HOUSEHOLD_KITCHEN'
+  | 'WOMENS_CLOTHING'
+  | 'WOMENS_ACCESSORIES'
+  | 'MENS_FASHION'
+  | 'BEAUTY_COSMETICS'
+  | 'SPORTS_LEISURE'
+  | 'HOBBY_GAME'
+  | 'BOOKS_RECORDS'
+  | 'TICKETS_VOUCHERS'
+  | 'FOOD'
+  | 'OTHER_GOODS'
+  | 'BUYING';
+
+export interface ProductPostCreateRequest {
+  title: string;
+  imageKeys: string[];
+  category: CategoryType;
+  price: number;
+  currencyType: 'KRW' | 'USD';
+  description: string;
+  tradeType: 'DIRECT' | 'ONLINE';
+  tradeTypeDescription: string;
+  regionId: string;
+}

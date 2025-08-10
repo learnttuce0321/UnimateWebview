@@ -13,8 +13,8 @@ export default function CategoryList({
   setValue,
   onClickCategory,
 }: Props) {
-  const handleClickCategory = (categoryName: string) => {
-    setValue('category', categoryName);
+  const handleClickCategory = (categoryEN: string) => {
+    setValue('category', categoryEN);
     onClickCategory();
   };
 
@@ -25,7 +25,7 @@ export default function CategoryList({
           <li
             key={item.category}
             className="flex h-[55px] w-full items-center pl-[16px] active:bg-gray-50 active:font-bold active:text-blue-600_P"
-            onClick={() => handleClickCategory(item.category)}
+            onClick={() => handleClickCategory(item.categoryEN)}
           >
             {item.category}
           </li>

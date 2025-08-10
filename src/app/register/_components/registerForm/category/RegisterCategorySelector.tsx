@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import CategoryModal from 'app/register/_components/registerForm/category/CategoryModal';
 import { FormDataType } from 'app/register/_type/registerType';
+import { categoryTestData } from 'app/testDatas/categoryTestData';
 
 type Props = {
   setValue: UseFormSetValue<FormDataType>;
@@ -11,6 +12,12 @@ type Props = {
 export default function RegisterCategorySelector({ setValue, watch }: Props) {
   const [modalOpen, setModalOpen] = useState(false);
   const selectedCategory = watch('category');
+  
+  // 영어 enum을 한글로 변환하는 함수
+  const getCategoryDisplayName = (categoryEN: string) => {
+    const found = categoryTestData.find(item => item.categoryEN === categoryEN);
+    return found ? found.category : categoryEN;
+  };
 
   const handleClickCategory = () => {
     setModalOpen((prev) => !prev);
@@ -26,7 +33,7 @@ export default function RegisterCategorySelector({ setValue, watch }: Props) {
         >
           {selectedCategory ? (
             <div className="flex items-center">
-              <p className="text-blue_gray-900">{selectedCategory}</p>
+              <p className="text-blue_gray-900">{getCategoryDisplayName(selectedCategory)}</p>
             </div>
           ) : (
             '카테고리를 선택해주세요.'

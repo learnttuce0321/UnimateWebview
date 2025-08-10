@@ -36,8 +36,8 @@ export default function RegisterTradeInfo({
               <img
                 src={
                   !isRemote
-                    ? '/images/svg/home/icon-toggle-radio.svg'
-                    : '/images/svg/home/icon-toggle-radio-none.svg'
+                    ? '/images/svg/register/icon-toggle-radio.svg'
+                    : '/images/svg/register/icon-toggle-radio-none.svg'
                 }
                 className="rounded-full"
                 alt="직거래"
@@ -53,8 +53,8 @@ export default function RegisterTradeInfo({
               <img
                 src={
                   isRemote
-                    ? '/images/svg/home/icon-toggle-radio.svg'
-                    : '/images/svg/home/icon-toggle-radio-none.svg'
+                    ? '/images/svg/register/icon-toggle-radio.svg'
+                    : '/images/svg/register/icon-toggle-radio-none.svg'
                 }
                 className="rounded-full"
                 alt="비대면거래"

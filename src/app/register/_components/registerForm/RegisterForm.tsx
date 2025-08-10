@@ -1,21 +1,16 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import dynamic from 'next/dynamic';
 import RegisterCategorySelector from 'app/register/_components/registerForm/category/RegisterCategorySelector';
 import RegisterPriceInfo from 'app/register/_components/registerForm/price/RegisterPriceInfo';
 import RegisterInput from 'app/register/_components/registerForm/RegisterInput';
 import RegisterTradeInfo from 'app/register/_components/registerForm/trade/RegisterTradeInfo';
 import { FormDataType } from 'app/register/_type/registerType';
+import { registerApi } from '../../_api/registerApi';
+import { convertFormDataToApiRequest } from '../../_utils/formDataConverter';
 
-// RegisterImageForm을 클라이언트 전용으로 불러오기 (SSR mismatch 에러)
-const RegisterImageForm = dynamic(
-  () => import('app/register/_components/registerForm/RegisterImageForm'),
-  {
-    ssr: false,
-  }
-);
+import RegisterImageForm from 'app/register/_components/registerForm/RegisterImageForm';
 
 export default function RegisterForm() {
   const {
@@ -24,11 +19,36 @@ export default function RegisterForm() {
     watch,
     handleSubmit,
     formState: { isValid },
-  } = useForm<FormDataType>();
+  } = useForm<FormDataType>({
+    defaultValues: {
+      images: [],
+    },
+  });
 
-  const onSubmit = (data: FormDataType) => {
-    console.log('onSubmit 실행!!');
-    console.log('123123 data >>', data);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const onSubmit = async (data: FormDataType) => {
+    if (isSubmitting) return;
+
+    if (!data.images || data.images.length === 0) {
+      alert('이미지를 하나 이상 선택해주세요.');
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const requestData = convertFormDataToApiRequest(data, data.images);
+
+      await registerApi.createProductPost(requestData);
+
+      alert('상품이 성공적으로 등록되었습니다!');
+    } catch (error) {
+      console.error('상품 등록 실패:', error);
+      alert('상품 등록에 실패했습니다. 다시 시도해주세요.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -36,7 +56,7 @@ export default function RegisterForm() {
       className="flex flex-col gap-[30px] bg-gray-50 p-[16px] first-letter:bg-gray-50"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <RegisterImageForm />
+      <RegisterImageForm setValue={setValue} />
       <RegisterInput
         type="textarea"
         placeholder="글 제목을 입력해주세요."
@@ -67,10 +87,10 @@ export default function RegisterForm() {
       />
       <button
         type="submit"
-        disabled={!isValid}
+        disabled={!isValid || isSubmitting}
         className="mt-4 h-[50px] w-full rounded-[10px] bg-blue-600_P p-2 text-white disabled:bg-blue_gray-500"
       >
-        등록하기
+        {isSubmitting ? '등록 중...' : '등록하기'}
       </button>
     </form>
   );
