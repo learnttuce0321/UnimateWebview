@@ -1,14 +1,17 @@
 import { useState } from 'react';
-import AddFavoriteCityButton from 'app/favorite/_components/search/AddFavoriteCityButton';
-import SearchedCity from 'app/favorite/_components/search/SearchedCity';
-import { ActionType } from 'app/favorite/_types/search';
+import AddFavoriteCityButton from 'app/interest/_components/search/AddInterestRegionButton';
+import SearchedCity from 'app/interest/_components/search/SearchedCity';
+import { ActionType } from 'app/interest/_types/search';
 
 interface Props {
   inputValue: string;
   handleChangeActionType: (actionType: ActionType) => void;
 }
 
-const SearchedCitiesList = ({ inputValue, handleChangeActionType }: Props) => {
+const SearchedInterestRegionList = ({
+  inputValue,
+  handleChangeActionType,
+}: Props) => {
   const [selectedCity, setSelectedCity] = useState<{
     id: string;
     name: string;
@@ -42,4 +45,4 @@ const SearchedCitiesList = ({ inputValue, handleChangeActionType }: Props) => {
   );
 };
 
-export default SearchedCitiesList;
+export default SearchedInterestRegionList;

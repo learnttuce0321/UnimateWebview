@@ -5,28 +5,17 @@ import { createStore } from 'zustand/vanilla';
 import { Region, UserInterestRegions } from '../types/Region';
 
 export interface AppState {
-  // UI 상태
-  isLoading: boolean;
-  error: string | null;
   accessToken: string | null;
   isWebview: boolean;
-  userInterestRegion: UserInterestRegions;
+  userInterestRegions: UserInterestRegions;
 }
 
 export interface AppActions {
-  // UI 상태 액션
-  setLoading: (isLoading: boolean) => void;
-  setError: (error: string | null) => void;
-
-  // 초기화
-  reset: () => void;
-
-  // 토큰 관련 액션
-  setAccessToken: (token: string | null) => void;
-
   // 관심도시 설정
+  getPrimaryRegion: () => Region | undefined;
   addInterestRegion: (region: Region) => void;
-  removeInterestRegion: (region: Region) => void;
+  removeInterestRegion: (regionId: string) => void;
+  changePrimaryRegion: (regionId: string) => void;
 }
 
 export type AppStore = AppState & AppActions;
@@ -34,11 +23,9 @@ export type Store = StoreApi<AppStore>;
 export type InitialStore = Partial<AppState>;
 
 const defaultInitialState: AppState = {
-  isLoading: false,
-  error: null,
   accessToken: '',
   isWebview: false,
-  userInterestRegion: [],
+  userInterestRegions: [],
 };
 
 let appStore: StoreApi<AppStore> | null = null;
@@ -50,38 +37,33 @@ export const initializeStore = (initialState?: InitialStore): Store => {
 
   appStore = createStore<AppStore>()(
     devtools(
-      immer((set) => ({
+      immer((set, get) => ({
         ...mergedInitialState,
-        // UI 상태 액션
-        setLoading: (isLoading) =>
-          set((state) => {
-            state.isLoading = isLoading;
-          }),
-
-        setError: (error) =>
-          set((state) => {
-            state.error = error;
-          }),
-
-        // 초기화
-        reset: () => set(mergedInitialState),
-
-        // 토큰 관련 액션
-        setAccessToken: (token) =>
-          set((state) => {
-            state.accessToken = token;
-          }),
-
         addInterestRegion: (region) => {
           set((state) => {
-            state.userInterestRegion = [...state.userInterestRegion, region];
+            state.userInterestRegions = [...state.userInterestRegions, region];
           });
         },
 
-        removeInterestRegion: (removeRegion) => {
+        getPrimaryRegion: () => {
+          return get().userInterestRegions.find((region) => region.isPrimary);
+        },
+
+        removeInterestRegion: (regionId) => {
           set((state) => {
-            state.userInterestRegion = state.userInterestRegion.filter(
-              (userRegion) => userRegion.regionId !== removeRegion.regionId
+            state.userInterestRegions = state.userInterestRegions.filter(
+              (userRegion) => userRegion.regionId !== regionId
+            );
+          });
+        },
+
+        changePrimaryRegion: (regionId) => {
+          set((state) => {
+            state.userInterestRegions = state.userInterestRegions.map(
+              (region) => ({
+                ...region,
+                isPrimary: region.regionId === regionId,
+              })
             );
           });
         },

@@ -1,11 +1,11 @@
 'use client';
 
 import { Suspense } from 'react';
-import SelectedFavoriteCity from 'app/favorite/_components/favoriteCities/SelectedFavoriteCity';
+import SelectedInterestRegion from 'app/interest/_components/region/SelectedInterestRegion';
 
-const SelectedFavoriteCitiesList = () => {
+const SelectedInterestRegionList = () => {
   // TODO: Zustand
-  const favoriteCities = [
+  const InterestRegion = [
     { id: '1', name: 'san' },
     { id: '2', name: 'san' },
     { id: '3', name: 'san' },
@@ -18,8 +18,8 @@ const SelectedFavoriteCitiesList = () => {
       </h3>
       <ul className="flex flex-col gap-[10px]">
         <Suspense>
-          {favoriteCities.map((city) => (
-            <SelectedFavoriteCity key={city.id} city={city} />
+          {InterestRegion.map((city) => (
+            <SelectedInterestRegion key={city.id} city={city} />
           ))}
         </Suspense>
       </ul>
@@ -27,4 +27,4 @@ const SelectedFavoriteCitiesList = () => {
   );
 };
 
-export default SelectedFavoriteCitiesList;
+export default SelectedInterestRegionList;

@@ -9,14 +9,14 @@ const navigationScheme = () => {
 
       if (!isWebview) return window.open(pathname, '_blank');
 
-      return (location.href = `neapp://?openweb=${encodeURIComponent(
+      return (location.href = `unimate://open?url=${encodeURIComponent(
         pathname.toString()
       )}`);
     },
     closeWeb: () => {
       if (!isWebview) return window.close();
 
-      return (location.href = 'neapp://?applink=webClose');
+      return (location.href = 'unimate://close');
     },
   };
 };
