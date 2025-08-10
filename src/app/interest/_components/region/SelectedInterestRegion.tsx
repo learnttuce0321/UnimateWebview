@@ -11,7 +11,7 @@ interface Props {
   };
 }
 
-const SelectedFavoriteCity = ({ city }: Props) => {
+const SelectedInterestRegion = ({ city }: Props) => {
   const [openDeleteCityModal, setOpenDeleteCityModal] =
     useState<boolean>(false);
   const searchParams = useSearchParams();
@@ -65,4 +65,4 @@ const SelectedFavoriteCity = ({ city }: Props) => {
   );
 };
 
-export default SelectedFavoriteCity;
+export default SelectedInterestRegion;

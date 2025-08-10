@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Metadata, Viewport } from 'next';
+import { getInitialCommonData } from 'modules/getInitialCommonData';
 import './global.css';
 import ReactQueryProvider from '../components/ReactQueryProvider';
 import ZustandProvider from '../providers/ZustandProvider';
@@ -16,16 +17,20 @@ export const viewport: Viewport = {
   userScalable: false,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const initialData = await getInitialCommonData();
+
   return (
-    <html className="font-pretendard">
+    <html>
       <body>
         <ReactQueryProvider>
-          <ZustandProvider>{children}</ZustandProvider>
+          <ZustandProvider initialState={initialData}>
+            {children}
+          </ZustandProvider>
         </ReactQueryProvider>
       </body>
     </html>

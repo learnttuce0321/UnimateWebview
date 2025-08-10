@@ -16,9 +16,9 @@ export const convertFormDataToApiRequest = (
   const category = (formData.category || 'OTHER_GOODS') as CategoryType;
   const price = priceInfo?.isForGiveaway ? 0 : priceInfo?.price || 0;
   const currencyType = (priceInfo?.isDollar ? 'USD' : 'KRW') as 'USD' | 'KRW';
-  const tradeType = (tradeInfo?.isRemote ? 'REMOTE' : 'DIRECT') as
+  const tradeType = (tradeInfo?.isRemote ? 'ONLINE' : 'DIRECT') as
     | 'DIRECT'
-    | 'REMOTE';
+    | 'ONLINE';
   const tradeTypeDescription = tradeInfo?.tradeLocation || '직거래 가능';
 
   const result = {

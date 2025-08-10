@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import SearchInputIcon from 'app/favorite/_components/search/SearchInputIcon';
-import { ActionType } from 'app/favorite/_types/search';
+import SearchInputIcon from 'app/interest/_components/search/SearchInputIcon';
+import { ActionType } from 'app/interest/_types/search';
 // import { debounce } from 'app/modules/util';
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
   handleChangeActionType: (actionType: ActionType) => void;
 }
 
-const SearchFavoriteCitiesInput = ({
+const SearchInterestRegionInput = ({
   actionType,
   handleChangeActionType,
 }: Props) => {
@@ -40,4 +40,4 @@ const SearchFavoriteCitiesInput = ({
   );
 };
 
-export default SearchFavoriteCitiesInput;
+export default SearchInterestRegionInput;

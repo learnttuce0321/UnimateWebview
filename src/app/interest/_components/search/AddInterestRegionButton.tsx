@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { ActionType } from 'app/favorite/_types/search';
+import { ActionType } from 'app/interest/_types/search';
 import Modal from 'components/modal/Modal';
 
 interface Props {
@@ -12,21 +12,21 @@ interface Props {
   handleChangeActionType: (actionType: ActionType) => void;
 }
 
-const AddFavoriteCityButton = ({
+const AddInterestRegionButton = ({
   selectedCity,
   handleChangeActionType,
 }: Props) => {
-  const [openAddFavoriteCityModal, setOpenAddFavoriteCityModal] =
+  const [openAddInterestRegionModal, setOpenAddInterestRegionModal] =
     useState<boolean>(false);
 
-  const handleAddFavoriteCityClick = () => {
+  const handleAddInterestRegionClick = () => {
     if (!selectedCity) return;
 
-    setOpenAddFavoriteCityModal(true);
+    setOpenAddInterestRegionModal(true);
   };
 
   const handleModalClose = () => {
-    setOpenAddFavoriteCityModal(false);
+    setOpenAddInterestRegionModal(false);
   };
 
   const handleConfirmClick = () => {
@@ -40,13 +40,13 @@ const AddFavoriteCityButton = ({
       <button
         type="button"
         className={`fixed bottom-[10px] h-[50px] w-[calc(100%-32px)] rounded-[10px] text-white ${selectedCity ? 'bg-blue-600_P' : 'bg-blue_gray-500'}`}
-        onClick={handleAddFavoriteCityClick}
+        onClick={handleAddInterestRegionClick}
       >
         등록하기
       </button>
-      {openAddFavoriteCityModal && (
+      {openAddInterestRegionModal && (
         <Modal
-          isOpened={openAddFavoriteCityModal}
+          isOpened={openAddInterestRegionModal}
           confirmText="예"
           onConfirm={handleConfirmClick}
           cancelText="아니요"
@@ -63,4 +63,4 @@ const AddFavoriteCityButton = ({
   );
 };
 
-export default AddFavoriteCityButton;
+export default AddInterestRegionButton;

@@ -1,12 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import SelectedFavoriteCitiesList from 'app/favorite/_components/favoriteCities/SelectedFavoriteCitiesList';
-import SearchedCitiesList from 'app/favorite/_components/search/SearchedCitiesList';
-import SearchFavoriteCitiesInput from 'app/favorite/_components/search/SearchFavoriteCitiesInput';
-import { ActionType } from 'app/favorite/_types/search';
+import SelectedInterestRegionList from 'app/interest/_components/region/SelectedInterestRegionList';
+import SearchedCitiesList from 'app/interest/_components/search/SearchedInterestRegionList';
+import SearchInterestRegionInput from 'app/interest/_components/search/SearchInterestRegionInput';
+import { ActionType } from 'app/interest/_types/search';
 
-const SearchFavoriteCitiesSection = () => {
+const SearchInterestRegionSection = () => {
   const [actionType, setActionType] = useState<ActionType>('setting');
 
   const handleChangeActionType = (value: ActionType) => {
@@ -15,7 +15,7 @@ const SearchFavoriteCitiesSection = () => {
 
   return (
     <section>
-      <SearchFavoriteCitiesInput
+      <SearchInterestRegionInput
         actionType={actionType}
         handleChangeActionType={handleChangeActionType}
       />
@@ -25,10 +25,10 @@ const SearchFavoriteCitiesSection = () => {
           handleChangeActionType={handleChangeActionType}
         />
       ) : (
-        <SelectedFavoriteCitiesList />
+        <SelectedInterestRegionList />
       )}
     </section>
   );
 };
 
-export default SearchFavoriteCitiesSection;
+export default SearchInterestRegionSection;

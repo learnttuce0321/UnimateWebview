@@ -7,33 +7,33 @@ interface Props {
   title: string;
   createdAt: string;
   price: number;
-  isVerified: boolean;
-  university: string;
+  universityName: string;
   likeCount: number;
-  chatCount: number;
+  chatRoomCount: number;
 }
 
 const ProductInfo = ({
   title,
   createdAt,
   price,
-  isVerified,
-  university,
+  universityName,
   likeCount,
-  chatCount,
+  chatRoomCount,
 }: Props) => {
   return (
     <div className="flex w-[calc(100%-108px)] flex-col justify-between">
-      <div className="flex w-full flex-col justify-start gap-[6px]">
+      <div className="flex w-full flex-col justify-start gap-[6px] text-start">
         <ProductTitle title={title} />
         <ProductRegistrationMeta
           createdAt={createdAt}
-          isVerified={isVerified}
-          university={university}
+          universityName={universityName}
         />
         <ProductPrice price={price} />
       </div>
-      <ProductUserReaction likeCount={likeCount} chatCount={chatCount} />
+      <ProductUserReaction
+        likeCount={likeCount}
+        chatRoomCount={chatRoomCount}
+      />
     </div>
   );
 };

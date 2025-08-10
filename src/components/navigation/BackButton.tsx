@@ -1,5 +1,7 @@
 'use client';
 
+import navigationScheme from '../../utils/navigationScheme';
+
 interface Props {
   className: HTMLButtonElement['className'];
   onClick?: () => void;
@@ -7,14 +9,13 @@ interface Props {
 }
 
 const BackButton = ({ className, onClick, children }: Props) => {
-  // const {closeWeb} = useScheme();
+  const { closeWeb } = navigationScheme();
 
   const handleClick = () => {
     if (onClick) {
       onClick();
     } else {
-      // closeWeb()
-      window.history.back();
+      closeWeb();
     }
   };
 

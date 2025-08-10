@@ -51,7 +51,7 @@ export interface PresignedUrlListResponse {
   urlList: PresignedUrlResponse[];
 }
 
-export type CategoryType = 
+export type CategoryType =
   | 'ELECTRONICS'
   | 'HOME_APPLIANCES'
   | 'FURNITURE_INTERIOR'
@@ -75,7 +75,7 @@ export interface ProductPostCreateRequest {
   price: number;
   currencyType: 'KRW' | 'USD';
   description: string;
-  tradeType: 'DIRECT' | 'REMOTE';
+  tradeType: 'DIRECT' | 'ONLINE';
   tradeTypeDescription: string;
   regionId: string;
 }

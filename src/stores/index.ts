@@ -6,5 +6,3 @@ export {
 } from '../providers/ZustandProvider';
 export { StoreProvider, initializeStore } from './rootStore';
 export type { InitialStore, Store } from './rootStore';
-
-export * from './selectors';

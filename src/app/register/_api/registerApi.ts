@@ -1,7 +1,7 @@
 import {
   API_PRODUCTS_POSTS,
   API_PRODUCTS_POSTS_PRESIGNED_URL,
-} from 'modules/keyFactory';
+} from 'modules/keyFactory.product';
 import {
   PresignedUrlRequest,
   PresignedUrlListResponse,
