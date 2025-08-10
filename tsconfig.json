@@ -26,6 +26,7 @@
       "constants/*": ["./src/constants/*"],
       "hooks/*": ["./src/hooks/*"],
       "stores/*": ["./src/stores/*"],
+      "types/*": ["./src/types/*"],
       "providers/*": ["./src/providers/*"]
     }
   },

@@ -47,6 +47,17 @@ const fetchClient = () => {
       { method: 'PUT', ...init }
     );
   };
+
+  const PATCH = async <TResponse = unknown>(
+    { url, params, body, accessToken }: ApiRequest,
+    init: Omit<RequestInit, 'credentials'> = {}
+  ) => {
+    return await request<TResponse>(
+      { url, params, body, accessToken },
+      { method: 'PATCH', ...init }
+    );
+  };
+
   const DELETE = async <TResponse = unknown>(
     { url, params, body, accessToken }: ApiRequest,
     init: Omit<RequestInit, 'credentials'> = {}
@@ -61,6 +72,7 @@ const fetchClient = () => {
     GET,
     POST,
     PUT,
+    PATCH,
     DELETE,
   };
 };

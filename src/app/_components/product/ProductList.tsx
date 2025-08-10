@@ -2,7 +2,7 @@
 
 import { useRef } from 'react';
 import ProductCard from 'app/_components/product/ProductCard';
-import { useInfiniteQueryWithObserver } from 'hooks/useInifiniteQueryWithObserver';
+import { useInfiniteQueryWithObserver } from 'hooks/useInfiniteQueryWithObserver';
 import fetchClient from 'modules/fetchClient';
 import { API_PRODUCTS_LIST } from 'modules/keyFactory.product';
 import { useAppStore } from 'providers/ZustandProvider';

@@ -14,11 +14,11 @@ export const API_USER_REGION = '/api/v1/users/regions';
  * @PATCH 기본 관심지역 설정 API
  */
 export const API_USER_PRIMARY_REGION = (regionId: string) =>
-  `/api/v1/users/regions${regionId}/primary`;
+  `/api/v1/users/regions/${regionId}/primary`;
 
 /**
  *
  * @DELETE 관심지역 삭제 API
  */
 export const API_USER_DELETE_REGION = (regionId: string) =>
-  `/api/v1/users/regions${regionId}`;
+  `/api/v1/users/regions/${regionId}`;

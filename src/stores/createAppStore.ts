@@ -2,12 +2,12 @@ import { type StoreApi } from 'zustand';
 import { devtools } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 import { createStore } from 'zustand/vanilla';
-import { Region, UserInterestRegions } from '../types/Region';
+import { Region } from '../types/Region';
 
 export interface AppState {
   accessToken: string | null;
   isWebview: boolean;
-  userInterestRegions: UserInterestRegions;
+  userInterestRegions: Region[];
 }
 
 export interface AppActions {

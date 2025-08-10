@@ -1,18 +1,18 @@
 import { API_USER_REGION } from 'modules/keyFactory.user';
 import { createSSRQueryClient } from 'modules/queryClient.server';
-import { UserInterestRegions } from '../../types/Region';
+import { Region } from 'types/Region';
 
 export const fetchUserInterestRegion = async (accessToken: string | null) => {
   if (!accessToken) {
     return [];
   }
 
-  let userRegion: UserInterestRegions = [];
+  let userRegion: Region[] = [];
   const { fetchQuery } = createSSRQueryClient();
 
   try {
     const userRegionResponse = await fetchQuery<{
-      interestRegions: UserInterestRegions;
+      interestRegions: Region[];
     }>({
       url: API_USER_REGION,
       accessToken,
