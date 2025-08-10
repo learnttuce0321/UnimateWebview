@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import { useAppStore } from 'providers/ZustandProvider';
-import FavoriteCitesDropdown from './FavoriteCitiesDropdown';
+import InterestRegionDropdown from './InterestRegionDropdown';
 
-const FavoriteCitiesDropdownButton = () => {
-  const [openFavoriteCitiesDropdown, setOpenFavoriteCitiesDropdown] =
+const InterestRegionDropdownButton = () => {
+  const [openInterestRegionDropdown, setOpenInterestRegionDropdown] =
     useState<boolean>(false);
   const getPrimaryRegion = useAppStore((state) => state.getPrimaryRegion);
 
@@ -13,7 +13,7 @@ const FavoriteCitiesDropdownButton = () => {
     <div className="relative">
       <div
         className="text-900 flex gap-[8px] text-[24px] font-bold"
-        onClick={() => setOpenFavoriteCitiesDropdown(true)}
+        onClick={() => setOpenInterestRegionDropdown(true)}
       >
         <p>{getPrimaryRegion()?.regionName ?? ''}</p>
         <img
@@ -24,13 +24,13 @@ const FavoriteCitiesDropdownButton = () => {
         />
       </div>
 
-      {openFavoriteCitiesDropdown && (
-        <FavoriteCitesDropdown
-          onClose={() => setOpenFavoriteCitiesDropdown(false)}
+      {openInterestRegionDropdown && (
+        <InterestRegionDropdown
+          onClose={() => setOpenInterestRegionDropdown(false)}
         />
       )}
     </div>
   );
 };
 
-export default FavoriteCitiesDropdownButton;
+export default InterestRegionDropdownButton;

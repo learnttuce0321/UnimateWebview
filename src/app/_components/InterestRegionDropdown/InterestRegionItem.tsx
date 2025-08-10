@@ -7,7 +7,7 @@ interface Props {
   onClick: (cityId: string) => void;
 }
 
-const FavoriteCitiesItem = ({
+const InterestRegionItem = ({
   region: { regionId, regionName, isPrimary },
   onClick,
 }: Props) => {
@@ -21,4 +21,4 @@ const FavoriteCitiesItem = ({
   );
 };
 
-export default FavoriteCitiesItem;
+export default InterestRegionItem;

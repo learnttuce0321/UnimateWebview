@@ -1,4 +1,4 @@
-import { ActionType } from 'app/favorite/_types/search';
+import { ActionType } from 'app/interest/_types/search';
 
 interface Props {
   actionType: ActionType;
