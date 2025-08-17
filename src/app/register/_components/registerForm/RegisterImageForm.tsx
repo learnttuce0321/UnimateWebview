@@ -58,6 +58,7 @@ export default function RegisterImageForm({
       const newIndex = images.findIndex((_, i) => i.toString() === over?.id);
 
       setImages((images) => arrayMove(images, oldIndex, newIndex));
+      setImageKeys((keys) => arrayMove(keys, oldIndex, newIndex));
     }
   };
 
@@ -77,11 +78,18 @@ export default function RegisterImageForm({
     try {
       if (isBridgeAvailable()) {
         // iOS 브릿지를 통한 이미지 선택
-        console.log('Using iOS bridge to select images');
+        console.log('🔗 [BRIDGE] iOS 브릿지 감지 - 이미지 선택 시작');
+        console.log('📱 [BRIDGE] 사진 앱 열기...');
         const selectedImageUrls = await selectImagesFromDevice();
+        
+        console.log('📸 [BRIDGE] 사진 선택 완료! 받은 데이터:', {
+          count: selectedImageUrls.length,
+          urls: selectedImageUrls
+        });
 
         if (selectedImageUrls.length === 0) {
-          console.log('No images selected');
+          console.log('❌ [BRIDGE] 선택된 이미지 없음 - 사용자 취소 또는 선택 안함');
+          alert('선택된 이미지가 없습니다.');
           return;
         }
 
@@ -95,33 +103,71 @@ export default function RegisterImageForm({
           );
         }
 
+        // 🔗 [BRIDGE] 실제 업로드 프로세스 시작
+        console.log('🔗 [BRIDGE] 각 이미지를 순차적으로 업로드합니다:', imagesToProcess);
+        
         // 각 이미지를 순차적으로 업로드
-        for (const fileUrl of imagesToProcess) {
+        for (let i = 0; i < imagesToProcess.length; i++) {
+          const fileUrl = imagesToProcess[i];
           const fileName = extractFileNameFromUrl(fileUrl);
-
-          const result = await uploadImageWithPresignedUrl(
+          
+          console.log(`📤 [UPLOAD ${i + 1}/${imagesToProcess.length}] 업로드 시작:`, {
             fileUrl,
-            fileName,
-            async (fileName) => {
-              const response = await registerApi.getPresignedUrl({
-                fileNames: [fileName],
-              });
-              return {
-                presignedUrl: response.urlList[0].presignedUrl,
-                key: response.urlList[0].key,
-              };
-            }
-          );
+            fileName
+          });
+          
+          try {
+            const result = await uploadImageWithPresignedUrl(
+              fileUrl,
+              fileName,
+              async (fileName) => {
+                console.log(`🔗 [PRESIGNED] ${fileName}에 대한 presigned URL 요청`);
+                const response = await registerApi.getPresignedUrl({
+                  fileNames: [fileName],
+                });
+                console.log(`✅ [PRESIGNED] presigned URL 받음:`, response.urlList[0]);
+                return {
+                  presignedUrl: response.urlList[0].presignedUrl,
+                  key: response.urlList[0].key,
+                };
+              }
+            );
 
-          if (result.success) {
-            setImages((prev) => [...prev, result.localUrl]);
-            setImageKeys((prev) => [...prev, result.imageKey]);
-            console.log('Image uploaded successfully:', result.fileName);
-          } else {
-            console.error('Image upload failed:', result.error);
-            alert(`이미지 업로드 실패: ${result.fileName}`);
+            if (result.success) {
+              console.log(`✅ [UPLOAD SUCCESS] 이미지 업로드 성공:`, {
+                fileName: result.fileName,
+                imageKey: result.imageKey,
+                localUrl: result.localUrl
+              });
+              
+              // 업로드 성공 시에만 UI에 추가
+              setImages(prev => {
+                const newImages = [...prev, result.localUrl];
+                console.log('🖼️ [STATE] images 업데이트 (업로드 성공):', newImages);
+                return newImages;
+              });
+              
+              setImageKeys(prev => {
+                const newKeys = [...prev, result.imageKey];
+                console.log('🔑 [STATE] imageKeys 업데이트 (업로드 성공):', newKeys);
+                return newKeys;
+              });
+              
+            } else {
+              console.error(`❌ [UPLOAD FAILED] 이미지 업로드 실패:`, {
+                fileName: result.fileName,
+                error: result.error
+              });
+              alert(`이미지 업로드 실패: ${result.fileName}\n오류: ${result.error}`);
+            }
+          } catch (error) {
+            console.error(`💥 [UPLOAD ERROR] 업로드 중 예외 발생:`, error);
+            alert(`이미지 업로드 중 오류 발생: ${fileName}`);
           }
         }
+        
+        console.log('🎉 [BRIDGE] 모든 이미지 업로드 프로세스 완료');
+        alert(`업로드 완료! 성공한 이미지가 화면에 표시됩니다.`);
       } else {
         // 웹 환경에서는 테스트용 이미지 사용
         console.log('iOS bridge not available, using test image');
