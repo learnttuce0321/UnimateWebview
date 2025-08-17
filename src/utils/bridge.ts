@@ -30,3 +30,29 @@ export const callBridge = <T extends keyof IOSBridge>(
     (bridge[method] as any)(...args);
   }
 };
+
+export const selectImagesFromDevice = (): Promise<string[]> => {
+  return new Promise((resolve) => {
+    if (isBridgeAvailable()) {
+      const bridge = getBridge();
+      bridge!.pickImage((imageUrls: string[]) => {
+        console.log('Selected images from iOS:', imageUrls);
+        resolve(imageUrls);
+      });
+    } else {
+      console.warn('iOS bridge not available, returning empty array');
+      resolve([]);
+    }
+  });
+};
+
+export const extractFileNameFromUrl = (fileUrl: string): string => {
+  try {
+    const url = new URL(fileUrl);
+    const pathname = url.pathname;
+    const fileName = pathname.split('/').pop() || `image_${Date.now()}.jpg`;
+    return fileName;
+  } catch {
+    return `image_${Date.now()}.jpg`;
+  }
+};
