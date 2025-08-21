@@ -46,8 +46,11 @@ export default function RegisterPriceInfo({
       <div className="flex w-full flex-col gap-[14px]">
         {/* TODO : 달러 및 원화 표시 버튼 리팩토링 => 중복된 로직이 너무 많음 */}
         <div className="flex items-center gap-[12px]">
-          <div className="flex gap-[6px]">
-            <button type="button" onClick={() => handleCurrencyChange(false)}>
+          <div
+            className="flex gap-[6px]"
+            onClick={() => handleCurrencyChange(false)}
+          >
+            <button type="button">
               <img
                 src={
                   !isDollar
@@ -62,8 +65,12 @@ export default function RegisterPriceInfo({
               원화
             </span>
           </div>
-          <div className="flex gap-[6px]">
-            <button type="button" onClick={() => handleCurrencyChange(true)}>
+
+          <div
+            className="flex gap-[6px]"
+            onClick={() => handleCurrencyChange(true)}
+          >
+            <button type="button">
               <img
                 src={
                   isDollar

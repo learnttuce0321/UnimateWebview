@@ -31,8 +31,11 @@ export default function RegisterTradeInfo({
 
       <div className="flex w-full flex-col gap-[14px]">
         <div className="flex items-center gap-[12px]">
-          <div className="flex gap-[6px]">
-            <button type="button" onClick={() => handleCurrencyChange(false)}>
+          <div
+            className="flex gap-[6px]"
+            onClick={() => handleCurrencyChange(false)}
+          >
+            <button type="button">
               <img
                 src={
                   !isRemote
@@ -48,8 +51,11 @@ export default function RegisterTradeInfo({
             </span>
           </div>
 
-          <div className="flex gap-[6px]">
-            <button type="button" onClick={() => handleCurrencyChange(true)}>
+          <div
+            className="flex gap-[6px]"
+            onClick={() => handleCurrencyChange(true)}
+          >
+            <button type="button">
               <img
                 src={
                   isRemote
