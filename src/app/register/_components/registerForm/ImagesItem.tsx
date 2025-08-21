@@ -27,7 +27,7 @@ export default function ImagesItem({ images, index, onRemoveImage }: Props) {
         <img
           src={images}
           alt={`상품 이미지 ${index + 1}`}
-          className="h-full w-full rounded-[5px]"
+          className="h-full w-full rounded-[5px] object-cover"
         />
       </div>
 
