@@ -5,6 +5,7 @@ import {
   UseFormWatch,
 } from 'react-hook-form';
 import { FormDataType } from 'app/register/_type/registerType';
+import { formatNumber } from '../../../../../utils/formatNumber';
 
 type Props = {
   register: UseFormRegister<FormDataType>;
@@ -97,14 +98,21 @@ export default function RegisterPriceInfo({
           </span>
 
           <input
-            type="number"
+            type="text"
             placeholder={isForGiveaway ? '0' : '가격을 입력해주세요.'}
             {...register('priceInfo.price', { required: !isForGiveaway })}
             disabled={isForGiveaway}
-            value={isForGiveaway ? '' : price || ''}
-            onChange={(e) =>
-              setValue('priceInfo.price', Number(e.target.value))
+            value={
+              isForGiveaway
+                ? ''
+                : price && !isDollar
+                  ? formatNumber(price)
+                  : price || ''
             }
+            onChange={(e) => {
+              const rawValue = e.target.value.replace(/[^0-9]/g, '');
+              setValue('priceInfo.price', Number(rawValue));
+            }}
             className="h-[50px] w-full rounded border-[1px] border-solid border-gray-200 bg-white py-[14px] pl-[32px] pr-[16px] text-[16px] font-bold text-blue_gray-900 outline-none placeholder:font-medium placeholder:text-blue_gray-600 disabled:bg-gray-100"
           />
         </div>
