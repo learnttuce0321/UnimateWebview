@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { UseFormSetValue, UseFormWatch } from 'react-hook-form';
+import { UseFormSetValue } from 'react-hook-form';
 import {
   DndContext,
   closestCenter,
@@ -45,7 +45,8 @@ export default function RegisterImageForm({
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
-        distance: 5, // 드래그 인식 최소 거리
+        delay: 500, // 500ms 길게 누르기 후 드래그 시작
+        tolerance: 5,
       },
     })
   );
