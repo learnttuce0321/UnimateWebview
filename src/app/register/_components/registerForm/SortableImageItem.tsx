@@ -24,26 +24,26 @@ export default function SortableImageItem({
     opacity: isDragging ? 0.5 : 1,
   };
 
-  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+  const handleMouseDown = useCallback(() => {
     const timer = setTimeout(() => {
       setIsDragEnabled(true);
     }, 500);
 
-    const handleTouchEnd = () => {
+    const handleMouseUp = () => {
       clearTimeout(timer);
       setIsDragEnabled(false);
-      document.removeEventListener('touchend', handleTouchEnd);
-      document.removeEventListener('touchmove', handleTouchMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener('mousemove', handleMouseMove);
     };
 
-    const handleTouchMove = () => {
+    const handleMouseMove = () => {
       clearTimeout(timer);
-      document.removeEventListener('touchend', handleTouchEnd);
-      document.removeEventListener('touchmove', handleTouchMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener('mousemove', handleMouseMove);
     };
 
-    document.addEventListener('touchend', handleTouchEnd);
-    document.addEventListener('touchmove', handleTouchMove);
+    document.addEventListener('mouseup', handleMouseUp);
+    document.addEventListener('mousemove', handleMouseMove);
   }, []);
 
   const handleContextMenu = useCallback((e: React.MouseEvent) => {
@@ -56,9 +56,9 @@ export default function SortableImageItem({
       style={style}
       {...attributes}
       {...(isDragEnabled ? listeners : {})}
-      onTouchStart={handleTouchStart}
+      onMouseDown={handleMouseDown}
       onContextMenu={handleContextMenu}
-      className="touch-none select-none"
+      className="select-none"
     >
       <ImagesItem images={image} index={index} onRemoveImage={onRemoveImage} />
     </div>
