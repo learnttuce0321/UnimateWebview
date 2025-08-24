@@ -53,11 +53,15 @@ export default function SortableImageItem({
   return (
     <div
       ref={setNodeRef}
-      style={style}
+      style={{
+        ...style,
+        WebkitTouchCallout: 'none',
+        WebkitUserSelect: 'none',
+        userSelect: 'none',
+      }}
       {...attributes}
       {...(isDragEnabled ? listeners : {})}
       onMouseDown={handleMouseDown}
-      onContextMenu={handleContextMenu}
       className="select-none"
     >
       <ImagesItem images={image} index={index} onRemoveImage={onRemoveImage} />
