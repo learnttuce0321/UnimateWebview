@@ -25,7 +25,7 @@ export default function RegisterInput({
   useAutoResizeTextarea(textareaRef);
 
   return (
-    <div className="flex flex-col justify-start gap-[16px]">
+    <div className="flex flex-col justify-start gap-2">
       {label && (
         <label
           htmlFor={`register-product-${name}`}
@@ -43,7 +43,7 @@ export default function RegisterInput({
           <textarea
             id={`register-product-${name}`}
             placeholder={placeholder}
-            className="w-full resize-none overflow-hidden font-[16px] outline-none placeholder:font-medium placeholder:text-blue_gray-600"
+            className="w-full resize-none overflow-hidden font-[16px] outline-none placeholder:font-normal placeholder:text-blue_gray-400"
             rows={1}
             {...registerProps}
             ref={(el) => {
@@ -56,7 +56,7 @@ export default function RegisterInput({
             id={`register-product-${name}`}
             type={type}
             placeholder={placeholder}
-            className="w-full font-[16px] outline-none placeholder:font-medium placeholder:text-blue_gray-600"
+            className="w-full font-[16px] outline-none placeholder:font-normal placeholder:text-blue_gray-400"
             {...register(name, { required })}
           />
         )}

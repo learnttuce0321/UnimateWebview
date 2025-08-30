@@ -25,7 +25,7 @@ export default function RegisterTradeInfo({
 
   return (
     <div className="flex flex-col items-start">
-      <span className="mb-[16px] text-[14px] font-bold text-gray-900">
+      <span className="mb-2 text-[14px] font-bold text-gray-900">
         거래 방식
       </span>
 

@@ -40,9 +40,7 @@ export default function RegisterPriceInfo({
 
   return (
     <div className="flex flex-col items-start">
-      <span className="mb-[16px] text-[14px] font-bold text-gray-900">
-        가격
-      </span>
+      <span className="mb-2 text-[14px] font-bold text-gray-900">가격</span>
 
       <div className="flex w-full flex-col gap-[14px]">
         {/* TODO : 달러 및 원화 표시 버튼 리팩토링 => 중복된 로직이 너무 많음 */}
@@ -91,7 +89,7 @@ export default function RegisterPriceInfo({
         <div className="relative w-full">
           <span
             className={`absolute left-[16px] top-1/2 -translate-y-1/2 text-[16px] transition-colors duration-150 ${
-              price ? 'text-blue_gray-900' : 'text-blue_gray-600'
+              price ? 'text-blue_gray-900' : 'text-blue_gray-400'
             }`}
           >
             {currencySymbol}
@@ -113,7 +111,7 @@ export default function RegisterPriceInfo({
               const rawValue = e.target.value.replace(/[^0-9]/g, '');
               setValue('priceInfo.price', Number(rawValue));
             }}
-            className="h-[50px] w-full rounded border-[1px] border-solid border-gray-200 bg-white py-[14px] pl-[32px] pr-[16px] text-[16px] font-bold text-blue_gray-900 outline-none placeholder:font-medium placeholder:text-blue_gray-600 disabled:bg-gray-100"
+            className="h-[50px] w-full rounded border-[1px] border-solid border-gray-200 bg-white py-[14px] pl-[32px] pr-[16px] text-[16px] font-bold text-blue_gray-900 outline-none placeholder:font-normal placeholder:text-blue_gray-400 disabled:bg-gray-100"
           />
         </div>
 
