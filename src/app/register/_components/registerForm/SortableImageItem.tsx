@@ -1,5 +1,6 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import ImagesItem from 'app/register/_components/registerForm/ImagesItem';
 
 type Props = {
@@ -15,54 +16,27 @@ export default function SortableImageItem({
   index,
   onRemoveImage,
 }: Props) {
-  const [isDragEnabled, setIsDragEnabled] = useState(false);
   const { attributes, listeners, setNodeRef, transform, isDragging } =
-    useSortable({ id, disabled: !isDragEnabled });
+    useSortable({ id });
 
-  const style = {
-    transform: transform ? `translateX(${transform.x}px)` : undefined,
+  const style: React.CSSProperties = {
+    transform: CSS.Transform.toString(transform),
     opacity: isDragging ? 0.5 : 1,
+    WebkitTouchCallout: 'none',
+    WebkitUserSelect: 'none',
+    userSelect: 'none',
+    // 필요 시 드래그 중에만 스크롤 막고 싶다면:
+    // touchAction: isDragging ? 'none' : 'auto',
   };
-
-  const handleMouseDown = useCallback(() => {
-    const timer = setTimeout(() => {
-      setIsDragEnabled(true);
-    }, 500);
-
-    const handleMouseUp = () => {
-      clearTimeout(timer);
-      setIsDragEnabled(false);
-      document.removeEventListener('mouseup', handleMouseUp);
-      document.removeEventListener('mousemove', handleMouseMove);
-    };
-
-    const handleMouseMove = () => {
-      clearTimeout(timer);
-      document.removeEventListener('mouseup', handleMouseUp);
-      document.removeEventListener('mousemove', handleMouseMove);
-    };
-
-    document.addEventListener('mouseup', handleMouseUp);
-    document.addEventListener('mousemove', handleMouseMove);
-  }, []);
-
-  const handleContextMenu = useCallback((e: React.MouseEvent) => {
-    e.preventDefault();
-  }, []);
 
   return (
     <div
       ref={setNodeRef}
-      style={{
-        ...style,
-        WebkitTouchCallout: 'none',
-        WebkitUserSelect: 'none',
-        userSelect: 'none',
-      }}
+      style={style}
       {...attributes}
-      {...(isDragEnabled ? listeners : {})}
-      onMouseDown={handleMouseDown}
+      {...listeners}
       className="select-none"
+      onContextMenu={(e) => e.preventDefault()} // iOS/Safari 길게누르기 메뉴 방지
     >
       <ImagesItem images={image} index={index} onRemoveImage={onRemoveImage} />
     </div>

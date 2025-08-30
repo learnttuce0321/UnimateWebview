@@ -5,7 +5,8 @@ import { UseFormSetValue } from 'react-hook-form';
 import {
   DndContext,
   closestCenter,
-  PointerSensor,
+  MouseSensor,
+  TouchSensor,
   useSensor,
   useSensors,
   DragEndEvent,
@@ -42,60 +43,48 @@ export default function RegisterImageForm({
     setValue('images', imageKeys);
   }, [imageKeys, setValue]);
 
+  // ✅ dnd-kit 센서: 롱프레스 + 스크롤 구분 (움직임 있으면 드래그 취소)
   const sensors = useSensors(
-    useSensor(PointerSensor, {
-      activationConstraint: {
-        delay: 500, // 500ms 길게 누르기 후 드래그 시작
-        tolerance: 5,
-      },
+    useSensor(MouseSensor, {
+      activationConstraint: { delay: 300, tolerance: 8 },
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: { delay: 300, tolerance: 8 },
     })
   );
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
+    if (!over || active.id === over.id) return;
 
-    if (active.id !== over?.id) {
-      const oldIndex = images.findIndex((_, i) => i.toString() === active.id);
-      const newIndex = images.findIndex((_, i) => i.toString() === over?.id);
+    const oldIndex = imageKeys.findIndex((k) => k === active.id);
+    const newIndex = imageKeys.findIndex((k) => k === over.id);
+    if (oldIndex < 0 || newIndex < 0) return;
 
-      setImages((images) => arrayMove(images, oldIndex, newIndex));
-      setImageKeys((keys) => arrayMove(keys, oldIndex, newIndex));
-    }
+    setImages((prev) => arrayMove(prev, oldIndex, newIndex));
+    setImageKeys((prev) => arrayMove(prev, oldIndex, newIndex));
   };
 
   const handleClickUploadButton = async () => {
     setIsUploading(true);
-
     try {
       if (isBridgeAvailable()) {
-        // iOS 브릿지를 통한 이미지 선택
         const selectedImageUrls = await selectImagesFromDevice();
+        if (!selectedImageUrls.length) return;
 
-        if (selectedImageUrls.length === 0) {
-          console.log(
-            '❌ [BRIDGE] 선택된 이미지 없음 - 사용자 취소 또는 선택 안함'
-          );
-          return;
-        }
-
-        // 선택 가능한 이미지 개수 체크
         const remainingSlots = MAX_IMAGES_COUNT - images.length;
         const imagesToProcess = selectedImageUrls.slice(0, remainingSlots);
 
-        // 각 이미지를 순차적으로 업로드
-        for (let i = 0; i < imagesToProcess.length; i++) {
-          const fileUrl = imagesToProcess[i];
+        for (const fileUrl of imagesToProcess) {
           const fileName = extractFileNameFromUrl(fileUrl);
-
           try {
             const result = await uploadImageWithPresignedUrl(
               fileUrl,
               fileName,
-              async (fileName) => {
+              async (fn) => {
                 const response = await registerApi.getPresignedUrl({
-                  fileNames: [fileName],
+                  fileNames: [fn],
                 });
-
                 return {
                   presignedUrl: response.urlList[0].presignedUrl,
                   key: response.urlList[0].key,
@@ -104,56 +93,45 @@ export default function RegisterImageForm({
             );
 
             if (result.success) {
-              // 업로드 성공 시에만 UI에 추가
-              setImages((prev) => {
-                const newImages = [...prev, result.localUrl];
-
-                return newImages;
-              });
-
-              setImageKeys((prev) => {
-                const newKeys = [...prev, result.imageKey];
-
-                return newKeys;
-              });
+              setImages((prev) => [...prev, result.localUrl]);
+              setImageKeys((prev) => [...prev, result.imageKey]); // ✅ 안정적 id
             } else {
-              console.error(`❌ [UPLOAD FAILED] 이미지 업로드 실패:`, {
-                fileName: result.fileName,
-                error: result.error,
-              });
+              console.error('❌ [UPLOAD FAILED]', result);
             }
-          } catch (error) {
-            console.error(`💥 [UPLOAD ERROR] 업로드 중 예외 발생:`, error);
+          } catch (e) {
+            console.error('💥 [UPLOAD ERROR]', e);
           }
         }
       } else {
-        // 웹 환경에서는 테스트용 이미지 사용
+        // 웹 테스트
         const testFileName = `product_example_${Date.now()}.png`;
-
         const response = await registerApi.getPresignedUrl({
           fileNames: [testFileName],
         });
-
-        const newImageUrl = '/images/test_images/product_example.png';
-        const newImageKey = response.urlList[0].key;
-
-        setImages([...images, newImageUrl]);
-        setImageKeys([...imageKeys, newImageKey]);
+        setImages((prev) => [
+          ...prev,
+          '/images/test_images/product_example.png',
+        ]);
+        setImageKeys((prev) => [...prev, response.urlList[0].key]); // ✅ 안정적 id
       }
-    } catch (error) {
-      console.error('Failed to upload images:', error);
+    } catch (e) {
+      console.error('Failed to upload images:', e);
     } finally {
       setIsUploading(false);
     }
   };
 
   const handleRemoveImage = (index: number) => {
-    setImages(images.filter((_, i) => i !== index));
-    setImageKeys(imageKeys.filter((_, i) => i !== index));
+    setImages((prev) => prev.filter((_, i) => i !== index));
+    setImageKeys((prev) => prev.filter((_, i) => i !== index));
   };
 
   return (
-    <div className="no-scrollbar flex h-[73px] items-end overflow-x-auto overflow-y-hidden">
+    <div
+      className="no-scrollbar flex h-[73px] items-end overflow-x-auto overflow-y-hidden"
+      // 팁) 필요하면 여기에 style={{ touchAction: 'pan-x' }}를 주면
+      // 수평 스크롤 의도를 브라우저에 알려줄 수 있습니다.
+    >
       {/* 상품 등록 버튼 */}
       <div className="mr-[16px] flex-shrink-0">
         <button
@@ -190,14 +168,14 @@ export default function RegisterImageForm({
         onDragEnd={handleDragEnd}
       >
         <SortableContext
-          items={images.map((_, i) => i.toString())}
+          items={imageKeys}
           strategy={horizontalListSortingStrategy}
         >
           <div className="flex gap-[16px]">
             {images.map((image, index) => (
               <SortableImageItem
-                key={`${image}-${index}`}
-                id={index.toString()}
+                key={imageKeys[index] ?? `${image}-${index}`}
+                id={imageKeys[index] ?? String(index)}
                 image={image}
                 index={index}
                 onRemoveImage={handleRemoveImage}
