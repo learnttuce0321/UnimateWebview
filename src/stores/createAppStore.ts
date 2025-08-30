@@ -15,10 +15,13 @@ const DEFAULT_PROFILE: User = {
 };
 
 export interface AppState {
-  accessToken: string | null;
-  isWebview: boolean;
   userProfile: User;
   isLogin: boolean;
+}
+
+export interface VanillaAppState {
+  accessToken: string;
+  isWebview: boolean;
 }
 
 export interface AppActions {
@@ -31,11 +34,9 @@ export interface AppActions {
 
 export type AppStore = AppState & AppActions;
 export type Store = StoreApi<AppStore>;
-export type InitialStore = Partial<AppState>;
+export type InitialStore = Partial<AppState> & Partial<VanillaAppState>;
 
-const defaultInitialState: AppState = {
-  accessToken: '',
-  isWebview: false,
+const defaultInitialState: Omit<AppState, 'accessToken' | 'isWebview'> = {
   userProfile: DEFAULT_PROFILE,
   isLogin: false,
 };

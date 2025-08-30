@@ -2,6 +2,7 @@
 
 import React, { useContext, useRef } from 'react';
 import { useStore } from 'zustand';
+import deviceInfoStore from 'stores/vanillaStore.deviceInfo';
 import {
   AppStore,
   InitialStore,
@@ -24,6 +25,14 @@ const ZustandProvider: React.FC<ZustandProviderProps> = ({
 
   if (!storeRef.current) {
     storeRef.current = initializeStore(initialState);
+
+    deviceInfoStore.getState().setDeviceInfo({
+      accessToken: initialState?.accessToken ?? '',
+      // device: initialState.deviceInfo.device,
+      // deviceId: initialState,
+      // version: initialState,
+      isWebView: initialState?.isWebview ?? false,
+    });
   }
 
   return <Provider value={storeRef.current}>{children}</Provider>;
