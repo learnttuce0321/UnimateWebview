@@ -1,5 +1,5 @@
 import { processEnvBaseUrl } from 'constants/environments';
-import { initializeStore } from 'stores/createAppStore';
+import deviceInfoStore from 'stores/vanillaStore.deviceInfo';
 
 export interface ApiRequest {
   url: string;
@@ -85,8 +85,8 @@ const request = async <TResponse>(
   { url, params, body, accessToken }: ApiRequest,
   init: Omit<RequestInit, 'credentials'> = {}
 ) => {
-  const sessionStore = initializeStore();
-  const token = accessToken ?? sessionStore.getState().accessToken;
+  const token =
+    accessToken ?? deviceInfoStore.getState().deviceInfo.accessToken;
 
   const headers = new Headers(init.headers);
   if (token) headers.set('Authorization', `Bearer ${token}`);
