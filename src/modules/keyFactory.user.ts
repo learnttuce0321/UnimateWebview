@@ -11,6 +11,16 @@
 export const API_USER_REGION = '/api/v1/users/regions';
 
 /**
+ * @GET 내 프로필 조회 API
+ */
+export const API_MY_PROFILE = '/api/v1/users/me';
+
+/**
+ * @GET 유저 프로필 조회 API
+ */
+export const API_USER_PROFILE = (userId: number) => `/api/v1/users/${userId}`;
+
+/**
  * @PATCH 기본 관심지역 설정 API
  */
 export const API_USER_PRIMARY_REGION = (regionId: string) =>

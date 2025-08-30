@@ -13,7 +13,9 @@ const InterestRegionDropdownList = ({ onClose }: Props) => {
   const { openWeb } = navigationScheme();
   const { mutate } = useMutationChangePrimaryRegion();
 
-  const userInterestRegions = useAppStore((state) => state.userInterestRegions);
+  const userInterestRegions = useAppStore(
+    (state) => state.userProfile.interestRegions
+  );
   const changePrimaryRegion = useAppStore((state) => state.changePrimaryRegion);
 
   const handleCityClick = (selectedCityId: string, regionPrimary: boolean) => {
