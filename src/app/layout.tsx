@@ -2,8 +2,9 @@ import React from 'react';
 import type { Metadata, Viewport } from 'next';
 import { getInitialCommonData } from 'modules/getInitialCommonData';
 import './global.css';
-import ReactQueryProvider from '../components/ReactQueryProvider';
+import ReactQueryProvider from '../providers/ReactQueryProvider';
 import ZustandProvider from '../providers/ZustandProvider';
+import LoginWrapper from './_components/layout/LoginWrapper';
 
 export const metadata: Metadata = {
   title: '유니메이트 - UniMate',
@@ -29,7 +30,7 @@ export default async function RootLayout({
       <body>
         <ReactQueryProvider>
           <ZustandProvider initialState={initialData}>
-            {children}
+            <LoginWrapper>{children}</LoginWrapper>
           </ZustandProvider>
         </ReactQueryProvider>
       </body>

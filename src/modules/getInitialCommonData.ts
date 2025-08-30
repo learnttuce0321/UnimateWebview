@@ -34,6 +34,7 @@ export const getInitialCommonData: () => Promise<InitialData> = async () => {
   return {
     accessToken,
     isWebview,
+    isLogin: !!userProfile,
     userProfile,
   };
 };
