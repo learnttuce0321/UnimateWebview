@@ -11,5 +11,7 @@ export interface User {
   nickname?: string;
   profileImageKey?: string;
   university: University;
-  interestRegions: Region[];
+  interestRegions: {
+    interestRegions: Region[];
+  };
 }
