@@ -106,6 +106,10 @@ const request = async <TResponse>(
       throw response;
     }
 
+    if (response.status === 204) {
+      return;
+    }
+
     const data: TResponse = await response.json();
     return data;
   } catch (error: any) {
