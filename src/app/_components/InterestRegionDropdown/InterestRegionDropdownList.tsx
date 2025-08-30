@@ -14,7 +14,7 @@ const InterestRegionDropdownList = ({ onClose }: Props) => {
   const { mutate } = useMutationChangePrimaryRegion();
 
   const userInterestRegions = useAppStore(
-    (state) => state.userProfile.interestRegions
+    (state) => state.userProfile.interestRegions.interestRegions
   );
   const changePrimaryRegion = useAppStore((state) => state.changePrimaryRegion);
 

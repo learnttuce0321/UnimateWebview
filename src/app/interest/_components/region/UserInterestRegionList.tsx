@@ -6,7 +6,7 @@ import { useAppStore } from 'providers/ZustandProvider';
 
 const UserInterestRegionList = () => {
   const userInterestRegions = useAppStore(
-    (state) => state.userProfile.interestRegions
+    (state) => state.userProfile.interestRegions.interestRegions
   );
 
   return (
