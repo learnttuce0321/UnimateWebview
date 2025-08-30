@@ -36,7 +36,7 @@ const SearchedInterestRegionList = ({
           const res = await fetchClient.GET<SearchedRegionResponse>({
             url: API_REGION_SEARCH,
             params: {
-              pageSize: pageParam,
+              pageNumber: pageParam,
               name: normalizeString(inputValue),
             },
           });
