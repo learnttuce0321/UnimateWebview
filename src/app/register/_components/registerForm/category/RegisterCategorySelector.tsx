@@ -30,7 +30,7 @@ export default function RegisterCategorySelector({ setValue, watch }: Props) {
       <div className="flex flex-col justify-start gap-2">
         <span className="text-[14px] font-bold text-gray-900">카테고리</span>
         <div
-          className="relative flex h-[50px] items-center justify-between rounded border-[1px] border-solid border-gray-200 bg-white px-[16px] py-[14px] font-medium text-blue_gray-600"
+          className="relative flex h-[50px] items-center justify-between rounded border-[1px] border-solid border-gray-200 bg-white px-[16px] py-[14px] font-normal text-blue_gray-400"
           onClick={handleClickCategory}
         >
           {selectedCategory ? (
