@@ -89,6 +89,7 @@ const request = async <TResponse>(
     accessToken ?? deviceInfoStore.getState().deviceInfo.accessToken;
 
   const headers = new Headers(init.headers);
+  headers.set('Content-Type', 'application/json');
   if (token) headers.set('Authorization', `Bearer ${token}`);
 
   try {
