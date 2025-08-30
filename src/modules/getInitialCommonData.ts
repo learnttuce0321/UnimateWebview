@@ -1,12 +1,13 @@
 import { headers } from 'next/headers';
-import { fetchUserInterestRegion } from 'modules/fetchUserRegion';
-import { Region } from 'types/Region';
+import { fetchUserProfile } from 'modules/fetchUserProfile';
+import { User } from 'types/User';
 
 interface InitialData {
   accessToken: string;
   isWebview: boolean;
-  userInterestRegions: Region[];
+  userProfile: User | undefined;
 }
+
 export const getInitialCommonData: () => Promise<InitialData> = async () => {
   const header = headers();
 
@@ -28,11 +29,11 @@ export const getInitialCommonData: () => Promise<InitialData> = async () => {
   //   : authHeader;
   const isWebview = header.get('IsWebview') === 'true';
 
-  const userInterestRegions = await fetchUserInterestRegion(accessToken);
+  const userProfile = await fetchUserProfile(accessToken);
 
   return {
     accessToken,
     isWebview,
-    userInterestRegions,
+    userProfile,
   };
 };

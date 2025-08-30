@@ -5,7 +5,9 @@ import SelectedInterestRegion from 'app/interest/_components/region/UserInterest
 import { useAppStore } from 'providers/ZustandProvider';
 
 const UserInterestRegionList = () => {
-  const userInterestRegions = useAppStore((state) => state.userInterestRegions);
+  const userInterestRegions = useAppStore(
+    (state) => state.userProfile.interestRegions
+  );
 
   return (
     <>

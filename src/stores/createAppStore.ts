@@ -1,13 +1,21 @@
 import { type StoreApi } from 'zustand';
+import { Region } from 'types/Region';
+import { User } from 'types/User';
 import { devtools } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 import { createStore } from 'zustand/vanilla';
-import { Region } from '../types/Region';
+
+const DEFAULT_PROFILE: User = {
+  nickname: '',
+  profileImageKey: '',
+  university: {},
+  interestRegions: [],
+};
 
 export interface AppState {
   accessToken: string | null;
   isWebview: boolean;
-  userInterestRegions: Region[];
+  userProfile: User;
 }
 
 export interface AppActions {
@@ -25,7 +33,7 @@ export type InitialStore = Partial<AppState>;
 const defaultInitialState: AppState = {
   accessToken: '',
   isWebview: false,
-  userInterestRegions: [],
+  userProfile: DEFAULT_PROFILE,
 };
 
 let appStore: StoreApi<AppStore> | null = null;
@@ -41,30 +49,35 @@ export const initializeStore = (initialState?: InitialStore): Store => {
         ...mergedInitialState,
         addInterestRegion: (region) => {
           set((state) => {
-            state.userInterestRegions = [...state.userInterestRegions, region];
+            state.userProfile.interestRegions = [
+              ...state.userProfile.interestRegions,
+              region,
+            ];
           });
         },
 
         getPrimaryRegion: () => {
-          return get().userInterestRegions.find((region) => region.isPrimary);
+          return get().userProfile.interestRegions.find(
+            (region) => region.isPrimary
+          );
         },
 
         removeInterestRegion: (regionId) => {
           set((state) => {
-            state.userInterestRegions = state.userInterestRegions.filter(
-              (userRegion) => userRegion.regionId !== regionId
-            );
+            state.userProfile.interestRegions =
+              state.userProfile.interestRegions.filter(
+                (userRegion) => userRegion.regionId !== regionId
+              );
           });
         },
 
         changePrimaryRegion: (regionId) => {
           set((state) => {
-            state.userInterestRegions = state.userInterestRegions.map(
-              (region) => ({
+            state.userProfile.interestRegions =
+              state.userProfile.interestRegions.map((region) => ({
                 ...region,
                 isPrimary: region.regionId === regionId,
-              })
-            );
+              }));
           });
         },
       })),
