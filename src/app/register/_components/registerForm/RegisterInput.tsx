@@ -25,7 +25,7 @@ export default function RegisterInput({
   useAutoResizeTextarea(textareaRef);
 
   return (
-    <div className="flex flex-col justify-start gap-[16px]">
+    <div className="flex flex-col justify-start gap-2">
       {label && (
         <label
           htmlFor={`register-product-${name}`}

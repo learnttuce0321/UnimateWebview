@@ -40,9 +40,7 @@ export default function RegisterPriceInfo({
 
   return (
     <div className="flex flex-col items-start">
-      <span className="mb-[16px] text-[14px] font-bold text-gray-900">
-        가격
-      </span>
+      <span className="mb-2 text-[14px] font-bold text-gray-900">가격</span>
 
       <div className="flex w-full flex-col gap-[14px]">
         {/* TODO : 달러 및 원화 표시 버튼 리팩토링 => 중복된 로직이 너무 많음 */}
