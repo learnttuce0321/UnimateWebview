@@ -1,9 +1,9 @@
 import { type StoreApi } from 'zustand';
+import { createStore } from 'zustand';
 import { Region } from 'types/Region';
 import { User } from 'types/User';
 import { devtools } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
-import { createStore } from 'zustand/vanilla';
 
 const DEFAULT_PROFILE: User = {
   nickname: '',

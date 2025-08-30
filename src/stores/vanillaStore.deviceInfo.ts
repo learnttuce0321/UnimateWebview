@@ -1,5 +1,5 @@
 import { type StoreApi } from 'zustand';
-import { createStore } from 'zustand/vanilla';
+import { createStore } from 'zustand';
 
 interface DeviceInfo {
   accessToken: string;
