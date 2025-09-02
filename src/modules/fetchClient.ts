@@ -108,7 +108,7 @@ const request = async <TResponse>(
     }
 
     if (response.status === 204) {
-      return;
+      return {} as TResponse;
     }
 
     const data: TResponse = await response.json();
