@@ -1,6 +1,6 @@
 import { Region } from './Region';
 
-export interface University {
+export interface UserUniversity {
   id?: number;
   name?: string;
   domain?: string;
@@ -10,7 +10,7 @@ export interface University {
 export interface User {
   nickname?: string;
   profileImageKey?: string;
-  university: University;
+  university: UserUniversity;
   interestRegions: {
     interestRegions: Region[];
   };
