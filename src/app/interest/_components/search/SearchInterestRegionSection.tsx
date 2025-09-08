@@ -1,10 +1,10 @@
 'use client';
 
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
 import SearchedCitiesList from 'app/interest/_components/search/SearchedInterestRegionList';
 import SearchInterestRegionInput from 'app/interest/_components/search/SearchInterestRegionInput';
 import { ActionType } from 'app/interest/_types/search';
-import dynamic from 'next/dynamic';
 
 const DynamicUserInterestRegionList = dynamic(
   () => import('app/interest/_components/region/UserInterestRegionList'),

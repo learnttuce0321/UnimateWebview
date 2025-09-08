@@ -19,7 +19,7 @@ export interface SearchedRegion {
   longitude: number;
 }
 
-export interface SearchedRegionResponse {
+export interface SearchRegionResponse {
   contents: SearchedRegion;
   hasNext: boolean;
 }

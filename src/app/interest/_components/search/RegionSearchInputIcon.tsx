@@ -1,14 +1,14 @@
-import { ActionType } from 'app/interest/_types/search';
+import { ActionType } from 'app/search/result/filter-university/_types/search';
 
 interface Props {
   actionType: ActionType;
   onDelete: () => void;
 }
 
-const SearchInputIcon = ({ actionType, onDelete }: Props) => {
+const RegionSearchInputIcon = ({ actionType, onDelete }: Props) => {
   return (
     <span className="absolute right-[16px] top-1/2 h-[20px] -translate-y-1/2">
-      {actionType ? (
+      {actionType === 'search' ? (
         <button>
           <img
             src="/images/svg/favorite/icon-system-close-circle.svg"
@@ -30,4 +30,4 @@ const SearchInputIcon = ({ actionType, onDelete }: Props) => {
   );
 };
 
-export default SearchInputIcon;
+export default RegionSearchInputIcon;
