@@ -7,16 +7,13 @@ import {
 } from 'constants/storageSync';
 import { useStorageSync } from 'hooks/useStorageSync';
 import { useAppStore } from 'providers/ZustandProvider';
+import { selectPrimaryRegion } from 'stores/selectors';
 import InterestRegionDropdown from './InterestRegionDropdown';
 
 const InterestRegionDropdownButton = () => {
   const [openInterestRegionDropdown, setOpenInterestRegionDropdown] =
     useState<boolean>(false);
-  const primaryRegion = useAppStore((state) =>
-    state.userProfile.interestRegions.interestRegions?.find(
-      (region) => region.isPrimary
-    )
-  );
+  const primaryRegion = useAppStore(selectPrimaryRegion);
   const addInterestRegion = useAppStore((state) => state.addInterestRegion);
   const removeInterestRegion = useAppStore(
     (state) => state.removeInterestRegion

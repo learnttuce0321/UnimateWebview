@@ -4,6 +4,7 @@ import InterestRegionItem from 'app/_components/InterestRegionDropdown/InterestR
 import { useMutationChangePrimaryRegion } from 'hooks/users/useMutationChangePrimaryRegion';
 import { useAppStore } from 'providers/ZustandProvider';
 import navigationScheme from '../../../utils/navigationScheme';
+import { selectInterestRegions } from 'stores/selectors';
 
 interface Props {
   onClose: () => void;
@@ -13,9 +14,7 @@ const InterestRegionDropdownList = ({ onClose }: Props) => {
   const { openWeb } = navigationScheme();
   const { mutate } = useMutationChangePrimaryRegion();
 
-  const userInterestRegions = useAppStore(
-    (state) => state.userProfile.interestRegions.interestRegions
-  );
+  const userInterestRegions = useAppStore(selectInterestRegions);
   const changePrimaryRegion = useAppStore((state) => state.changePrimaryRegion);
 
   const handleCityClick = (selectedCityId: string, regionPrimary: boolean) => {

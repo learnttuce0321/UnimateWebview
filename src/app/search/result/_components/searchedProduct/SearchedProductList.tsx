@@ -8,6 +8,7 @@ import fetchClient from 'modules/fetchClient';
 import { API_PRODUCTS_SEARCH } from 'modules/keyFactory.product';
 import { normalizeString } from 'modules/normalize';
 import { useAppStore } from 'providers/ZustandProvider';
+import { selectPrimaryRegion } from 'stores/selectors';
 import { ProductPostsResponse } from 'types/Product';
 import { FilteringUniversity } from '../../page';
 
@@ -16,11 +17,7 @@ interface Props {
 }
 const SearchResultList = ({ currentFilteringUniversity }: Props) => {
   const searchParams = useSearchParams();
-  const primaryRegion = useAppStore((state) =>
-    state.userProfile.interestRegions.interestRegions?.find(
-      (region) => region.isPrimary
-    )
-  );
+  const primaryRegion = useAppStore(selectPrimaryRegion);
   const q = searchParams.get('q') ?? '';
   const universityId = currentFilteringUniversity?.id;
   const regionId = primaryRegion?.regionId;

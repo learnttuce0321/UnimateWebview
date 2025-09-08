@@ -7,14 +7,11 @@ import fetchClient from 'modules/fetchClient';
 import { API_PRODUCT } from 'modules/keyFactory.product';
 import { useAppStore } from 'providers/ZustandProvider';
 import { ProductPostsResponse } from '../../../types/Product';
+import { selectPrimaryRegion } from 'stores/selectors';
 
 const ProductList = () => {
   const infiniteTarget = useRef<HTMLDivElement>(null);
-  const primaryRegion = useAppStore((state) =>
-    state.userProfile.interestRegions.interestRegions?.find(
-      (region) => region.isPrimary
-    )
-  );
+  const primaryRegion = useAppStore(selectPrimaryRegion);
 
   const {
     data: productPosts,
