@@ -1,18 +1,9 @@
 'use client';
 
-import { useEffect } from 'react';
 import navigationScheme from '../../../utils/navigationScheme';
-import { useRecentSearchStore } from '../../search/_hooks/useRecentSearchKeyword';
 
 const SearchButton = () => {
-  const initializeFromStorage = useRecentSearchStore(
-    (state) => state.initializeFromStorage
-  );
   const { openWeb } = navigationScheme();
-
-  useEffect(() => {
-    initializeFromStorage();
-  }, [initializeFromStorage]);
 
   return (
     <button onClick={() => openWeb('/search')}>

@@ -3,18 +3,18 @@
 import { MouseEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import NoneRecentSearch from 'app/search/_components/recentSearch/NoneRecentSearch';
-import { useRecentSearchStore } from 'app/search/_hooks/useRecentSearchKeyword';
+import { useRecentSearch } from 'hooks/useRecentSearch';
 
 const RecentSearches = () => {
   const router = useRouter();
-  const recentSearches = useRecentSearchStore((state) => state.recentSearches);
-  const deleteRecentSearch = useRecentSearchStore(
-    (state) => state.deleteRecentSearch
-  );
-  const clearRecentSearches = useRecentSearchStore(
-    (state) => state.clearRecentSearches
-  );
+  const {
+    recentSearches,
+    isInitialized,
+    deleteRecentSearch,
+    clearRecentSearches,
+  } = useRecentSearch();
 
+  if (!isInitialized) return null;
   if (!recentSearches.length) return <NoneRecentSearch />;
 
   const handleRecentSearchClick = (keyword: string) => {
@@ -27,6 +27,7 @@ const RecentSearches = () => {
     e.stopPropagation();
     deleteRecentSearch(keyword);
   };
+
   return (
     <div>
       <section className="flex items-center justify-between text-[14px]">
