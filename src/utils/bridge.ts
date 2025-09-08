@@ -1,4 +1,4 @@
-import { IOSBridge } from '../types/bridge';
+import { IOSBridge, PickImageOptions } from '../types/bridge';
 
 // 브릿지 사용 가능 여부 체크
 export const isBridgeAvailable = (): boolean => {
@@ -31,14 +31,15 @@ export const callBridge = <T extends keyof IOSBridge>(
   }
 };
 
-export const selectImagesFromDevice = (): Promise<string[]> => {
+export const selectImagesFromDevice = (excludedImageUrls?: string[]): Promise<string[]> => {
   return new Promise((resolve) => {
     if (isBridgeAvailable()) {
       const bridge = getBridge();
+      const options: PickImageOptions | undefined = excludedImageUrls ? { excludedImageUrls } : undefined;
       bridge!.pickImage((imageUrls: string[]) => {
         console.log('Selected images from iOS:', imageUrls);
         resolve(imageUrls);
-      });
+      }, options);
     } else {
       console.warn('iOS bridge not available, returning empty array');
       resolve([]);

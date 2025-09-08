@@ -69,7 +69,7 @@ export default function RegisterImageForm({
     setIsUploading(true);
     try {
       if (isBridgeAvailable()) {
-        const selectedImageUrls = await selectImagesFromDevice();
+        const selectedImageUrls = await selectImagesFromDevice(images);
         if (!selectedImageUrls.length) return;
 
         const remainingSlots = MAX_IMAGES_COUNT - images.length;
