@@ -14,6 +14,12 @@ const DEFAULT_PROFILE: User = {
   },
 };
 
+export interface DeviceInfo {
+  device: string;
+  deviceId: string;
+  version: string;
+}
+
 export interface AppState {
   userProfile: User;
   isLogin: boolean;
@@ -22,6 +28,7 @@ export interface AppState {
 export interface VanillaAppState {
   accessToken: string;
   isWebview: boolean;
+  deviceInfo: DeviceInfo;
 }
 
 export interface AppActions {

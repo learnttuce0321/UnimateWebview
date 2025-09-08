@@ -14,7 +14,7 @@ import {
 
 interface ZustandProviderProps {
   children: React.ReactNode;
-  initialState?: InitialStore;
+  initialState: InitialStore;
 }
 
 const ZustandProvider: React.FC<ZustandProviderProps> = ({
@@ -27,10 +27,10 @@ const ZustandProvider: React.FC<ZustandProviderProps> = ({
     storeRef.current = initializeStore(initialState);
 
     deviceInfoStore.getState().setDeviceInfo({
-      accessToken: initialState?.accessToken ?? '',
-      // device: initialState.deviceInfo.device,
-      // deviceId: initialState,
-      // version: initialState,
+      accessToken: initialState.accessToken ?? '',
+      device: initialState.deviceInfo?.device ?? '',
+      deviceId: initialState.deviceInfo?.deviceId ?? '',
+      version: initialState.deviceInfo?.deviceId ?? '',
       isWebView: initialState?.isWebview ?? false,
     });
   }

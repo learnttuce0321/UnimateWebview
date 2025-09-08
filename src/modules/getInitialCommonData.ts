@@ -1,15 +1,18 @@
-import { headers } from 'next/headers';
+import { headers, cookies } from 'next/headers';
 import { fetchUserProfile } from 'modules/fetchUserProfile';
 import { User } from 'types/User';
+import { DeviceInfo } from 'stores/createAppStore';
 
 interface InitialData {
   accessToken: string;
   isWebview: boolean;
   userProfile: User | undefined;
+  deviceInfo?: DeviceInfo;
 }
 
 export const getInitialCommonData: () => Promise<InitialData> = async () => {
   const header = headers();
+  const cookieStore = cookies();
 
   // 테스트용 하드코딩 토큰
   const hardcodedToken =
@@ -29,6 +32,19 @@ export const getInitialCommonData: () => Promise<InitialData> = async () => {
   //   : authHeader;
   const isWebview = header.get('IsWebview') === 'true';
 
+  // 쿠키에서 device_info 가져오기
+  const deviceInfoCookie = cookieStore.get('device_info');
+  let deviceInfo: DeviceInfo | undefined;
+
+  if (deviceInfoCookie?.value) {
+    try {
+      deviceInfo = JSON.parse(deviceInfoCookie.value) as DeviceInfo;
+    } catch (error) {
+      console.error('Failed to parse device_info cookie:', error);
+      deviceInfo = { device: '', deviceId: '', version: '' };
+    }
+  }
+
   const userProfile = await fetchUserProfile(accessToken);
 
   return {
@@ -36,5 +52,6 @@ export const getInitialCommonData: () => Promise<InitialData> = async () => {
     isWebview,
     isLogin: !!userProfile,
     userProfile,
+    deviceInfo,
   };
 };

@@ -3,9 +3,9 @@ import { createStore } from 'zustand';
 
 interface DeviceInfo {
   accessToken: string;
-  // version: string;
-  // device: string;
-  // deviceId: string;
+  version: string;
+  device: string;
+  deviceId: string;
   isWebView: boolean;
 }
 
@@ -17,9 +17,9 @@ interface StoreState {
 const deviceInfoStore: StoreApi<StoreState> = createStore((set) => ({
   deviceInfo: {
     accessToken: '',
-    // version: '',
-    // device: '',
-    // deviceId: '',
+    version: '',
+    device: '',
+    deviceId: '',
     isWebView: false,
   },
   setDeviceInfo: (deviceInfo) => set({ deviceInfo }),
