@@ -10,11 +10,7 @@ import { ProductPostsResponse } from '../../../types/Product';
 
 const ProductList = () => {
   const infiniteTarget = useRef<HTMLDivElement>(null);
-  const primaryRegion = useAppStore((state) =>
-    state.userProfile.interestRegions.interestRegions?.find(
-      (region) => region.isPrimary
-    )
-  );
+  const primaryRegion = useAppStore((state) => state.primaryRegion);
 
   const {
     data: productPosts,

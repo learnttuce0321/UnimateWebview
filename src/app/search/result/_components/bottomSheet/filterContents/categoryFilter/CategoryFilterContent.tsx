@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import TitleBottomSheet from '../priceFilter/TitleBottomSheet';
 import CategoryListWrapper from './CategoryListWrapper';
 
@@ -9,19 +9,18 @@ interface Props {
 
 const CategoryFilterContent = ({ closeSheet }: Props) => {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const handleApplyCategoryFilter = () => {
-    if (selectedCategory) {
-      // 현재 URL에 category 파라미터 추가
-      const currentUrl = new URL(window.location.href);
-      currentUrl.searchParams.set('category', selectedCategory);
+    const currentUrl = new URL(window.location.href);
 
-      // TODO : 지금은 페이지 새로고침이지만, 추후에 검색 api 호출할거임
-      window.location.href = currentUrl.toString();
-    } else {
-      closeSheet();
+    if (selectedCategory) {
+      currentUrl.searchParams.set('category', selectedCategory);
     }
+
+    router.replace(currentUrl.toString());
+    closeSheet();
   };
 
   // URL에서 카테고리 파라미터를 가져와서 초기값으로 설정
@@ -33,7 +32,7 @@ const CategoryFilterContent = ({ closeSheet }: Props) => {
   }, [searchParams]);
 
   return (
-    <div className="flex h-full w-full flex-col">
+    <div className="flex flex-col w-full h-full">
       <TitleBottomSheet title="카테고리" />
       <CategoryListWrapper
         selectedCategory={selectedCategory}

@@ -2,10 +2,14 @@ import React from 'react';
 import FilterButton from './FilterButton';
 import UniversityFilterButton from './UniversityFilterButton';
 import { FilterType } from '../../_type/searchResultFilter.type';
+import { FilteringUniversity } from '../../page';
 
 interface Props {
-  currentUniversityName: string | null;
-  handleChangeUniversity: (universityName: string) => void;
+  currentFilteringUniversity: FilteringUniversity | null;
+  handleChangeUniversity: (
+    universityId: number,
+    universityName: string
+  ) => void;
 }
 // 대학교 필터는 하단 바텀 시트를 노출하지 않는 개별 페이지로 열리는 것
 export const FILTERS: FilterType[] = [
@@ -16,7 +20,7 @@ export const FILTERS: FilterType[] = [
 ];
 
 const SearchResultFilters = ({
-  currentUniversityName,
+  currentFilteringUniversity,
   handleChangeUniversity,
 }: Props) => {
   return (
@@ -24,7 +28,7 @@ const SearchResultFilters = ({
       {/* 대학교 필터 (렌더링만 하고 액션 제외) */}
       <li className="flex min-w-[79px] flex-shrink-0 items-center gap-0">
         <UniversityFilterButton
-          currentUniversityName={currentUniversityName}
+          currentFilteringUniversity={currentFilteringUniversity}
           handleChangeUniversity={handleChangeUniversity}
         />
       </li>

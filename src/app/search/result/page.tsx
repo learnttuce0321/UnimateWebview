@@ -13,23 +13,34 @@ interface Props {
   };
 }
 
-const Page = ({ searchParams }: Props) => {
-  const [currentUniversityName, setCurrentUniversityName] = useState<
-    string | null
-  >(null);
+export interface FilteringUniversity {
+  id: number;
+  name: string;
+}
 
-  const handleChangeUniversity = (universityName: string) => {
-    setCurrentUniversityName(universityName);
+const Page = ({ searchParams }: Props) => {
+  const [currentFilteringUniversity, setCurrentFilteringUniversity] =
+    useState<FilteringUniversity | null>(null);
+
+  const handleChangeUniversity = (
+    universityId: number,
+    universityName: string
+  ) => {
+    if (universityId && universityName) {
+      setCurrentFilteringUniversity({ id: universityId, name: universityName });
+    }
   };
 
   return (
     <div>
       <SearchResultHeader q={normalizeString(searchParams.q)} />
       <SearchResultFilters
-        currentUniversityName={currentUniversityName}
+        currentFilteringUniversity={currentFilteringUniversity}
         handleChangeUniversity={handleChangeUniversity}
       />
-      <SearchedProductList />
+      <SearchedProductList
+        currentFilteringUniversity={currentFilteringUniversity}
+      />
       <SearchFilterBottomSheetContainer />
     </div>
   );
