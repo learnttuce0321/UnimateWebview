@@ -3,7 +3,9 @@
 import { useState } from 'react';
 import { ActionType } from 'app/interest/_types/search';
 import Modal from 'components/modal/Modal';
+import { MAIN_PAGE_ADD_USER_INTEREST_REGION } from 'constants/storageSync';
 import { useMutationAddInterestRegion } from 'hooks/users/useMutationAddInterestRegion';
+import { setLocalStorageAndSync } from 'hooks/useStorageSync';
 import { useAppStore } from 'providers/ZustandProvider';
 import { SearchedRegion } from 'types/Region';
 
@@ -39,6 +41,11 @@ const AddInterestRegionButton = ({
       {
         onSuccess: () => {
           addInterestRegion({
+            regionId: selectedRegion.id,
+            regionName: selectedRegion.name,
+            isPrimary: false,
+          });
+          setLocalStorageAndSync(MAIN_PAGE_ADD_USER_INTEREST_REGION, {
             regionId: selectedRegion.id,
             regionName: selectedRegion.name,
             isPrimary: false,

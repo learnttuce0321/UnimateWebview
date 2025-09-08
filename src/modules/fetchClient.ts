@@ -107,7 +107,7 @@ const request = async <TResponse>(
       throw response;
     }
 
-    if (response.status === 204) {
+    if (response.status === 204 || response.status === 201) {
       return {} as TResponse;
     }
 

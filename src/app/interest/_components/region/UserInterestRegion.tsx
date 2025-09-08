@@ -5,6 +5,8 @@ import Modal from 'components/modal/Modal';
 import { useMutationDeleteInterestRegion } from 'hooks/users/useMutationDeleteInterestRegion';
 import { useAppStore } from 'providers/ZustandProvider';
 import { Region } from 'types/Region';
+import { setLocalStorageAndSync } from 'hooks/useStorageSync';
+import { MAIN_PAGE_DELETE_USER_INTEREST_REGION } from 'constants/storageSync';
 
 interface Props {
   region: Region;
@@ -34,6 +36,9 @@ const UserInterestRegion = ({ region }: Props) => {
       {
         onSuccess: (_, { regionId }) => {
           removeInterestRegion(regionId);
+          setLocalStorageAndSync(MAIN_PAGE_DELETE_USER_INTEREST_REGION, {
+            regionId,
+          });
         },
         onSettled: () => {
           handleCloseModal();
