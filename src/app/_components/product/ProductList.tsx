@@ -4,7 +4,7 @@ import { useRef } from 'react';
 import ProductCard from 'app/_components/product/ProductCard';
 import { useInfiniteQueryWithObserver } from 'hooks/useInfiniteQueryWithObserver';
 import fetchClient from 'modules/fetchClient';
-import { API_PRODUCTS_LIST } from 'modules/keyFactory.product';
+import { API_PRODUCT } from 'modules/keyFactory.product';
 import { useAppStore } from 'providers/ZustandProvider';
 import { ProductPostsResponse } from '../../../types/Product';
 
@@ -23,12 +23,12 @@ const ProductList = () => {
   } = useInfiniteQueryWithObserver<ProductPostsResponse>(
     infiniteTarget,
     {
-      queryKey: [API_PRODUCTS_LIST, primaryRegion?.regionId],
+      queryKey: [API_PRODUCT, primaryRegion?.regionId],
       initialPageParam: 1,
       queryFn: async ({ pageParam }) => {
         try {
           const res = await fetchClient.GET<ProductPostsResponse>({
-            url: API_PRODUCTS_LIST,
+            url: API_PRODUCT,
             params: {
               pageNumber: pageParam,
               regionId: primaryRegion?.regionId ?? '',

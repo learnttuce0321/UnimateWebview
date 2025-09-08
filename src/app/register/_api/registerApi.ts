@@ -1,5 +1,6 @@
+import fetchClient from 'modules/fetchClient';
 import {
-  API_PRODUCTS_POSTS,
+  API_PRODUCT,
   API_PRODUCTS_POSTS_PRESIGNED_URL,
 } from 'modules/keyFactory.product';
 import {
@@ -7,7 +8,6 @@ import {
   PresignedUrlListResponse,
   ProductPostCreateRequest,
 } from '../_type/registerType';
-import fetchClient from 'modules/fetchClient';
 
 export const registerApi = {
   getPresignedUrl: async (
@@ -39,7 +39,7 @@ export const registerApi = {
     try {
       await fetchClient.POST<void>(
         {
-          url: API_PRODUCTS_POSTS,
+          url: API_PRODUCT,
           body: request,
         },
         {
