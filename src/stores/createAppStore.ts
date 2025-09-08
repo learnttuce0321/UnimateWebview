@@ -23,8 +23,6 @@ export interface DeviceInfo {
 export interface AppState {
   userProfile: User;
   isLogin: boolean;
-  // computed getters
-  get primaryRegion(): Region | undefined;
 }
 
 export interface VanillaAppState {
@@ -88,13 +86,6 @@ export const initializeStore = (initialState?: InitialStore): Store => {
                 })
               );
           });
-        },
-
-        // computed getter
-        get primaryRegion() {
-          return get().userProfile.interestRegions.interestRegions?.find(
-            (region) => region.isPrimary
-          );
         },
       })),
       {
