@@ -5,6 +5,7 @@ import PriceRangeInput from './PriceRangeInput';
 import PriceUnitToggle from './PriceUnitToggle';
 import PriceRangeSlider from './PriceRangeSlider';
 import TitleBottomSheet from './TitleBottomSheet';
+import { useRouter } from 'next/navigation';
 
 type Currency = 'KRW' | 'USD';
 
@@ -13,24 +14,29 @@ interface Props {
 }
 
 const PriceFilterContent = ({ closeSheet }: Props) => {
+  const router = useRouter();
   const [currency, setCurrency] = useState<Currency>('KRW');
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
 
   const handleApplyPriceFilter = () => {
+    const currentUrl = new URL(window.location.href);
     if (minPrice) {
       // 콤마 제거하고 숫자만 추출
       const priceValue = minPrice.replace(/,/g, '');
 
-      // 현재 URL에 price 파라미터 추가
-      const currentUrl = new URL(window.location.href);
-      currentUrl.searchParams.set('price', priceValue);
-
-      // TODO : 지금은 페이지 새로고침이지만, 추후에 검색 api 호출할거임
-      window.location.href = currentUrl.toString();
-    } else {
-      closeSheet();
+      currentUrl.searchParams.set('minPrice', priceValue);
     }
+
+    if (maxPrice) {
+      // 콤마 제거하고 숫자만 추출
+      const priceValue = maxPrice.replace(/,/g, '');
+
+      currentUrl.searchParams.set('maxPrice', priceValue);
+    }
+
+    router.replace(currentUrl.toString());
+    closeSheet();
   };
 
   const handlePriceChange = (min: string, max: string) => {
@@ -39,7 +45,7 @@ const PriceFilterContent = ({ closeSheet }: Props) => {
   };
 
   return (
-    <div className="flex h-full w-full flex-col">
+    <div className="flex flex-col w-full h-full">
       <TitleBottomSheet title="가격" />
 
       <div className="mt-4 flex flex-col items-start justify-center gap-[20px]">

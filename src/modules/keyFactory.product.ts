@@ -15,6 +15,11 @@ export const API_PRODUCTS_LIST = '/api/v1/product-posts';
 export const API_PRODUCTS_POSTS = '/api/v1/product-posts';
 
 /**
+ * @GET 상품 검색 API
+ */
+export const API_PRODUCTS_SEARCH = '/api/v1/product-posts/search';
+
+/**
  * 상품 이미지 업로드를 위한 Presigned URL 발급 API
  */
 export const API_PRODUCTS_POSTS_PRESIGNED_URL =

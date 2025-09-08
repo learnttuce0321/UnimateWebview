@@ -1,7 +1,9 @@
+'use client';
+
 import React, { useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
-import TitleBottomSheet from '../priceFilter/TitleBottomSheet';
+import { useRouter, useSearchParams } from 'next/navigation';
 import SortOptionList from './SortOptionList';
+import TitleBottomSheet from '../priceFilter/TitleBottomSheet';
 
 interface Props {
   closeSheet: () => void;
@@ -11,18 +13,18 @@ export type SortType = 'latest' | 'oldest';
 
 const SortFilterContent = ({ closeSheet }: Props) => {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const [selectedSort, setSelectedSort] = useState<SortType>('latest');
 
   const handleApplySortFilter = () => {
-    if (selectedSort) {
-      const currentUrl = new URL(window.location.href);
-      currentUrl.searchParams.set('sort', selectedSort);
+    const currentUrl = new URL(window.location.href);
 
-      // TODO : 지금은 페이지 새로고침이지만, 추후에 검색 api 호출할거임
-      window.location.href = currentUrl.toString();
-    } else {
-      closeSheet();
+    if (selectedSort) {
+      currentUrl.searchParams.set('sort', selectedSort);
     }
+
+    router.replace(currentUrl.toString());
+    closeSheet();
   };
 
   // URL에서 sort 파라미터를 가져와서 초기값으로 설정
@@ -34,7 +36,7 @@ const SortFilterContent = ({ closeSheet }: Props) => {
   }, [searchParams]);
 
   return (
-    <div className="flex h-full w-full flex-col">
+    <div className="flex flex-col w-full h-full">
       <TitleBottomSheet title="정렬" />
       <SortOptionList
         selectedSort={selectedSort}

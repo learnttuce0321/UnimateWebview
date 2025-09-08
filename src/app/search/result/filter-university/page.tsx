@@ -40,6 +40,7 @@ const Page = () => {
       />
       <AddUniversityFilteringOptionButton
         selectedUniversityName={selectedUniversity?.name ?? ''}
+        selectedUniversityId={selectedUniversity?.id}
       />
     </>
   );
