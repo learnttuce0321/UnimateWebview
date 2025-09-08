@@ -12,7 +12,11 @@ import InterestRegionDropdown from './InterestRegionDropdown';
 const InterestRegionDropdownButton = () => {
   const [openInterestRegionDropdown, setOpenInterestRegionDropdown] =
     useState<boolean>(false);
-  const getPrimaryRegion = useAppStore((state) => state.getPrimaryRegion);
+  const primaryRegion = useAppStore((state) =>
+    state.userProfile.interestRegions.interestRegions?.find(
+      (region) => region.isPrimary
+    )
+  );
   const addInterestRegion = useAppStore((state) => state.addInterestRegion);
   const removeInterestRegion = useAppStore(
     (state) => state.removeInterestRegion
@@ -34,7 +38,7 @@ const InterestRegionDropdownButton = () => {
         className="text-900 flex gap-[8px] text-[24px] font-bold"
         onClick={() => setOpenInterestRegionDropdown(true)}
       >
-        <p>{getPrimaryRegion()?.regionName ?? ''}</p>
+        <p>{primaryRegion?.regionName ?? ''}</p>
         <img
           src="/images/svg/home/icon-arrow-chevron-down.svg"
           alt="관심 도시 설정 아이콘"

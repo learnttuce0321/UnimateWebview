@@ -10,7 +10,11 @@ import { ProductPostsResponse } from '../../../types/Product';
 
 const ProductList = () => {
   const infiniteTarget = useRef<HTMLDivElement>(null);
-  const getPrimaryRegion = useAppStore((state) => state.getPrimaryRegion);
+  const primaryRegion = useAppStore((state) =>
+    state.userProfile.interestRegions.interestRegions?.find(
+      (region) => region.isPrimary
+    )
+  );
 
   const {
     data: productPosts,
@@ -19,7 +23,7 @@ const ProductList = () => {
   } = useInfiniteQueryWithObserver<ProductPostsResponse>(
     infiniteTarget,
     {
-      queryKey: [API_PRODUCTS_LIST],
+      queryKey: [API_PRODUCTS_LIST, primaryRegion?.regionId],
       initialPageParam: 1,
       queryFn: async ({ pageParam }) => {
         try {
@@ -27,13 +31,13 @@ const ProductList = () => {
             url: API_PRODUCTS_LIST,
             params: {
               pageNumber: pageParam,
-              regionId: getPrimaryRegion()?.regionId ?? '',
+              regionId: primaryRegion?.regionId ?? '',
             },
           });
 
           return res;
         } catch (error) {
-          console.log('membership detail error', error);
+          console.log('region product list', error);
           throw error;
         }
       },

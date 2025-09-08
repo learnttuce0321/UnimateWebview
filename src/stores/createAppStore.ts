@@ -26,7 +26,6 @@ export interface VanillaAppState {
 
 export interface AppActions {
   // 관심도시 설정
-  getPrimaryRegion: () => Region | undefined;
   addInterestRegion: (region: Region) => void;
   removeInterestRegion: (regionId: string) => void;
   changePrimaryRegion: (regionId: string) => void;
@@ -59,12 +58,6 @@ export const initializeStore = (initialState?: InitialStore): Store => {
               region,
             ];
           });
-        },
-
-        getPrimaryRegion: () => {
-          return get().userProfile.interestRegions.interestRegions?.find(
-            (region) => region.isPrimary
-          );
         },
 
         removeInterestRegion: (regionId) => {

@@ -43,7 +43,7 @@ const SearchedInterestRegionList = ({
 
           return res;
         } catch (error) {
-          console.log('membership detail error', error);
+          console.log('search interest region', error);
           throw error;
         }
       },
