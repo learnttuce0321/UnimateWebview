@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 interface Props {
   q: string;
@@ -8,8 +8,12 @@ interface Props {
 
 const SearchResultInput = ({ q }: Props) => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  
   const handleClick = () => {
-    router.replace(`/search?q=${q}`);
+    const params = new URLSearchParams(searchParams);
+    params.set('q', q);
+    router.replace(`/search?${params.toString()}`);
   };
 
   return (
