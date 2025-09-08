@@ -14,7 +14,9 @@ const NavigationBar = ({
   className,
 }: Props) => {
   return (
-    <header className={`relative h-[50px] px-[16px] py-[14px] ${className}`}>
+    <header
+      className={`relative h-[50px] px-[16px] py-[14px] ${className ?? ''}`}
+    >
       {showBackButton ? <BackButton className="absolute left-[14px]" /> : null}
       <h1 className="h-[24px] text-center text-[18px] font-bold text-blue_gray-900">
         {title}
