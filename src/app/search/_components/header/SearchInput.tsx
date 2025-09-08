@@ -25,7 +25,7 @@ const SearchInput = ({ searchKeyword, onSearchKeywordChange }: Props) => {
     const q = formData.get('q');
     addRecentSearch(q as string);
 
-    router.replace(`/search/result?q=${q}`);
+    router.push(`/search/result?q=${q}`);
   };
 
   const handleDeleteSearchKeyword = (e: any) => {
