@@ -16,7 +16,7 @@ export const getInitialCommonData: () => Promise<InitialData> = async () => {
 
   // 테스트용 하드코딩 토큰
   const hardcodedToken =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInByb3ZpZGVyIjoiS0FLQU8iLCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzQ5OTY5MzI0LCJleHAiOjE3NTc3NDUzMjR9.bDpurCfyQ906gPYbPzEnOkzoZpBxLElwXjKY3rwWj9Q';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInByb3ZpZGVyIjoiS0FLQU8iLCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzU3ODU1ODI4LCJleHAiOjE3NjA0NDc4Mjh9.fkgfSSEXMQDEz64Nn0wXfCNaePGUlwOCH0_OrAmCbI4';
 
   const authHeader = header.get('Authorization') ?? '';
   const accessToken = hardcodedToken; // 하드코딩된 토큰 사용
