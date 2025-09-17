@@ -5,10 +5,12 @@ import ProductDetailHeader from './_components/ProductDetailHeader';
 import ProductDetailImageSlider from './_components/ProductDetailImageSlider';
 import ProductDetailInfo from './_components/_product_detail_info/ProductDetailInfo';
 import ReportModal from './_components/ReportModal';
-import ProductStatusModal from './_components/ProductStatusModal';
+import ProductStatusBottomSheet from './_components/ProductStatusBottomSheet';
 import ProductSellerSection from './_components/ProductSellerSection';
 import ProductDescriptionSection from './_components/ProductDescriptionSection';
 import ProductBottomActions from './_components/ProductBottomActions';
+
+export type TradeStatus = 'FOR_SALE' | 'RESERVED' | 'SOLD_OUT';
 
 interface ProductDetailPageProps {
   params: {
@@ -28,7 +30,7 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
     title: '스타벅스 아이스 아메리카노 쿠폰',
     price: 4500,
     currencyType: 'KRW' as const,
-    tradeStatus: 'FOR_SALE' as const,
+    tradeStatus: 'FOR_SALE' as TradeStatus,
     description:
       '스타벅스 아이스 아메리카노 쿠폰입니다.\n유효기간은 2024년 12월 31일까지입니다.스타벅스 아이스 아메리카노 쿠폰입니다.\n유효기간은 2024년 12월 31일까지입니다.스타벅스 아이스 아메리카노 쿠폰입니다.\n유효기간은 2024년 12월 31일까지입니다.스타벅스 아이스 아메리카노 쿠폰입니다.\n유효기간은 2024년 12월 31일까지입니다.',
     images: [
@@ -48,6 +50,10 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
     },
   };
 
+  const [tradeStatus, setTradeStatus] = useState<TradeStatus>(
+    productData.tradeStatus
+  );
+
   return (
     <div className="min-h-screen bg-white pb-[84px]">
       {/* 헤더 뒤로가기 및 더보기 버튼 */}
@@ -62,8 +68,7 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
       <ProductDetailImageSlider images={productData.images} />
 
       {/* 상품 정보(카테고리, 제목, 가격, 상태, 날짜) 및 찜하기 & 공유하기 버튼 */}
-
-      <ProductDetailInfo {...productData} />
+      <ProductDetailInfo {...productData} tradeStatus={tradeStatus} />
 
       {/* 판매자 정보 영역 (구매자 유저에게만 보이는 영역) */}
       {!isSeller && <ProductSellerSection {...productData} />}
@@ -92,12 +97,12 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
         }}
       />
 
-      <ProductStatusModal
+      <ProductStatusBottomSheet
         isOpen={isStatusModalOpen}
-        currentStatus={productData.tradeStatus}
+        currentStatus={tradeStatus}
         onClose={() => setIsStatusModalOpen(false)}
         onStatusChange={(status) => {
-          console.log('상태 변경:', status);
+          setTradeStatus(status as TradeStatus);
           setIsStatusModalOpen(false);
         }}
       />

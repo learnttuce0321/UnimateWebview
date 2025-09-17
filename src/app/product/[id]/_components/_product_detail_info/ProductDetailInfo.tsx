@@ -4,6 +4,7 @@ import React from 'react';
 import ProductDetailInfoHeader from './ProductDetailInfoHeader';
 import ProductDetailInfoLikeShare from './ProductDetailInfoLikeShare';
 import Divider from 'app/_components/Divider';
+import { TradeStatus } from '../../page';
 
 interface Props {
   title: string;
@@ -12,6 +13,7 @@ interface Props {
   createdAt: string;
   likeCount: number;
   chatRoomCount: number;
+  tradeStatus: TradeStatus;
 }
 
 const ProductDetailInfo = ({
@@ -21,6 +23,7 @@ const ProductDetailInfo = ({
   createdAt,
   likeCount,
   chatRoomCount,
+  tradeStatus,
 }: Props) => {
   return (
     <div className="flex flex-col justify-center gap-4 px-4 pt-4">
@@ -32,6 +35,7 @@ const ProductDetailInfo = ({
         createdAt={createdAt}
         likeCount={likeCount}
         chatRoomCount={chatRoomCount}
+        tradeStatus={tradeStatus}
       />
 
       {/* 찜하기 & 공유하기 버튼 */}
