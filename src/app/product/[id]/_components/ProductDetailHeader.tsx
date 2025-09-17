@@ -2,27 +2,36 @@
 
 import { useRouter } from 'next/navigation';
 import React from 'react';
+import ProductMoreMenu from './ProductMoreMenu';
 
-const ProductDetailHeader = () => {
+interface Props {
+  isSeller: boolean;
+  onEdit?: () => void;
+  onDelete?: () => void;
+  onHide?: () => void;
+}
+
+const ProductDetailHeader = ({ isSeller, onEdit, onDelete, onHide }: Props) => {
   const router = useRouter();
 
   return (
     <header className="sticky top-0 z-50 flex h-[50px] items-center justify-between border-b bg-white pl-[13px] pr-[10px]">
-      {/* 뒤로가기 버튼 영역 */}
+      {/* 뒤로가기 */}
       <button
-        className="flex items-center justify-center w-6 h-6"
+        className="flex h-6 w-6 items-center justify-center"
         onClick={() => router.back()}
+        aria-label="뒤로가기"
       >
-        <img src="/images/svg/product/arrow-back.svg" alt="뒤로가기" />
+        <img src="/images/svg/product/arrow-back.svg" alt="" />
       </button>
 
-      {/* 더보기 영역 */}
-      <button className="flex items-center justify-center w-6 h-6">
-        <img
-          src="/images/svg/product/icon-system-more-vertical.svg"
-          alt="더보기"
-        />
-      </button>
+      {/* 더보기(판매자 전용) */}
+      <ProductMoreMenu
+        isSeller={isSeller}
+        onEdit={onEdit}
+        onDelete={onDelete}
+        onHide={onHide}
+      />
     </header>
   );
 };
