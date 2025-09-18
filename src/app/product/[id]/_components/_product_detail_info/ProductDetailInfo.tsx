@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import ProductDetailInfoHeader from './ProductDetailInfoHeader';
 import ProductDetailInfoLikeShare from './ProductDetailInfoLikeShare';
 import Divider from 'app/_components/Divider';
@@ -25,6 +25,18 @@ const ProductDetailInfo = ({
   chatRoomCount,
   tradeStatus,
 }: Props) => {
+  const [currentLikeCount, setCurrentLikeCount] = useState(likeCount);
+  const [isLiked, setIsLiked] = useState(false);
+
+  const handleLikeToggle = () => {
+    if (isLiked) {
+      setCurrentLikeCount((prev) => prev - 1);
+      setIsLiked(false);
+    } else {
+      setCurrentLikeCount((prev) => prev + 1);
+      setIsLiked(true);
+    }
+  };
   return (
     <div className="flex flex-col justify-center gap-4 px-4 pt-4">
       {/* 헤더 영역 */}
@@ -33,13 +45,16 @@ const ProductDetailInfo = ({
         price={price}
         currencyType={currencyType}
         createdAt={createdAt}
-        likeCount={likeCount}
+        likeCount={currentLikeCount}
         chatRoomCount={chatRoomCount}
         tradeStatus={tradeStatus}
       />
 
       {/* 찜하기 & 공유하기 버튼 */}
-      <ProductDetailInfoLikeShare />
+      <ProductDetailInfoLikeShare
+        isLiked={isLiked}
+        onLikeToggle={handleLikeToggle}
+      />
 
       {/* 구분선 */}
       <Divider />
