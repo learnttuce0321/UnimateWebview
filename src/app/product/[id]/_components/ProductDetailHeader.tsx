@@ -34,13 +34,14 @@ const ProductDetailHeader = ({
       </button>
 
       {/* 더보기(판매자 전용) */}
-      <ProductMoreMenu
-        isSeller={isSeller}
-        tradeStatus={tradeStatus}
-        onEdit={onEdit}
-        onDelete={onDelete}
-        onHide={onHide}
-      />
+      {isSeller && (
+        <ProductMoreMenu
+          tradeStatus={tradeStatus}
+          onEdit={onEdit}
+          onDelete={onDelete}
+          onHide={onHide}
+        />
+      )}
     </header>
   );
 };

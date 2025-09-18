@@ -5,7 +5,6 @@ import Modal from 'components/modal/Modal';
 import { TradeStatus } from '../page';
 
 type Props = {
-  isSeller: boolean;
   tradeStatus: TradeStatus;
   onEdit?: () => void;
   onDelete?: () => void;
@@ -13,7 +12,6 @@ type Props = {
 };
 
 export default function ProductMoreMenu({
-  isSeller,
   tradeStatus,
   onEdit,
   onDelete,
