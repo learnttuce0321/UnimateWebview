@@ -59,6 +59,7 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
       {/* 헤더 뒤로가기 및 더보기 버튼 */}
       <ProductDetailHeader
         isSeller={isSeller}
+        tradeStatus={tradeStatus}
         onEdit={() => console.log('수정하기')}
         onDelete={() => console.log('삭제하기')}
         onHide={() => console.log('글 숨기기')}

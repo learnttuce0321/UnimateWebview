@@ -3,15 +3,23 @@
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import ProductMoreMenu from './ProductMoreMenu';
+import { TradeStatus } from '../page';
 
 interface Props {
   isSeller: boolean;
+  tradeStatus: TradeStatus;
   onEdit?: () => void;
   onDelete?: () => void;
   onHide?: () => void;
 }
 
-const ProductDetailHeader = ({ isSeller, onEdit, onDelete, onHide }: Props) => {
+const ProductDetailHeader = ({
+  isSeller,
+  tradeStatus,
+  onEdit,
+  onDelete,
+  onHide,
+}: Props) => {
   const router = useRouter();
 
   return (
@@ -28,6 +36,7 @@ const ProductDetailHeader = ({ isSeller, onEdit, onDelete, onHide }: Props) => {
       {/* 더보기(판매자 전용) */}
       <ProductMoreMenu
         isSeller={isSeller}
+        tradeStatus={tradeStatus}
         onEdit={onEdit}
         onDelete={onDelete}
         onHide={onHide}

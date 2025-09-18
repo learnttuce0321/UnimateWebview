@@ -1,9 +1,12 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
+import Modal from 'components/modal/Modal';
+import { TradeStatus } from '../page';
 
 type Props = {
   isSeller: boolean;
+  tradeStatus: TradeStatus;
   onEdit?: () => void;
   onDelete?: () => void;
   onHide?: () => void; // (비활성 메뉴용)
@@ -11,11 +14,15 @@ type Props = {
 
 export default function ProductMoreMenu({
   isSeller,
+  tradeStatus,
   onEdit,
   onDelete,
   onHide,
 }: Props) {
   const [open, setOpen] = useState(false);
+  const [showReservedAlertModal, setShowReservedAlertModal] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [actionType, setActionType] = useState<'hide' | 'delete' | null>(null);
   const menuRef = useRef<HTMLDivElement | null>(null);
 
   // iOS 웹뷰: 바깥 탭으로 닫기 + 스크롤 락
@@ -58,6 +65,38 @@ export default function ProductMoreMenu({
     };
   }, [open]);
 
+  const handleHideOrDelete = (type: 'hide' | 'delete') => {
+    setActionType(type);
+
+    if (tradeStatus === 'RESERVED') {
+      setShowReservedAlertModal(true);
+    } else {
+      setShowConfirmModal(true);
+    }
+  };
+
+  const handleConfirmAction = () => {
+    setShowConfirmModal(false);
+
+    if (actionType === 'hide') {
+      onHide?.();
+    } else if (actionType === 'delete') {
+      onDelete?.();
+    }
+
+    setActionType(null);
+  };
+
+  const handleCancelAction = () => {
+    setShowConfirmModal(false);
+    setActionType(null);
+  };
+
+  const handleCloseReservedAlert = () => {
+    setShowReservedAlertModal(false);
+    setActionType(null);
+  };
+
   return (
     <div className="relative">
       <button
@@ -95,10 +134,10 @@ export default function ProductMoreMenu({
             <button
               type="button"
               onClick={() => {
-                onHide;
                 setOpen(false);
+                handleHideOrDelete('hide');
               }}
-              className="block h-[30px] w-24 cursor-not-allowed text-left"
+              className="block h-[30px] w-24 text-left"
               role="menuitem"
             >
               글 숨기기
@@ -107,7 +146,7 @@ export default function ProductMoreMenu({
             <button
               type="button"
               onClick={() => {
-                onEdit;
+                onEdit?.();
                 setOpen(false);
               }}
               className="block h-[30px] w-24 text-left"
@@ -119,8 +158,8 @@ export default function ProductMoreMenu({
             <button
               type="button"
               onClick={() => {
-                onDelete;
                 setOpen(false);
+                handleHideOrDelete('delete');
               }}
               className="block h-[30px] w-24 text-left"
               role="menuitem"
@@ -130,6 +169,44 @@ export default function ProductMoreMenu({
           </div>
         </>
       )}
+
+      {/* 예약중 상태 알림 모달 */}
+      <Modal
+        isOpened={showReservedAlertModal}
+        confirmText="확인"
+        onConfirm={handleCloseReservedAlert}
+        onOverlayClick={handleCloseReservedAlert}
+      >
+        <div className="flex w-full flex-col items-start gap-2">
+          <p className="text-[16px] font-bold leading-[22.4px] text-[#212121]">
+            {`예약중인 글은 ${actionType === 'hide' ? '숨길' : '삭제할 '} 수 없어요.`}
+          </p>
+          <p className="text-[14px] font-medium leading-[16.8px] text-[#666b72]">
+            판매상태를 변경한 후 다시 시도해주세요.
+          </p>
+        </div>
+      </Modal>
+
+      {/* 확인 모달 */}
+      <Modal
+        isOpened={showConfirmModal}
+        confirmText="확인"
+        cancelText="취소"
+        onConfirm={handleConfirmAction}
+        onCancel={handleCancelAction}
+        onOverlayClick={handleCancelAction}
+      >
+        <div className="flex w-full flex-col items-start gap-2">
+          <p className="text-[16px] font-bold leading-[22.4px] text-[#212121]">
+            이 글을 {actionType === 'hide' ? '숨기' : '삭제하'}시겠어요?
+          </p>
+          <p className="whitespace-pre-line break-keep text-[14px] font-medium leading-[16.8px] text-[#666b72]">
+            {actionType === 'hide'
+              ? '숨김처리 된 글은 다른 메이트에게 \n비공개처리 됩니다.'
+              : '삭제한 글은 다시 복구할 수 없어요.'}
+          </p>
+        </div>
+      </Modal>
     </div>
   );
 }
