@@ -22,8 +22,8 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
   const [isStatusModalOpen, setIsStatusModalOpen] = useState(false);
 
-  const isSeller = false;
-  // const isSeller = true;
+  // const isSeller = false;
+  const isSeller = true;
 
   const productData = {
     id: Number(params.id),

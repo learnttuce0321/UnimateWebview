@@ -15,6 +15,9 @@ const STATUS_OPTIONS = [
   { value: 'SOLD_OUT', label: '거래완료' },
 ];
 
+const SELECTED_ICON = '/images/svg/register/icon-toggle-radio.svg';
+const DEFAULT_ICON = '/images/svg/register/icon-toggle-radio-none.svg';
+
 const ProductStatusBottomSheet = ({
   isOpen,
   currentStatus,
@@ -71,39 +74,49 @@ const ProductStatusBottomSheet = ({
             판매 상태를 변경하시겠어요?
           </div>
 
-          {/* staus 선택지 */}
+          {/* status 선택지 */}
           <div className="mb-4 flex flex-col gap-4">
-            {STATUS_OPTIONS.map((option) => (
-              <label
-                key={option.value}
-                className="flex cursor-pointer items-center gap-3 rounded-lg px-1 py-1 active:bg-gray-50"
-              >
-                <input
-                  type="radio"
-                  name="productStatus"
-                  value={option.value}
-                  checked={selectedStatus === option.value}
-                  onChange={(e) => setSelectedStatus(e.target.value)}
-                  className="h-5 w-5 appearance-none rounded-full border border-gray-400 checked:border-4 checked:border-blue-500"
-                />
-                <span
-                  className={
-                    selectedStatus === option.value
-                      ? 'text-[15px] text-gray-900'
-                      : 'text-[15px] text-gray-500'
-                  }
+            {STATUS_OPTIONS.map((option) => {
+              const selected = selectedStatus === option.value;
+              return (
+                <button
+                  key={option.value}
+                  type="button"
+                  aria-pressed={selected}
+                  onClick={() => setSelectedStatus(option.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setSelectedStatus(option.value);
+                    }
+                  }}
+                  className="flex w-full items-center gap-3 rounded-lg px-1 py-1 [-webkit-tap-highlight-color:transparent] active:bg-gray-50"
                 >
-                  {option.label}
-                </span>
-              </label>
-            ))}
+                  <img
+                    src={selected ? SELECTED_ICON : DEFAULT_ICON}
+                    alt={selected ? '선택됨' : '선택 안 됨'}
+                    className="h-5 w-5 rounded-full"
+                  />
+
+                  <span
+                    className={
+                      selected
+                        ? 'text-[15px] text-gray-900'
+                        : 'text-[15px] text-gray-500'
+                    }
+                  >
+                    {option.label}
+                  </span>
+                </button>
+              );
+            })}
           </div>
 
-          {/* 확인 버튼 */}
+          {/* confirm */}
           <button
             type="button"
             onClick={handleConfirm}
-            className="w-full rounded-full bg-[#2f80ff] py-3 text-[15px] font-semibold text-white active:bg-[#2a74ea]"
+            className="w-full rounded-[10px] bg-[#3c8dff] text-[18px] font-bold leading-[50px] text-white active:bg-[#2a74ea]"
           >
             확인
           </button>
