@@ -108,11 +108,16 @@ export default function RegisterImageForm({
         const response = await registerApi.getPresignedUrl({
           fileNames: [testFileName],
         });
-        setImages((prev) => [
-          ...prev,
-          '/images/test_images/product_example.png',
-        ]);
-        setImageKeys((prev) => [...prev, response.urlList[0].key]); // ✅ 안정적 id
+
+        if (response?.urlList?.[0]?.key) {
+          setImages((prev) => [
+            ...prev,
+            '/images/test_images/product_example.png',
+          ]);
+          setImageKeys((prev) => [...prev, response.urlList[0].key]); // ✅ 안정적 id
+        } else {
+          console.error('Invalid response structure:', response);
+        }
       }
     } catch (e) {
       console.error('Failed to upload images:', e);
