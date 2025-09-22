@@ -17,7 +17,7 @@ interface Props {
 // 필터별 설정 객체
 const FILTER_CONFIGS = {
   price: {
-    paramKey: 'price',
+    paramKey: 'minPrice',
     formatDisplayText: (value: string) => `${formatNumber(value)}원 이상`,
   },
   category: {

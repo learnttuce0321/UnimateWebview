@@ -1,7 +1,7 @@
-import { initializeStore } from 'stores/createAppStore';
+import deviceInfoStore from 'stores/vanillaStore.deviceInfo';
 
 const navigationScheme = () => {
-  const { isWebview } = initializeStore().getState();
+  const isWebview = deviceInfoStore.getState().deviceInfo.isWebView;
 
   return {
     openWeb: (href: string) => {

@@ -1,7 +1,7 @@
 'use client';
 
 import { FormEvent, useRef, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useRecentSearchStore } from 'app/search/_hooks/useRecentSearchKeyword';
 
 interface Props {
@@ -11,6 +11,7 @@ interface Props {
 
 const SearchInput = ({ searchKeyword, onSearchKeywordChange }: Props) => {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const addRecentSearch = useRecentSearchStore(
     (state) => state.addRecentSearch
@@ -25,7 +26,9 @@ const SearchInput = ({ searchKeyword, onSearchKeywordChange }: Props) => {
     const q = formData.get('q');
     addRecentSearch(q as string);
 
-    router.replace(`/search/result?q=${q}`);
+    const params = new URLSearchParams(searchParams);
+    params.set('q', q as string);
+    router.push(`/search/result?${params.toString()}`);
   };
 
   const handleDeleteSearchKeyword = (e: any) => {

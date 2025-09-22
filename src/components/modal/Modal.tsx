@@ -1,6 +1,6 @@
 'use client';
 
-import { MODAL_CONTENT_Z_INDEX } from 'app/constants/zIndex';
+import { MODAL_CONTENT_Z_INDEX } from 'constants/zIndex';
 import Overlay from 'components/modal/Overlay';
 
 interface Props {

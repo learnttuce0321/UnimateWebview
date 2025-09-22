@@ -1,11 +1,17 @@
 'use client';
 
 import { useState } from 'react';
-import UserInterestRegionList from 'app/interest/_components/region/UserInterestRegionList';
+import dynamic from 'next/dynamic';
 import SearchedCitiesList from 'app/interest/_components/search/SearchedInterestRegionList';
 import SearchInterestRegionInput from 'app/interest/_components/search/SearchInterestRegionInput';
 import { ActionType } from 'app/interest/_types/search';
 
+const DynamicUserInterestRegionList = dynamic(
+  () => import('app/interest/_components/region/UserInterestRegionList'),
+  {
+    ssr: false,
+  }
+);
 const SearchInterestRegionSection = () => {
   const [inputValue, setInputValue] = useState<string>('');
   const [actionType, setActionType] = useState<ActionType>('setting');
@@ -32,7 +38,12 @@ const SearchInterestRegionSection = () => {
           handleChangeActionType={handleChangeActionType}
         />
       ) : (
-        <UserInterestRegionList />
+        <>
+          <h3 className="mb-[16px] h-[17px] text-[14px] font-bold">
+            나의 관심 도시
+          </h3>
+          <DynamicUserInterestRegionList />
+        </>
       )}
     </section>
   );

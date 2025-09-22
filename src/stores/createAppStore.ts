@@ -1,18 +1,38 @@
 import { type StoreApi } from 'zustand';
+import { createStore } from 'zustand';
+import { Region } from 'types/Region';
+import { User } from 'types/User';
 import { devtools } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
-import { createStore } from 'zustand/vanilla';
-import { Region } from '../types/Region';
+
+const DEFAULT_PROFILE: User = {
+  nickname: '',
+  profileImageKey: '',
+  university: {},
+  interestRegions: {
+    interestRegions: [],
+  },
+};
+
+export interface DeviceInfo {
+  device: string;
+  deviceId: string;
+  version: string;
+}
 
 export interface AppState {
-  accessToken: string | null;
+  userProfile: User;
+  isLogin: boolean;
+}
+
+export interface VanillaAppState {
+  accessToken: string;
   isWebview: boolean;
-  userInterestRegions: Region[];
+  deviceInfo: DeviceInfo;
 }
 
 export interface AppActions {
   // 관심도시 설정
-  getPrimaryRegion: () => Region | undefined;
   addInterestRegion: (region: Region) => void;
   removeInterestRegion: (regionId: string) => void;
   changePrimaryRegion: (regionId: string) => void;
@@ -20,12 +40,11 @@ export interface AppActions {
 
 export type AppStore = AppState & AppActions;
 export type Store = StoreApi<AppStore>;
-export type InitialStore = Partial<AppState>;
+export type InitialStore = Partial<AppState> & Partial<VanillaAppState>;
 
-const defaultInitialState: AppState = {
-  accessToken: '',
-  isWebview: false,
-  userInterestRegions: [],
+const defaultInitialState: Omit<AppState, 'accessToken' | 'isWebview'> = {
+  userProfile: DEFAULT_PROFILE,
+  isLogin: false,
 };
 
 let appStore: StoreApi<AppStore> | null = null;
@@ -41,30 +60,31 @@ export const initializeStore = (initialState?: InitialStore): Store => {
         ...mergedInitialState,
         addInterestRegion: (region) => {
           set((state) => {
-            state.userInterestRegions = [...state.userInterestRegions, region];
+            state.userProfile.interestRegions.interestRegions = [
+              ...state.userProfile.interestRegions.interestRegions,
+              region,
+            ];
           });
-        },
-
-        getPrimaryRegion: () => {
-          return get().userInterestRegions.find((region) => region.isPrimary);
         },
 
         removeInterestRegion: (regionId) => {
           set((state) => {
-            state.userInterestRegions = state.userInterestRegions.filter(
-              (userRegion) => userRegion.regionId !== regionId
-            );
+            state.userProfile.interestRegions.interestRegions =
+              state.userProfile.interestRegions.interestRegions?.filter(
+                (userRegion) => userRegion.regionId !== regionId
+              );
           });
         },
 
         changePrimaryRegion: (regionId) => {
           set((state) => {
-            state.userInterestRegions = state.userInterestRegions.map(
-              (region) => ({
-                ...region,
-                isPrimary: region.regionId === regionId,
-              })
-            );
+            state.userProfile.interestRegions.interestRegions =
+              state.userProfile.interestRegions.interestRegions?.map(
+                (region) => ({
+                  ...region,
+                  isPrimary: region.regionId === regionId,
+                })
+              );
           });
         },
       })),

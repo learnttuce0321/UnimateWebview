@@ -4,13 +4,14 @@ import { useRef } from 'react';
 import ProductCard from 'app/_components/product/ProductCard';
 import { useInfiniteQueryWithObserver } from 'hooks/useInfiniteQueryWithObserver';
 import fetchClient from 'modules/fetchClient';
-import { API_PRODUCTS_LIST } from 'modules/keyFactory.product';
+import { API_PRODUCT } from 'modules/keyFactory.product';
 import { useAppStore } from 'providers/ZustandProvider';
 import { ProductPostsResponse } from '../../../types/Product';
+import { selectPrimaryRegion } from 'stores/selectors';
 
 const ProductList = () => {
   const infiniteTarget = useRef<HTMLDivElement>(null);
-  const getPrimaryRegion = useAppStore((state) => state.getPrimaryRegion);
+  const primaryRegion = useAppStore(selectPrimaryRegion);
 
   const {
     data: productPosts,
@@ -19,21 +20,21 @@ const ProductList = () => {
   } = useInfiniteQueryWithObserver<ProductPostsResponse>(
     infiniteTarget,
     {
-      queryKey: [API_PRODUCTS_LIST],
+      queryKey: [API_PRODUCT, primaryRegion?.regionId],
       initialPageParam: 1,
       queryFn: async ({ pageParam }) => {
         try {
           const res = await fetchClient.GET<ProductPostsResponse>({
-            url: API_PRODUCTS_LIST,
+            url: API_PRODUCT,
             params: {
               pageNumber: pageParam,
-              regionId: getPrimaryRegion()?.regionId ?? '',
+              regionId: primaryRegion?.regionId ?? '',
             },
           });
 
           return res;
         } catch (error) {
-          console.log('membership detail error', error);
+          console.log('region product list', error);
           throw error;
         }
       },

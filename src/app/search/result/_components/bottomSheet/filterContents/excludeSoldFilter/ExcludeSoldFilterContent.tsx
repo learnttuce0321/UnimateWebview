@@ -1,4 +1,4 @@
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import TitleBottomSheet from '../priceFilter/TitleBottomSheet';
 import ExcludeSoldFilterOptionList from './ExcludeSoldFilterOptionList';
@@ -11,19 +11,19 @@ export type ExcludeFilterType = 'exclude_completed' | 'include_completed';
 
 const ExcludeSoldFilterContent = ({ closeSheet }: Props) => {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const [selectedSort, setSelectedSort] =
     useState<ExcludeFilterType>('exclude_completed');
 
   const handleApplySortFilter = () => {
-    if (selectedSort) {
-      const currentUrl = new URL(window.location.href);
-      currentUrl.searchParams.set('excludeSold', selectedSort);
+    const currentUrl = new URL(window.location.href);
 
-      // TODO : 지금은 페이지 새로고침이지만, 추후에 검색 api 호출할거임
-      window.location.href = currentUrl.toString();
-    } else {
-      closeSheet();
+    if (selectedSort) {
+      currentUrl.searchParams.set('excludeSold', selectedSort);
     }
+
+    router.replace(currentUrl.toString());
+    closeSheet();
   };
 
   // URL에서 sort 파라미터를 가져와서 초기값으로 설정
@@ -38,7 +38,7 @@ const ExcludeSoldFilterContent = ({ closeSheet }: Props) => {
   }, [searchParams]);
 
   return (
-    <div className="flex h-full w-full flex-col">
+    <div className="flex flex-col w-full h-full">
       <TitleBottomSheet title="상품 보기 방식" />
       <ExcludeSoldFilterOptionList
         selectedSort={selectedSort}

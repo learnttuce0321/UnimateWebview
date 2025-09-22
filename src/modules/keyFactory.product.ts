@@ -5,14 +5,16 @@
  */
 
 /**
- * 상품 목록 조회 API
+ * @GET 상품 목록 조회 API
+ * @POST 상품 등록 API
+ *
  */
-export const API_PRODUCTS_LIST = '/api/v1/product-posts';
+export const API_PRODUCT = '/api/v1/product-posts';
 
 /**
- * 상품 등록 API
+ * @GET 상품 검색 API
  */
-export const API_PRODUCTS_POSTS = '/api/v1/product-posts';
+export const API_PRODUCTS_SEARCH = '/api/v1/product-posts/search';
 
 /**
  * 상품 이미지 업로드를 위한 Presigned URL 발급 API

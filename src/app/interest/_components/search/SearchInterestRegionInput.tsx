@@ -1,9 +1,9 @@
 'use client';
 
-import { useDebounce } from 'hooks/useDebounce';
-import SearchInputIcon from 'app/interest/_components/search/SearchInputIcon';
-import { ActionType } from 'app/interest/_types/search';
 import { useEffect, useState } from 'react';
+import RegionSearchInputIcon from 'app/interest/_components/search/RegionSearchInputIcon';
+import { ActionType } from 'app/interest/_types/search';
+import { useDebounceWithReset } from 'hooks/useDebounce';
 
 interface Props {
   actionType: ActionType;
@@ -19,7 +19,7 @@ const SearchInterestRegionInput = ({
   handleInputValueChange,
 }: Props) => {
   const [_value, _setValue] = useState(inputValue);
-  const debouncedValue = useDebounce(_value, 200);
+  const [debouncedValue] = useDebounceWithReset(_value, 200);
 
   const handleDelete = () => {
     handleChangeActionType('setting');
@@ -45,7 +45,7 @@ const SearchInterestRegionInput = ({
         value={_value}
         onChange={handleInputChange}
       />
-      <SearchInputIcon actionType={actionType} onDelete={handleDelete} />
+      <RegionSearchInputIcon actionType={actionType} onDelete={handleDelete} />
     </div>
   );
 };

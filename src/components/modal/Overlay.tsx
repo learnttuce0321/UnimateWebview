@@ -1,4 +1,4 @@
-import { MODAL_OVERLAY_Z_INDEX } from 'app/constants/zIndex';
+import { MODAL_OVERLAY_Z_INDEX } from 'constants/zIndex';
 
 interface Props {
   backgroundColor?: string;

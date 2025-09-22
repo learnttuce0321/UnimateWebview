@@ -1,20 +1,33 @@
 'use client';
 
+import { MouseEvent } from 'react';
+import { useRouter } from 'next/navigation';
 import NoneRecentSearch from 'app/search/_components/recentSearch/NoneRecentSearch';
-import { useRecentSearchStore } from 'app/search/_hooks/useRecentSearchKeyword';
-import { useShallow } from 'zustand/shallow';
+import { useRecentSearch } from 'hooks/useRecentSearch';
 
 const RecentSearches = () => {
-  const { recentSearches, deleteRecentSearch, clearRecentSearches } =
-    useRecentSearchStore(
-      useShallow((state) => ({
-        recentSearches: state.recentSearches,
-        deleteRecentSearch: state.deleteRecentSearch,
-        clearRecentSearches: state.clearRecentSearches,
-      }))
-    );
+  const router = useRouter();
+  const {
+    recentSearches,
+    isInitialized,
+    deleteRecentSearch,
+    clearRecentSearches,
+  } = useRecentSearch();
 
+  if (!isInitialized) return null;
   if (!recentSearches.length) return <NoneRecentSearch />;
+
+  const handleRecentSearchClick = (keyword: string) => {
+    router.replace(`/search/result?q=${keyword}`);
+  };
+  const handleDeleteRecentSearch = (
+    e: MouseEvent<HTMLButtonElement>,
+    keyword: string
+  ) => {
+    e.stopPropagation();
+    deleteRecentSearch(keyword);
+  };
+
   return (
     <div>
       <section className="flex items-center justify-between text-[14px]">
@@ -33,6 +46,7 @@ const RecentSearches = () => {
             <li
               key={keyword}
               className="flex w-full items-center gap-[5px] py-[8px]"
+              onClick={() => handleRecentSearchClick(keyword)}
             >
               <img
                 src="/images/svg/search/icon-system-history.svg"
@@ -43,7 +57,10 @@ const RecentSearches = () => {
               <p className="flex-shrink-[1] flex-grow-[1] pl-[5px]">
                 {keyword}
               </p>
-              <button type="button" onClick={() => deleteRecentSearch(keyword)}>
+              <button
+                type="button"
+                onClick={(event) => handleDeleteRecentSearch(event, keyword)}
+              >
                 <img
                   src="/images/svg/search/icon-system-close-small.svg"
                   width={24}

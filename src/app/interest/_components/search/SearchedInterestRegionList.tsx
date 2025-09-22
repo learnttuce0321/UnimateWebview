@@ -6,7 +6,7 @@ import { useInfiniteQueryWithObserver } from 'hooks/useInfiniteQueryWithObserver
 import fetchClient from 'modules/fetchClient';
 import { API_REGION_SEARCH } from 'modules/keyFactory.region';
 import { normalizeString } from 'modules/normalize';
-import { SearchedRegion, SearchedRegionResponse } from 'types/Region';
+import { SearchedRegion, SearchRegionResponse } from 'types/Region';
 
 interface Props {
   inputValue: string;
@@ -26,24 +26,24 @@ const SearchedInterestRegionList = ({
     data: searchedRegion,
     isLoading,
     isError,
-  } = useInfiniteQueryWithObserver<SearchedRegionResponse>(
+  } = useInfiniteQueryWithObserver<SearchRegionResponse>(
     infiniteTarget,
     {
       queryKey: [API_REGION_SEARCH, inputValue],
       initialPageParam: 1,
       queryFn: async ({ pageParam }) => {
         try {
-          const res = await fetchClient.GET<SearchedRegionResponse>({
+          const res = await fetchClient.GET<SearchRegionResponse>({
             url: API_REGION_SEARCH,
             params: {
-              page: pageParam,
+              pageNumber: pageParam,
               name: normalizeString(inputValue),
             },
           });
 
           return res;
         } catch (error) {
-          console.log('membership detail error', error);
+          console.log('search interest region', error);
           throw error;
         }
       },
