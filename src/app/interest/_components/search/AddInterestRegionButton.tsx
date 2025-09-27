@@ -8,6 +8,7 @@ import { useMutationAddInterestRegion } from 'hooks/users/useMutationAddInterest
 import { setLocalStorageAndSync } from 'hooks/useStorageSync';
 import { useAppStore } from 'providers/ZustandProvider';
 import { SearchedRegion } from 'types/Region';
+import BottomFixedConfirmButton from 'components/button/BottomFixedConfirmButton';
 
 interface Props {
   selectedRegion: SearchedRegion | null;
@@ -61,13 +62,11 @@ const AddInterestRegionButton = ({
 
   return (
     <>
-      <button
-        type="button"
-        className={`fixed bottom-[10px] h-[50px] w-[calc(100%-32px)] rounded-[10px] text-white ${selectedRegion ? 'bg-blue-600_P' : 'bg-blue_gray-500'}`}
+      <BottomFixedConfirmButton
+        buttonText="등록하기"
         onClick={handleAddInterestRegionClick}
-      >
-        등록하기
-      </button>
+        isActive={!!selectedRegion}
+      />
       {openAddInterestRegionModal && (
         <Modal
           isOpened={openAddInterestRegionModal}
