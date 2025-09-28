@@ -9,8 +9,12 @@ import EmailCodeSubDescription from './_components/code/EmailCodeSubDescription'
 import EmailCodeInput from './_components/code/EmailCodeInput';
 import VerifyEmailCompleteDescription from './_components/complete/VerifyEmailCompleteDescription';
 import FinishVerifyUniversityButton from './_components/complete/FinishVerifyUniversityButton';
+import { useAppStore } from 'providers/ZustandProvider';
+import VerifiedUniversityDescription from '../verified/_components/VerifiedUniversityDescription';
+import VerifiedUniversityEmail from '../verified/_components/VerifiedUniversityEmail';
+import CheckVerifiedUniversityEmailButton from '../verified/_components/CheckVerifiedUniversityEmailButton';
 
-export type VerifyType = 'EMAIL' | 'CODE' | 'COMPLETE';
+export type VerifyType = 'EMAIL' | 'CODE' | 'COMPLETE' | 'VERIFIED';
 interface VerifyStepProps {
   setVerifyType: React.Dispatch<React.SetStateAction<VerifyType>>;
 }
@@ -36,10 +40,20 @@ const VerifyComponentsByStep = {
       <FinishVerifyUniversityButton />
     </>
   ),
+  VERIFIED: () => (
+    <>
+      <VerifiedUniversityDescription />
+      <VerifiedUniversityEmail />
+      <CheckVerifiedUniversityEmailButton />
+    </>
+  ),
 };
 
 const Page = () => {
-  const [verifyType, setVerifyType] = useState<VerifyType>('EMAIL');
+  const university = useAppStore((state) => state.userProfile.university);
+  const [verifyType, setVerifyType] = useState<VerifyType>(
+    university.name ? 'VERIFIED' : 'EMAIL'
+  );
 
   const VerifyComponent = VerifyComponentsByStep[verifyType];
 
