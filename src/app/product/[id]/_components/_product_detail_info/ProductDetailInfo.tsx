@@ -14,6 +14,8 @@ interface Props {
   likeCount: number;
   chatRoomCount: number;
   tradeStatus: TradeStatus;
+  isLiked?: boolean;
+  category: string;
 }
 
 const ProductDetailInfo = ({
@@ -24,9 +26,11 @@ const ProductDetailInfo = ({
   likeCount,
   chatRoomCount,
   tradeStatus,
+  isLiked: initialIsLiked = false,
+  category,
 }: Props) => {
   const [currentLikeCount, setCurrentLikeCount] = useState(likeCount);
-  const [isLiked, setIsLiked] = useState(false);
+  const [isLiked, setIsLiked] = useState(initialIsLiked);
 
   const handleLikeToggle = () => {
     if (isLiked) {
@@ -48,6 +52,7 @@ const ProductDetailInfo = ({
         likeCount={currentLikeCount}
         chatRoomCount={chatRoomCount}
         tradeStatus={tradeStatus}
+        category={category}
       />
 
       {/* 찜하기 & 공유하기 버튼 */}

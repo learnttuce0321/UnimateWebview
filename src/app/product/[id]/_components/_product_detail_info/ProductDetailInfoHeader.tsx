@@ -3,6 +3,7 @@
 import React from 'react';
 import { formatNumber } from 'utils/formatNumber';
 import { formatTimeAgo } from 'utils/formatTime';
+import { getCategoryKoreanName } from 'utils/categoryMapper';
 import { TradeStatus } from '../../page';
 
 interface Props {
@@ -13,6 +14,7 @@ interface Props {
   likeCount: number;
   chatRoomCount: number;
   tradeStatus: TradeStatus;
+  category: string;
 }
 
 const statusBadge = (status: TradeStatus) => {
@@ -47,12 +49,13 @@ const ProductDetailInfoHeader = ({
   likeCount,
   chatRoomCount,
   tradeStatus,
+  category,
 }: Props) => {
   return (
     <div className="flex flex-col justify-center gap-4">
       {/* 카테고리 영역 */}
       <span className="text-[14px] font-semibold leading-[14px] text-[#666b72]">
-        카테고리 명
+        {getCategoryKoreanName(category)}
       </span>
 
       {/* 제목 및 가격 영역 */}

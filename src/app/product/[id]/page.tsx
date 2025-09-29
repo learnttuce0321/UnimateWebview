@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useQueryProductDetail } from 'hooks/products/useQueryProductDetail';
 import ProductDetailHeader from './_components/ProductDetailHeader';
 import ProductDetailImageSlider from './_components/ProductDetailImageSlider';
 import ProductDetailInfo from './_components/_product_detail_info/ProductDetailInfo';
@@ -21,38 +22,60 @@ interface ProductDetailPageProps {
 const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
   const [isStatusModalOpen, setIsStatusModalOpen] = useState(false);
+  const [tradeStatus, setTradeStatus] = useState<TradeStatus>('FOR_SALE');
 
-  // const isSeller = false;
-  const isSeller = true;
+  // API 호출
+  const {
+    data: productDetail,
+    isLoading,
+    error,
+  } = useQueryProductDetail(params.id);
+
+  // productDetail이 로드되면 tradeStatus 업데이트
+  useEffect(() => {
+    if (productDetail) {
+      setTradeStatus(productDetail.tradeStatus as TradeStatus);
+    }
+  }, [productDetail]);
+
+  if (isLoading) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <div className="text-lg">로딩 중...</div>
+      </div>
+    );
+  }
+
+  if (error || !productDetail) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <div className="text-lg text-red-500">
+          상품 정보를 불러올 수 없습니다.
+        </div>
+      </div>
+    );
+  }
+
+  const isSeller = productDetail.isOwner;
 
   const productData = {
-    id: Number(params.id),
-    title: '스타벅스 아이스 아메리카노 쿠폰',
-    price: 4500,
-    currencyType: 'KRW' as const,
-    tradeStatus: 'FOR_SALE' as TradeStatus,
-    description:
-      '스타벅스 아이스 아메리카노 쿠폰입니다.\n유효기간은 2024년 12월 31일까지입니다.스타벅스 아이스 아메리카노 쿠폰입니다.\n유효기간은 2024년 12월 31일까지입니다.스타벅스 아이스 아메리카노 쿠폰입니다.\n유효기간은 2024년 12월 31일까지입니다.스타벅스 아이스 아메리카노 쿠폰입니다.\n유효기간은 2024년 12월 31일까지입니다.',
-    images: [
-      '/images/test_images/product_example.png',
-      '/images/test_images/product_example_2.png',
-      '/images/test_images/product_example.png',
-      '/images/test_images/product_example_2.png',
-    ],
-    universityName: '서울대학교',
-    regionName: '서울특별시 관악구',
-    createdAt: '2024-01-15T10:30:00Z',
-    likeCount: 12,
-    chatRoomCount: 3,
+    id: productDetail.id,
+    title: productDetail.title,
+    price: productDetail.price,
+    currencyType: productDetail.currencyType,
+    tradeStatus: productDetail.tradeStatus as TradeStatus,
+    description: productDetail.description,
+    images: productDetail.imageUrls,
+    universityName: productDetail.universityName,
+    createdAt: productDetail.createdAt,
+    likeCount: productDetail.likeCount,
+    chatRoomCount: productDetail.chatRoomCount,
     seller: {
-      name: '판매자명',
-      profileImage: null,
+      name: productDetail.sellerNickname,
+      profileImage: productDetail.sellerProfileImageUrl,
     },
+    category: productDetail.category,
   };
-
-  const [tradeStatus, setTradeStatus] = useState<TradeStatus>(
-    productData.tradeStatus
-  );
 
   return (
     <div className="min-h-screen bg-white pb-[84px]">
@@ -69,7 +92,11 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
       <ProductDetailImageSlider images={productData.images} />
 
       {/* 상품 정보(카테고리, 제목, 가격, 상태, 날짜) 및 찜하기 & 공유하기 버튼 */}
-      <ProductDetailInfo {...productData} tradeStatus={tradeStatus} />
+      <ProductDetailInfo
+        {...productData}
+        tradeStatus={tradeStatus}
+        isLiked={productDetail.isLiked}
+      />
 
       {/* 판매자 정보 영역 (구매자 유저에게만 보이는 영역) */}
       {!isSeller && <ProductSellerSection {...productData} />}
