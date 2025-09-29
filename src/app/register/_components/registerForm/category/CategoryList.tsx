@@ -1,9 +1,9 @@
 import { UseFormSetValue } from 'react-hook-form';
 import { FormDataType } from 'app/register/_type/registerType';
-import { categoryTestDataType } from 'app/testDatas/categoryTestData';
+import { categoryDataType } from 'constants/categoryData';
 
 type Props = {
-  categoryData: categoryTestDataType[];
+  categoryData: categoryDataType[];
   setValue: UseFormSetValue<FormDataType>;
   onClickCategory: () => void;
 };
