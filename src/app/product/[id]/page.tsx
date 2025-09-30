@@ -81,11 +81,12 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
     <div className="min-h-screen bg-white pb-[84px]">
       {/* 헤더 뒤로가기 및 더보기 버튼 */}
       <ProductDetailHeader
+        productId={productDetail.id}
         isSeller={isSeller}
         tradeStatus={tradeStatus}
+        isHidden={productDetail.isHidden}
         onEdit={() => console.log('수정하기')}
         onDelete={() => console.log('삭제하기')}
-        onHide={() => console.log('글 숨기기')}
       />
 
       {/* 상품 이미지 스와이프 */}

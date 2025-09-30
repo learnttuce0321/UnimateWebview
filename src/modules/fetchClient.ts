@@ -111,6 +111,18 @@ const request = async <TResponse>(
       return {} as TResponse;
     }
 
+    // 200 응답이지만 body가 비어있는 경우 처리
+    const contentLength = response.headers.get('content-length');
+    const contentType = response.headers.get('content-type');
+
+    if (
+      contentLength === '0' ||
+      !contentType ||
+      !contentType.includes('application/json')
+    ) {
+      return {} as TResponse;
+    }
+
     const data: TResponse = await response.json();
     return data;
   } catch (error: any) {

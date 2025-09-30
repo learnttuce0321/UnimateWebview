@@ -6,19 +6,21 @@ import ProductMoreMenu from './ProductMoreMenu';
 import { TradeStatus } from '../page';
 
 interface Props {
+  productId: number;
   isSeller: boolean;
   tradeStatus: TradeStatus;
+  isHidden?: boolean;
   onEdit?: () => void;
   onDelete?: () => void;
-  onHide?: () => void;
 }
 
 const ProductDetailHeader = ({
+  productId,
   isSeller,
   tradeStatus,
+  isHidden = false,
   onEdit,
   onDelete,
-  onHide,
 }: Props) => {
   const router = useRouter();
 
@@ -36,10 +38,11 @@ const ProductDetailHeader = ({
       {/* 더보기(판매자 전용) */}
       {isSeller && (
         <ProductMoreMenu
+          productId={productId}
           tradeStatus={tradeStatus}
+          isHidden={isHidden}
           onEdit={onEdit}
           onDelete={onDelete}
-          onHide={onHide}
         />
       )}
     </header>

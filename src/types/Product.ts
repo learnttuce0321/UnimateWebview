@@ -41,4 +41,5 @@ export interface ProductDetail {
   regionName: string;
   universityId: string;
   universityName: string;
+  isHidden?: boolean;
 }

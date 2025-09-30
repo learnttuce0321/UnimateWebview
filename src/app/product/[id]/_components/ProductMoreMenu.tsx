@@ -2,25 +2,37 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import Modal from 'components/modal/Modal';
+import {
+  useMutationHideProduct,
+  useMutationUnhideProduct,
+  ApiError,
+} from 'hooks/products/useMutationHideProduct';
 import { TradeStatus } from '../page';
 
 type Props = {
+  productId: number;
   tradeStatus: TradeStatus;
+  isHidden?: boolean;
   onEdit?: () => void;
   onDelete?: () => void;
-  onHide?: () => void; // (비활성 메뉴용)
 };
 
 export default function ProductMoreMenu({
+  productId,
   tradeStatus,
+  isHidden = false,
   onEdit,
   onDelete,
-  onHide,
 }: Props) {
   const [open, setOpen] = useState(false);
   const [showReservedAlertModal, setShowReservedAlertModal] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [actionType, setActionType] = useState<'hide' | 'delete' | null>(null);
+
+  const hideMutation = useMutationHideProduct();
+  const unhideMutation = useMutationUnhideProduct();
   const menuRef = useRef<HTMLDivElement | null>(null);
 
   // iOS 웹뷰: 바깥 탭으로 닫기 + 스크롤 락
@@ -66,20 +78,32 @@ export default function ProductMoreMenu({
   const handleHideOrDelete = (type: 'hide' | 'delete') => {
     setActionType(type);
 
-    if (tradeStatus === 'RESERVED') {
+    if (type === 'hide' && tradeStatus === 'RESERVED') {
+      setShowReservedAlertModal(true);
+    } else if (type === 'delete' && tradeStatus === 'RESERVED') {
       setShowReservedAlertModal(true);
     } else {
       setShowConfirmModal(true);
     }
   };
 
-  const handleConfirmAction = () => {
+  const handleConfirmAction = async () => {
     setShowConfirmModal(false);
 
-    if (actionType === 'hide') {
-      onHide?.();
-    } else if (actionType === 'delete') {
-      onDelete?.();
+    try {
+      if (actionType === 'hide') {
+        if (isHidden) {
+          await unhideMutation.mutateAsync(productId);
+        } else {
+          await hideMutation.mutateAsync(productId);
+        }
+      } else if (actionType === 'delete') {
+        onDelete?.();
+      }
+    } catch (error: any) {
+      const apiError = error as ApiError;
+      setErrorMessage(apiError.message || '오류가 발생했습니다.');
+      setShowErrorModal(true);
     }
 
     setActionType(null);
@@ -93,6 +117,11 @@ export default function ProductMoreMenu({
   const handleCloseReservedAlert = () => {
     setShowReservedAlertModal(false);
     setActionType(null);
+  };
+
+  const handleCloseErrorModal = () => {
+    setShowErrorModal(false);
+    setErrorMessage('');
   };
 
   return (
@@ -138,7 +167,7 @@ export default function ProductMoreMenu({
               className="block h-[30px] w-24 text-left"
               role="menuitem"
             >
-              글 숨기기
+              {isHidden ? '글 숨김해제' : '글 숨기기'}
             </button>
 
             <button
@@ -196,12 +225,35 @@ export default function ProductMoreMenu({
       >
         <div className="flex w-full flex-col items-start gap-2">
           <p className="text-[16px] font-bold leading-[22.4px] text-[#212121]">
-            이 글을 {actionType === 'hide' ? '숨기' : '삭제하'}시겠어요?
+            이 글을{' '}
+            {actionType === 'hide'
+              ? isHidden
+                ? '숨김해제 하'
+                : '숨기'
+              : '삭제하'}
+            시겠어요?
           </p>
           <p className="whitespace-pre-line break-keep text-[14px] font-medium leading-[16.8px] text-[#666b72]">
             {actionType === 'hide'
               ? '숨김처리 된 글은 다른 메이트에게 \n비공개처리 됩니다.'
               : '삭제한 글은 다시 복구할 수 없어요.'}
+          </p>
+        </div>
+      </Modal>
+
+      {/* 에러 모달 */}
+      <Modal
+        isOpened={showErrorModal}
+        confirmText="확인"
+        onConfirm={handleCloseErrorModal}
+        onOverlayClick={handleCloseErrorModal}
+      >
+        <div className="flex w-full flex-col items-start gap-2">
+          <p className="text-[16px] font-bold leading-[22.4px] text-[#212121]">
+            오류가 발생했습니다
+          </p>
+          <p className="text-[14px] font-medium leading-[16.8px] text-[#666b72]">
+            {errorMessage}
           </p>
         </div>
       </Modal>
