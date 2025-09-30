@@ -1,12 +1,14 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Modal from 'components/modal/Modal';
 import {
   useMutationHideProduct,
   useMutationUnhideProduct,
   ApiError,
 } from 'hooks/products/useMutationHideProduct';
+import { useMutationDeleteProduct } from 'hooks/products/useMutationDeleteProduct';
 import { TradeStatus } from '../page';
 
 type Props = {
@@ -14,7 +16,6 @@ type Props = {
   tradeStatus: TradeStatus;
   isHidden?: boolean;
   onEdit?: () => void;
-  onDelete?: () => void;
 };
 
 export default function ProductMoreMenu({
@@ -22,7 +23,6 @@ export default function ProductMoreMenu({
   tradeStatus,
   isHidden = false,
   onEdit,
-  onDelete,
 }: Props) {
   const [open, setOpen] = useState(false);
   const [showReservedAlertModal, setShowReservedAlertModal] = useState(false);
@@ -31,8 +31,10 @@ export default function ProductMoreMenu({
   const [errorMessage, setErrorMessage] = useState('');
   const [actionType, setActionType] = useState<'hide' | 'delete' | null>(null);
 
+  const router = useRouter();
   const hideMutation = useMutationHideProduct();
   const unhideMutation = useMutationUnhideProduct();
+  const deleteMutation = useMutationDeleteProduct();
   const menuRef = useRef<HTMLDivElement | null>(null);
 
   // iOS 웹뷰: 바깥 탭으로 닫기 + 스크롤 락
@@ -98,7 +100,9 @@ export default function ProductMoreMenu({
           await hideMutation.mutateAsync(productId);
         }
       } else if (actionType === 'delete') {
-        onDelete?.();
+        await deleteMutation.mutateAsync(productId);
+        // 삭제 성공 후 메인 페이지로 이동
+        router.push('/');
       }
     } catch (error: any) {
       const apiError = error as ApiError;

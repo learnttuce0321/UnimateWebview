@@ -86,7 +86,6 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
         tradeStatus={tradeStatus}
         isHidden={productDetail.isHidden}
         onEdit={() => console.log('수정하기')}
-        onDelete={() => console.log('삭제하기')}
       />
 
       {/* 상품 이미지 스와이프 */}

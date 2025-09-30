@@ -11,7 +11,6 @@ interface Props {
   tradeStatus: TradeStatus;
   isHidden?: boolean;
   onEdit?: () => void;
-  onDelete?: () => void;
 }
 
 const ProductDetailHeader = ({
@@ -20,7 +19,6 @@ const ProductDetailHeader = ({
   tradeStatus,
   isHidden = false,
   onEdit,
-  onDelete,
 }: Props) => {
   const router = useRouter();
 
@@ -42,7 +40,6 @@ const ProductDetailHeader = ({
           tradeStatus={tradeStatus}
           isHidden={isHidden}
           onEdit={onEdit}
-          onDelete={onDelete}
         />
       )}
     </header>
