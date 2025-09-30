@@ -1,12 +1,17 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import {
+  useMutationLikeProduct,
+  useMutationUnlikeProduct,
+} from 'hooks/products/useMutationLikeProduct';
 import ProductDetailInfoHeader from './ProductDetailInfoHeader';
 import ProductDetailInfoLikeShare from './ProductDetailInfoLikeShare';
 import Divider from 'app/_components/Divider';
 import { TradeStatus } from '../../page';
 
 interface Props {
+  id: number;
   title: string;
   price: number;
   currencyType: string;
@@ -19,6 +24,7 @@ interface Props {
 }
 
 const ProductDetailInfo = ({
+  id,
   title,
   price,
   currencyType,
@@ -32,13 +38,35 @@ const ProductDetailInfo = ({
   const [currentLikeCount, setCurrentLikeCount] = useState(likeCount);
   const [isLiked, setIsLiked] = useState(initialIsLiked);
 
-  const handleLikeToggle = () => {
-    if (isLiked) {
-      setCurrentLikeCount((prev) => prev - 1);
-      setIsLiked(false);
-    } else {
-      setCurrentLikeCount((prev) => prev + 1);
-      setIsLiked(true);
+  const likeMutation = useMutationLikeProduct();
+  const unlikeMutation = useMutationUnlikeProduct();
+
+  // API 데이터가 변경되면 상태 동기화
+  useEffect(() => {
+    setCurrentLikeCount(likeCount);
+    setIsLiked(initialIsLiked);
+  }, [likeCount, initialIsLiked]);
+
+  const handleLikeToggle = async () => {
+    try {
+      if (isLiked) {
+        setCurrentLikeCount((prev) => prev - 1);
+        setIsLiked(false);
+        await unlikeMutation.mutateAsync(id);
+      } else {
+        setCurrentLikeCount((prev) => prev + 1);
+        setIsLiked(true);
+        await likeMutation.mutateAsync(id);
+      }
+    } catch (error) {
+      if (isLiked) {
+        setCurrentLikeCount((prev) => prev + 1);
+        setIsLiked(true);
+      } else {
+        setCurrentLikeCount((prev) => prev - 1);
+        setIsLiked(false);
+      }
+      console.error('천하기 에러:', error);
     }
   };
   return (
