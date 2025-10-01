@@ -85,7 +85,15 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
         isSeller={isSeller}
         tradeStatus={tradeStatus}
         isHidden={productDetail.isHidden}
-        onEdit={() => console.log('수정하기')}
+        onEdit={() => {
+          // localStorage에 상품 데이터 저장
+          localStorage.setItem(
+            'editProductData',
+            JSON.stringify(productDetail)
+          );
+          // 수정 모드로 등록 페이지 이동
+          window.location.href = '/register?mode=edit';
+        }}
       />
 
       {/* 상품 이미지 스와이프 */}
