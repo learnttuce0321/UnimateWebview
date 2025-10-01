@@ -17,3 +17,29 @@ export interface ProductPostsResponse {
   contents: ProductPost[];
   hasNext: boolean;
 }
+
+export interface ProductDetail {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  currencyType: 'KRW' | 'USD';
+  category: string;
+  tradeStatus: 'FOR_SALE' | 'RESERVED' | 'SOLD_OUT';
+  tradeType: string;
+  tradeTypeDescription: string;
+  createdAt: string;
+  imageUrls: string[];
+  isLiked: boolean;
+  likeCount: number;
+  chatRoomCount: number;
+  isOwner: boolean;
+  sellerId: number;
+  sellerNickname: string;
+  sellerProfileImageUrl: string;
+  regionId: string;
+  regionName: string;
+  universityId: string;
+  universityName: string;
+  isHidden?: boolean;
+}

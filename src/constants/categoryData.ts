@@ -1,13 +1,17 @@
-export type categoryTestDataType = {
+export type categoryDataType = {
   category: string;
   totalCount: number;
   categoryEN: string;
 };
 
-export const categoryTestData: categoryTestDataType[] = [
+export const categoryData: categoryDataType[] = [
   { category: '전자기기', totalCount: 100, categoryEN: 'ELECTRONICS' },
   { category: '가전제품', totalCount: 100, categoryEN: 'HOME_APPLIANCES' },
-  { category: '가구/인테리어', totalCount: 100, categoryEN: 'FURNITURE_INTERIOR' },
+  {
+    category: '가구/인테리어',
+    totalCount: 100,
+    categoryEN: 'FURNITURE_INTERIOR',
+  },
   { category: '생활/주방', totalCount: 100, categoryEN: 'HOUSEHOLD_KITCHEN' },
   { category: '여성의류', totalCount: 100, categoryEN: 'WOMENS_CLOTHING' },
   { category: '여성잡화', totalCount: 100, categoryEN: 'WOMENS_ACCESSORIES' },

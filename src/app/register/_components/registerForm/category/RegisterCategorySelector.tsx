@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import CategoryModal from 'app/register/_components/registerForm/category/CategoryModal';
 import { FormDataType } from 'app/register/_type/registerType';
-import { categoryTestData } from 'app/testDatas/categoryTestData';
+import { categoryData } from 'constants/categoryData';
 
 type Props = {
   setValue: UseFormSetValue<FormDataType>;
@@ -15,9 +15,7 @@ export default function RegisterCategorySelector({ setValue, watch }: Props) {
 
   // 영어 enum을 한글로 변환하는 함수
   const getCategoryDisplayName = (categoryEN: string) => {
-    const found = categoryTestData.find(
-      (item) => item.categoryEN === categoryEN
-    );
+    const found = categoryData.find((item) => item.categoryEN === categoryEN);
     return found ? found.category : categoryEN;
   };
 

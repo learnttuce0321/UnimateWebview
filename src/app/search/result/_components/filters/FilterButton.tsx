@@ -8,7 +8,7 @@ import {
   FilterTypeLabel,
 } from '../../_type/searchResultFilter.type';
 import { formatNumber } from '../../../../../utils/formatNumber';
-import { categoryTestData } from '../../../../testDatas/categoryTestData';
+import { categoryData } from '../../../../../constants/categoryData';
 
 interface Props {
   filterName: FilterType;
@@ -23,7 +23,7 @@ const FILTER_CONFIGS = {
   category: {
     paramKey: 'category',
     formatDisplayText: (value: string) => {
-      const categoryItem = categoryTestData.find(
+      const categoryItem = categoryData.find(
         (item) => item.categoryEN === value
       );
       return categoryItem ? categoryItem.category : value;
