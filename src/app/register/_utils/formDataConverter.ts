@@ -8,8 +8,6 @@ export const convertFormDataToApiRequest = (
   formData: FormDataType,
   imageKeys: string[]
 ): ProductPostCreateRequest => {
-  console.log('Converting form data:', formData);
-
   const { priceInfo, tradeInfo } = formData;
 
   // 기본값 설정
@@ -30,7 +28,6 @@ export const convertFormDataToApiRequest = (
     description: formData.desc || '설명 없음',
     tradeType,
     tradeTypeDescription,
-    regionId: '3651000',
   };
 
   return result;
