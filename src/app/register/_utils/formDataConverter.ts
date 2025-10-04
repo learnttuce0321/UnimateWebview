@@ -12,7 +12,10 @@ export const convertFormDataToApiRequest = (
 
   // 기본값 설정
   const category = (formData.category || 'OTHER_GOODS') as CategoryType;
-  const price = priceInfo?.isForGiveaway ? 0 : priceInfo?.price || 0;
+  const rawPrice = priceInfo?.isForGiveaway ? 0 : (priceInfo?.price ?? 0);
+  const price =
+    typeof rawPrice === 'number' ? rawPrice : parseInt(String(rawPrice)) || 0;
+
   const currencyType = (priceInfo?.isDollar ? 'USD' : 'KRW') as 'USD' | 'KRW';
   const tradeType = (tradeInfo?.isRemote ? 'ONLINE' : 'DIRECT') as
     | 'DIRECT'
@@ -23,7 +26,7 @@ export const convertFormDataToApiRequest = (
     title: formData.title || '제목 없음',
     imageKeys,
     category,
-    price: Number(price), // 명시적으로 숫자 변환
+    price,
     currencyType,
     description: formData.desc || '설명 없음',
     tradeType,
