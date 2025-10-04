@@ -14,7 +14,9 @@ export const convertFormDataToApiRequest = (
   const category = (formData.category || 'OTHER_GOODS') as CategoryType;
   const rawPrice = priceInfo?.isForGiveaway ? 0 : (priceInfo?.price ?? 0);
   const price =
-    typeof rawPrice === 'number' ? rawPrice : parseInt(String(rawPrice)) || 0;
+    typeof rawPrice === 'number'
+      ? rawPrice
+      : Number(String(rawPrice).replace(/[^0-9]/g, '')) || 0;
 
   const currencyType = (priceInfo?.isDollar ? 'USD' : 'KRW') as 'USD' | 'KRW';
   const tradeType = (tradeInfo?.isRemote ? 'ONLINE' : 'DIRECT') as
