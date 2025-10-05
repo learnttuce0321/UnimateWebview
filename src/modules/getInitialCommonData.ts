@@ -1,13 +1,19 @@
 import { headers, cookies } from 'next/headers';
+import { dehydrate, DehydratedState, QueryClient } from '@tanstack/react-query';
 import { fetchUserProfile } from 'modules/fetchUserProfile';
-import { User } from 'types/User';
 import { DeviceInfo } from 'stores/createAppStore';
+import { User } from 'types/User';
+import { createSSRQueryClient } from './queryClient.server';
 
 interface InitialData {
-  accessToken: string;
-  isWebview: boolean;
-  userProfile: User | undefined;
-  deviceInfo?: DeviceInfo;
+  initialData: {
+    accessToken: string;
+    isWebview: boolean;
+    isLogin: boolean;
+    userProfile: User | undefined;
+    deviceInfo?: DeviceInfo;
+  };
+  dehydratedState: DehydratedState | undefined;
 }
 
 export const getInitialCommonData: () => Promise<InitialData> = async () => {
@@ -44,14 +50,18 @@ export const getInitialCommonData: () => Promise<InitialData> = async () => {
       deviceInfo = { device: '', deviceId: '', version: '' };
     }
   }
+  const { fetchQuery, queryClient } = createSSRQueryClient();
 
-  const userProfile = await fetchUserProfile(accessToken);
+  const userProfile = await fetchUserProfile(fetchQuery, accessToken);
 
   return {
-    accessToken,
-    isWebview,
-    isLogin: !!userProfile,
-    userProfile,
-    deviceInfo,
+    initialData: {
+      accessToken,
+      isWebview,
+      isLogin: !!userProfile,
+      userProfile,
+      deviceInfo,
+    },
+    dehydratedState: queryClient ? dehydrate(queryClient) : undefined,
   };
 };

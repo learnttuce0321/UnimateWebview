@@ -1,24 +1,24 @@
 import { API_MY_PROFILE } from 'modules/keyFactory.user';
-import { createSSRQueryClient } from 'modules/queryClient.server';
+import { SSRFetchQuery } from 'modules/queryClient.server';
 import { User } from 'types/User';
 
-export const fetchUserProfile = async (accessToken: string | null) => {
+export const fetchUserProfile = async (
+  fetchQuery: SSRFetchQuery,
+  accessToken: string | null
+) => {
   if (!accessToken) {
-    return;
+    return undefined;
   }
 
   let userProfile: User | undefined;
-  const { fetchQuery } = createSSRQueryClient();
 
   try {
-    const userRegionResponse = await fetchQuery<User>({
+    userProfile = await fetchQuery<User>({
       url: API_MY_PROFILE,
       accessToken,
     });
-
-    userProfile = userRegionResponse;
   } catch (error) {
-    console.error('Failed to fetch user region:', error);
+    console.error('Failed to fetch user profile:', error);
   }
 
   return userProfile;
