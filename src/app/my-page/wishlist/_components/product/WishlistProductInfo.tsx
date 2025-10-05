@@ -2,8 +2,8 @@ import PriceCurrency from 'components/price/PriceCurrency';
 import { CurrencyType } from 'types/Product';
 import { formatNumber } from 'utils/formatNumber';
 import WishlistProductMetadata from './WishlistProductMetadata';
-import WishlistProductTitle from './WishlistProductTitle';
 import WishlistProductPrice from './WishlistProductPrice';
+import WishlistProductTitle from './WishlistProductTitle';
 
 interface Props {
   title: string;

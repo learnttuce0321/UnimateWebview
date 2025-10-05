@@ -1,9 +1,9 @@
 'use client';
 
+import { useRef } from 'react';
 import { useInfiniteQueryWithObserver } from 'hooks/useInfiniteQueryWithObserver';
 import fetchClient from 'modules/fetch/fetchClient';
 import { API_PRODUCTS_LIKE } from 'modules/keyFactory/product';
-import { useRef } from 'react';
 import { ProductPost } from 'types/Product';
 import WishlistProduct from './WishlistProduct';
 
