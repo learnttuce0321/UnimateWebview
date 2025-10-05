@@ -7,7 +7,12 @@ interface Props {
   onSelect: (englishName: string | null) => void;
 }
 
-const CategoryItem = ({ category, englishName, isSelected, onSelect }: Props) => {
+const CategoryItem = ({
+  category,
+  englishName,
+  isSelected,
+  onSelect,
+}: Props) => {
   const toggleImgUrl = isSelected
     ? '/images/svg/search/iconToggleCheck.svg'
     : '/images/svg/search/iconToggleCheckNone.svg';

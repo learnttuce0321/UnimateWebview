@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Metadata, Viewport } from 'next';
-import { getInitialCommonData } from 'modules/getInitialCommonData';
+import { getInitialCommonData } from 'modules/fetch/getInitialCommonData';
 import './global.css';
 import ReactQueryProvider from '../providers/ReactQueryProvider';
 import ZustandProvider from '../providers/ZustandProvider';

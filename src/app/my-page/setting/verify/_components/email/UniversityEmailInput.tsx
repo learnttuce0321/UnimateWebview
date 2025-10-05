@@ -32,7 +32,7 @@ const UniversityEmailInput = ({ setVerifyType }: Props) => {
   return (
     <>
       <input
-        className={`border-blue_gray-200 h-[50px] w-full border px-[16px] py-[14px] leading-[22.4px] placeholder:text-[16px] placeholder:leading-[22.4px] placeholder:text-blue_gray-500 ${!isValid ? 'border-tomato_red placeholder:text-tomato_red' : ''}`}
+        className={`h-[50px] w-full border border-blue_gray-200 px-[16px] py-[14px] leading-[22.4px] placeholder:text-[16px] placeholder:leading-[22.4px] placeholder:text-blue_gray-500 ${!isValid ? 'border-tomato_red placeholder:text-tomato_red' : ''}`}
         value={_university}
         onChange={handleEmailChange}
         placeholder="example@email.com"

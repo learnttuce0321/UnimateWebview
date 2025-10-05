@@ -17,7 +17,7 @@ const MyNickname = () => {
   return (
     <>
       <input
-        className={`border-blue_gray-200 h-[50px] w-full border px-[16px] py-[14px] placeholder:text-[16px] placeholder:leading-[22.4px] placeholder:text-blue_gray-500`}
+        className={`h-[50px] w-full border border-blue_gray-200 px-[16px] py-[14px] placeholder:text-[16px] placeholder:leading-[22.4px] placeholder:text-blue_gray-500`}
         value={_nickname}
         onChange={handleNicknameChange}
       />

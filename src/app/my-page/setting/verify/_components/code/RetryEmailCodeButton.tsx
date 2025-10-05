@@ -10,7 +10,7 @@ const RetryEmailCodeButton = ({ onRetry }: Props) => {
   };
 
   return (
-    <div className="flex items-center justify-center w-full">
+    <div className="flex w-full items-center justify-center">
       <button
         className="text-[12px] leading-[16.8px] text-blue_gray-600 underline"
         onClick={handleRetryClick}

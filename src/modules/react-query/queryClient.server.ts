@@ -1,5 +1,5 @@
 import { QueryClient } from '@tanstack/react-query';
-import fetchClient from './fetchClient';
+import fetchClient from '../fetch/fetchClient';
 
 export interface FetchQueryParams {
   url: string;

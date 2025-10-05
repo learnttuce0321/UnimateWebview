@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
-import PriceRangeInput from './PriceRangeInput';
-import PriceUnitToggle from './PriceUnitToggle';
-import PriceRangeSlider from './PriceRangeSlider';
-import TitleBottomSheet from './TitleBottomSheet';
 import { useRouter } from 'next/navigation';
+import PriceRangeInput from './PriceRangeInput';
+import PriceRangeSlider from './PriceRangeSlider';
+import PriceUnitToggle from './PriceUnitToggle';
+import TitleBottomSheet from './TitleBottomSheet';
 
 type Currency = 'KRW' | 'USD';
 
@@ -45,7 +45,7 @@ const PriceFilterContent = ({ closeSheet }: Props) => {
   };
 
   return (
-    <div className="flex flex-col w-full h-full">
+    <div className="flex h-full w-full flex-col">
       <TitleBottomSheet title="가격" />
 
       <div className="mt-4 flex flex-col items-start justify-center gap-[20px]">

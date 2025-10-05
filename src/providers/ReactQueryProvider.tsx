@@ -7,7 +7,7 @@ import {
   DehydratedState,
 } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { initializeQueryClient } from 'modules/initializeQueryClient';
+import { initializeQueryClient } from 'modules/react-query/initializeQueryClient';
 
 const ReactQueryProvider = ({
   children,

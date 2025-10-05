@@ -2,13 +2,13 @@
 
 import { useState } from 'react';
 import { ActionType } from 'app/interest/_types/search';
+import BottomFixedConfirmButton from 'components/button/BottomFixedConfirmButton';
 import Modal from 'components/modal/Modal';
 import { MAIN_PAGE_ADD_USER_INTEREST_REGION } from 'constants/storageSync';
 import { useMutationAddInterestRegion } from 'hooks/users/useMutationAddInterestRegion';
 import { setLocalStorageAndSync } from 'hooks/useStorageSync';
 import { useAppStore } from 'providers/ZustandProvider';
 import { SearchedRegion } from 'types/Region';
-import BottomFixedConfirmButton from 'components/button/BottomFixedConfirmButton';
 
 interface Props {
   selectedRegion: SearchedRegion | null;

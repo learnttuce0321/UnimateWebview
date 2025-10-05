@@ -1,5 +1,5 @@
-import { API_MY_PROFILE } from 'modules/keyFactory.user';
-import { SSRFetchQuery } from 'modules/queryClient.server';
+import { API_MY_PROFILE } from 'modules/keyFactory/user';
+import { SSRFetchQuery } from 'modules/react-query/queryClient.server';
 import { User } from 'types/User';
 
 export const fetchUserProfile = async (

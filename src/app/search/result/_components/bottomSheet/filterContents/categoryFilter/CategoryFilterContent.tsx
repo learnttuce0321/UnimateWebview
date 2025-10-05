@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import TitleBottomSheet from '../priceFilter/TitleBottomSheet';
 import CategoryListWrapper from './CategoryListWrapper';
+import TitleBottomSheet from '../priceFilter/TitleBottomSheet';
 
 interface Props {
   closeSheet: () => void;
@@ -32,7 +32,7 @@ const CategoryFilterContent = ({ closeSheet }: Props) => {
   }, [searchParams]);
 
   return (
-    <div className="flex flex-col w-full h-full">
+    <div className="flex h-full w-full flex-col">
       <TitleBottomSheet title="카테고리" />
       <CategoryListWrapper
         selectedCategory={selectedCategory}

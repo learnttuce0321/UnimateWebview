@@ -15,13 +15,7 @@ const ProfileMetaData = () => {
           alt="평점"
           className="mr-[8px]"
         />
-        {true ? (
-          <p className="text-[14px] text-blue_gray-600">3.0 (5)</p>
-        ) : (
-          <p className="text-[14px] leading-[14px] text-blue_gray-500">
-            후기 반영중
-          </p>
-        )}
+        <p className="text-[14px] text-blue_gray-600">3.0 (5)</p>
       </div>
       <div className="flex items-center">
         {userUniversity.name ? (

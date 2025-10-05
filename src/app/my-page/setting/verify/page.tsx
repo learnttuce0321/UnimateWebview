@@ -2,17 +2,17 @@
 
 import { useState } from 'react';
 import NavigationBar from 'components/navigation/NavigationBar';
+import { useAppStore } from 'providers/ZustandProvider';
+import EmailCodeInput from './_components/code/EmailCodeInput';
+import EmailCodeSubDescription from './_components/code/EmailCodeSubDescription';
+import FinishVerifyUniversityButton from './_components/complete/FinishVerifyUniversityButton';
+import VerifyEmailCompleteDescription from './_components/complete/VerifyEmailCompleteDescription';
 import UniversityEmailInput from './_components/email/UniversityEmailInput';
 import VerifyUniversityDescription from './_components/email/VerifyUniversityDescription';
 import VerifyUniversitySubDescription from './_components/email/VerifyUniversitySubDescription';
-import EmailCodeSubDescription from './_components/code/EmailCodeSubDescription';
-import EmailCodeInput from './_components/code/EmailCodeInput';
-import VerifyEmailCompleteDescription from './_components/complete/VerifyEmailCompleteDescription';
-import FinishVerifyUniversityButton from './_components/complete/FinishVerifyUniversityButton';
-import { useAppStore } from 'providers/ZustandProvider';
+import CheckVerifiedUniversityEmailButton from '../verified/_components/CheckVerifiedUniversityEmailButton';
 import VerifiedUniversityDescription from '../verified/_components/VerifiedUniversityDescription';
 import VerifiedUniversityEmail from '../verified/_components/VerifiedUniversityEmail';
-import CheckVerifiedUniversityEmailButton from '../verified/_components/CheckVerifiedUniversityEmailButton';
 
 export type VerifyType = 'EMAIL' | 'CODE' | 'COMPLETE' | 'VERIFIED';
 interface VerifyStepProps {

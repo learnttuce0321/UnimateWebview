@@ -13,7 +13,7 @@ const MyPageListSection = ({ sectionId }: Props) => {
       <p className="text-[16px] font-bold leading-[16px] text-blue_gray-900">
         {sectionConfig.title}
       </p>
-      <div className="[&>*:not(:last-child)]:border-blue_gray-300 flex flex-col [&>*:not(:last-child)]:border-b-[0.5px]">
+      <div className="flex flex-col [&>*:not(:last-child)]:border-b-[0.5px] [&>*:not(:last-child)]:border-blue_gray-300">
         {sectionConfig.listItems.map((item) => (
           <MyPageListItem
             title={item.title}

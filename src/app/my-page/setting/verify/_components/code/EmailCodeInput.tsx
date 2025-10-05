@@ -38,7 +38,7 @@ const EmailCodeInput = ({ setVerifyType }: Props) => {
     <>
       <div className="relative">
         <input
-          className={`border-blue_gray-200 mb-[8px] h-[50px] w-full border px-[16px] py-[14px] pr-[80px] leading-[22.4px] placeholder:text-[16px] placeholder:leading-[22.4px] placeholder:text-blue_gray-500`}
+          className={`mb-[8px] h-[50px] w-full border border-blue_gray-200 px-[16px] py-[14px] pr-[80px] leading-[22.4px] placeholder:text-[16px] placeholder:leading-[22.4px] placeholder:text-blue_gray-500`}
           value={_code}
           onChange={handleCodeChange}
           placeholder="000000"

@@ -1,7 +1,7 @@
-import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-import TitleBottomSheet from '../priceFilter/TitleBottomSheet';
+import { useRouter, useSearchParams } from 'next/navigation';
 import ExcludeSoldFilterOptionList from './ExcludeSoldFilterOptionList';
+import TitleBottomSheet from '../priceFilter/TitleBottomSheet';
 
 interface Props {
   closeSheet: () => void;
@@ -38,7 +38,7 @@ const ExcludeSoldFilterContent = ({ closeSheet }: Props) => {
   }, [searchParams]);
 
   return (
-    <div className="flex flex-col w-full h-full">
+    <div className="flex h-full w-full flex-col">
       <TitleBottomSheet title="상품 보기 방식" />
       <ExcludeSoldFilterOptionList
         selectedSort={selectedSort}

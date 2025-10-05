@@ -19,7 +19,7 @@ const MyPageListItem = ({ title, targetUrl }: Props) => {
       onClick={handleClick}
       className="flex h-[56px] w-full items-center justify-between"
     >
-      <span className="text-blue_gray-800 text-[14px] leading-[14px]">
+      <span className="text-[14px] leading-[14px] text-blue_gray-800">
         {title}
       </span>
       <img
