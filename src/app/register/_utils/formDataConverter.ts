@@ -2,7 +2,7 @@ import {
   FormDataType,
   ProductPostCreateRequest,
   CategoryType,
-} from '../_type/registerType';
+} from 'types/Product';
 
 export const convertFormDataToApiRequest = (
   formData: FormDataType,

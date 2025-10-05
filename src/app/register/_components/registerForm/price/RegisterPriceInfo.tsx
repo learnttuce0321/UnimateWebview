@@ -4,7 +4,7 @@ import {
   UseFormSetValue,
   UseFormWatch,
 } from 'react-hook-form';
-import { FormDataType } from 'app/register/_type/registerType';
+import { FormDataType } from 'types/Product';
 import { formatNumber } from '../../../../../utils/formatNumber';
 
 type Props = {

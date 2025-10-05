@@ -2,6 +2,7 @@ import ProductPrice from 'app/_components/product/ProductPrice';
 import ProductRegistrationMeta from 'app/_components/product/ProductRegistrationMeta';
 import ProductTitle from 'app/_components/product/ProductTitle';
 import ProductUserReaction from 'app/_components/product/ProductUserReaction';
+import { CurrencyType } from 'types/Product';
 
 interface Props {
   title: string;
@@ -10,6 +11,7 @@ interface Props {
   universityName: string;
   likeCount: number;
   chatRoomCount: number;
+  currencyType: CurrencyType;
 }
 
 const ProductInfo = ({
@@ -19,6 +21,7 @@ const ProductInfo = ({
   universityName,
   likeCount,
   chatRoomCount,
+  currencyType,
 }: Props) => {
   return (
     <div className="flex w-[calc(100%-108px)] flex-col justify-between">
@@ -28,7 +31,7 @@ const ProductInfo = ({
           createdAt={createdAt}
           universityName={universityName}
         />
-        <ProductPrice price={price} />
+        <ProductPrice price={price} currencyType={currencyType} />
       </div>
       <ProductUserReaction
         likeCount={likeCount}

@@ -7,7 +7,7 @@ import RegisterPriceInfo from 'app/register/_components/registerForm/price/Regis
 import RegisterImageForm from 'app/register/_components/registerForm/RegisterImageForm';
 import RegisterInput from 'app/register/_components/registerForm/RegisterInput';
 import RegisterTradeInfo from 'app/register/_components/registerForm/trade/RegisterTradeInfo';
-import { FormDataType } from 'app/register/_type/registerType';
+import { FormDataType } from 'types/Product';
 import { registerApi } from '../../_api/registerApi';
 import { convertFormDataToApiRequest } from '../../_utils/formDataConverter';
 

@@ -1,6 +1,6 @@
 import { UseFormSetValue } from 'react-hook-form';
-import { FormDataType } from 'app/register/_type/registerType';
 import { categoryTestDataType } from 'app/testDatas/categoryTestData';
+import { FormDataType } from 'types/Product';
 
 type Props = {
   categoryData: categoryTestDataType[];

@@ -17,7 +17,12 @@ export const API_PRODUCT = '/api/v1/product-posts';
 export const API_PRODUCTS_SEARCH = '/api/v1/product-posts/search';
 
 /**
- * 상품 이미지 업로드를 위한 Presigned URL 발급 API
+ * @POST 상품 이미지 업로드를 위한 Presigned URL 발급 API
  */
 export const API_PRODUCTS_POSTS_PRESIGNED_URL =
   '/api/v1/product-posts/presigned-url';
+
+/**
+ * @GET 내가 찜한 상품게시글 리스트 API
+ */
+export const API_PRODUCTS_LIKE = '/api/v1/product-posts/my/likes';

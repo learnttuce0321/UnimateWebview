@@ -17,6 +17,7 @@ import {
   SortableContext,
 } from '@dnd-kit/sortable';
 import SortableImageItem from 'app/register/_components/registerForm/SortableImageItem';
+import { FormDataType } from 'types/Product';
 import {
   isBridgeAvailable,
   extractFileNameFromUrl,
@@ -24,7 +25,6 @@ import {
 } from '../../../../utils/bridge';
 import { uploadImageWithPresignedUrl } from '../../../../utils/fileUpload';
 import { registerApi } from '../../_api/registerApi';
-import { FormDataType } from '../../_type/registerType';
 
 const MAX_IMAGES_COUNT = 10;
 

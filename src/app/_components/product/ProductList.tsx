@@ -7,7 +7,12 @@ import fetchClient from 'modules/fetch/fetchClient';
 import { API_PRODUCT } from 'modules/keyFactory/product';
 import { useAppStore } from 'providers/ZustandProvider';
 import { selectPrimaryRegion } from 'stores/selectors';
-import { ProductPostsResponse } from '../../../types/Product';
+import { ProductPost } from 'types/Product';
+
+interface ProductPostsResponse {
+  contents: ProductPost[];
+  hasNext: boolean;
+}
 
 const ProductList = () => {
   const infiniteTarget = useRef<HTMLDivElement>(null);

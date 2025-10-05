@@ -7,7 +7,7 @@ import {
   PresignedUrlRequest,
   PresignedUrlListResponse,
   ProductPostCreateRequest,
-} from '../_type/registerType';
+} from 'types/Product';
 
 export const registerApi = {
   getPresignedUrl: async (
