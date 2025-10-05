@@ -3,8 +3,8 @@ import AddFavoriteCityButton from 'app/interest/_components/search/AddInterestRe
 import SearchedCity from 'app/interest/_components/search/SearchedCity';
 import { ActionType } from 'app/interest/_types/search';
 import { useInfiniteQueryWithObserver } from 'hooks/useInfiniteQueryWithObserver';
-import fetchClient from 'modules/fetchClient';
-import { API_REGION_SEARCH } from 'modules/keyFactory.region';
+import fetchClient from 'modules/fetch/fetchClient';
+import { API_REGION_SEARCH } from 'modules/keyFactory/region';
 import { normalizeString } from 'modules/normalize';
 import { SearchedRegion, SearchRegionResponse } from 'types/Region';
 

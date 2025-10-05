@@ -2,8 +2,8 @@
 
 import { useRef } from 'react';
 import { useInfiniteQueryWithObserver } from 'hooks/useInfiniteQueryWithObserver';
-import fetchClient from 'modules/fetchClient';
-import { API_UNIVERSITY_SEARCH } from 'modules/keyFactory.university';
+import fetchClient from 'modules/fetch/fetchClient';
+import { API_UNIVERSITY_SEARCH } from 'modules/keyFactory/university';
 import { normalizeString } from 'modules/normalize';
 import { SearchUniversityResponse, University } from 'types/University';
 import SearchedUniversity from './SearchedUniversity';

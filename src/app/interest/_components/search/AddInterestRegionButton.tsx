@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { ActionType } from 'app/interest/_types/search';
+import BottomFixedConfirmButton from 'components/button/BottomFixedConfirmButton';
 import Modal from 'components/modal/Modal';
 import { MAIN_PAGE_ADD_USER_INTEREST_REGION } from 'constants/storageSync';
 import { useMutationAddInterestRegion } from 'hooks/users/useMutationAddInterestRegion';
@@ -61,13 +62,11 @@ const AddInterestRegionButton = ({
 
   return (
     <>
-      <button
-        type="button"
-        className={`fixed bottom-[10px] h-[50px] w-[calc(100%-32px)] rounded-[10px] text-white ${selectedRegion ? 'bg-blue-600_P' : 'bg-blue_gray-500'}`}
+      <BottomFixedConfirmButton
+        buttonText="등록하기"
         onClick={handleAddInterestRegionClick}
-      >
-        등록하기
-      </button>
+        isActive={!!selectedRegion}
+      />
       {openAddInterestRegionModal && (
         <Modal
           isOpened={openAddInterestRegionModal}

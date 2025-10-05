@@ -3,6 +3,8 @@
 import React from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useSearchFilterBottomSheetStore } from 'stores/searchFilterBottomSheet.store';
+import { formatNumber } from '../../../../../utils/formatNumber';
+import { categoryTestData } from '../../../../testDatas/categoryTestData';
 import {
   FilterType,
   FilterTypeLabel,

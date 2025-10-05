@@ -1,7 +1,7 @@
 'use client';
 
-import { MODAL_CONTENT_Z_INDEX } from 'constants/zIndex';
 import Overlay from 'components/modal/Overlay';
+import { MODAL_CONTENT_Z_INDEX } from 'constants/zIndex';
 
 interface Props {
   isOpened: boolean;

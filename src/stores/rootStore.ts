@@ -14,4 +14,11 @@ export const StoreContext = createContext<Store | null>(null);
 export const StoreProvider = StoreContext.Provider;
 
 // SSR을 위한 store 초기화 및 내보내기
-export { initializeStore, type Store, type InitialStore, type AppStore, type AppState, type AppActions };
+export {
+  initializeStore,
+  type Store,
+  type InitialStore,
+  type AppStore,
+  type AppState,
+  type AppActions,
+};

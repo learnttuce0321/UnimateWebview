@@ -8,7 +8,12 @@ interface Props {
   onSelect: (filter: ExcludeFilterType) => void;
 }
 
-const ExcludeSoldFilterOption = ({ value, label, isSelected, onSelect }: Props) => {
+const ExcludeSoldFilterOption = ({
+  value,
+  label,
+  isSelected,
+  onSelect,
+}: Props) => {
   const handleOptionClick = () => {
     onSelect(value);
   };

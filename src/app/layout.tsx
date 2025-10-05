@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Metadata, Viewport } from 'next';
-import { getInitialCommonData } from 'modules/getInitialCommonData';
+import { getInitialCommonData } from 'modules/fetch/getInitialCommonData';
 import './global.css';
 import ReactQueryProvider from '../providers/ReactQueryProvider';
 import ZustandProvider from '../providers/ZustandProvider';
@@ -23,12 +23,12 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const initialData = await getInitialCommonData();
+  const { initialData, dehydratedState } = await getInitialCommonData();
 
   return (
     <html>
       <body>
-        <ReactQueryProvider>
+        <ReactQueryProvider dehydratedState={dehydratedState}>
           <ZustandProvider initialState={initialData}>
             <LoginWrapper>{children}</LoginWrapper>
           </ZustandProvider>

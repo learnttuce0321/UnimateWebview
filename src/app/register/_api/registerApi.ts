@@ -1,13 +1,13 @@
-import fetchClient from 'modules/fetchClient';
+import fetchClient from 'modules/fetch/fetchClient';
 import {
   API_PRODUCT,
   API_PRODUCTS_POSTS_PRESIGNED_URL,
-} from 'modules/keyFactory.product';
+} from 'modules/keyFactory/product';
 import {
   PresignedUrlRequest,
   PresignedUrlListResponse,
   ProductPostCreateRequest,
-} from '../_type/registerType';
+} from 'types/Product';
 
 export const registerApi = {
   getPresignedUrl: async (

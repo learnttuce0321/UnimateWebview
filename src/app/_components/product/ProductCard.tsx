@@ -1,7 +1,7 @@
 'use client';
 
-import ProductImage from 'app/_components/product/ProductImage';
 import ProductInfo from 'app/_components/product/ProductInfo';
+import ProductThumbnail from 'app/_components/product/ProductThumbnail';
 import { ProductPost } from '../../../types/Product';
 import navigationScheme from '../../../utils/navigationScheme';
 
@@ -21,7 +21,7 @@ const ProductCard = ({ product }: Props) => {
       className="w-full"
     >
       <div className="mb-[8px] flex h-[140px] justify-between gap-[12px] rounded-[8px] bg-white p-[16px] shadow-[0px_0px_10px_rgba(0,0,0,0.05)]">
-        <ProductImage thumbnailUrl={product.thumbnailUrl} />
+        <ProductThumbnail thumbnailUrl={product.thumbnailUrl} />
         <ProductInfo {...product} />
       </div>
     </button>

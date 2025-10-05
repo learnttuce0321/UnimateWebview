@@ -2,11 +2,11 @@
 
 import { useState } from 'react';
 import Modal from 'components/modal/Modal';
+import { MAIN_PAGE_DELETE_USER_INTEREST_REGION } from 'constants/storageSync';
 import { useMutationDeleteInterestRegion } from 'hooks/users/useMutationDeleteInterestRegion';
+import { setLocalStorageAndSync } from 'hooks/useStorageSync';
 import { useAppStore } from 'providers/ZustandProvider';
 import { Region } from 'types/Region';
-import { setLocalStorageAndSync } from 'hooks/useStorageSync';
-import { MAIN_PAGE_DELETE_USER_INTEREST_REGION } from 'constants/storageSync';
 
 interface Props {
   region: Region;
