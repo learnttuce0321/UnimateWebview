@@ -9,7 +9,7 @@ interface Props {
 const SearchResultInput = ({ q }: Props) => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  
+
   const handleClick = () => {
     const params = new URLSearchParams(searchParams);
     params.set('q', q);

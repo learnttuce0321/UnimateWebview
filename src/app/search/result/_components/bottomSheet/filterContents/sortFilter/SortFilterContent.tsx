@@ -36,7 +36,7 @@ const SortFilterContent = ({ closeSheet }: Props) => {
   }, [searchParams]);
 
   return (
-    <div className="flex flex-col w-full h-full">
+    <div className="flex h-full w-full flex-col">
       <TitleBottomSheet title="정렬" />
       <SortOptionList
         selectedSort={selectedSort}

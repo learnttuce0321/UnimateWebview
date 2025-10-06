@@ -1,5 +1,5 @@
-import { categoryData } from 'constants/categoryData';
 import React from 'react';
+import { categoryData } from 'constants/categoryData';
 import CategoryItem from './CategoryItem';
 
 interface Props {

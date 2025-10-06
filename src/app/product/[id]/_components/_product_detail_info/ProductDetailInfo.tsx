@@ -1,13 +1,13 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Divider from 'app/_components/Divider';
 import {
   useMutationLikeProduct,
   useMutationUnlikeProduct,
 } from 'hooks/products/useMutationLikeProduct';
 import ProductDetailInfoHeader from './ProductDetailInfoHeader';
 import ProductDetailInfoLikeShare from './ProductDetailInfoLikeShare';
-import Divider from 'app/_components/Divider';
 import { TradeStatus } from '../../page';
 
 interface Props {

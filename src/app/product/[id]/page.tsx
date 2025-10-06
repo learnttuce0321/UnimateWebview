@@ -2,14 +2,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { useQueryProductDetail } from 'hooks/products/useQueryProductDetail';
+import ProductDetailInfo from './_components/_product_detail_info/ProductDetailInfo';
+import ProductBottomActions from './_components/ProductBottomActions';
+import ProductDescriptionSection from './_components/ProductDescriptionSection';
 import ProductDetailHeader from './_components/ProductDetailHeader';
 import ProductDetailImageSlider from './_components/ProductDetailImageSlider';
-import ProductDetailInfo from './_components/_product_detail_info/ProductDetailInfo';
-import ReportModal from './_components/ReportModal';
-import ProductStatusBottomSheet from './_components/ProductStatusBottomSheet';
 import ProductSellerSection from './_components/ProductSellerSection';
-import ProductDescriptionSection from './_components/ProductDescriptionSection';
-import ProductBottomActions from './_components/ProductBottomActions';
+import ProductStatusBottomSheet from './_components/ProductStatusBottomSheet';
+import ReportModal from './_components/ReportModal';
 
 export type TradeStatus = 'FOR_SALE' | 'RESERVED' | 'SOLD_OUT';
 

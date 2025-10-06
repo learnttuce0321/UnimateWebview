@@ -4,14 +4,18 @@ import { useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import SearchedProduct from 'app/search/result/_components/searchedProduct/SearchedProduct';
 import { useInfiniteQueryWithObserver } from 'hooks/useInfiniteQueryWithObserver';
-import fetchClient from 'modules/fetchClient';
-import { API_PRODUCTS_SEARCH } from 'modules/keyFactory.product';
+import fetchClient from 'modules/fetch/fetchClient';
+import { API_PRODUCTS_SEARCH } from 'modules/keyFactory/product';
 import { normalizeString } from 'modules/normalize';
 import { useAppStore } from 'providers/ZustandProvider';
 import { selectPrimaryRegion } from 'stores/selectors';
-import { ProductPostsResponse } from 'types/Product';
+import { ProductPost } from 'types/Product';
 import { FilteringUniversity } from '../../page';
 
+interface SearchedProductPostsResponse {
+  contents: ProductPost[];
+  hasNext: boolean;
+}
 interface Props {
   currentFilteringUniversity: FilteringUniversity | null;
 }
@@ -34,7 +38,7 @@ const SearchResultList = ({ currentFilteringUniversity }: Props) => {
     data: searchedProduct,
     isLoading,
     isError,
-  } = useInfiniteQueryWithObserver<ProductPostsResponse>(
+  } = useInfiniteQueryWithObserver<SearchedProductPostsResponse>(
     infiniteTarget,
     {
       queryKey: [
@@ -50,7 +54,7 @@ const SearchResultList = ({ currentFilteringUniversity }: Props) => {
       initialPageParam: 1,
       queryFn: async ({ pageParam }) => {
         try {
-          const res = await fetchClient.GET<ProductPostsResponse>({
+          const res = await fetchClient.GET<SearchedProductPostsResponse>({
             url: API_PRODUCTS_SEARCH,
             params: {
               pageNumber: pageParam,

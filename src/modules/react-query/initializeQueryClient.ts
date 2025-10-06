@@ -1,5 +1,5 @@
 import { QueryClient, QueryKey } from '@tanstack/react-query';
-import fetchClient from './fetchClient';
+import fetchClient from '../fetch/fetchClient';
 
 const defaultQueryFn = async (queryKey: QueryKey) => {
   if (!Array.isArray(queryKey) || typeof queryKey[0] !== 'string') {

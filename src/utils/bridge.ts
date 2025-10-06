@@ -31,11 +31,15 @@ export const callBridge = <T extends keyof IOSBridge>(
   }
 };
 
-export const selectImagesFromDevice = (excludedImageUrls?: string[]): Promise<string[]> => {
+export const selectImagesFromDevice = (
+  excludedImageUrls?: string[]
+): Promise<string[]> => {
   return new Promise((resolve) => {
     if (isBridgeAvailable()) {
       const bridge = getBridge();
-      const options: PickImageOptions | undefined = excludedImageUrls ? { excludedImageUrls } : undefined;
+      const options: PickImageOptions | undefined = excludedImageUrls
+        ? { excludedImageUrls }
+        : undefined;
       bridge!.pickImage((imageUrls: string[]) => {
         console.log('Selected images from iOS:', imageUrls);
         resolve(imageUrls);

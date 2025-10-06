@@ -3,8 +3,8 @@
 import InterestRegionItem from 'app/_components/InterestRegionDropdown/InterestRegionItem';
 import { useMutationChangePrimaryRegion } from 'hooks/users/useMutationChangePrimaryRegion';
 import { useAppStore } from 'providers/ZustandProvider';
-import navigationScheme from '../../../utils/navigationScheme';
 import { selectInterestRegions } from 'stores/selectors';
+import navigationScheme from '../../../utils/navigationScheme';
 
 interface Props {
   onClose: () => void;

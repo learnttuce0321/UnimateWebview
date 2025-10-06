@@ -10,5 +10,8 @@ export interface PickImageOptions {
 }
 
 export interface IOSBridge {
-  pickImage(callback: (imageUrls: string[]) => void, options?: PickImageOptions): void;
+  pickImage(
+    callback: (imageUrls: string[]) => void,
+    options?: PickImageOptions
+  ): void;
 }

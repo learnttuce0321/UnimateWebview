@@ -5,16 +5,15 @@ import { useForm } from 'react-hook-form';
 import { useSearchParams, useRouter } from 'next/navigation';
 import RegisterCategorySelector from 'app/register/_components/registerForm/category/RegisterCategorySelector';
 import RegisterPriceInfo from 'app/register/_components/registerForm/price/RegisterPriceInfo';
+import RegisterImageForm from 'app/register/_components/registerForm/RegisterImageForm';
 import RegisterInput from 'app/register/_components/registerForm/RegisterInput';
 import RegisterTradeInfo from 'app/register/_components/registerForm/trade/RegisterTradeInfo';
-import { FormDataType } from 'app/register/_type/registerType';
+import { useMutationUpdateProduct } from 'hooks/products/useMutationUpdateProduct';
+import { FormDataType } from 'types/Product';
+import { ProductDetail } from 'types/Product';
 import { registerApi } from '../../_api/registerApi';
 import { convertFormDataToApiRequest } from '../../_utils/formDataConverter';
 import { convertProductDetailToFormData } from '../../_utils/productDataConverter';
-import { useMutationUpdateProduct } from 'hooks/products/useMutationUpdateProduct';
-import { ProductDetail } from 'types/Product';
-
-import RegisterImageForm from 'app/register/_components/registerForm/RegisterImageForm';
 
 export default function RegisterForm() {
   const searchParams = useSearchParams();

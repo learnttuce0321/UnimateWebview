@@ -1,11 +1,13 @@
 import { QueryClient } from '@tanstack/react-query';
-import fetchClient from './fetchClient';
+import fetchClient from '../fetch/fetchClient';
 
-interface FetchQueryParams {
+export interface FetchQueryParams {
   url: string;
-  params?: Record<string, any>;
+  params?: Record<string, any> | null;
   accessToken?: string;
 }
+
+export type SSRFetchQuery = <T>(fetchParams: FetchQueryParams) => Promise<T>;
 
 export const createSSRQueryClient = () => {
   const queryClient = new QueryClient({
@@ -25,7 +27,7 @@ export const createSSRQueryClient = () => {
 
     fetchQuery: async <T = unknown>({
       url,
-      params,
+      params = null,
       accessToken,
     }: FetchQueryParams): Promise<T> => {
       return await queryClient.fetchQuery({

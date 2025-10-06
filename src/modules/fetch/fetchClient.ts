@@ -3,7 +3,7 @@ import deviceInfoStore from 'stores/vanillaStore.deviceInfo';
 
 export interface ApiRequest {
   url: string;
-  params?: Record<string, any>;
+  params?: Record<string, any> | null;
   body?: Record<string, any>;
   accessToken?: string;
 }
@@ -141,7 +141,7 @@ const request = async <TResponse>(
 
 type GeneratedUrlWithParams = {
   url: string;
-  params?: Record<string, any>;
+  params?: Record<string, any> | null;
 };
 
 export const generateURLWithParams = ({

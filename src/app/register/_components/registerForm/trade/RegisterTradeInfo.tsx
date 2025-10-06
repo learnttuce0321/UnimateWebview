@@ -4,7 +4,7 @@ import {
   UseFormWatch,
 } from 'react-hook-form';
 import RegisterInput from 'app/register/_components/registerForm/RegisterInput';
-import { FormDataType } from 'app/register/_type/registerType';
+import { FormDataType } from 'types/Product';
 
 type Props = {
   register: UseFormRegister<FormDataType>;

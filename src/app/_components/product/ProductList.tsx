@@ -3,11 +3,16 @@
 import { useRef } from 'react';
 import ProductCard from 'app/_components/product/ProductCard';
 import { useInfiniteQueryWithObserver } from 'hooks/useInfiniteQueryWithObserver';
-import fetchClient from 'modules/fetchClient';
-import { API_PRODUCT } from 'modules/keyFactory.product';
+import fetchClient from 'modules/fetch/fetchClient';
+import { API_PRODUCT } from 'modules/keyFactory/product';
 import { useAppStore } from 'providers/ZustandProvider';
-import { ProductPostsResponse } from '../../../types/Product';
 import { selectPrimaryRegion } from 'stores/selectors';
+import { ProductPost } from 'types/Product';
+
+interface ProductPostsResponse {
+  contents: ProductPost[];
+  hasNext: boolean;
+}
 
 const ProductList = () => {
   const infiniteTarget = useRef<HTMLDivElement>(null);
