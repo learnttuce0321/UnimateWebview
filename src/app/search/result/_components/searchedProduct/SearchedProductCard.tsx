@@ -7,7 +7,7 @@ interface Props {
 
 const SearchedProductCard = ({ product }: Props) => {
   return (
-    <a href={`/products/${product.id}`}>
+    <a href={`/product/${product.id}`}>
       <div className="mb-[8px] flex h-[140px] justify-between gap-[12px] rounded-[8px] bg-white p-[16px] shadow-[0px_0px_10px_rgba(0,0,0,0.05)]">
         <ProductThumbnail thumbnailUrl={product.imageUrl} />
         <ProductInfo {...product} />

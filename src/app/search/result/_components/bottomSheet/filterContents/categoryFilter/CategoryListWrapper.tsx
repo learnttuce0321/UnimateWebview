@@ -1,5 +1,5 @@
 import React from 'react';
-import { categoryTestData } from 'app/testDatas/categoryTestData';
+import { categoryData } from 'constants/categoryData';
 import CategoryItem from './CategoryItem';
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 const CategoryListWrapper = ({ selectedCategory, onCategorySelect }: Props) => {
   return (
     <ul className="mt-4 flex h-[146px] w-full flex-col gap-[14px] overflow-auto pb-[14px]">
-      {categoryTestData.map((item) => {
+      {categoryData.map((item) => {
         return (
           <CategoryItem
             key={item.categoryEN}

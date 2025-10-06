@@ -12,7 +12,7 @@ interface Props {
 const ProductCard = ({ product }: Props) => {
   const { openWeb } = navigationScheme();
   const handleProductCardClick = (productId: number) => {
-    openWeb(`/products/${productId}`);
+    openWeb(`/product/${productId}`);
   };
 
   return (

@@ -2,9 +2,9 @@
 
 import React from 'react';
 import { useSearchParams } from 'next/navigation';
+import { categoryData } from 'constants/categoryData';
 import { useSearchFilterBottomSheetStore } from 'stores/searchFilterBottomSheet.store';
-import { formatNumber } from '../../../../../utils/formatNumber';
-import { categoryTestData } from '../../../../testDatas/categoryTestData';
+import { formatNumber } from 'utils/formatNumber';
 import {
   FilterType,
   FilterTypeLabel,
@@ -23,7 +23,7 @@ const FILTER_CONFIGS = {
   category: {
     paramKey: 'category',
     formatDisplayText: (value: string) => {
-      const categoryItem = categoryTestData.find(
+      const categoryItem = categoryData.find(
         (item) => item.categoryEN === value
       );
       return categoryItem ? categoryItem.category : value;

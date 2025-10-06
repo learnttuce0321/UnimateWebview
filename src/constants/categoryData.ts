@@ -1,10 +1,10 @@
-export type categoryTestDataType = {
+export type categoryDataType = {
   category: string;
   totalCount: number;
   categoryEN: string;
 };
 
-export const categoryTestData: categoryTestDataType[] = [
+export const categoryData: categoryDataType[] = [
   { category: '전자기기', totalCount: 100, categoryEN: 'ELECTRONICS' },
   { category: '가전제품', totalCount: 100, categoryEN: 'HOME_APPLIANCES' },
   {

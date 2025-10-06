@@ -5,6 +5,13 @@ declare global {
   }
 }
 
+export interface PickImageOptions {
+  excludedImageUrls?: string[];
+}
+
 export interface IOSBridge {
-  pickImage(callback: (imageUrls: string[]) => void): void;
+  pickImage(
+    callback: (imageUrls: string[]) => void,
+    options?: PickImageOptions
+  ): void;
 }

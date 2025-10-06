@@ -107,7 +107,19 @@ const request = async <TResponse>(
       throw response;
     }
 
-    if (response.status === 204 || response.status === 201) {
+    if (response.status === 204) {
+      return {} as TResponse;
+    }
+
+    // 200 응답이지만 body가 비어있는 경우 처리
+    const contentLength = response.headers.get('content-length');
+    const contentType = response.headers.get('content-type');
+
+    if (
+      contentLength === '0' ||
+      !contentType ||
+      !contentType.includes('application/json')
+    ) {
       return {} as TResponse;
     }
 

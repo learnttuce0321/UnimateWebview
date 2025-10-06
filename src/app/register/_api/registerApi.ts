@@ -52,4 +52,25 @@ export const registerApi = {
       throw new Error('Failed to create product post');
     }
   },
+
+  updateProductPost: async (
+    productId: number,
+    request: ProductPostCreateRequest
+  ): Promise<void> => {
+    try {
+      await fetchClient.PATCH<void>(
+        {
+          url: `${API_PRODUCT}/${productId}`,
+          body: request,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+    } catch (error) {
+      throw new Error('Failed to update product post');
+    }
+  },
 };

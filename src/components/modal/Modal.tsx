@@ -30,20 +30,20 @@ const Modal = ({
     <>
       <Overlay onClick={onOverlayClick} />
       <div
-        className={`fixed left-1/2 top-1/2 w-[calc(100%-140px)] max-w-[400px] -translate-x-1/2 -translate-y-1/2 transform rounded-[10px] bg-white p-6 px-[20px] pb-[20px] pt-[30px] z-[${MODAL_CONTENT_Z_INDEX}]`}
+        className={`fixed left-1/2 top-1/2 w-[calc(100%-110px)] max-w-[400px] -translate-x-1/2 -translate-y-1/2 transform rounded-[10px] bg-white p-6 px-[20px] pb-[20px] pt-[30px] z-[${MODAL_CONTENT_Z_INDEX}]`}
       >
         <div>{children}</div>
-        <div className="mt-[16px] flex items-center justify-between gap-[10px]">
+        <div className="mt-[16px] flex items-center justify-between gap-[10px] text-[16px] font-semibold leading-10">
           {cancelText && (
             <button
-              className="flex h-[40px] w-full items-center justify-center rounded-[10px] bg-gray-500 text-white"
+              className="flex h-[40px] w-full items-center justify-center rounded-[10px] bg-[#e3e9f1] text-[#a4a9b0]"
               onClick={() => onCancel?.()}
             >
               {cancelText}
             </button>
           )}
           <button
-            className="flex h-[40px] w-full items-center justify-center rounded-[10px] bg-blue-600_P text-white"
+            className="flex h-[40px] w-full items-center justify-center rounded-[10px] bg-[#3c8dff] text-white"
             onClick={onConfirm}
           >
             {confirmText}
