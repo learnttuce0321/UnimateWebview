@@ -15,7 +15,7 @@ const BottomSheetDimmed = ({ closeSheet }: Props) => {
       onClick={closeSheet}
       onTouchMove={handleTouchMove}
       style={{ touchAction: 'none' }}
-    ></div>
+    />
   );
 };
 

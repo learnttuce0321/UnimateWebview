@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { registerApi } from 'app/register/_api/registerApi';
-import { ProductPostCreateRequest } from 'app/register/_type/registerType';
+import { ProductPostCreateRequest } from 'types/Product';
 
 export const useMutationUpdateProduct = () => {
   const queryClient = useQueryClient();
