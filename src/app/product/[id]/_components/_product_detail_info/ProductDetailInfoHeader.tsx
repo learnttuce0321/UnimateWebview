@@ -1,9 +1,9 @@
 'use client';
 
 import React from 'react';
+import { getCategoryKoreanName } from 'utils/categoryMapper';
 import { formatNumber } from 'utils/formatNumber';
 import { formatTimeAgo } from 'utils/formatTime';
-import { getCategoryKoreanName } from 'utils/categoryMapper';
 import { TradeStatus } from '../../page';
 
 interface Props {

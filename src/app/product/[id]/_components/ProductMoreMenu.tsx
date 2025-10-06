@@ -3,12 +3,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Modal from 'components/modal/Modal';
+import { useMutationDeleteProduct } from 'hooks/products/useMutationDeleteProduct';
 import {
   useMutationHideProduct,
   useMutationUnhideProduct,
   ApiError,
 } from 'hooks/products/useMutationHideProduct';
-import { useMutationDeleteProduct } from 'hooks/products/useMutationDeleteProduct';
 import { TradeStatus } from '../page';
 
 type Props = {

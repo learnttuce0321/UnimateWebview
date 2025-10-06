@@ -1,5 +1,5 @@
 import React from 'react';
-import { categoryTestData } from 'app/testDatas/categoryTestData';
+import { categoryData } from 'constants/categoryData';
 import CategoryItem from './CategoryItem';
 
 interface Props {

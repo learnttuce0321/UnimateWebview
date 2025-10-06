@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import fetchClient from 'modules/fetchClient';
+import fetchClient from 'modules/fetch/fetchClient';
 
 export const useMutationLikeProduct = () => {
   const queryClient = useQueryClient();

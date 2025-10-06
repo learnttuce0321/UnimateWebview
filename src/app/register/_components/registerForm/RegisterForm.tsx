@@ -8,12 +8,12 @@ import RegisterPriceInfo from 'app/register/_components/registerForm/price/Regis
 import RegisterImageForm from 'app/register/_components/registerForm/RegisterImageForm';
 import RegisterInput from 'app/register/_components/registerForm/RegisterInput';
 import RegisterTradeInfo from 'app/register/_components/registerForm/trade/RegisterTradeInfo';
+import { useMutationUpdateProduct } from 'hooks/products/useMutationUpdateProduct';
 import { FormDataType } from 'types/Product';
+import { ProductDetail } from 'types/Product';
 import { registerApi } from '../../_api/registerApi';
 import { convertFormDataToApiRequest } from '../../_utils/formDataConverter';
 import { convertProductDetailToFormData } from '../../_utils/productDataConverter';
-import { useMutationUpdateProduct } from 'hooks/products/useMutationUpdateProduct';
-import { ProductDetail } from 'types/Product';
 
 export default function RegisterForm() {
   const searchParams = useSearchParams();

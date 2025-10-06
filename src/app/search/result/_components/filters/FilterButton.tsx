@@ -2,15 +2,13 @@
 
 import React from 'react';
 import { useSearchParams } from 'next/navigation';
+import { categoryData } from 'constants/categoryData';
 import { useSearchFilterBottomSheetStore } from 'stores/searchFilterBottomSheet.store';
-import { formatNumber } from '../../../../../utils/formatNumber';
-import { categoryTestData } from '../../../../testDatas/categoryTestData';
+import { formatNumber } from 'utils/formatNumber';
 import {
   FilterType,
   FilterTypeLabel,
 } from '../../_type/searchResultFilter.type';
-import { formatNumber } from '../../../../../utils/formatNumber';
-import { categoryData } from '../../../../../constants/categoryData';
 
 interface Props {
   filterName: FilterType;

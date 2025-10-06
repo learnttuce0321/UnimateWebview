@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import fetchClient from 'modules/fetchClient';
+import fetchClient from 'modules/fetch/fetchClient';
 import { ProductDetail } from 'types/Product';
 
 export const useQueryProductDetail = (id: string | number) => {
