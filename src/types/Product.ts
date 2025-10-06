@@ -85,7 +85,6 @@ export interface ProductPostCreateRequest {
   description: string;
   tradeType: 'DIRECT' | 'ONLINE';
   tradeTypeDescription: string;
-  regionId: string;
 }
 
 export interface ProductDetail {
