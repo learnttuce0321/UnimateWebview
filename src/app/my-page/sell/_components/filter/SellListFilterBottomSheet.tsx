@@ -5,16 +5,16 @@ import BottomSheetContent from 'components/bottomSheet/BottomSheetContent';
 import BottomSheetDimmed from 'components/bottomSheet/BottomSheetDimmed';
 import { TradeStatus } from 'types/Product';
 import { TradeStatusRadioConfig } from './SellListFilterBottomSheetButton';
+import SellListFilterConfirmButton from './SellListFilterConfirmButton';
+import SellListFilterItem from './SellListFilterItem';
 
 interface Props {
-  isBottomSheetOpen: boolean;
   closeSheet: () => void;
   currentTradeStatus: TradeStatus;
   setCurrentTradeStatus: React.Dispatch<React.SetStateAction<TradeStatus>>;
 }
 
 const SellListFilterBottomSheet = ({
-  isBottomSheetOpen,
   closeSheet,
   currentTradeStatus,
   setCurrentTradeStatus,
@@ -22,9 +22,14 @@ const SellListFilterBottomSheet = ({
   const [tradeFilterStatus, setTradeFilterStatus] =
     useState<TradeStatus>(currentTradeStatus);
 
-  if (!isBottomSheetOpen) {
-    return null;
-  }
+  const handleFilterClick = (filterKey: TradeStatus) => {
+    setTradeFilterStatus(filterKey);
+  };
+
+  const handleConfirmClick = () => {
+    setCurrentTradeStatus(tradeFilterStatus);
+    closeSheet();
+  };
 
   return (
     <>
@@ -35,35 +40,16 @@ const SellListFilterBottomSheet = ({
         </h3>
         <ul className="mb-[26px] space-y-3">
           {Object.entries(TradeStatusRadioConfig).map(([key, label]) => (
-            <li key={key}>
-              <button
-                className="flex items-center gap-[8px]"
-                onClick={() => {
-                  setTradeFilterStatus(key);
-                }}
-              >
-                <img
-                  src={
-                    tradeFilterStatus === key
-                      ? '/images/svg/my-page/icon-toggle-radio.svg'
-                      : '/images/svg/my-page/icon-toggle-radio-none.svg'
-                  }
-                  className="h-[20px] w-[20px] rounded-full"
-                  width={20}
-                  height={20}
-                  alt="label"
-                />
-                <span>{label}</span>
-              </button>
-            </li>
+            <SellListFilterItem
+              key={key}
+              filterKey={key}
+              filterLabel={label}
+              tradeFilterStatus={tradeFilterStatus}
+              onClick={handleFilterClick}
+            />
           ))}
         </ul>
-        <button
-          className="mb-[10px] flex h-[50px] w-full items-center justify-center rounded-[10px] bg-blue-600_P text-white"
-          onClick={() => setCurrentTradeStatus(tradeFilterStatus)}
-        >
-          확인
-        </button>
+        <SellListFilterConfirmButton onClick={handleConfirmClick} />
       </BottomSheetContent>
     </>
   );

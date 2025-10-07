@@ -34,12 +34,13 @@ const SellListFilterBottomSheetButton = () => {
           />
         </button>
       </div>
-      <SellListFilterBottomSheet
-        isBottomSheetOpen={isBottomSheetOpen}
-        closeSheet={() => setIsBottomSheetOpen(false)}
-        currentTradeStatus={currentTradeStatus}
-        setCurrentTradeStatus={setCurrentTradeStatus}
-      />
+      {isBottomSheetOpen && (
+        <SellListFilterBottomSheet
+          closeSheet={() => setIsBottomSheetOpen(false)}
+          currentTradeStatus={currentTradeStatus}
+          setCurrentTradeStatus={setCurrentTradeStatus}
+        />
+      )}
     </>
   );
 };
