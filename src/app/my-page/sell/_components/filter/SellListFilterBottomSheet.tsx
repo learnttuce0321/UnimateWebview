@@ -59,7 +59,7 @@ const SellListFilterBottomSheet = ({
           ))}
         </ul>
         <button
-          className="mb-[10px] flex h-[50px] w-full items-center justify-center rounded-[10px] bg-blue-600_P"
+          className="mb-[10px] flex h-[50px] w-full items-center justify-center rounded-[10px] bg-blue-600_P text-white"
           onClick={() => setCurrentTradeStatus(tradeFilterStatus)}
         >
           확인
