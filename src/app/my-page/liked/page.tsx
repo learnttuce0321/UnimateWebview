@@ -5,7 +5,7 @@ const Page = () => {
   return (
     <>
       <NavigationBar title="찜한 목록" />
-      <div className="h-[calc(100vh-50px)] w-full bg-gray-50 px-[16px] pt-[16px]">
+      <div className="min-h-[calc(100vh-50px)] w-full bg-gray-50 px-[16px] pt-[16px]">
         <LikedProductList />
       </div>
     </>

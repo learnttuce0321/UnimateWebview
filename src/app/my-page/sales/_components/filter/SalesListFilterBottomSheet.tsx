@@ -3,26 +3,28 @@
 import { useState } from 'react';
 import BottomSheetContent from 'components/bottomSheet/BottomSheetContent';
 import BottomSheetDimmed from 'components/bottomSheet/BottomSheetDimmed';
-import { TradeStatus } from 'types/Product';
-import { TradeStatusRadioConfig } from './SellListFilterBottomSheetButton';
-import SellListFilterConfirmButton from './SellListFilterConfirmButton';
-import SellListFilterItem from './SellListFilterItem';
+import { TradeStatusRadioConfig } from './SalesListFilterBottomSheetButton';
+import SellListFilterConfirmButton from './SalesListFilterConfirmButton';
+import SalesListFilterItem from './SalesListFilterItem';
+import { TradeFilterStatus } from '../../page';
 
 interface Props {
   closeSheet: () => void;
-  currentTradeStatus: TradeStatus;
-  setCurrentTradeStatus: React.Dispatch<React.SetStateAction<TradeStatus>>;
+  currentTradeStatus: TradeFilterStatus;
+  setCurrentTradeStatus: React.Dispatch<
+    React.SetStateAction<TradeFilterStatus>
+  >;
 }
 
-const SellListFilterBottomSheet = ({
+const SalesListFilterBottomSheet = ({
   closeSheet,
   currentTradeStatus,
   setCurrentTradeStatus,
 }: Props) => {
   const [tradeFilterStatus, setTradeFilterStatus] =
-    useState<TradeStatus>(currentTradeStatus);
+    useState<TradeFilterStatus>(currentTradeStatus);
 
-  const handleFilterClick = (filterKey: TradeStatus) => {
+  const handleFilterClick = (filterKey: TradeFilterStatus) => {
     setTradeFilterStatus(filterKey);
   };
 
@@ -40,7 +42,7 @@ const SellListFilterBottomSheet = ({
         </h3>
         <ul className="mb-[26px] space-y-3">
           {Object.entries(TradeStatusRadioConfig).map(([key, label]) => (
-            <SellListFilterItem
+            <SalesListFilterItem
               key={key}
               filterKey={key}
               filterLabel={label}
@@ -55,4 +57,4 @@ const SellListFilterBottomSheet = ({
   );
 };
 
-export default SellListFilterBottomSheet;
+export default SalesListFilterBottomSheet;

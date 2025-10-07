@@ -26,3 +26,8 @@ export const API_PRODUCTS_POSTS_PRESIGNED_URL =
  * @GET 내가 찜한 상품게시글 리스트 API
  */
 export const API_PRODUCTS_LIKE = '/api/v1/product-posts/my/likes';
+
+/**
+ * @GET 나의 판매내역 목록 조회 API
+ */
+export const API_MY_SALES_PRODUCTS = '/api/v1/product-posts/my/sales';

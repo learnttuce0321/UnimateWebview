@@ -1,11 +1,11 @@
 export type CurrencyType = 'KRW' | 'USD' | string;
 
-export type TradeStatus = 'ALL' | 'FOR_SALE' | 'RESERVED' | 'SOLD_OUT' | string;
+export type TradeStatus = 'FOR_SALE' | 'RESERVED' | 'SOLD_OUT' | string;
 export interface ProductPost {
   id: number;
   title: string;
   createdAt: string;
-  universityName: string;
+  universityName: string | null;
   thumbnailUrl: string;
   price: number;
   currencyType: CurrencyType;
@@ -16,14 +16,11 @@ export interface ProductPost {
   tradeStatus: TradeStatus;
 }
 
-export interface LikedProduct {
-  id: number;
-  title: string;
-  createdAt: string;
-  universityName: string;
-  thumbnailUrl: string;
-  price: number;
-  currencyType: string;
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export interface LikeProduct extends ProductPost {}
+
+export interface SalesProduct extends ProductPost {
+  isHidden: boolean;
 }
 
 export interface PriceType {

@@ -2,7 +2,7 @@ interface Props {
   onClick: () => void;
 }
 
-const SellListFilterConfirmButton = ({ onClick }: Props) => {
+const SalesListFilterConfirmButton = ({ onClick }: Props) => {
   return (
     <button
       className="mb-[10px] flex h-[50px] w-full items-center justify-center rounded-[10px] bg-blue-600_P text-white"
@@ -12,4 +12,4 @@ const SellListFilterConfirmButton = ({ onClick }: Props) => {
     </button>
   );
 };
-export default SellListFilterConfirmButton;
+export default SalesListFilterConfirmButton;

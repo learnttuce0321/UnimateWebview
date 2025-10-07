@@ -5,7 +5,7 @@ import LikedProductTitle from './LikedProductTitle';
 
 interface Props {
   title: string;
-  universityName: string;
+  universityName: string | null;
   price: number;
   currencyType: CurrencyType;
 }
@@ -17,7 +17,7 @@ const LikedProductInfo = ({
   currencyType,
 }: Props) => {
   return (
-    <div className="">
+    <div>
       <LikedProductTitle title={title} />
       <LikedProductMetadata universityName={universityName} />
       <LikedProductPrice price={price} currencyType={currencyType} />

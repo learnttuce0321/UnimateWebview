@@ -1,14 +1,14 @@
-import { TradeStatus } from 'types/Product';
-import { TradeStatusRadioConfig } from './SellListFilterBottomSheetButton';
+import { TradeStatusRadioConfig } from './SalesListFilterBottomSheetButton';
+import { TradeFilterStatus } from '../../page';
 
 interface Props {
-  filterKey: TradeStatus;
-  tradeFilterStatus: TradeStatus;
+  filterKey: TradeFilterStatus;
+  tradeFilterStatus: TradeFilterStatus;
   filterLabel: (typeof TradeStatusRadioConfig)[keyof typeof TradeStatusRadioConfig];
-  onClick: (filterKey: TradeStatus) => void;
+  onClick: (filterKey: TradeFilterStatus) => void;
 }
 
-const SellListFilterItem = ({
+const SalesListFilterItem = ({
   filterKey,
   filterLabel,
   tradeFilterStatus,
@@ -39,4 +39,4 @@ const SellListFilterItem = ({
   );
 };
 
-export default SellListFilterItem;
+export default SalesListFilterItem;

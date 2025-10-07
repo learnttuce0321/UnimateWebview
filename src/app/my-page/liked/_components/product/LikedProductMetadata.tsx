@@ -1,5 +1,5 @@
 interface Props {
-  universityName: string;
+  universityName: string | null;
 }
 
 const LikedProductMetadata = ({ universityName }: Props) => {

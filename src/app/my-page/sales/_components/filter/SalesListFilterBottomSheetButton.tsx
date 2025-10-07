@@ -1,24 +1,32 @@
 'use client';
 
 import { useState } from 'react';
-import { TradeStatus } from 'types/Product';
-import SellListFilterBottomSheet from './SellListFilterBottomSheet';
+import SalesListFilterBottomSheet from './SalesListFilterBottomSheet';
+import { TradeFilterStatus } from '../../page';
 
-export const TradeStatusRadioConfig: Record<TradeStatus, string> = {
+export const TradeStatusRadioConfig: Record<TradeFilterStatus, string> = {
   ALL: '전체',
   FOR_SALE: '판매중',
   SOLD_OUT: '거래완료',
-  RESERVED: '숨김',
+  HIDDEN: '숨김',
 };
 
-const SellListFilterBottomSheetButton = () => {
-  const [currentTradeStatus, setCurrentTradeStatus] =
-    useState<TradeStatus>('ALL');
+interface Props {
+  currentTradeStatus: TradeFilterStatus;
+  setCurrentTradeStatus: React.Dispatch<
+    React.SetStateAction<TradeFilterStatus>
+  >;
+}
+
+const SalesListFilterBottomSheetButton = ({
+  currentTradeStatus,
+  setCurrentTradeStatus,
+}: Props) => {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(false);
 
   return (
     <>
-      <div className="flex h-[40px] w-full justify-end px-[16px] pt-[10px]">
+      <div className="flex h-[50px] w-full justify-end px-[16px] py-[10px]">
         <button
           className="flex items-center justify-center border-[0.5px] border-blue_gray-400 bg-white pl-[12px] pr-[6px]"
           onClick={() => setIsBottomSheetOpen(true)}
@@ -35,7 +43,7 @@ const SellListFilterBottomSheetButton = () => {
         </button>
       </div>
       {isBottomSheetOpen && (
-        <SellListFilterBottomSheet
+        <SalesListFilterBottomSheet
           closeSheet={() => setIsBottomSheetOpen(false)}
           currentTradeStatus={currentTradeStatus}
           setCurrentTradeStatus={setCurrentTradeStatus}
@@ -45,4 +53,4 @@ const SellListFilterBottomSheetButton = () => {
   );
 };
 
-export default SellListFilterBottomSheetButton;
+export default SalesListFilterBottomSheetButton;

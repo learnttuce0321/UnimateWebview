@@ -4,11 +4,11 @@ import { useRef } from 'react';
 import { useInfiniteQueryWithObserver } from 'hooks/useInfiniteQueryWithObserver';
 import fetchClient from 'modules/fetch/fetchClient';
 import { API_PRODUCTS_LIKE } from 'modules/keyFactory/product';
-import { ProductPost } from 'types/Product';
+import { LikeProduct } from 'types/Product';
 import LikedProduct from './LikedProduct';
 
 interface LikedProductPostListResponse {
-  contents: ProductPost[];
+  contents: LikeProduct[];
   hasNext: boolean;
 }
 
