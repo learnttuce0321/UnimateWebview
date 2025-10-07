@@ -3,11 +3,11 @@
 import { useAppStore } from 'providers/ZustandProvider';
 
 const MyProfileImage = () => {
-  const profileImageKey = useAppStore(
-    (state) => state.userProfile.profileImageKey
+  const profileImageUrl = useAppStore(
+    (state) => state.userProfile.profileImageUrl
   );
 
-  if (!profileImageKey)
+  if (!profileImageUrl)
     return (
       <div className="relative">
         <img
