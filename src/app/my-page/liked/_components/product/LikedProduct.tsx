@@ -1,28 +1,28 @@
 import { ProductPost } from 'types/Product';
-import WishlistProductInfo from './WishlistProductInfo';
-import WishlistProductListButton from './WishlistProductLikeButton';
-import WishlistProductThumbnail from './WishlistProductThumbnail';
+import LikedProductInfo from './LikedProductInfo';
+import LikedProductLikeButton from './LikedProductLikeButton';
+import LikedProductThumbnail from './LikedProductThumbnail';
 
 interface Props {
   product: ProductPost;
 }
 
-const WishlistProduct = ({ product }: Props) => {
+const LikedProduct = ({ product }: Props) => {
   const { thumbnailUrl, title, universityName, price, currencyType } = product;
   return (
     <li className="flex w-full justify-between gap-[4px] rounded-[10px] bg-white p-[16px]">
       <div className="flex gap-[8px]">
-        <WishlistProductThumbnail title={title} thumbnailUrl={thumbnailUrl} />
-        <WishlistProductInfo
+        <LikedProductThumbnail title={title} thumbnailUrl={thumbnailUrl} />
+        <LikedProductInfo
           title={title}
           universityName={universityName}
           price={price}
           currencyType={currencyType}
         />
       </div>
-      <WishlistProductListButton />
+      <LikedProductLikeButton />
     </li>
   );
 };
 
-export default WishlistProduct;
+export default LikedProduct;

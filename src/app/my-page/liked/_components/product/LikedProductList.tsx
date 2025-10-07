@@ -5,27 +5,27 @@ import { useInfiniteQueryWithObserver } from 'hooks/useInfiniteQueryWithObserver
 import fetchClient from 'modules/fetch/fetchClient';
 import { API_PRODUCTS_LIKE } from 'modules/keyFactory/product';
 import { ProductPost } from 'types/Product';
-import WishlistProduct from './WishlistProduct';
+import LikedProduct from './LikedProduct';
 
-interface LikedProdctPostListResponse {
+interface LikedProductPostListResponse {
   contents: ProductPost[];
   hasNext: boolean;
 }
 
-const Wishlist = () => {
+const LikedProductList = () => {
   const infiniteTarget = useRef<HTMLDivElement>(null);
   const {
     data: likedProductPosts,
     isLoading,
     isError,
-  } = useInfiniteQueryWithObserver<LikedProdctPostListResponse>(
+  } = useInfiniteQueryWithObserver<LikedProductPostListResponse>(
     infiniteTarget,
     {
       queryKey: [API_PRODUCTS_LIKE],
       initialPageParam: 1,
       queryFn: async ({ pageParam }) => {
         try {
-          const res = await fetchClient.GET<LikedProdctPostListResponse>({
+          const res = await fetchClient.GET<LikedProductPostListResponse>({
             url: API_PRODUCTS_LIKE,
             params: {
               pageNumber: pageParam,
@@ -61,7 +61,7 @@ const Wishlist = () => {
     <>
       <ul className="flex flex-col gap-[10px]">
         {likedProductList.map((product) => {
-          return <WishlistProduct key={product.id} product={product} />;
+          return <LikedProduct key={product.id} product={product} />;
         })}
       </ul>
       <div ref={infiniteTarget} />
@@ -69,4 +69,4 @@ const Wishlist = () => {
   );
 };
 
-export default Wishlist;
+export default LikedProductList;
