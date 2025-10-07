@@ -2,9 +2,12 @@
 
 import { useState } from 'react';
 
-const WishlistProductListButton = () => {
+const LikedProductLikeButton = () => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
 
+  const handleLikeButtonClick = () => {
+    setIsLiked((prev) => !prev);
+  };
   return (
     <div>
       {isLiked ? (
@@ -26,4 +29,4 @@ const WishlistProductListButton = () => {
   );
 };
 
-export default WishlistProductListButton;
+export default LikedProductLikeButton;

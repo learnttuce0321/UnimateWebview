@@ -1,9 +1,9 @@
 'use client';
 
 import React from 'react';
+import BottomSheetContent from 'components/bottomSheet/BottomSheetContent';
+import BottomSheetDimmed from 'components/bottomSheet/BottomSheetDimmed';
 import { useSearchFilterBottomSheetStore } from 'stores/searchFilterBottomSheet.store';
-import BottomSheetDimmed from './BottomSheetDimmed';
-import FilterBottomSheet from './FilterBottomSheet';
 import CategoryFilterContent from './filterContents/categoryFilter/CategoryFilterContent';
 import ExcludeSoldFilterContent from './filterContents/excludeSoldFilter/ExcludeSoldFilterContent';
 import PriceFilterContent from './filterContents/priceFilter/PriceFilterContent';
@@ -35,9 +35,9 @@ const SearchFilterBottomSheetContainer = () => {
       {/* 오버레이 */}
       <BottomSheetDimmed closeSheet={closeSheet} />
       {/* 전체 바텀 시트 */}
-      <FilterBottomSheet closeSheet={closeSheet}>
+      <BottomSheetContent closeSheet={closeSheet}>
         {renderContent()}
-      </FilterBottomSheet>
+      </BottomSheetContent>
     </>
   );
 };

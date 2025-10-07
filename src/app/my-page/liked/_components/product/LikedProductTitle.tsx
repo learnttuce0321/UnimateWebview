@@ -2,7 +2,7 @@ interface Props {
   title: string;
 }
 
-const WishlistProductTitle = ({ title }: Props) => {
+const LikedProductTitle = ({ title }: Props) => {
   return (
     <h2 className="mb-[6px] text-[16px] font-medium leading-[19.2px] text-blue_gray-900">
       {title}
@@ -10,4 +10,4 @@ const WishlistProductTitle = ({ title }: Props) => {
   );
 };
 
-export default WishlistProductTitle;
+export default LikedProductTitle;

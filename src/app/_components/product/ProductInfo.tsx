@@ -8,7 +8,7 @@ interface Props {
   title: string;
   createdAt: string;
   price: number;
-  universityName: string;
+  universityName: string | null;
   likeCount: number;
   chatRoomCount: number;
   currencyType: CurrencyType;
