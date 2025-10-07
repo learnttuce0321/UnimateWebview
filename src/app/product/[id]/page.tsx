@@ -9,7 +9,8 @@ import ProductDetailHeader from './_components/ProductDetailHeader';
 import ProductDetailImageSlider from './_components/ProductDetailImageSlider';
 import ProductSellerSection from './_components/ProductSellerSection';
 import ProductStatusBottomSheet from './_components/ProductStatusBottomSheet';
-import ReportModal from './_components/ReportModal';
+import ReportBottomSheet from './_components/ReportBottomSheet';
+import ReportSuccessModal from './_components/ReportSuccessModal';
 
 export type TradeStatus = 'FOR_SALE' | 'RESERVED' | 'SOLD_OUT';
 
@@ -20,8 +21,9 @@ interface ProductDetailPageProps {
 }
 
 const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
-  const [isReportModalOpen, setIsReportModalOpen] = useState(false);
-  const [isStatusModalOpen, setIsStatusModalOpen] = useState(false);
+  const [isReportBottomSheetOpen, setIsReportBottomSheetOpen] = useState(false);
+  const [isStatusBottomSheetOpen, setIsStatusBottomSheetOpen] = useState(false);
+  const [showReportSuccessModal, setShowReportSuccessModal] = useState(false);
   const [tradeStatus, setTradeStatus] = useState<TradeStatus>('FOR_SALE');
 
   // API 호출
@@ -112,7 +114,7 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
       {/* 상품 상세 설명 영역 */}
       <ProductDescriptionSection
         {...productData}
-        onReportClick={() => setIsReportModalOpen(true)}
+        onReportClick={() => setIsReportBottomSheetOpen(true)}
       />
 
       {/* 고정 하단 액션 */}
@@ -120,26 +122,33 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
         isSeller={isSeller}
         onOpenChat={() => console.log('채팅하기')}
         onOpenChatList={() => console.log('채팅 목록 열기')}
-        onOpenStatus={() => setIsStatusModalOpen(true)}
+        onOpenStatus={() => setIsStatusBottomSheetOpen(true)}
       />
 
       {/* 신고 모달 */}
-      <ReportModal
-        isOpen={isReportModalOpen}
-        onClose={() => setIsReportModalOpen(false)}
-        onSubmit={(reason) => {
-          console.log('신고 사유:', reason);
-          setIsReportModalOpen(false);
+      <ReportBottomSheet
+        isOpen={isReportBottomSheetOpen}
+        onClose={() => setIsReportBottomSheetOpen(false)}
+        onSubmit={() => {
+          setIsReportBottomSheetOpen(false);
+          setShowReportSuccessModal(true);
         }}
       />
 
+      {/* 신고 성공 모달 */}
+      <ReportSuccessModal
+        isOpen={showReportSuccessModal}
+        onClose={() => setShowReportSuccessModal(false)}
+      />
+
+      {/* 상품 상태 바텀 시트 */}
       <ProductStatusBottomSheet
-        isOpen={isStatusModalOpen}
+        isOpen={isStatusBottomSheetOpen}
         currentStatus={tradeStatus}
-        onClose={() => setIsStatusModalOpen(false)}
+        onClose={() => setIsStatusBottomSheetOpen(false)}
         onStatusChange={(status) => {
           setTradeStatus(status as TradeStatus);
-          setIsStatusModalOpen(false);
+          setIsStatusBottomSheetOpen(false);
         }}
       />
     </div>
