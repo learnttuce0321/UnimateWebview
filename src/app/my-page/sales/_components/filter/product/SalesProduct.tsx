@@ -2,6 +2,7 @@ import { SalesProduct as TSalesProduct } from 'types/Product';
 import navigationScheme from 'utils/navigationScheme';
 import SalesProductInfo from './SalesProductInfo';
 import SalesProductThumbnail from './SalesProductThumbnail';
+import SaleProductMore from './SaleProductMore';
 
 interface Props {
   product: TSalesProduct;
@@ -17,7 +18,7 @@ const SalesProduct = ({ product }: Props) => {
 
   return (
     <li
-      className="shadow-[0 0 10px 0 rgba(0, 0, 0, 0.05)] flex w-full gap-[12px] rounded-[10px] bg-white p-[16px]"
+      className="shadow-[0 0 10px 0 rgba(0, 0, 0, 0.05)] relative flex w-full gap-[12px] rounded-[10px] bg-white p-[16px]"
       onClick={handleProductClick}
     >
       <SalesProductThumbnail
@@ -26,6 +27,7 @@ const SalesProduct = ({ product }: Props) => {
         isHidden={isHidden}
       />
       <SalesProductInfo product={product} />
+      <SaleProductMore />
     </li>
   );
 };
