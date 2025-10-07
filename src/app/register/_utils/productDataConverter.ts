@@ -1,5 +1,4 @@
-import { ProductDetail } from 'types/Product';
-import { FormDataType } from '../_type/registerType';
+import { ProductDetail, FormDataType } from 'types/Product';
 
 export const convertProductDetailToFormData = (
   productDetail: ProductDetail

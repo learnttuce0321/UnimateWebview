@@ -7,7 +7,7 @@ interface Props {
   currencyType: CurrencyType;
 }
 
-const WishlistProductPrice = ({ price, currencyType }: Props) => {
+const LikedProductPrice = ({ price, currencyType }: Props) => {
   return (
     <p className="text-[18px] font-bold leading-[18px] text-blue_gray-900">
       <span>{formatNumber(price)}</span>
@@ -16,4 +16,4 @@ const WishlistProductPrice = ({ price, currencyType }: Props) => {
   );
 };
 
-export default WishlistProductPrice;
+export default LikedProductPrice;

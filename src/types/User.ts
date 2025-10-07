@@ -9,7 +9,7 @@ export interface UserUniversity {
 
 export interface User {
   nickname?: string;
-  profileImageKey?: string;
+  profileImageUrl?: string;
   university: UserUniversity;
   interestRegions: {
     interestRegions: Region[];

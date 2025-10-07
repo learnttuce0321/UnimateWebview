@@ -12,7 +12,7 @@ const Page = () => {
         renderOptionButtons={<ProfileSettingButton />}
         className="bg-white"
       />
-      <div className="h-[calc(100vh-50px)] w-full bg-gray-50 px-[16px] pt-[16px]">
+      <div className="min-h-[calc(100vh-50px)] w-full bg-gray-50 px-[16px] pt-[16px]">
         <MyProfile />
         <section className="mb-[8px]">
           <MyPageListSection sectionId="TRADING" />

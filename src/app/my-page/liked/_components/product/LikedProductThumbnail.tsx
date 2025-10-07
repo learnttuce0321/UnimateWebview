@@ -3,7 +3,7 @@ interface Props {
   thumbnailUrl: string;
 }
 
-const WishlistProductThumbnail = ({ title, thumbnailUrl }: Props) => {
+const LikedProductThumbnail = ({ title, thumbnailUrl }: Props) => {
   return (
     <img
       className="h-[72px] w-[72px] rounded-[8px]"
@@ -15,4 +15,4 @@ const WishlistProductThumbnail = ({ title, thumbnailUrl }: Props) => {
   );
 };
 
-export default WishlistProductThumbnail;
+export default LikedProductThumbnail;

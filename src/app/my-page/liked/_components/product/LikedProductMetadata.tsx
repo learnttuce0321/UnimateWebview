@@ -1,8 +1,8 @@
 interface Props {
-  universityName: string;
+  universityName: string | null;
 }
 
-const WishlistProductMetadata = ({ universityName }: Props) => {
+const LikedProductMetadata = ({ universityName }: Props) => {
   if (!universityName) {
     return null;
   }
@@ -22,4 +22,4 @@ const WishlistProductMetadata = ({ universityName }: Props) => {
   );
 };
 
-export default WishlistProductMetadata;
+export default LikedProductMetadata;
