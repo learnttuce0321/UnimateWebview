@@ -1,9 +1,10 @@
+import { MouseEvent } from 'react';
 import { MODAL_OVERLAY_Z_INDEX } from 'constants/zIndex';
 
 interface Props {
   backgroundColor?: string;
   children?: React.ReactNode;
-  onClick?: () => void;
+  onClick?: (e: MouseEvent<HTMLDivElement>) => void;
 }
 
 const Overlay = ({

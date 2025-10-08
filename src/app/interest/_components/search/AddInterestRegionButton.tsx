@@ -1,14 +1,16 @@
 'use client';
 
-import { useState } from 'react';
 import { ActionType } from 'app/interest/_types/search';
 import BottomFixedConfirmButton from 'components/button/BottomFixedConfirmButton';
+import ErrorModalContent from 'components/modal/ErrorModalContent';
 import Modal from 'components/modal/Modal';
+import { useModal } from 'components/modal/useModal';
 import { MAIN_PAGE_ADD_USER_INTEREST_REGION } from 'constants/storageSync';
 import { useMutationAddInterestRegion } from 'hooks/users/useMutationAddInterestRegion';
 import { setLocalStorageAndSync } from 'hooks/useStorageSync';
 import { useAppStore } from 'providers/ZustandProvider';
 import { SearchedRegion } from 'types/Region';
+import AddInterestRegionModalContent from './AddInterestRegionModalContent';
 
 interface Props {
   selectedRegion: SearchedRegion | null;
@@ -19,22 +21,30 @@ const AddInterestRegionButton = ({
   selectedRegion,
   handleChangeActionType,
 }: Props) => {
-  const [openAddInterestRegionModal, setOpenAddInterestRegionModal] =
-    useState<boolean>(false);
   const { mutate } = useMutationAddInterestRegion();
   const addInterestRegion = useAppStore((state) => state.addInterestRegion);
+
+  const { modalState, openModal, closeModal, handleConfirm, handleCancel } =
+    useModal();
 
   const handleAddInterestRegionClick = () => {
     if (!selectedRegion) return;
 
-    setOpenAddInterestRegionModal(true);
+    openModal({
+      children: (
+        <AddInterestRegionModalContent
+          selectedRegionName={selectedRegion?.name}
+        />
+      ),
+      confirmText: '예',
+      cancelText: '아니요',
+      onConfirm: () => {
+        handleConfirmAddRegion();
+      },
+    });
   };
 
-  const handleModalClose = () => {
-    setOpenAddInterestRegionModal(false);
-  };
-
-  const handleConfirmClick = () => {
+  const handleConfirmAddRegion = () => {
     if (!selectedRegion) return;
 
     mutate(
@@ -53,8 +63,14 @@ const AddInterestRegionButton = ({
           });
           handleChangeActionType('setting');
         },
-        onSettled: () => {
-          handleModalClose();
+        onError: (error) => {
+          openModal({
+            children: (
+              <ErrorModalContent
+                errorMessage={error.message || '오류가 발생했습니다.'}
+              />
+            ),
+          });
         },
       }
     );
@@ -67,21 +83,13 @@ const AddInterestRegionButton = ({
         onClick={handleAddInterestRegionClick}
         isActive={!!selectedRegion}
       />
-      {openAddInterestRegionModal && (
-        <Modal
-          isOpened={openAddInterestRegionModal}
-          confirmText="예"
-          onConfirm={handleConfirmClick}
-          cancelText="아니요"
-          onCancel={handleModalClose}
-          onOverlayClick={handleModalClose}
-        >
-          <p className="text-[16px] font-medium leading-[22.4px] text-gray-900">
-            <span className="text-blue-600_P">{selectedRegion?.name}</span>
-            을(를) 관심도시에 추가하시겠습니까?
-          </p>
-        </Modal>
-      )}
+
+      <Modal
+        modalState={modalState}
+        onConfirm={handleConfirm}
+        onCancel={handleCancel}
+        onOverlayClick={closeModal}
+      />
     </>
   );
 };

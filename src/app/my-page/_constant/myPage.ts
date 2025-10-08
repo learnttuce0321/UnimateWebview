@@ -9,22 +9,20 @@ interface MyPageConfig {
 }
 
 export type MyPageConfigId =
-  | 'COMMUNITY'
-  | 'TRADING'
-  | 'SETTING'
-  | 'PROFILE_SETTING';
+  // | 'COMMUNITY'
+  'TRADING' | 'SETTING' | 'PROFILE_SETTING';
 
 type MyPageConfigList = Record<MyPageConfigId, MyPageConfig>;
 
-const MY_COMMUNITY_LIST_ITEMS: MyPageListItem[] = [
-  { title: '내가 쓴 글', targetUrl: '/my-page/post' },
-  { title: '내가 쓴 댓글', targetUrl: '/my-page/comment' },
-  { title: '좋아요 한 글', targetUrl: '/my-page/like' },
-];
+// const MY_COMMUNITY_LIST_ITEMS: MyPageListItem[] = [
+//   { title: '내가 쓴 글', targetUrl: '/my-page/post' },
+//   { title: '내가 쓴 댓글', targetUrl: '/my-page/comment' },
+//   { title: '좋아요 한 글', targetUrl: '/my-page/like' },
+// ];
 
 const MY_TRADING_LIST_ITEMS: MyPageListItem[] = [
-  { title: '찜한목록', targetUrl: '/my-page/wishlist' },
-  { title: '판매내역', targetUrl: '/my-page/sell' },
+  { title: '찜한목록', targetUrl: '/my-page/liked' },
+  { title: '판매내역', targetUrl: '/my-page/sales' },
   { title: '구매내역', targetUrl: '/my-page/buy' },
 ];
 
@@ -39,10 +37,10 @@ const MY_PROFILE_SETTING_LIST_ITEMS: MyPageListItem[] = [
 ];
 
 export const MY_PAGE_LIST_CONFIG: MyPageConfigList = {
-  COMMUNITY: {
-    title: '커뮤니티 활동',
-    listItems: MY_COMMUNITY_LIST_ITEMS,
-  },
+  // COMMUNITY: {
+  //   title: '커뮤니티 활동',
+  //   listItems: MY_COMMUNITY_LIST_ITEMS,
+  // },
   TRADING: {
     title: '거래활동',
     listItems: MY_TRADING_LIST_ITEMS,

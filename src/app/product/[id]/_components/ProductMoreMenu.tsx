@@ -1,13 +1,20 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { useQueryClient } from '@tanstack/react-query';
+import ErrorModalContent from 'components/modal/ErrorModalContent';
 import Modal from 'components/modal/Modal';
+import { useModal } from 'components/modal/useModal';
 import { useMutationDeleteProduct } from 'hooks/products/useMutationDeleteProduct';
 import { useMutationHideProduct } from 'hooks/products/useMutationHideProduct';
 import { useMutationUnhideProduct } from 'hooks/products/useMutationUnhideProduct';
+import navigationScheme from 'utils/navigationScheme';
 import { TradeStatus } from '../page';
+import DeleteProductConfirmModalContent from './productDetailInfo/DeleteProductConfirmModalContent';
+import DeleteReservedProductErrorModalContent from './productDetailInfo/DeleteReservedProductErrorModalContent';
+import HideProductConfirmModalContent from './productDetailInfo/HideProductConfirmModalContent';
+import HideReservedProductErrorModalContent from './productDetailInfo/HideReservedProductErrorModalContent';
+import UnhideProductConfirmModalContent from './productDetailInfo/UnhideProductConfirmModalContent';
 
 type Props = {
   productId: number;
@@ -23,17 +30,16 @@ export default function ProductMoreMenu({
   onEdit,
 }: Props) {
   const [open, setOpen] = useState(false);
-  const [showReservedAlertModal, setShowReservedAlertModal] = useState(false);
-  const [showConfirmModal, setShowConfirmModal] = useState(false);
-  const [showErrorModal, setShowErrorModal] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
-  const [actionType, setActionType] = useState<'hide' | 'delete' | null>(null);
+  const { modalState, openModal, closeModal, handleConfirm, handleCancel } =
+    useModal();
 
-  const router = useRouter();
+  const { closeWeb } = navigationScheme();
+
   const queryClient = useQueryClient();
-  const hideMutation = useMutationHideProduct();
-  const unhideMutation = useMutationUnhideProduct();
-  const deleteMutation = useMutationDeleteProduct();
+  const { mutate: mutateHideProduct } = useMutationHideProduct();
+  const { mutate: mutateUnhideProduct } = useMutationUnhideProduct();
+  const { mutate: mutateDeleteProduct } = useMutationDeleteProduct();
+
   const menuRef = useRef<HTMLDivElement | null>(null);
 
   // iOS 웹뷰: 바깥 탭으로 닫기 + 스크롤 락
@@ -76,217 +82,199 @@ export default function ProductMoreMenu({
     };
   }, [open]);
 
-  const handleHideOrDelete = (type: 'hide' | 'delete') => {
-    setActionType(type);
-
-    if (type === 'hide' && tradeStatus === 'RESERVED') {
-      setShowReservedAlertModal(true);
-    } else if (type === 'delete' && tradeStatus === 'RESERVED') {
-      setShowReservedAlertModal(true);
-    } else {
-      setShowConfirmModal(true);
-    }
-  };
-
-  const handleConfirmAction = () => {
-    setShowConfirmModal(false);
-
-    if (actionType === 'hide') {
-      if (isHidden) {
-        unhideMutation.mutate(productId, {
-          onSuccess: () => {
-            queryClient.invalidateQueries({
-              queryKey: ['product-detail', productId.toString()],
-            });
-          },
-          onError: (error) => {
-            setErrorMessage(error.message || '오류가 발생했습니다.');
-            setShowErrorModal(true);
-          },
-        });
-      } else {
-        hideMutation.mutate(productId, {
-          onSuccess: () => {
-            queryClient.invalidateQueries({
-              queryKey: ['product-detail', productId.toString()],
-            });
-          },
-          onError: (error) => {
-            setErrorMessage(error.message || '오류가 발생했습니다.');
-            setShowErrorModal(true);
-          },
-        });
-      }
-    } else if (actionType === 'delete') {
-      deleteMutation.mutate(productId, {
-        onSuccess: async () => {
-          queryClient.removeQueries({
-            queryKey: ['product-detail', productId.toString()],
-          });
-          // 상품 목록 캐시도 무효화 (목록에서 해당 상품이 제거되어야 함)
-          await queryClient.invalidateQueries({
-            queryKey: ['products'],
-          });
-          router.push('/');
-        },
-        onError: (error) => {
-          setErrorMessage(error.message || '오류가 발생했습니다.');
-          setShowErrorModal(true);
-        },
+  const handleHideClick = () => {
+    if (tradeStatus === 'RESERVED') {
+      return openModal({
+        children: <HideReservedProductErrorModalContent />,
+        confirmText: '확인',
       });
     }
 
-    setActionType(null);
+    if (isHidden) {
+      return openModal({
+        children: <UnhideProductConfirmModalContent />,
+        confirmText: '확인',
+        onConfirm: () => {
+          handleUnhideProduct();
+        },
+        cancelText: '취소',
+      });
+    } else {
+      return openModal({
+        children: <HideProductConfirmModalContent />,
+        confirmText: '확인',
+        onConfirm: () => {
+          handleHideProduct();
+        },
+        cancelText: '취소',
+      });
+    }
   };
 
-  const handleCancelAction = () => {
-    setShowConfirmModal(false);
-    setActionType(null);
+  const handleUnhideProduct = async () => {
+    mutateUnhideProduct(
+      { productId },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: ['product-detail', productId.toString()],
+          });
+        },
+        onError: (error) => {
+          openModal({
+            children: (
+              <ErrorModalContent
+                errorMessage={error.message || '오류가 발생했습니다.'}
+              />
+            ),
+          });
+        },
+      }
+    );
   };
 
-  const handleCloseReservedAlert = () => {
-    setShowReservedAlertModal(false);
-    setActionType(null);
+  const handleHideProduct = async () => {
+    mutateHideProduct(
+      { productId },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: ['product-detail', productId.toString()],
+          });
+        },
+        onError: (error) => {
+          openModal({
+            children: (
+              <ErrorModalContent
+                errorMessage={error.message || '오류가 발생했습니다.'}
+              />
+            ),
+          });
+        },
+      }
+    );
   };
 
-  const handleCloseErrorModal = () => {
-    setShowErrorModal(false);
-    setErrorMessage('');
+  const handleDeleteClick = () => {
+    if (tradeStatus === 'RESERVED') {
+      return openModal({
+        children: <DeleteReservedProductErrorModalContent />,
+        confirmText: '확인',
+      });
+    }
+
+    return openModal({
+      children: <DeleteProductConfirmModalContent />,
+      confirmText: '확인',
+      onConfirm: () => {
+        handleProductDelete();
+      },
+      cancelText: '취소',
+    });
+  };
+
+  const handleProductDelete = async () => {
+    mutateDeleteProduct(
+      { productId },
+      {
+        onSuccess: async () => {
+          await queryClient.invalidateQueries({
+            queryKey: ['products'],
+          });
+          closeWeb();
+        },
+        onError: (error) => {
+          openModal({
+            children: (
+              <ErrorModalContent
+                errorMessage={error.message || '오류가 발생했습니다.'}
+              />
+            ),
+          });
+        },
+      }
+    );
   };
 
   return (
-    <div className="relative">
-      <button
-        type="button"
-        aria-haspopup="menu"
-        aria-expanded={open}
-        onClick={() => setOpen((v) => !v)}
-        onContextMenu={(e) => e.preventDefault()} // iOS 롱프레스 방지
-        className="flex h-6 w-6 items-center justify-center [-webkit-tap-highlight-color:transparent]"
-      >
-        <img
-          src="/images/svg/product/icon-system-more-vertical.svg"
-          alt="더보기"
-        />
-      </button>
-
-      {/* 팝오버 */}
-      {open && (
-        <>
-          {/* 오버레이: 바깥 탭 감지용 (div 사용) */}
-          <div
-            aria-hidden
-            className="fixed inset-0 z-40"
-            onClick={() => setOpen(false)}
-            onTouchStart={() => setOpen(false)}
+    <>
+      <div className="relative">
+        <button
+          type="button"
+          aria-haspopup="menu"
+          aria-expanded={open}
+          onClick={() => setOpen((v) => !v)}
+          onContextMenu={(e) => e.preventDefault()} // iOS 롱프레스 방지
+          className="flex h-6 w-6 items-center justify-center [-webkit-tap-highlight-color:transparent]"
+        >
+          <img
+            src="/images/svg/product/icon-system-more-vertical.svg"
+            alt="더보기"
           />
+        </button>
+        {/* 팝오버 */}
+        {open && (
+          <>
+            {/* 오버레이: 바깥 탭 감지용 (div 사용) */}
+            <div
+              aria-hidden
+              className="fixed inset-0 z-40"
+              onClick={() => setOpen(false)}
+              onTouchStart={() => setOpen(false)}
+            />
 
-          <div
-            ref={menuRef}
-            role="menu"
-            className="absolute right-0 top-7 z-50 flex h-auto w-auto flex-col overflow-hidden rounded-[10px] border bg-white px-4 py-2 text-[14px] font-normal leading-[14px] text-[#7a8086] shadow-[0_0_10px_0_rgba(0,0,0,0.2)]"
-            onContextMenu={(e) => e.preventDefault()}
-          >
-            {/* 비활성 항목 */}
-            <button
-              type="button"
-              onClick={() => {
-                setOpen(false);
-                handleHideOrDelete('hide');
-              }}
-              className="block h-[30px] w-24 text-left"
-              role="menuitem"
+            <div
+              ref={menuRef}
+              role="menu"
+              className="absolute right-0 top-7 z-50 flex h-auto w-auto flex-col overflow-hidden rounded-[10px] border bg-white px-4 py-2 text-[14px] font-normal leading-[14px] text-[#7a8086] shadow-[0_0_10px_0_rgba(0,0,0,0.2)]"
+              onContextMenu={(e) => e.preventDefault()}
             >
-              {isHidden ? '글 숨김해제' : '글 숨기기'}
-            </button>
+              {/* 비활성 항목 */}
+              <button
+                type="button"
+                onClick={() => {
+                  setOpen(false);
+                  handleHideClick();
+                }}
+                className="block h-[30px] w-24 text-left"
+                role="menuitem"
+              >
+                {isHidden ? '글 숨김해제' : '글 숨기기'}
+              </button>
 
-            <button
-              type="button"
-              onClick={() => {
-                onEdit?.();
-                setOpen(false);
-              }}
-              className="block h-[30px] w-24 text-left"
-              role="menuitem"
-            >
-              수정하기
-            </button>
+              <button
+                type="button"
+                onClick={() => {
+                  onEdit?.();
+                  setOpen(false);
+                }}
+                className="block h-[30px] w-24 text-left"
+                role="menuitem"
+              >
+                수정하기
+              </button>
 
-            <button
-              type="button"
-              onClick={() => {
-                setOpen(false);
-                handleHideOrDelete('delete');
-              }}
-              className="block h-[30px] w-24 text-left"
-              role="menuitem"
-            >
-              삭제하기
-            </button>
-          </div>
-        </>
-      )}
-
-      {/* 예약중 상태 알림 모달 */}
+              <button
+                type="button"
+                onClick={() => {
+                  setOpen(false);
+                  handleDeleteClick();
+                }}
+                className="block h-[30px] w-24 text-left"
+                role="menuitem"
+              >
+                삭제하기
+              </button>
+            </div>
+          </>
+        )}
+      </div>
       <Modal
-        isOpened={showReservedAlertModal}
-        confirmText="확인"
-        onConfirm={handleCloseReservedAlert}
-        onOverlayClick={handleCloseReservedAlert}
-      >
-        <div className="flex w-full flex-col items-start gap-2">
-          <p className="text-[16px] font-bold leading-[22.4px] text-[#212121]">
-            {`예약중인 글은 ${actionType === 'hide' ? '숨길' : '삭제할 '} 수 없어요.`}
-          </p>
-          <p className="text-[14px] font-medium leading-[16.8px] text-[#666b72]">
-            판매상태를 변경한 후 다시 시도해주세요.
-          </p>
-        </div>
-      </Modal>
-
-      {/* 확인 모달 */}
-      <Modal
-        isOpened={showConfirmModal}
-        confirmText="확인"
-        cancelText="취소"
-        onConfirm={handleConfirmAction}
-        onCancel={handleCancelAction}
-        onOverlayClick={handleCancelAction}
-      >
-        <div className="flex w-full flex-col items-start gap-2">
-          <p className="text-[16px] font-bold leading-[22.4px] text-[#212121]">
-            이 글을{' '}
-            {actionType === 'hide'
-              ? isHidden
-                ? '숨김해제 하'
-                : '숨기'
-              : '삭제하'}
-            시겠어요?
-          </p>
-          <p className="whitespace-pre-line break-keep text-[14px] font-medium leading-[16.8px] text-[#666b72]">
-            {actionType === 'hide'
-              ? '숨김처리 된 글은 다른 메이트에게 \n비공개처리 됩니다.'
-              : '삭제한 글은 다시 복구할 수 없어요.'}
-          </p>
-        </div>
-      </Modal>
-
-      {/* 에러 모달 */}
-      <Modal
-        isOpened={showErrorModal}
-        confirmText="확인"
-        onConfirm={handleCloseErrorModal}
-        onOverlayClick={handleCloseErrorModal}
-      >
-        <div className="flex w-full flex-col items-start gap-2">
-          <p className="text-[16px] font-bold leading-[22.4px] text-[#212121]">
-            오류가 발생했습니다
-          </p>
-          <p className="text-[14px] font-medium leading-[16.8px] text-[#666b72]">
-            {errorMessage}
-          </p>
-        </div>
-      </Modal>
-    </div>
+        modalState={modalState}
+        onConfirm={handleConfirm}
+        onCancel={handleCancel}
+        onOverlayClick={closeModal}
+      />
+    </>
   );
 }
