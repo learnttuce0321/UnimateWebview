@@ -1,12 +1,14 @@
 'use client';
 
-import { useState } from 'react';
+import ErrorModalContent from 'components/modal/ErrorModalContent';
 import Modal from 'components/modal/Modal';
+import { useModal } from 'components/modal/useModal';
 import { MAIN_PAGE_DELETE_USER_INTEREST_REGION } from 'constants/storageSync';
 import { useMutationDeleteInterestRegion } from 'hooks/users/useMutationDeleteInterestRegion';
 import { setLocalStorageAndSync } from 'hooks/useStorageSync';
 import { useAppStore } from 'providers/ZustandProvider';
 import { Region } from 'types/Region';
+import DeleteInterestRegionModalContent from './DeleteInterestRegionModalContent';
 
 interface Props {
   region: Region;
@@ -14,8 +16,8 @@ interface Props {
 
 const UserInterestRegion = ({ region }: Props) => {
   const { regionName, isPrimary } = region;
-  const [openDeleteCityModal, setOpenDeleteCityModal] =
-    useState<boolean>(false);
+  const { modalState, openModal, closeModal, handleConfirm, handleCancel } =
+    useModal();
 
   const { mutate } = useMutationDeleteInterestRegion();
   const removeInterestRegion = useAppStore(
@@ -23,11 +25,14 @@ const UserInterestRegion = ({ region }: Props) => {
   );
 
   const handleDeleteCityClick = () => {
-    setOpenDeleteCityModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setOpenDeleteCityModal(false);
+    openModal({
+      children: <DeleteInterestRegionModalContent regionName={regionName} />,
+      confirmText: '예',
+      onConfirm: () => {
+        handleConfirmDelete();
+      },
+      cancelText: '아니요',
+    });
   };
 
   const handleConfirmDelete = () => {
@@ -40,8 +45,14 @@ const UserInterestRegion = ({ region }: Props) => {
             regionId,
           });
         },
-        onSettled: () => {
-          handleCloseModal();
+        onError: (error) => {
+          openModal({
+            children: (
+              <ErrorModalContent
+                errorMessage={error.message || '오류가 발생했습니다.'}
+              />
+            ),
+          });
         },
       }
     );
@@ -62,21 +73,13 @@ const UserInterestRegion = ({ region }: Props) => {
           />
         </button>
       </li>
-      {openDeleteCityModal && (
-        <Modal
-          isOpened={openDeleteCityModal}
-          confirmText="예"
-          cancelText="아니요"
-          onConfirm={handleConfirmDelete}
-          onCancel={handleCloseModal}
-          onOverlayClick={handleCloseModal}
-        >
-          <p className="text-[16px] font-medium leading-[22.4px] text-gray-900">
-            <span className="text-blue-600_P">{regionName}</span>
-            을(를) 관심도시에서 해제하시겠습니까?
-          </p>
-        </Modal>
-      )}
+
+      <Modal
+        modalState={modalState}
+        onConfirm={handleConfirm}
+        onCancel={handleCancel}
+        onOverlayClick={closeModal}
+      />
     </>
   );
 };

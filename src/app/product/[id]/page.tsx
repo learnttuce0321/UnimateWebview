@@ -1,15 +1,17 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Modal from 'components/modal/Modal';
+import { useModal } from 'components/modal/useModal';
 import { useQueryProductDetail } from 'hooks/products/useQueryProductDetail';
-import ProductDetailInfo from './_components/_product_detail_info/ProductDetailInfo';
 import ProductBottomActions from './_components/ProductBottomActions';
 import ProductDescriptionSection from './_components/ProductDescriptionSection';
 import ProductDetailHeader from './_components/ProductDetailHeader';
 import ProductDetailImageSlider from './_components/ProductDetailImageSlider';
+import ProductDetailInfo from './_components/productDetailInfo/ProductDetailInfo';
 import ProductSellerSection from './_components/ProductSellerSection';
 import ProductStatusBottomSheet from './_components/ProductStatusBottomSheet';
-import ReportModal from './_components/ReportModal';
+import ReportModalContent from './_components/ReportModalContent';
 
 export type TradeStatus = 'FOR_SALE' | 'RESERVED' | 'SOLD_OUT';
 
@@ -20,8 +22,11 @@ interface ProductDetailPageProps {
 }
 
 const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
-  const [isReportModalOpen, setIsReportModalOpen] = useState(false);
   const [isStatusModalOpen, setIsStatusModalOpen] = useState(false);
+  const [selectedReason, setSelectedReason] = useState('');
+  const [otherReason, setOtherReason] = useState('');
+  const { modalState, openModal, closeModal, handleConfirm, handleCancel } =
+    useModal();
   const [tradeStatus, setTradeStatus] = useState<TradeStatus>('FOR_SALE');
 
   // API 호출
@@ -78,71 +83,85 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
   };
 
   return (
-    <div className="min-h-screen bg-white pb-[84px]">
-      {/* 헤더 뒤로가기 및 더보기 버튼 */}
-      <ProductDetailHeader
-        productId={productDetail.id}
-        isSeller={isSeller}
-        tradeStatus={tradeStatus}
-        isHidden={productDetail.isHidden}
-        onEdit={() => {
-          // localStorage에 상품 데이터 저장
-          localStorage.setItem(
-            'editProductData',
-            JSON.stringify(productDetail)
-          );
-          // 수정 모드로 등록 페이지 이동
-          window.location.href = '/register?mode=edit';
-        }}
+    <>
+      <div className="min-h-screen bg-white pb-[84px]">
+        {/* 헤더 뒤로가기 및 더보기 버튼 */}
+        <ProductDetailHeader
+          productId={productDetail.id}
+          isSeller={isSeller}
+          tradeStatus={tradeStatus}
+          isHidden={productDetail.isHidden}
+          onEdit={() => {
+            // localStorage에 상품 데이터 저장
+            localStorage.setItem(
+              'editProductData',
+              JSON.stringify(productDetail)
+            );
+            // 수정 모드로 등록 페이지 이동
+            window.location.href = '/register?mode=edit';
+          }}
+        />
+
+        {/* 상품 이미지 스와이프 */}
+        <ProductDetailImageSlider images={productData.images} />
+
+        {/* 상품 정보(카테고리, 제목, 가격, 상태, 날짜) 및 찜하기 & 공유하기 버튼 */}
+        <ProductDetailInfo
+          {...productData}
+          tradeStatus={tradeStatus}
+          isLiked={productDetail.isLiked}
+        />
+
+        {/* 판매자 정보 영역 (구매자 유저에게만 보이는 영역) */}
+        {!isSeller && <ProductSellerSection {...productData} />}
+
+        {/* 상품 상세 설명 영역 */}
+        <ProductDescriptionSection
+          {...productData}
+          onReportClick={() =>
+            openModal({
+              children: (
+                <ReportModalContent
+                  selectedReason={selectedReason}
+                  setSelectedReason={setSelectedReason}
+                  otherReason={otherReason}
+                  setOtherReason={setOtherReason}
+                />
+              ),
+              confirmText: '신고하기',
+              cancelText: '취소',
+              onConfirm: () => {
+                console.log('여기다가 신고하기 제출 로직 추가하기');
+              },
+            })
+          }
+        />
+
+        {/* 고정 하단 액션 */}
+        <ProductBottomActions
+          isSeller={isSeller}
+          onOpenChat={() => console.log('채팅하기')}
+          onOpenChatList={() => console.log('채팅 목록 열기')}
+          onOpenStatus={() => setIsStatusModalOpen(true)}
+        />
+
+        <ProductStatusBottomSheet
+          isOpen={isStatusModalOpen}
+          currentStatus={tradeStatus}
+          onClose={() => setIsStatusModalOpen(false)}
+          onStatusChange={(status) => {
+            setTradeStatus(status as TradeStatus);
+            setIsStatusModalOpen(false);
+          }}
+        />
+      </div>
+      <Modal
+        modalState={modalState}
+        onConfirm={handleConfirm}
+        onCancel={handleCancel}
+        onOverlayClick={closeModal}
       />
-
-      {/* 상품 이미지 스와이프 */}
-      <ProductDetailImageSlider images={productData.images} />
-
-      {/* 상품 정보(카테고리, 제목, 가격, 상태, 날짜) 및 찜하기 & 공유하기 버튼 */}
-      <ProductDetailInfo
-        {...productData}
-        tradeStatus={tradeStatus}
-        isLiked={productDetail.isLiked}
-      />
-
-      {/* 판매자 정보 영역 (구매자 유저에게만 보이는 영역) */}
-      {!isSeller && <ProductSellerSection {...productData} />}
-
-      {/* 상품 상세 설명 영역 */}
-      <ProductDescriptionSection
-        {...productData}
-        onReportClick={() => setIsReportModalOpen(true)}
-      />
-
-      {/* 고정 하단 액션 */}
-      <ProductBottomActions
-        isSeller={isSeller}
-        onOpenChat={() => console.log('채팅하기')}
-        onOpenChatList={() => console.log('채팅 목록 열기')}
-        onOpenStatus={() => setIsStatusModalOpen(true)}
-      />
-
-      {/* 신고 모달 */}
-      <ReportModal
-        isOpen={isReportModalOpen}
-        onClose={() => setIsReportModalOpen(false)}
-        onSubmit={(reason) => {
-          console.log('신고 사유:', reason);
-          setIsReportModalOpen(false);
-        }}
-      />
-
-      <ProductStatusBottomSheet
-        isOpen={isStatusModalOpen}
-        currentStatus={tradeStatus}
-        onClose={() => setIsStatusModalOpen(false)}
-        onStatusChange={(status) => {
-          setTradeStatus(status as TradeStatus);
-          setIsStatusModalOpen(false);
-        }}
-      />
-    </div>
+    </>
   );
 };
 

@@ -54,7 +54,7 @@ const ProductDetailInfoHeader = ({
   return (
     <div className="flex flex-col justify-center gap-4">
       {/* 카테고리 영역 */}
-      <span className="text-[14px] font-semibold leading-[14px] text-[#666b72]">
+      <span className="text-[14px] font-semibold leading-[14px] text-blue_gray-700">
         {getCategoryKoreanName(category)}
       </span>
 
@@ -75,7 +75,7 @@ const ProductDetailInfoHeader = ({
 
       {/* 시간 및 찜 & 채팅수 영역 */}
       <div className="flex items-center justify-between gap-4">
-        <span className="text-[12px] font-normal leading-3 text-[#666b72]">
+        <span className="text-[12px] font-normal leading-3 text-blue_gray-700">
           {formatTimeAgo(createdAt)}
         </span>
 

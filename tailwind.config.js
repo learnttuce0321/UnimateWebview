@@ -29,6 +29,9 @@ module.exports = {
         blue: {
           '600_P': 'rgb(60 141 255)',
         },
+        black: {
+          900: 'rgb(21,21,21)',
+        },
         'outline-black-light': 'rgba(0, 0, 0, 0.05)',
       },
       height: {
