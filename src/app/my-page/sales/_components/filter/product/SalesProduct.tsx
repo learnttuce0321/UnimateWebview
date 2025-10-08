@@ -1,8 +1,8 @@
 import { SalesProduct as TSalesProduct } from 'types/Product';
 import navigationScheme from 'utils/navigationScheme';
+import SaleProductMore from './SaleProductMore';
 import SalesProductInfo from './SalesProductInfo';
 import SalesProductThumbnail from './SalesProductThumbnail';
-import SaleProductMore from './SaleProductMore';
 
 interface Props {
   product: TSalesProduct;
