@@ -6,7 +6,6 @@ import { readFileSync } from 'fs';
 import { createServer } from 'https';
 import { parse } from 'url';
 
-const dev = process.env.UNIMATE_NODE_ENV === 'local';
 const port = parseInt(process.env.PORT, 10) || 443;
 const hostname = process.env.UNIMATE_HOST || 'local.uni-mate.co.kr';
 
