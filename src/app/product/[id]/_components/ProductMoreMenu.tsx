@@ -2,13 +2,11 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useQueryClient } from '@tanstack/react-query';
 import Modal from 'components/modal/Modal';
 import { useMutationDeleteProduct } from 'hooks/products/useMutationDeleteProduct';
-import {
-  useMutationHideProduct,
-  useMutationUnhideProduct,
-  ApiError,
-} from 'hooks/products/useMutationHideProduct';
+import { useMutationHideProduct } from 'hooks/products/useMutationHideProduct';
+import { useMutationUnhideProduct } from 'hooks/products/useMutationUnhideProduct';
 import { TradeStatus } from '../page';
 
 type Props = {
@@ -32,6 +30,7 @@ export default function ProductMoreMenu({
   const [actionType, setActionType] = useState<'hide' | 'delete' | null>(null);
 
   const router = useRouter();
+  const queryClient = useQueryClient();
   const hideMutation = useMutationHideProduct();
   const unhideMutation = useMutationUnhideProduct();
   const deleteMutation = useMutationDeleteProduct();
@@ -89,25 +88,52 @@ export default function ProductMoreMenu({
     }
   };
 
-  const handleConfirmAction = async () => {
+  const handleConfirmAction = () => {
     setShowConfirmModal(false);
 
-    try {
-      if (actionType === 'hide') {
-        if (isHidden) {
-          await unhideMutation.mutateAsync(productId);
-        } else {
-          await hideMutation.mutateAsync(productId);
-        }
-      } else if (actionType === 'delete') {
-        await deleteMutation.mutateAsync(productId);
-        // 삭제 성공 후 메인 페이지로 이동
-        router.push('/');
+    if (actionType === 'hide') {
+      if (isHidden) {
+        unhideMutation.mutate(productId, {
+          onSuccess: () => {
+            queryClient.invalidateQueries({
+              queryKey: ['product-detail', productId.toString()],
+            });
+          },
+          onError: (error) => {
+            setErrorMessage(error.message || '오류가 발생했습니다.');
+            setShowErrorModal(true);
+          },
+        });
+      } else {
+        hideMutation.mutate(productId, {
+          onSuccess: () => {
+            queryClient.invalidateQueries({
+              queryKey: ['product-detail', productId.toString()],
+            });
+          },
+          onError: (error) => {
+            setErrorMessage(error.message || '오류가 발생했습니다.');
+            setShowErrorModal(true);
+          },
+        });
       }
-    } catch (error: any) {
-      const apiError = error as ApiError;
-      setErrorMessage(apiError.message || '오류가 발생했습니다.');
-      setShowErrorModal(true);
+    } else if (actionType === 'delete') {
+      deleteMutation.mutate(productId, {
+        onSuccess: async () => {
+          queryClient.removeQueries({
+            queryKey: ['product-detail', productId.toString()],
+          });
+          // 상품 목록 캐시도 무효화 (목록에서 해당 상품이 제거되어야 함)
+          await queryClient.invalidateQueries({
+            queryKey: ['products'],
+          });
+          router.push('/');
+        },
+        onError: (error) => {
+          setErrorMessage(error.message || '오류가 발생했습니다.');
+          setShowErrorModal(true);
+        },
+      });
     }
 
     setActionType(null);

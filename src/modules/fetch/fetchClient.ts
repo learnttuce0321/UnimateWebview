@@ -9,11 +9,11 @@ export interface ApiRequest {
 }
 export interface ApiResponse {
   status: number;
-  code: string;
 }
 
 export interface ApiResponseError extends ApiResponse {
   message: string;
+  code: string;
   isError: boolean;
 }
 
@@ -126,12 +126,23 @@ const request = async <TResponse>(
     const data: TResponse = await response.json();
     return data;
   } catch (error: any) {
-    console.log('[ERROR]', error);
+    let errorData: { status: number; message: string; code: '' };
+    try {
+      errorData = await error.json();
+    } catch {
+      errorData = {
+        status: error.status,
+        message: '',
+        code: '',
+      };
+    }
+
+    console.log('[ERROR]', errorData);
 
     const errorResponse: ApiResponseError = {
       status: error.status,
-      code: error.statusText,
-      message: error.statusText,
+      code: error.code,
+      message: errorData.message,
       isError: true,
     };
 

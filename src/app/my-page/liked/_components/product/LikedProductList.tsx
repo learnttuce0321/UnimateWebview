@@ -3,7 +3,7 @@
 import { useRef } from 'react';
 import { useInfiniteQueryWithObserver } from 'hooks/useInfiniteQueryWithObserver';
 import fetchClient from 'modules/fetch/fetchClient';
-import { API_PRODUCTS_LIKE } from 'modules/keyFactory/product';
+import { API_MY_LIKE_PRODUCTS } from 'modules/keyFactory/product';
 import { LikeProduct } from 'types/Product';
 import LikedProduct from './LikedProduct';
 
@@ -21,12 +21,12 @@ const LikedProductList = () => {
   } = useInfiniteQueryWithObserver<LikedProductPostListResponse>(
     infiniteTarget,
     {
-      queryKey: [API_PRODUCTS_LIKE],
+      queryKey: [API_MY_LIKE_PRODUCTS],
       initialPageParam: 1,
       queryFn: async ({ pageParam }) => {
         try {
           const res = await fetchClient.GET<LikedProductPostListResponse>({
-            url: API_PRODUCTS_LIKE,
+            url: API_MY_LIKE_PRODUCTS,
             params: {
               pageNumber: pageParam,
             },

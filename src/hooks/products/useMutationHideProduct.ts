@@ -1,5 +1,6 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import fetchClient from 'modules/fetch/fetchClient';
+import { API_PRODUCT_HIDE } from 'modules/keyFactory/product';
 
 export interface ApiError {
   code: string;
@@ -7,36 +8,10 @@ export interface ApiError {
 }
 
 export const useMutationHideProduct = () => {
-  const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: async (productId: number): Promise<void> => {
       await fetchClient.PATCH({
-        url: `/api/v1/product-posts/${productId}/hide`,
-      });
-    },
-    onSuccess: (_, productId) => {
-      // 상품 상세 정보 캐시 무효화
-      queryClient.invalidateQueries({
-        queryKey: ['product-detail', productId.toString()],
-      });
-    },
-  });
-};
-
-export const useMutationUnhideProduct = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: async (productId: number): Promise<void> => {
-      await fetchClient.PATCH({
-        url: `/api/v1/product-posts/${productId}/unhide`,
-      });
-    },
-    onSuccess: (_, productId) => {
-      // 상품 상세 정보 캐시 무효화
-      queryClient.invalidateQueries({
-        queryKey: ['product-detail', productId.toString()],
+        url: API_PRODUCT_HIDE(productId),
       });
     },
   });

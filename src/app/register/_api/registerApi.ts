@@ -1,7 +1,7 @@
 import fetchClient from 'modules/fetch/fetchClient';
 import {
   API_PRODUCT,
-  API_PRODUCTS_POSTS_PRESIGNED_URL,
+  API_PRODUCT_POSTS_PRESIGNED_URL,
 } from 'modules/keyFactory/product';
 import {
   PresignedUrlRequest,
@@ -16,7 +16,7 @@ export const registerApi = {
     try {
       const response = await fetchClient.POST<PresignedUrlListResponse>(
         {
-          url: API_PRODUCTS_POSTS_PRESIGNED_URL,
+          url: API_PRODUCT_POSTS_PRESIGNED_URL,
           body: request,
         },
         {
