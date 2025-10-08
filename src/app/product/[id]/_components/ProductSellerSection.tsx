@@ -19,7 +19,7 @@ export default function ProductSellerSection({
   return (
     <section className="px-4 pt-4">
       <div className="flex flex-col justify-center gap-4 border-b border-[#e3e9f1] pb-4">
-        <h3 className="text-[14px] font-semibold leading-[14px] text-[#666b72]">
+        <h3 className="text-[14px] font-semibold leading-[14px] text-blue_gray-700">
           판매자 정보
         </h3>
 

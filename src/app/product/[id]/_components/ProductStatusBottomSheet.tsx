@@ -53,7 +53,7 @@ const ProductStatusBottomSheet = ({
     <>
       {/* Overlay */}
       <div
-        className="fixed inset-0 z-50 bg-black/50"
+        className="bg-black/50 fixed inset-0 z-50"
         onClick={onClose}
         onTouchStart={onClose}
         aria-hidden

@@ -15,7 +15,7 @@ const SalesProductThumbnail = ({ title, thumbnailUrl, isHidden }: Props) => {
         alt={`${title} 썸네일`}
       />
       {isHidden && (
-        <div className="absolute inset-0 flex items-center justify-center rounded-lg bg-black/40 text-[10px] leading-[12px] text-white">
+        <div className="bg-black/40 absolute inset-0 flex items-center justify-center rounded-lg text-[10px] leading-[12px] text-white">
           숨겨진 글
         </div>
       )}

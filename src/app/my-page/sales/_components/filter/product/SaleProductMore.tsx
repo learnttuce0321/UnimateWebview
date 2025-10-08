@@ -1,9 +1,16 @@
 'use client';
 
 import { useState, MouseEvent, useEffect, useRef } from 'react';
+import { TradeStatus } from 'types/Product';
 import SalesProductMoreMenus from './SalesProductMoreMenus';
 
-const SaleProductMore = () => {
+interface Props {
+  productId: number;
+  isHidden: boolean;
+  tradeStatus: TradeStatus;
+}
+
+const SaleProductMore = ({ productId, isHidden, tradeStatus }: Props) => {
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const popupRef = useRef<HTMLDivElement>(null);
 
@@ -46,7 +53,11 @@ const SaleProductMore = () => {
       </button>
       {showPopup && (
         <div ref={popupRef} className="absolute right-[8px] top-[36px] z-40">
-          <SalesProductMoreMenus />
+          <SalesProductMoreMenus
+            productId={productId}
+            isHidden={isHidden}
+            tradeStatus={tradeStatus}
+          />
         </div>
       )}
     </>

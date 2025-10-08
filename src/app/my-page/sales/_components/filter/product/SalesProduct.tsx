@@ -9,11 +9,11 @@ interface Props {
 }
 
 const SalesProduct = ({ product }: Props) => {
-  const { id, title, thumbnailUrl, isHidden } = product;
+  const { id: productId, title, thumbnailUrl, isHidden, tradeStatus } = product;
   const { openWeb } = navigationScheme();
 
   const handleProductClick = () => {
-    openWeb(`/product/${id}`);
+    openWeb(`/product/${productId}`);
   };
 
   return (
@@ -27,7 +27,11 @@ const SalesProduct = ({ product }: Props) => {
         isHidden={isHidden}
       />
       <SalesProductInfo product={product} />
-      <SaleProductMore />
+      <SaleProductMore
+        productId={productId}
+        isHidden={isHidden}
+        tradeStatus={tradeStatus}
+      />
     </li>
   );
 };

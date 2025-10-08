@@ -17,9 +17,9 @@ const Page = () => {
         <section className="mb-[8px]">
           <MyPageListSection sectionId="TRADING" />
         </section>
-        <section className="mb-[8px]">
+        {/* <section className="mb-[8px]">
           <MyPageListSection sectionId="COMMUNITY" />
-        </section>
+        </section> */}
       </div>
     </>
   );

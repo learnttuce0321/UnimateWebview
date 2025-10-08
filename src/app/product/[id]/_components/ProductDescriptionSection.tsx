@@ -13,7 +13,7 @@ export default function ProductDescriptionSection({
 }: Props) {
   return (
     <section className="flex flex-col justify-center gap-4 p-4">
-      <h3 className="text-[14px] font-semibold leading-[14px] text-[#666b72]">
+      <h3 className="text-[14px] font-semibold leading-[14px] text-blue_gray-700">
         상품 정보
       </h3>
 
