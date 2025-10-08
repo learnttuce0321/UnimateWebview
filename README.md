@@ -38,6 +38,12 @@ $ sudo vi /etc/hosts
 127.0.0.1       local.unimate.site
 ```
 
+루트폴터 .env를 생성이후 관련개발자에게 토큰을 전달받아 아래 라인을 추가합니다.
+
+```
+LOCAL_ACCESS_TOKEN={전달받은토큰}
+```
+
 이후 아래의 명령어로 개발 서버 (https://local.unimate.site)를 실행시킨다.
 
 ```bash

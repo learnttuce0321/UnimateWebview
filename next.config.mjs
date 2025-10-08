@@ -6,7 +6,8 @@ const nextConfig = {
 
   env: {
     UNIMATE_NODE_ENV: process.env.NEXT_PUBLIC_UNIMATE_NODE_ENV,
-    BASE_API_URL: process.env.NEXT_PUBLIC_BASE_API_URL,
+    BASE_API_URL: process.env.NEXT_PUBLIC_UNIMATE_BASE_API_URL,
+    LOCAL_ACCESS_TOKEN: process.env.LOCAL_ACCESS_TOKEN,
   },
 
   webpack: (config) => {
