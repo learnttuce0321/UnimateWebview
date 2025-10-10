@@ -53,7 +53,7 @@ const ProductStatusBottomSheet = ({
     <>
       {/* Overlay */}
       <div
-        className="bg-black/50 fixed inset-0 z-50"
+        className="fixed inset-0 z-[50] bg-[#00000080]/50"
         onClick={onClose}
         onTouchStart={onClose}
         aria-hidden
@@ -61,7 +61,7 @@ const ProductStatusBottomSheet = ({
 
       {/* 바텀 시트 영역 */}
       <div
-        className="fixed inset-x-0 bottom-0 z-50 translate-y-0 transform transition-transform duration-300 ease-out"
+        className="fixed inset-x-0 bottom-0 z-[60] translate-y-0 transform transition-transform duration-300 ease-out"
         role="dialog"
         aria-modal="true"
       >

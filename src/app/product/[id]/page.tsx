@@ -155,6 +155,7 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
           }}
         />
       </div>
+
       <Modal
         modalState={modalState}
         onConfirm={handleConfirm}
