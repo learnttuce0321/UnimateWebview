@@ -3,8 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import BottomSheetContent from 'components/bottomSheet/BottomSheetContent';
 import BottomSheetDimmed from 'components/bottomSheet/BottomSheetDimmed';
-import ReportReasonSelection from './ReportReasonSelection';
 import ReportDetailInput from './ReportDetailInput';
+import ReportReasonSelection from './ReportReasonSelection';
 
 interface ReportBottomSheetProps {
   isOpen: boolean;
