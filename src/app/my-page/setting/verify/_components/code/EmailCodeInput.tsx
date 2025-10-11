@@ -6,13 +6,16 @@ import Timer from 'components/timer/Timer';
 import { useTimer } from 'components/timer/useTimer';
 import { Toast, useToast } from 'components/toast';
 import RetryEmailCodeButton from './RetryEmailCodeButton';
-import { VerifyType } from '../../page';
 
 interface Props {
-  setVerifyType: React.Dispatch<React.SetStateAction<VerifyType>>;
+  handleSendEmailCode: (onSuccess: () => void) => void;
+  handleVerifyEmailCode: (code: string) => void;
 }
 
-const EmailCodeInput = ({ setVerifyType }: Props) => {
+const EmailCodeInput = ({
+  handleSendEmailCode,
+  handleVerifyEmailCode,
+}: Props) => {
   const [_code, setCode] = useState<string>('');
   const { formattedTime, resetTimer } = useTimer(600);
   const { toast, showToast, hideToast } = useToast();
@@ -22,12 +25,10 @@ const EmailCodeInput = ({ setVerifyType }: Props) => {
   };
 
   const handleRetryCodeClick = () => {
-    resetTimer();
-    showToast('인증코드를 발송했어요', 'info', 2000);
-  };
-
-  const handleConfirmCodeClick = () => {
-    setVerifyType('COMPLETE');
+    handleSendEmailCode(() => {
+      resetTimer();
+      showToast('인증코드를 발송했어요', 'info', 2000);
+    });
   };
 
   useEffect(() => {
@@ -48,7 +49,7 @@ const EmailCodeInput = ({ setVerifyType }: Props) => {
       <RetryEmailCodeButton onRetry={handleRetryCodeClick} />
       <BottomFixedConfirmButton
         buttonText="인증하기"
-        onClick={handleConfirmCodeClick}
+        onClick={handleVerifyEmailCode}
         isActive={_code.length === 6}
       />
       <Toast
