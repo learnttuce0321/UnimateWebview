@@ -1,31 +1,22 @@
 'use client';
 
-import { useState, type ChangeEvent } from 'react';
-import BottomFixedConfirmButton from 'components/button/BottomFixedConfirmButton';
-import { useAppStore } from 'providers/ZustandProvider';
+import { type ChangeEvent } from 'react';
 
-const MyNickname = () => {
-  const userNickname = useAppStore((state) => state.userProfile.nickname);
-  const [_nickname, setNickname] = useState<string>(userNickname ?? '');
-
+interface Props {
+  userNickname: string;
+  setUserNickname: React.Dispatch<React.SetStateAction<string>>;
+}
+const MyNickname = ({ userNickname, setUserNickname }: Props) => {
   const handleNicknameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setNickname(e.target.value);
+    setUserNickname(e.target.value);
   };
-
-  const handleConfirmButtonClick = () => {};
 
   return (
     <>
       <input
         className={`h-[50px] w-full border border-blue_gray-200 px-[16px] py-[14px] placeholder:text-[16px] placeholder:leading-[22.4px] placeholder:text-blue_gray-500`}
-        value={_nickname}
+        value={userNickname}
         onChange={handleNicknameChange}
-      />
-
-      <BottomFixedConfirmButton
-        buttonText="확인"
-        onClick={handleConfirmButtonClick}
-        isActive={!!_nickname}
       />
     </>
   );

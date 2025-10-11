@@ -1,3 +1,5 @@
+import { ApiResponseError } from 'modules/fetch/fetchClient';
+
 export const uploadFileToS3 = async (
   fileUrl: string,
   presignedUrl: string
@@ -27,9 +29,14 @@ export const uploadFileToS3 = async (
     }
 
     console.log('File upload successful');
-  } catch (error) {
+  } catch (error: any) {
     console.error('File upload error:', error);
-    throw error;
+    throw {
+      message: error.message,
+      code: '',
+      isError: true,
+      status: error.status,
+    } as ApiResponseError;
   }
 };
 

@@ -12,8 +12,14 @@ export const API_USER_REGION = '/api/v1/users/regions';
 
 /**
  * @GET 내 프로필 조회 API
+ * @PATCH 내 프로필 수정 API
  */
 export const API_MY_PROFILE = '/api/v1/users/me';
+
+/**
+ * @POST 프로필 이미지 업로드를 위한 PresignedUrl 발급 api
+ */
+export const API_PROFILE_PRESIGNED_URL = '/api/v1/users/presigned-url';
 
 /**
  * @GET 유저 프로필 조회 API

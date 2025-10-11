@@ -8,8 +8,8 @@ export interface UserUniversity {
 }
 
 export interface User {
-  nickname?: string;
-  profileImageUrl?: string;
+  nickname: string;
+  profileImageUrl: string;
   university: UserUniversity;
   interestRegions: {
     interestRegions: Region[];
