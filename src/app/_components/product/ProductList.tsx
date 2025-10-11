@@ -6,11 +6,12 @@ import { MAIN_PAGE_UPDATE_PRODUCTS_LIKE } from 'constants/storageSyncKeyFactory/
 import { useInfiniteQueryWithObserver } from 'hooks/useInfiniteQueryWithObserver';
 import { useStorageSync } from 'hooks/useStorageSync';
 import { useUpdateQueryData } from 'hooks/useUpdateQueryData';
-import fetchClient from 'modules/fetch/fetchClient';
+import fetchClient, { ApiResponseError } from 'modules/fetch/fetchClient';
 import { API_PRODUCT } from 'modules/keyFactory/product';
 import { useAppStore } from 'providers/ZustandProvider';
 import { selectPrimaryRegion } from 'stores/selectors';
 import { ProductPost } from 'types/Product';
+import ProductListError from './ProductListError';
 
 interface ProductPostsResponse {
   contents: ProductPost[];
@@ -27,7 +28,8 @@ const ProductList = () => {
     data: productPosts,
     isLoading,
     isError,
-  } = useInfiniteQueryWithObserver<ProductPostsResponse>(
+    error,
+  } = useInfiniteQueryWithObserver<ProductPostsResponse, ApiResponseError>(
     infiniteTarget,
     {
       queryKey: [API_PRODUCT, primaryRegion?.regionId],
@@ -83,6 +85,10 @@ const ProductList = () => {
   });
 
   const productPostsList = productPosts?.pages.flatMap((page) => page.contents);
+
+  if (isError) {
+    return <ProductListError error={error} />;
+  }
 
   if (isLoading || isError || !productPostsList || !productPostsList.length) {
     return null;
