@@ -114,7 +114,7 @@ const HideSalesProductMenu = ({
           onClick={handleMenuClick}
           className="h-full w-full px-[16px] text-left"
         >
-          {isHidden ? '숨기기 해제' : '글 숨기기'}
+          {isHidden ? '글 공개하기' : '글 숨기기'}
         </button>
       </p>
 
