@@ -1,17 +1,17 @@
 'use client';
 
+import { useState } from 'react';
+import BottomFixedConfirmButton from 'components/button/BottomFixedConfirmButton';
 import NavigationBar from 'components/navigation/NavigationBar';
-import MyNickname from '../_components/profile/MyNickname';
-import MyProfileImage from '../_components/profile/MyProfileImage';
+import { Toast, useToast } from 'components/toast';
+import { UPDATE_USER_INFO } from 'constants/storageSyncKeyFactory/main';
 import { useMutationUpdateUserProfile } from 'hooks/users/useMutationUpdateUserProfile';
 import { setLocalStorageAndSync } from 'hooks/useStorageSync';
-import { UPDATE_USER_INFO } from 'constants/storageSyncKeyFactory/main';
-import navigationScheme from 'utils/navigationScheme';
-import { Toast, useToast } from 'components/toast';
-import BottomFixedConfirmButton from 'components/button/BottomFixedConfirmButton';
-import { useState } from 'react';
-import { useAppStore } from 'providers/ZustandProvider';
 import { ApiResponseError } from 'modules/fetch/fetchClient';
+import { useAppStore } from 'providers/ZustandProvider';
+import navigationScheme from 'utils/navigationScheme';
+import MyNickname from '../_components/profile/MyNickname';
+import MyProfileImage from '../_components/profile/MyProfileImage';
 
 const Page = () => {
   const profileImageUrl = useAppStore(
