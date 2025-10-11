@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import BottomSheetContent from 'components/bottomSheet/BottomSheetContent';
 import BottomSheetDimmed from 'components/bottomSheet/BottomSheetDimmed';
 import { TradeStatusRadioConfig } from './SalesListFilterBottomSheetButton';
@@ -10,26 +11,25 @@ import { TradeFilterStatus } from '../../page';
 
 interface Props {
   closeSheet: () => void;
-  currentTradeStatus: TradeFilterStatus;
-  setCurrentTradeStatus: React.Dispatch<
-    React.SetStateAction<TradeFilterStatus>
-  >;
 }
 
-const SalesListFilterBottomSheet = ({
-  closeSheet,
-  currentTradeStatus,
-  setCurrentTradeStatus,
-}: Props) => {
-  const [tradeFilterStatus, setTradeFilterStatus] =
-    useState<TradeFilterStatus>(currentTradeStatus);
+const SalesListFilterBottomSheet = ({ closeSheet }: Props) => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [tradeFilterStatus, setTradeFilterStatus] = useState<TradeFilterStatus>(
+    (searchParams.get('tradeFilterStatus') as TradeFilterStatus) || 'ALL'
+  );
 
   const handleFilterClick = (filterKey: TradeFilterStatus) => {
     setTradeFilterStatus(filterKey);
   };
 
   const handleConfirmClick = () => {
-    setCurrentTradeStatus(tradeFilterStatus);
+    // URL에 query parameter 추가
+    const params = new URLSearchParams();
+    params.set('tradeFilterStatus', tradeFilterStatus);
+    router.replace(`/my-page/sales?${params.toString()}`);
+
     closeSheet();
   };
 

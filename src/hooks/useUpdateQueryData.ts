@@ -1,7 +1,7 @@
 import { InfiniteData, useQueryClient } from '@tanstack/react-query';
 
 interface PageResponse<T> {
-  contents: T[];
+  contents: (T | null)[];
   hasNext: boolean;
 }
 
@@ -20,19 +20,18 @@ export const useUpdateQueryData = () => {
 
   const infiniteQueryDataUpdater = <TItem>(
     queryKey: any[],
-    conditionalUpdater: (item: TItem) => TItem
+    conditionalUpdater: (item: TItem) => TItem | null
   ) => {
     queryClient.setQueryData<InfiniteData<PageResponse<TItem>>>(
       queryKey,
       (oldData) => {
-        console.log('oldData', oldData);
         if (!oldData) return oldData;
 
         return {
           ...oldData,
           pages: oldData.pages.map((page) => ({
             ...page,
-            contents: page.contents.map((item) => conditionalUpdater(item)),
+            contents: page.contents.map((item) => conditionalUpdater(item!)),
           })),
         };
       }
