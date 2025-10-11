@@ -2,10 +2,11 @@
 
 import { useRef } from 'react';
 import { useInfiniteQueryWithObserver } from 'hooks/useInfiniteQueryWithObserver';
-import fetchClient from 'modules/fetch/fetchClient';
+import fetchClient, { ApiResponseError } from 'modules/fetch/fetchClient';
 import { API_MY_LIKE_PRODUCTS } from 'modules/keyFactory/product';
 import { LikeProduct } from 'types/Product';
 import LikedProduct from './LikedProduct';
+import LikedProductListError from './LikedProductListError';
 
 interface LikedProductPostListResponse {
   contents: LikeProduct[];
@@ -14,11 +15,16 @@ interface LikedProductPostListResponse {
 
 const LikedProductList = () => {
   const infiniteTarget = useRef<HTMLDivElement>(null);
+
   const {
     data: likedProductPosts,
     isLoading,
     isError,
-  } = useInfiniteQueryWithObserver<LikedProductPostListResponse>(
+    error,
+  } = useInfiniteQueryWithObserver<
+    LikedProductPostListResponse,
+    ApiResponseError
+  >(
     infiniteTarget,
     {
       queryKey: [API_MY_LIKE_PRODUCTS],
@@ -53,7 +59,11 @@ const LikedProductList = () => {
   const likedProductList =
     likedProductPosts?.pages.flatMap((page) => page.contents) ?? [];
 
-  if (isLoading || isError || !likedProductList || !likedProductList.length) {
+  if (isError) {
+    return <LikedProductListError error={error} />;
+  }
+
+  if (isLoading || !likedProductList || !likedProductList.length) {
     return null;
   }
 

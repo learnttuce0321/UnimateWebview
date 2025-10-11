@@ -1,9 +1,10 @@
 import { useRef } from 'react';
 import { useInfiniteQueryWithObserver } from 'hooks/useInfiniteQueryWithObserver';
-import fetchClient from 'modules/fetch/fetchClient';
+import fetchClient, { ApiResponseError } from 'modules/fetch/fetchClient';
 import { API_MY_SALES_PRODUCTS } from 'modules/keyFactory/product';
 import { SalesProduct as TSalesProduct, TradeStatus } from 'types/Product';
 import SalesProduct from './SalesProduct';
+import SalesProductListError from './SalesProductListError';
 
 interface Props {
   tradeStatus: TradeStatus;
@@ -21,7 +22,8 @@ const SalesList = ({ tradeStatus }: Props) => {
     data: salesProductPosts,
     isLoading,
     isError,
-  } = useInfiniteQueryWithObserver<SalesProductPostsResponse>(
+    error,
+  } = useInfiniteQueryWithObserver<SalesProductPostsResponse, ApiResponseError>(
     infiniteTarget,
     {
       queryKey: [API_MY_SALES_PRODUCTS, tradeStatus],
@@ -59,12 +61,10 @@ const SalesList = ({ tradeStatus }: Props) => {
     (page) => page.contents
   );
 
-  if (
-    isLoading ||
-    isError ||
-    !salesProductPostsList ||
-    !salesProductPostsList.length
-  ) {
+  if (isError) {
+    return <SalesProductListError error={error} />;
+  }
+  if (isLoading || !salesProductPostsList || !salesProductPostsList.length) {
     return null;
   }
 

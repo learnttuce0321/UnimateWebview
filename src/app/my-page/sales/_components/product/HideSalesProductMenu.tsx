@@ -2,9 +2,9 @@
 
 import { MouseEvent } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
-import ErrorModalContent from 'components/modal/ErrorModalContent';
 import Modal from 'components/modal/Modal';
 import { useModal } from 'components/modal/useModal';
+import { Toast, useToast } from 'components/toast';
 import { useMutationHideProduct } from 'hooks/products/useMutationHideProduct';
 import { useMutationUnhideProduct } from 'hooks/products/useMutationUnhideProduct';
 import { API_MY_SALES_PRODUCTS } from 'modules/keyFactory/product';
@@ -28,6 +28,7 @@ const HideSalesProductMenu = ({
 }: Props) => {
   const { modalState, openModal, closeModal, handleConfirm, handleCancel } =
     useModal();
+  const { toast, showToast, hideToast } = useToast();
 
   const queryClient = useQueryClient();
   const { mutateAsync: mutateAsyncUnhideProduct } = useMutationUnhideProduct();
@@ -70,13 +71,7 @@ const HideSalesProductMenu = ({
           });
         },
         onError: (error) => {
-          openModal({
-            children: (
-              <ErrorModalContent
-                errorMessage={error.message || '오류가 발생했습니다.'}
-              />
-            ),
-          });
+          showToast(error.message, 'error');
         },
         onSettled: handlePopupClose,
       }
@@ -94,13 +89,7 @@ const HideSalesProductMenu = ({
           closeModal();
         },
         onError: (error) => {
-          openModal({
-            children: (
-              <ErrorModalContent
-                errorMessage={error.message || '오류가 발생했습니다.'}
-              />
-            ),
-          });
+          showToast(error.message, 'error');
         },
         onSettled: handlePopupClose,
       }
@@ -114,7 +103,7 @@ const HideSalesProductMenu = ({
           onClick={handleMenuClick}
           className="h-full w-full px-[16px] text-left"
         >
-          {isHidden ? '숨기기 해제' : '글 숨기기'}
+          {isHidden ? '글 공개하기' : '글 숨기기'}
         </button>
       </p>
 
@@ -123,6 +112,13 @@ const HideSalesProductMenu = ({
         onConfirm={handleConfirm}
         onCancel={handleCancel}
         onOverlayClick={closeModal}
+      />
+      <Toast
+        message={toast.message}
+        type={toast.type}
+        duration={toast.duration}
+        isVisible={toast.isVisible}
+        onClose={hideToast}
       />
     </>
   );

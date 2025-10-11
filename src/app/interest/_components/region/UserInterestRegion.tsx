@@ -3,7 +3,7 @@
 import ErrorModalContent from 'components/modal/ErrorModalContent';
 import Modal from 'components/modal/Modal';
 import { useModal } from 'components/modal/useModal';
-import { MAIN_PAGE_DELETE_USER_INTEREST_REGION } from 'constants/storageSync';
+import { MAIN_PAGE_DELETE_USER_INTEREST_REGION } from 'constants/storageSyncKeyFactory/main';
 import { useMutationDeleteInterestRegion } from 'hooks/users/useMutationDeleteInterestRegion';
 import { setLocalStorageAndSync } from 'hooks/useStorageSync';
 import { useAppStore } from 'providers/ZustandProvider';

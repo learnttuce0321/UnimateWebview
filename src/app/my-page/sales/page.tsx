@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import NavigationBar from 'components/navigation/NavigationBar';
-import SalesList from './_components/filter/product/SalesList';
 import SalesListFilterBottomSheetButton from './_components/filter/SalesListFilterBottomSheetButton';
+import SalesList from './_components/product/SalesList';
 
 export type TradeFilterStatus = 'ALL' | 'FOR_SALE' | 'COMPLETED' | 'HIDDEN';
 
