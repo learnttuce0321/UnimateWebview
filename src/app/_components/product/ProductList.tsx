@@ -2,7 +2,10 @@
 
 import { useRef } from 'react';
 import ProductCard from 'app/_components/product/ProductCard';
+import { MAIN_PAGE_UPDATE_PRODUCTS_LIKE } from 'constants/storageSyncKeyFactory/main';
 import { useInfiniteQueryWithObserver } from 'hooks/useInfiniteQueryWithObserver';
+import { useStorageSync } from 'hooks/useStorageSync';
+import { useUpdateQueryData } from 'hooks/useUpdateQueryData';
 import fetchClient from 'modules/fetch/fetchClient';
 import { API_PRODUCT } from 'modules/keyFactory/product';
 import { useAppStore } from 'providers/ZustandProvider';
@@ -17,6 +20,8 @@ interface ProductPostsResponse {
 const ProductList = () => {
   const infiniteTarget = useRef<HTMLDivElement>(null);
   const primaryRegion = useAppStore(selectPrimaryRegion);
+
+  const { infiniteQueryDataUpdater } = useUpdateQueryData();
 
   const {
     data: productPosts,
@@ -54,6 +59,28 @@ const ProductList = () => {
       rootMargin: '0px 0px 50% 0px',
     }
   );
+
+  useStorageSync(MAIN_PAGE_UPDATE_PRODUCTS_LIKE, (newValue) => {
+    const { productId, updateType } = newValue;
+
+    infiniteQueryDataUpdater<ProductPost>(
+      [API_PRODUCT, primaryRegion?.regionId],
+      (product) =>
+        product.id === productId
+          ? {
+              ...product,
+              ...(updateType === 'like' && {
+                isLiked: true,
+                likeCount: product.likeCount + 1,
+              }),
+              ...(updateType === 'unlike' && {
+                isLiked: false,
+                likeCount: product.likeCount - 1,
+              }),
+            }
+          : product
+    );
+  });
 
   const productPostsList = productPosts?.pages.flatMap((page) => page.contents);
 

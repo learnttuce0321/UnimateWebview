@@ -33,7 +33,7 @@ export const setLocalStorageAndSync = (
 
 export function useStorageSync(
   eventKey: string,
-  onStorageChange: (newValue?: Record<string, any>) => void
+  onStorageChange: (newValue: Record<string, any>) => void
 ) {
   useEffect(() => {
     const handler = (event: StorageEvent) => {

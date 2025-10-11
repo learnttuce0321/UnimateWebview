@@ -4,7 +4,7 @@ import { useState } from 'react';
 import {
   MAIN_PAGE_ADD_USER_INTEREST_REGION,
   MAIN_PAGE_DELETE_USER_INTEREST_REGION,
-} from 'constants/storageSync';
+} from 'constants/storageSyncKeyFactory/main';
 import { useStorageSync } from 'hooks/useStorageSync';
 import { useAppStore } from 'providers/ZustandProvider';
 import { selectPrimaryRegion } from 'stores/selectors';

@@ -49,3 +49,9 @@ export const API_PRODUCT_UNHIDE = (productId: number) =>
  */
 export const API_PRODUCT_DELETE = (productId: number) =>
   `/api/v1/product-posts/${productId}`;
+
+/**
+ * @POST 상품 게시글 찜 API
+ */
+export const API_PRODUCT_LIKE = (productId: number) => `
+/api/v1/product-posts/${productId}/like`;

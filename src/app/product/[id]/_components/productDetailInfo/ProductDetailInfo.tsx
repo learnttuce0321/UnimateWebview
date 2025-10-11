@@ -1,11 +1,10 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import Divider from 'app/_components/Divider';
-import {
-  useMutationLikeProduct,
-  useMutationUnlikeProduct,
-} from 'hooks/products/useMutationLikeProduct';
+import { useMutationLikeProduct } from 'hooks/products/useMutationLikeProduct';
+import { useMutationUnlikeProduct } from 'hooks/products/useMutationUnlikeProduct';
 import ProductDetailInfoHeader from './ProductDetailInfoHeader';
 import ProductDetailInfoLikeShare from './ProductDetailInfoLikeShare';
 import { TradeStatus } from '../../page';
@@ -38,6 +37,7 @@ const ProductDetailInfo = ({
   const [currentLikeCount, setCurrentLikeCount] = useState(likeCount);
   const [isLiked, setIsLiked] = useState(initialIsLiked);
 
+  const queryClient = useQueryClient();
   const likeMutation = useMutationLikeProduct();
   const unlikeMutation = useMutationUnlikeProduct();
 
@@ -52,11 +52,39 @@ const ProductDetailInfo = ({
       if (isLiked) {
         setCurrentLikeCount((prev) => prev - 1);
         setIsLiked(false);
-        await unlikeMutation.mutateAsync(id);
+        await unlikeMutation.mutateAsync(
+          { productId: id },
+          {
+            onSuccess: (_, productId) => {
+              // 상품 상세 정보 캐시 무효화
+              queryClient.invalidateQueries({
+                queryKey: ['product-detail', productId.toString()],
+              });
+              // 상품 목록 캐시도 무효화 (찜 수가 변경되어야 함)
+              queryClient.invalidateQueries({
+                queryKey: ['products'],
+              });
+            },
+          }
+        );
       } else {
         setCurrentLikeCount((prev) => prev + 1);
         setIsLiked(true);
-        await likeMutation.mutateAsync(id);
+        await likeMutation.mutateAsync(
+          { productId: id },
+          {
+            onSuccess: (_, productId) => {
+              // 상품 상세 정보 캐시 무효화
+              queryClient.invalidateQueries({
+                queryKey: ['product-detail', productId.toString()],
+              });
+              // 상품 목록 캐시도 무효화 (찜 수가 변경되어야 함)
+              queryClient.invalidateQueries({
+                queryKey: ['products'],
+              });
+            },
+          }
+        );
       }
     } catch (error) {
       if (isLiked) {
