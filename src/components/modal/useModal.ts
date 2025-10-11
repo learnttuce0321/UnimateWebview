@@ -4,8 +4,8 @@ export interface ErrorModalData {
   children: ReactNode;
   confirmText?: string;
   cancelText?: string;
-  onConfirm?: () => void;
-  onCancel?: () => void;
+  onConfirm?: () => void | Promise<void>;
+  onCancel?: () => void | Promise<void>;
 }
 
 export interface ErrorModalState extends ErrorModalData {
@@ -32,13 +32,13 @@ export const useModal = () => {
     }));
   }, []);
 
-  const handleConfirm = useCallback(() => {
-    modalState.onConfirm?.();
+  const handleConfirm = useCallback(async () => {
+    await modalState.onConfirm?.();
     closeModal();
   }, [modalState, closeModal]);
 
-  const handleCancel = useCallback(() => {
-    modalState.onCancel?.();
+  const handleCancel = useCallback(async () => {
+    await modalState.onCancel?.();
     closeModal();
   }, [modalState, closeModal]);
 

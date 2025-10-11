@@ -1,5 +1,5 @@
 import { MouseEvent } from 'react';
-import { MODAL_OVERLAY_Z_INDEX } from 'constants/zIndex';
+import { MODAL_OR_BOTTOM_SHEET_OVERLAY_Z_INDEX } from 'constants/zIndex';
 
 interface Props {
   backgroundColor?: string;
@@ -14,7 +14,7 @@ const Overlay = ({
 }: Props) => {
   return (
     <div
-      className={`fixed left-0 top-0 h-screen w-screen z-[${MODAL_OVERLAY_Z_INDEX}]`}
+      className={`fixed left-0 top-0 h-screen w-screen z-[${MODAL_OR_BOTTOM_SHEET_OVERLAY_Z_INDEX}]`}
       style={{ backgroundColor }}
       onClick={onClick}
     >
