@@ -2,11 +2,10 @@
 
 import { useState } from 'react';
 import NavigationBar from 'components/navigation/NavigationBar';
-import { TradeStatus } from 'types/Product';
 import SalesList from './_components/filter/product/SalesList';
 import SalesListFilterBottomSheetButton from './_components/filter/SalesListFilterBottomSheetButton';
 
-export type TradeFilterStatus = TradeStatus | 'ALL' | 'HIDDEN';
+export type TradeFilterStatus = 'ALL' | 'FOR_SALE' | 'COMPLETED' | 'HIDDEN';
 
 const Page = () => {
   const [currentTradeStatus, setCurrentTradeStatus] =

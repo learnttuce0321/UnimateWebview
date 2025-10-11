@@ -7,7 +7,7 @@ import { TradeFilterStatus } from '../../page';
 export const TradeStatusRadioConfig: Record<TradeFilterStatus, string> = {
   ALL: '전체',
   FOR_SALE: '판매중',
-  SOLD_OUT: '거래완료',
+  COMPLETED: '거래완료',
   HIDDEN: '숨김',
 };
 
