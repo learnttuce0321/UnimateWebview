@@ -1,5 +1,5 @@
-import LocalizedProductPrice from 'app/_components/product/LocalizedProductPrice';
 import LocalizedProductMetadata from 'app/_components/product/LocalizedProductMetadata';
+import LocalizedProductPrice from 'app/_components/product/LocalizedProductPrice';
 import LocalizedProductTitle from 'app/_components/product/LocalizedProductTitle';
 import LocalizedProductUserReaction from 'app/_components/product/LocalizedProductUserReaction';
 import { ProductPost } from 'types/Product';

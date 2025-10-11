@@ -14,7 +14,7 @@ const DynamicInterestRegionDropdownButton = dynamic(
 );
 const HomeHeader = () => {
   return (
-    <header className="flex h-navigation w-full items-center justify-between bg-white py-[13px] pl-[16px] pr-[12px]">
+    <header className="h-navigation flex w-full items-center justify-between bg-white py-[13px] pl-[16px] pr-[12px]">
       <DynamicInterestRegionDropdownButton />
       <div className="flex gap-[22px]">
         <AlarmButton />
