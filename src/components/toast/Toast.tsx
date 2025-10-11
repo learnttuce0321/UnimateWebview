@@ -35,12 +35,25 @@ const Toast = ({
     switch (type) {
       // case 'success':
       //   return `${baseStyles} bg-green-500 text-white`;
-      // case 'error':
-      //   return `${baseStyles} bg-red-500 text-white`;
+      case 'error':
+        return `${baseStyles} bg-blue_gray-900 text-white`;
       // case 'warning':
       //   return `${baseStyles} bg-yellow-500 text-black`;
       default:
         return `${baseStyles} bg-blue_gray-900 text-white`;
+    }
+  };
+
+  const getToastMessage = () => {
+    switch (type) {
+      // case 'success':
+      //   return `${baseStyles} bg-green-500 text-white`;
+      case 'error':
+        return message || '예기치 못한 오류가 발생했어요';
+      // case 'warning':
+      //   return `${baseStyles} bg-yellow-500 text-black`;
+      default:
+        return '';
     }
   };
 
@@ -51,7 +64,9 @@ const Toast = ({
       }`}
     >
       <div className={getToastStyles()}>
-        <p className="text-center text-[14px] leading-[20px]">{message}</p>
+        <p className="text-center text-[14px] leading-[20px]">
+          {getToastMessage()}
+        </p>
       </div>
     </div>
   );

@@ -37,7 +37,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "./.next/types/**/*.ts",
-    "dev-server.js"
+    "dev-server.js",
+    "src/constants/storageSyncKeyFactory"
   ],
   "exclude": ["node_modules"]
 }

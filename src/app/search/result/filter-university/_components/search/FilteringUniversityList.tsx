@@ -5,8 +5,13 @@ import { useInfiniteQueryWithObserver } from 'hooks/useInfiniteQueryWithObserver
 import fetchClient from 'modules/fetch/fetchClient';
 import { API_UNIVERSITY_SEARCH } from 'modules/keyFactory/university';
 import { normalizeString } from 'modules/normalize';
-import { SearchUniversityResponse, University } from 'types/University';
+import { University } from 'types/University';
 import SearchedUniversity from './SearchedUniversity';
+
+interface SearchUniversityResponse {
+  contents: University[];
+  hasNext: boolean;
+}
 
 interface Props {
   inputValue: string;
@@ -60,7 +65,7 @@ const FilteringUniversityList = ({
   );
 
   const searchedUniversityList = searchedUniversity?.pages.flatMap(
-    (page) => page.content
+    (page) => page.contents
   );
 
   if (
