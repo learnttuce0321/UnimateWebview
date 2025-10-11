@@ -5,7 +5,7 @@ import BottomFixedConfirmButton from 'components/button/BottomFixedConfirmButton
 import ErrorModalContent from 'components/modal/ErrorModalContent';
 import Modal from 'components/modal/Modal';
 import { useModal } from 'components/modal/useModal';
-import { MAIN_PAGE_ADD_USER_INTEREST_REGION } from 'constants/storageSyncKeyFactory/main';
+import { UPDATE_USER_INFO } from 'constants/storageSyncKeyFactory/main';
 import { useMutationAddInterestRegion } from 'hooks/users/useMutationAddInterestRegion';
 import { setLocalStorageAndSync } from 'hooks/useStorageSync';
 import { useAppStore } from 'providers/ZustandProvider';
@@ -56,11 +56,7 @@ const AddInterestRegionButton = ({
             regionName: selectedRegion.name,
             isPrimary: false,
           });
-          setLocalStorageAndSync(MAIN_PAGE_ADD_USER_INTEREST_REGION, {
-            regionId: selectedRegion.id,
-            regionName: selectedRegion.name,
-            isPrimary: false,
-          });
+          setLocalStorageAndSync(UPDATE_USER_INFO, {});
           handleChangeActionType('setting');
         },
         onError: (error) => {
