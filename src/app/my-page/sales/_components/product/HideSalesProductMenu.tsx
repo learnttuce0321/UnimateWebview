@@ -1,20 +1,20 @@
 'use client';
 
 import { MouseEvent } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useQueryClient } from '@tanstack/react-query';
 import Modal from 'components/modal/Modal';
 import { useModal } from 'components/modal/useModal';
 import { Toast, useToast } from 'components/toast';
 import { useMutationHideProduct } from 'hooks/products/useMutationHideProduct';
 import { useMutationUnhideProduct } from 'hooks/products/useMutationUnhideProduct';
+import { useUpdateQueryData } from 'hooks/useUpdateQueryData';
 import { API_MY_SALES_PRODUCTS } from 'modules/keyFactory/product';
 import { ProductPost, SalesProduct, TradeStatus } from 'types/Product';
 import HideSalesProductConfirmModalContent from './HideSalesProductConfirmModalContent';
 import ReservedErrorModalContent from './ReservedErrorModalContent';
 import UnhideSalesProductConfirmModalContent from './UnhideSalesProductConfirmModalContent';
-import { useSearchParams } from 'next/navigation';
 import { TradeFilterStatus } from '../../page';
-import { useUpdateQueryData } from 'hooks/useUpdateQueryData';
 
 interface Props {
   productId: number;

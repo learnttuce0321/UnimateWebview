@@ -1,11 +1,11 @@
 'use client';
 
 import { useRef } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useInfiniteQueryWithObserver } from 'hooks/useInfiniteQueryWithObserver';
 import fetchClient, { ApiResponseError } from 'modules/fetch/fetchClient';
 import { API_MY_SALES_PRODUCTS } from 'modules/keyFactory/product';
 import { SalesProduct as TSalesProduct } from 'types/Product';
-import { useSearchParams } from 'next/navigation';
 import SalesProduct from './SalesProduct';
 import SalesProductListError from './SalesProductListError';
 import { TradeFilterStatus } from '../../page';
