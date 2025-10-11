@@ -6,7 +6,7 @@ interface Props {
   error: ApiResponseError;
 }
 
-const ProductListError = ({ error }: Props) => {
+const NotificationListError = ({ error }: Props) => {
   const { toast, showToast, hideToast } = useToast();
 
   useEffect(() => {
@@ -24,4 +24,4 @@ const ProductListError = ({ error }: Props) => {
   );
 };
 
-export default ProductListError;
+export default NotificationListError;

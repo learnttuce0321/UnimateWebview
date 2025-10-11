@@ -8,7 +8,7 @@ const Page = () => {
   return (
     <>
       <NavigationBar title="판매 내역" />
-      <div className="relative min-h-[calc(100vh-50px)] w-full bg-gray-50 pt-[16px]">
+      <div className="relative min-h-full_without_navigation w-full bg-gray-50 pt-[16px]">
         <SalesListFilterBottomSheetButton />
         <SalesList />
       </div>

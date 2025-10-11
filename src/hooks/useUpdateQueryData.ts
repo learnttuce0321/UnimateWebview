@@ -8,7 +8,7 @@ interface PageResponse<T> {
 export const useUpdateQueryData = () => {
   const queryClient = useQueryClient();
 
-  const queryDataUpdate = <TItem>(
+  const queryDataUpdater = <TItem>(
     queryKey: any[],
     updater: (item: TItem) => TItem
   ) => {
@@ -38,5 +38,5 @@ export const useUpdateQueryData = () => {
     );
   };
 
-  return { queryDataUpdate, infiniteQueryDataUpdater };
+  return { queryDataUpdater, infiniteQueryDataUpdater };
 };

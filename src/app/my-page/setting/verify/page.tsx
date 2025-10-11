@@ -123,7 +123,7 @@ const Page = () => {
   return (
     <>
       <NavigationBar title="학교 인증하기" className="bg-white" />
-      <div className="min-h-[calc(100vh-50px)] w-full bg-gray-50 px-[16px] pt-[24px]">
+      <div className="min-h-full_without_navigation w-full bg-gray-50 px-[16px] pt-[24px]">
         <VerifyComponent
           setVerifyType={setVerifyType}
           handleError={handleError}
