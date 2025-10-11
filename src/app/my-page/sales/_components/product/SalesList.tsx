@@ -1,22 +1,26 @@
+'use client';
+
 import { useRef } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useInfiniteQueryWithObserver } from 'hooks/useInfiniteQueryWithObserver';
 import fetchClient, { ApiResponseError } from 'modules/fetch/fetchClient';
 import { API_MY_SALES_PRODUCTS } from 'modules/keyFactory/product';
-import { SalesProduct as TSalesProduct, TradeStatus } from 'types/Product';
+import { SalesProduct as TSalesProduct } from 'types/Product';
 import SalesProduct from './SalesProduct';
 import SalesProductListError from './SalesProductListError';
-
-interface Props {
-  tradeStatus: TradeStatus;
-}
+import { TradeFilterStatus } from '../../page';
 
 interface SalesProductPostsResponse {
   contents: TSalesProduct[];
   hasNext: boolean;
 }
 
-const SalesList = ({ tradeStatus }: Props) => {
+const SalesList = () => {
   const infiniteTarget = useRef<HTMLDivElement>(null);
+
+  const searchParams = useSearchParams();
+  const tradeFilterStatus =
+    (searchParams.get('tradeFilterStatus') as TradeFilterStatus) || 'ALL';
 
   const {
     data: salesProductPosts,
@@ -26,7 +30,7 @@ const SalesList = ({ tradeStatus }: Props) => {
   } = useInfiniteQueryWithObserver<SalesProductPostsResponse, ApiResponseError>(
     infiniteTarget,
     {
-      queryKey: [API_MY_SALES_PRODUCTS, tradeStatus],
+      queryKey: [API_MY_SALES_PRODUCTS, tradeFilterStatus],
       initialPageParam: 1,
       queryFn: async ({ pageParam }) => {
         try {
@@ -34,8 +38,10 @@ const SalesList = ({ tradeStatus }: Props) => {
             url: API_MY_SALES_PRODUCTS,
             params: {
               pageNumber: pageParam,
-              ...(tradeStatus &&
-                tradeStatus !== 'ALL' && { mySalesFilter: tradeStatus }),
+              ...(tradeFilterStatus &&
+                tradeFilterStatus !== 'ALL' && {
+                  mySalesFilter: tradeFilterStatus,
+                }),
             },
           });
 
@@ -71,6 +77,10 @@ const SalesList = ({ tradeStatus }: Props) => {
   return (
     <ul className="flex flex-col gap-[10px] px-[16px]">
       {salesProductPostsList.map((product) => {
+        if (!product) {
+          return null;
+        }
+
         return <SalesProduct key={product.id} product={product} />;
       })}
       <div ref={infiniteTarget} />

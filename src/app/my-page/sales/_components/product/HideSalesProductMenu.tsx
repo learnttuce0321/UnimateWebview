@@ -1,17 +1,20 @@
 'use client';
 
 import { MouseEvent } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useQueryClient } from '@tanstack/react-query';
 import Modal from 'components/modal/Modal';
 import { useModal } from 'components/modal/useModal';
 import { Toast, useToast } from 'components/toast';
 import { useMutationHideProduct } from 'hooks/products/useMutationHideProduct';
 import { useMutationUnhideProduct } from 'hooks/products/useMutationUnhideProduct';
+import { useUpdateQueryData } from 'hooks/useUpdateQueryData';
 import { API_MY_SALES_PRODUCTS } from 'modules/keyFactory/product';
-import { TradeStatus } from 'types/Product';
+import { ProductPost, SalesProduct, TradeStatus } from 'types/Product';
 import HideSalesProductConfirmModalContent from './HideSalesProductConfirmModalContent';
 import ReservedErrorModalContent from './ReservedErrorModalContent';
 import UnhideSalesProductConfirmModalContent from './UnhideSalesProductConfirmModalContent';
+import { TradeFilterStatus } from '../../page';
 
 interface Props {
   productId: number;
@@ -26,11 +29,15 @@ const HideSalesProductMenu = ({
   tradeStatus,
   handlePopupClose,
 }: Props) => {
+  const searchParams = useSearchParams();
+  const tradeFilterStatus =
+    (searchParams.get('tradeFilterStatus') as TradeFilterStatus) || 'ALL';
+
   const { modalState, openModal, closeModal, handleConfirm, handleCancel } =
     useModal();
   const { toast, showToast, hideToast } = useToast();
 
-  const queryClient = useQueryClient();
+  const { infiniteQueryDataUpdater } = useUpdateQueryData();
   const { mutateAsync: mutateAsyncUnhideProduct } = useMutationUnhideProduct();
   const { mutateAsync: mutateAsyncHideProduct } = useMutationHideProduct();
 
@@ -66,9 +73,19 @@ const HideSalesProductMenu = ({
       { productId },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries({
-            queryKey: [API_MY_SALES_PRODUCTS],
-          });
+          infiniteQueryDataUpdater<SalesProduct>(
+            [API_MY_SALES_PRODUCTS, tradeFilterStatus],
+            (product) => {
+              if (product.id === productId) {
+                return {
+                  ...product,
+                  isHidden: true,
+                };
+              }
+
+              return product;
+            }
+          );
         },
         onError: (error) => {
           showToast(error.message, 'error');
@@ -83,9 +100,19 @@ const HideSalesProductMenu = ({
       { productId },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries({
-            queryKey: [API_MY_SALES_PRODUCTS],
-          });
+          infiniteQueryDataUpdater<SalesProduct>(
+            [API_MY_SALES_PRODUCTS, tradeFilterStatus],
+            (product) => {
+              if (product.id === productId) {
+                return {
+                  ...product,
+                  isHidden: false,
+                };
+              }
+
+              return product;
+            }
+          );
           closeModal();
         },
         onError: (error) => {

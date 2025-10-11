@@ -1,27 +1,38 @@
 'use client';
 
 import { MouseEvent } from 'react';
-import { useQueryClient } from '@tanstack/react-query';
+import { useSearchParams } from 'next/navigation';
 import Modal from 'components/modal/Modal';
 import { useModal } from 'components/modal/useModal';
+import { Toast, useToast } from 'components/toast';
 import { useMutationDeleteProduct } from 'hooks/products/useMutationDeleteProduct';
+import { useUpdateQueryData } from 'hooks/useUpdateQueryData';
 import { API_MY_SALES_PRODUCTS } from 'modules/keyFactory/product';
-import { TradeStatus } from 'types/Product';
+import { ProductPost, TradeStatus } from 'types/Product';
 import DeleteSalesProductConfirmModalContent from './DeleteSalesProductConfirmModalContent';
 import ReservedErrorModalContent from './ReservedErrorModalContent';
-import { Toast, useToast } from 'components/toast';
+import { TradeFilterStatus } from '../../page';
 
 interface Props {
   productId: number;
   tradeStatus: TradeStatus;
+  handlePopupClose: () => void;
 }
 
-const DeleteSalesProductMenu = ({ productId, tradeStatus }: Props) => {
+const DeleteSalesProductMenu = ({
+  productId,
+  tradeStatus,
+  handlePopupClose,
+}: Props) => {
+  const searchParams = useSearchParams();
+  const tradeFilterStatus =
+    (searchParams.get('tradeFilterStatus') as TradeFilterStatus) || 'ALL';
+
   const { modalState, openModal, closeModal, handleConfirm, handleCancel } =
     useModal();
   const { toast, showToast, hideToast } = useToast();
 
-  const queryClient = useQueryClient();
+  const { infiniteQueryDataUpdater } = useUpdateQueryData();
   const { mutateAsync } = useMutationDeleteProduct();
 
   const handleMenuClick = (e: MouseEvent<HTMLButtonElement>) => {
@@ -37,9 +48,8 @@ const DeleteSalesProductMenu = ({ productId, tradeStatus }: Props) => {
     return openModal({
       children: <DeleteSalesProductConfirmModalContent />,
       confirmText: '확인',
-      onConfirm: () => {
-        handleDeleteProduct();
-      },
+      onConfirm: handleDeleteProduct,
+      cancelText: '취소',
     });
   };
 
@@ -48,13 +58,21 @@ const DeleteSalesProductMenu = ({ productId, tradeStatus }: Props) => {
       { productId },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries({
-            queryKey: [API_MY_SALES_PRODUCTS],
-          });
+          infiniteQueryDataUpdater<ProductPost>(
+            [API_MY_SALES_PRODUCTS, tradeFilterStatus],
+            (product) => {
+              if (product.id === productId) {
+                return null;
+              }
+
+              return product;
+            }
+          );
         },
         onError: (error) => {
           showToast(error.message, 'error');
         },
+        onSettled: handlePopupClose,
       }
     );
   };

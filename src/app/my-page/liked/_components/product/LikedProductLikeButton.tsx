@@ -7,10 +7,8 @@ import { useMutationLikeProduct } from 'hooks/products/useMutationLikeProduct';
 import { useMutationUnlikeProduct } from 'hooks/products/useMutationUnlikeProduct';
 import { setLocalStorageAndSync } from 'hooks/useStorageSync';
 import { useUpdateQueryData } from 'hooks/useUpdateQueryData';
-import { API_MY_LIKE_PRODUCTS, API_PRODUCT } from 'modules/keyFactory/product';
-import { useAppStore } from 'providers/ZustandProvider';
-import { selectPrimaryRegion } from 'stores/selectors';
-import { LikeProduct, ProductPost } from 'types/Product';
+import { API_MY_LIKE_PRODUCTS } from 'modules/keyFactory/product';
+import { LikeProduct } from 'types/Product';
 interface Props {
   productId: number;
   isLiked: boolean;
@@ -19,8 +17,6 @@ interface Props {
 const LikedProductLikeButton = ({ productId, isLiked }: Props) => {
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
   const { toast, showToast, hideToast } = useToast();
-
-  const primaryRegion = useAppStore(selectPrimaryRegion);
 
   const { infiniteQueryDataUpdater } = useUpdateQueryData();
   const { mutate: mutateLikeProduct } = useMutationLikeProduct();

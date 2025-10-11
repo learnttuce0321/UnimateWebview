@@ -26,7 +26,11 @@ const SalesProductMoreMenus = ({
       <p className="flex h-[30px] w-full items-center px-[16px] text-blue_gray-600">
         수정하기
       </p>
-      <DeleteSalesProductMenu productId={productId} tradeStatus={tradeStatus} />
+      <DeleteSalesProductMenu
+        productId={productId}
+        tradeStatus={tradeStatus}
+        handlePopupClose={handlePopupClose}
+      />
     </div>
   );
 };

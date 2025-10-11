@@ -36,6 +36,7 @@ export interface AppActions {
   addInterestRegion: (region: Region) => void;
   removeInterestRegion: (regionId: string) => void;
   changePrimaryRegion: (regionId: string) => void;
+  setUserProfile: (user: User) => void;
 }
 
 export type AppStore = AppState & AppActions;
@@ -85,6 +86,12 @@ export const initializeStore = (initialState?: InitialStore): Store => {
                   isPrimary: region.regionId === regionId,
                 })
               );
+          });
+        },
+
+        setUserProfile: (user: User) => {
+          set((state) => {
+            state.userProfile = user;
           });
         },
       })),

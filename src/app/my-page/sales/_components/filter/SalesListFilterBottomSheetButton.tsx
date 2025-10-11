@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import SalesListFilterBottomSheet from './SalesListFilterBottomSheet';
 import { TradeFilterStatus } from '../../page';
 
@@ -11,18 +12,12 @@ export const TradeStatusRadioConfig: Record<TradeFilterStatus, string> = {
   HIDDEN: '숨김',
 };
 
-interface Props {
-  currentTradeStatus: TradeFilterStatus;
-  setCurrentTradeStatus: React.Dispatch<
-    React.SetStateAction<TradeFilterStatus>
-  >;
-}
-
-const SalesListFilterBottomSheetButton = ({
-  currentTradeStatus,
-  setCurrentTradeStatus,
-}: Props) => {
+const SalesListFilterBottomSheetButton = () => {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(false);
+
+  const searchParams = useSearchParams();
+  const tradeFilterStatus =
+    (searchParams.get('tradeFilterStatus') as TradeFilterStatus) || 'ALL';
 
   return (
     <>
@@ -32,7 +27,7 @@ const SalesListFilterBottomSheetButton = ({
           onClick={() => setIsBottomSheetOpen(true)}
         >
           <span className="text-[14px] leading-[30px] text-blue_gray-900">
-            {TradeStatusRadioConfig[currentTradeStatus]}
+            {TradeStatusRadioConfig[tradeFilterStatus]}
           </span>
           <img
             src="/images/svg/my-page/icon-arrow-chevron-down-small-24.svg"
@@ -45,8 +40,6 @@ const SalesListFilterBottomSheetButton = ({
       {isBottomSheetOpen && (
         <SalesListFilterBottomSheet
           closeSheet={() => setIsBottomSheetOpen(false)}
-          currentTradeStatus={currentTradeStatus}
-          setCurrentTradeStatus={setCurrentTradeStatus}
         />
       )}
     </>
