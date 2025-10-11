@@ -18,7 +18,7 @@ export const API_MY_PROFILE = '/api/v1/users/me';
 /**
  * @GET 유저 프로필 조회 API
  */
-export const API_USER_PROFILE = (userId: number) => `/api/v1/users/${userId}`;
+export const API_USER_PROFILE = (userId: string) => `/api/v1/users/${userId}`;
 
 /**
  * @PATCH 기본 관심지역 설정 API

@@ -1,11 +1,11 @@
 import { type StoreApi } from 'zustand';
 import { createStore } from 'zustand';
 import { Region } from 'types/Region';
-import { User } from 'types/User';
+import { MyProfile } from 'types/User';
 import { devtools } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
-const DEFAULT_PROFILE: User = {
+const DEFAULT_PROFILE: MyProfile = {
   nickname: '',
   profileImageUrl: '',
   university: {},
@@ -21,7 +21,7 @@ export interface DeviceInfo {
 }
 
 export interface AppState {
-  userProfile: User;
+  userProfile: MyProfile;
   isLogin: boolean;
 }
 
@@ -36,7 +36,7 @@ export interface AppActions {
   addInterestRegion: (region: Region) => void;
   removeInterestRegion: (regionId: string) => void;
   changePrimaryRegion: (regionId: string) => void;
-  setUserProfile: (user: User) => void;
+  setUserProfile: (user: MyProfile) => void;
 }
 
 export type AppStore = AppState & AppActions;
@@ -89,7 +89,7 @@ export const initializeStore = (initialState?: InitialStore): Store => {
           });
         },
 
-        setUserProfile: (user: User) => {
+        setUserProfile: (user: MyProfile) => {
           set((state) => {
             state.userProfile = user;
           });
