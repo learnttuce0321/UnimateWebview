@@ -8,10 +8,9 @@ interface UnhideProductParams {
 
 export const useMutationUnhideProduct = () => {
   return useMutation<void, ApiResponseError, UnhideProductParams>({
-    mutationFn: ({ productId }: UnhideProductParams) => {
-      return fetchClient.PATCH({
+    mutationFn: ({ productId }: UnhideProductParams) =>
+      fetchClient.PATCH({
         url: API_PRODUCT_UNHIDE(productId),
-      });
-    },
+      }),
   });
 };

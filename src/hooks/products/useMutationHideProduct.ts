@@ -13,10 +13,9 @@ interface HideProductParams {
 
 export const useMutationHideProduct = () => {
   return useMutation<void, ApiResponseError, HideProductParams>({
-    mutationFn: async ({ productId }: HideProductParams) => {
-      await fetchClient.PATCH({
+    mutationFn: ({ productId }: HideProductParams) =>
+      fetchClient.PATCH({
         url: API_PRODUCT_HIDE(productId),
-      });
-    },
+      }),
   });
 };
