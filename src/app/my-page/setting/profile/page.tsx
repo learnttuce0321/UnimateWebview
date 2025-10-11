@@ -5,6 +5,7 @@ import BottomFixedConfirmButton from 'components/button/BottomFixedConfirmButton
 import NavigationBar from 'components/navigation/NavigationBar';
 import { Toast, useToast } from 'components/toast';
 import { UPDATE_USER_INFO } from 'constants/storageSyncKeyFactory/main';
+import { useMutationCheckNicknameExist } from 'hooks/users/useMutationCheckNicknameExist';
 import { useMutationUpdateUserProfile } from 'hooks/users/useMutationUpdateUserProfile';
 import { setLocalStorageAndSync } from 'hooks/useStorageSync';
 import { ApiResponseError } from 'modules/fetch/fetchClient';
@@ -22,10 +23,24 @@ const Page = () => {
   const [userNickname, setUserNickname] = useState<string>(nickname);
   const { toast, showToast, hideToast } = useToast();
 
+  const { mutateAsync } = useMutationCheckNicknameExist();
   const { mutate } = useMutationUpdateUserProfile();
   const { closeWeb } = navigationScheme();
 
-  const handleUpdateUserProfile = () => {
+  const handleUpdateUserProfile = async () => {
+    try {
+      const { exists } = await mutateAsync({ nickname: userNickname });
+
+      if (exists) {
+        throw {
+          message: '동일한 닉네임이 존재합니다.',
+        };
+      }
+    } catch (error: any) {
+      handleError(error);
+      return;
+    }
+
     mutate(
       { nickname: userNickname, profileImageUrl: userProfile },
       {

@@ -17,9 +17,14 @@ export const API_USER_REGION = '/api/v1/users/regions';
 export const API_MY_PROFILE = '/api/v1/users/me';
 
 /**
- * @POST 프로필 이미지 업로드를 위한 PresignedUrl 발급 api
+ * @POST 프로필 이미지 업로드를 위한 PresignedUrl 발급 API
  */
 export const API_PROFILE_PRESIGNED_URL = '/api/v1/users/presigned-url';
+
+/**
+ * @GET 닉네임 중복 검사 API
+ */
+export const API_PROFILE_NICKNAME_EXIST = '/api/v1/users/nickname/exist';
 
 /**
  * @GET 유저 프로필 조회 API
