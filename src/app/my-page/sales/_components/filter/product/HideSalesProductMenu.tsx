@@ -17,15 +17,21 @@ interface Props {
   productId: number;
   isHidden: boolean;
   tradeStatus: TradeStatus;
+  handlePopupClose: () => void;
 }
 
-const HideSalesProductMenu = ({ productId, isHidden, tradeStatus }: Props) => {
+const HideSalesProductMenu = ({
+  productId,
+  isHidden,
+  tradeStatus,
+  handlePopupClose,
+}: Props) => {
   const { modalState, openModal, closeModal, handleConfirm, handleCancel } =
     useModal();
 
   const queryClient = useQueryClient();
-  const { mutate: mutateUnhideProduct } = useMutationUnhideProduct();
-  const { mutate: mutateHideProduct } = useMutationHideProduct();
+  const { mutateAsync: mutateAsyncUnhideProduct } = useMutationUnhideProduct();
+  const { mutateAsync: mutateAsyncHideProduct } = useMutationHideProduct();
 
   const handleMenuClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
@@ -41,25 +47,21 @@ const HideSalesProductMenu = ({ productId, isHidden, tradeStatus }: Props) => {
       return openModal({
         children: <UnhideSalesProductConfirmModalContent />,
         confirmText: '확인',
-        onConfirm: () => {
-          handleUnhideProduct();
-        },
+        onConfirm: handleUnhideProduct,
         cancelText: '취소',
       });
     } else {
       return openModal({
         children: <HideSalesProductConfirmModalContent />,
         confirmText: '확인',
-        onConfirm: () => {
-          handleHideProduct();
-        },
+        onConfirm: handleHideProduct,
         cancelText: '취소',
       });
     }
   };
 
-  const handleHideProduct = () => {
-    mutateHideProduct(
+  const handleHideProduct = async () => {
+    await mutateAsyncHideProduct(
       { productId },
       {
         onSuccess: () => {
@@ -76,18 +78,20 @@ const HideSalesProductMenu = ({ productId, isHidden, tradeStatus }: Props) => {
             ),
           });
         },
+        onSettled: handlePopupClose,
       }
     );
   };
 
-  const handleUnhideProduct = () => {
-    mutateUnhideProduct(
+  const handleUnhideProduct = async () => {
+    await mutateAsyncUnhideProduct(
       { productId },
       {
         onSuccess: () => {
           queryClient.invalidateQueries({
             queryKey: [API_MY_SALES_PRODUCTS],
           });
+          closeModal();
         },
         onError: (error) => {
           openModal({
@@ -98,6 +102,7 @@ const HideSalesProductMenu = ({ productId, isHidden, tradeStatus }: Props) => {
             ),
           });
         },
+        onSettled: handlePopupClose,
       }
     );
   };

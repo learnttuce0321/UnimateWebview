@@ -19,13 +19,16 @@ const SaleProductMore = ({ productId, isHidden, tradeStatus }: Props) => {
     setShowPopup(true);
   };
 
+  const handlePopupClose = () => {
+    setShowPopup(false);
+  };
   useEffect(() => {
     const handleClickOutside = (event: globalThis.MouseEvent) => {
       if (
         popupRef.current &&
         !popupRef.current.contains(event.target as Node)
       ) {
-        setShowPopup(false);
+        handlePopupClose();
       }
     };
 
@@ -57,6 +60,7 @@ const SaleProductMore = ({ productId, isHidden, tradeStatus }: Props) => {
             productId={productId}
             isHidden={isHidden}
             tradeStatus={tradeStatus}
+            handlePopupClose={handlePopupClose}
           />
         </div>
       )}

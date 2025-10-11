@@ -44,7 +44,7 @@ const SalesListFilterBottomSheet = ({
           {Object.entries(TradeStatusRadioConfig).map(([key, label]) => (
             <SalesListFilterItem
               key={key}
-              filterKey={key}
+              filterKey={key as TradeFilterStatus}
               filterLabel={label}
               tradeFilterStatus={tradeFilterStatus}
               onClick={handleFilterClick}
