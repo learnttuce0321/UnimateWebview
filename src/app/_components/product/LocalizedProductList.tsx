@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import ProductCard from 'app/_components/product/ProductCard';
+import LocalizedProduct from 'app/_components/product/LocalizedProduct';
 import { MAIN_PAGE_UPDATE_PRODUCTS_LIKE } from 'constants/storageSyncKeyFactory/main';
 import { useInfiniteQueryWithObserver } from 'hooks/useInfiniteQueryWithObserver';
 import { useStorageSync } from 'hooks/useStorageSync';
@@ -11,14 +11,14 @@ import { API_PRODUCT } from 'modules/keyFactory/product';
 import { useAppStore } from 'providers/ZustandProvider';
 import { selectPrimaryRegion } from 'stores/selectors';
 import { ProductPost } from 'types/Product';
-import ProductListError from './ProductListError';
+import LocalizedProductListError from './LocalizedProductListError';
 
 interface ProductPostsResponse {
   contents: ProductPost[];
   hasNext: boolean;
 }
 
-const ProductList = () => {
+const LocalizedProductList = () => {
   const infiniteTarget = useRef<HTMLDivElement>(null);
   const primaryRegion = useAppStore(selectPrimaryRegion);
 
@@ -87,21 +87,23 @@ const ProductList = () => {
   const productPostsList = productPosts?.pages.flatMap((page) => page.contents);
 
   if (isError) {
-    return <ProductListError error={error} />;
+    return <LocalizedProductListError error={error} />;
   }
 
-  if (isLoading || isError || !productPostsList || !productPostsList.length) {
+  if (isLoading || !productPostsList || !productPostsList.length) {
     return null;
   }
 
   return (
     <main className="min-h-full_without_navigation bg-gray-50 p-[16px]">
-      {productPostsList.map((product) => {
-        return <ProductCard product={product} key={product.id} />;
-      })}
+      <ul>
+        {productPostsList.map((product) => {
+          return <LocalizedProduct product={product} key={product.id} />;
+        })}
+      </ul>
       <div ref={infiniteTarget} />
     </main>
   );
 };
 
-export default ProductList;
+export default LocalizedProductList;

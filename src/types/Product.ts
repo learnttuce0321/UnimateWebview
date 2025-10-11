@@ -1,6 +1,6 @@
 export type CurrencyType = 'KRW' | 'USD' | string;
 
-export type TradeStatus = 'FOR_SALE' | 'RESERVED' | 'SOLD_OUT' | string;
+export type TradeStatus = 'FOR_SALE' | 'RESERVED' | 'SOLD_OUT';
 export interface ProductPost {
   id: number;
   title: string;

@@ -2,7 +2,7 @@ interface Props {
   thumbnailUrl: string;
 }
 
-const ProductThumbnail = ({ thumbnailUrl }: Props) => {
+const LocalizedProductThumbnail = ({ thumbnailUrl }: Props) => {
   return (
     <img
       src={thumbnailUrl}
@@ -14,4 +14,4 @@ const ProductThumbnail = ({ thumbnailUrl }: Props) => {
   );
 };
 
-export default ProductThumbnail;
+export default LocalizedProductThumbnail;

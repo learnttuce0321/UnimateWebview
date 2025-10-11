@@ -10,6 +10,7 @@ interface Props {
 
 const SalesProduct = ({ product }: Props) => {
   const { id: productId, title, thumbnailUrl, isHidden, tradeStatus } = product;
+
   const { openWeb } = navigationScheme();
 
   const handleProductClick = () => {
