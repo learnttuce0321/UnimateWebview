@@ -6,10 +6,10 @@ interface ProductLikeParams {
   productId: number;
 }
 
-export const useMutationLikeProduct = () => {
+export const useMutationUnlikeProduct = () => {
   return useMutation<void, ApiResponseError, ProductLikeParams>({
     mutationFn: async ({ productId }): Promise<void> => {
-      await fetchClient.POST({
+      await fetchClient.DELETE({
         url: API_PRODUCT_LIKE(productId),
       });
     },

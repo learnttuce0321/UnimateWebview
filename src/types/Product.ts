@@ -14,6 +14,7 @@ export interface ProductPost {
   regionId: string;
   regionName: string;
   tradeStatus: TradeStatus;
+  isLiked: boolean;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type

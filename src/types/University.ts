@@ -3,8 +3,3 @@ export interface University {
   name: string;
   country: string;
 }
-
-export interface SearchUniversityResponse {
-  content: University[];
-  hasNext: boolean;
-}

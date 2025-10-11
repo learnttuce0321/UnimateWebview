@@ -1,6 +1,6 @@
 'use client';
 
-import { SEARCH_PAGE_ADD_FILTERING_UNIVERSITY } from 'constants/storageSync';
+import { SEARCH_PAGE_ADD_FILTERING_UNIVERSITY } from 'constants/storageSyncKeyFactory/search';
 import { setLocalStorageAndSync } from 'hooks/useStorageSync';
 import navigationScheme from 'utils/navigationScheme';
 
