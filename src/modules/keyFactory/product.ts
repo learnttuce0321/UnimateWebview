@@ -33,6 +33,12 @@ export const API_MY_LIKE_PRODUCTS = '/api/v1/product-posts/my/likes';
 export const API_MY_SALES_PRODUCTS = '/api/v1/product-posts/my/sales';
 
 /**
+ * @GET 다른 유저 판매내역 목록 조회 API
+ */
+export const API_USER_SALES_PRODUCTS = (userId: string) =>
+  `/api/v1/product-posts/user/${userId}/sales`;
+
+/**
  * @PATCH 상품 게시글 숨기기 API
  */
 export const API_PRODUCT_HIDE = (productId: number) =>

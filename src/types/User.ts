@@ -7,11 +7,23 @@ export interface UserUniversity {
   country?: string;
 }
 
-export interface User {
-  nickname?: string;
-  profileImageUrl?: string;
+interface DefaultUserInfo {
+  nickname: string;
+  profileImageUrl: string;
   university: UserUniversity;
+}
+export interface MyProfile extends DefaultUserInfo {
   interestRegions: {
     interestRegions: Region[];
   };
+}
+
+export interface UserReviewStats {
+  averageRating: number;
+  reviewCount: number;
+  isReviewReflected: boolean;
+}
+
+export interface MateUser extends DefaultUserInfo {
+  reviewStats: UserReviewStats;
 }

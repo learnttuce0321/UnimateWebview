@@ -3,7 +3,7 @@ import { dehydrate, DehydratedState } from '@tanstack/react-query';
 import { processEnvLocalAccessToken } from 'constants/environments';
 import { fetchUserProfile } from 'modules/fetch/fetchUserProfile.server';
 import { DeviceInfo } from 'stores/createAppStore';
-import { User } from 'types/User';
+import { MyProfile } from 'types/User';
 import { createSSRQueryClient } from '../react-query/queryClient.server';
 
 interface InitialData {
@@ -11,7 +11,7 @@ interface InitialData {
     accessToken: string;
     isWebview: boolean;
     isLogin: boolean;
-    userProfile: User | undefined;
+    userProfile: MyProfile | undefined;
     deviceInfo?: DeviceInfo;
   };
   dehydratedState: DehydratedState | undefined;
