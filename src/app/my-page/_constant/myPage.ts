@@ -27,7 +27,7 @@ const MY_TRADING_LIST_ITEMS: MyPageListItem[] = [
 ];
 
 const MY_CONFIG_LIST_ITEMS: MyPageListItem[] = [
-  { title: '알림 설정', targetUrl: '/my-page/setting/alarm' },
+  { title: '알림 설정', targetUrl: '/my-page/setting/notification' },
   { title: '차단 목록', targetUrl: '/my-page/setting/block' },
 ];
 

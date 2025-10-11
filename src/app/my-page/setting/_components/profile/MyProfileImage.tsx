@@ -1,32 +1,57 @@
 'use client';
 
-import { useAppStore } from 'providers/ZustandProvider';
+import { useMutationGetProfileImagePresignedUrl } from 'hooks/users/useMutationGetProfileImagePresignedUrl';
+import { ApiResponseError } from 'modules/fetch/fetchClient';
+import { extractFileNameFromUrl } from 'utils/bridge';
+import { uploadFileToS3 } from 'utils/fileUpload';
 
-const MyProfileImage = () => {
-  const profileImageUrl = useAppStore(
-    (state) => state.userProfile.profileImageUrl
-  );
+interface Props {
+  userProfile: string;
+  setUserProfile: React.Dispatch<React.SetStateAction<string>>;
+  handleError: (error: ApiResponseError) => void;
+}
 
-  if (!profileImageUrl)
-    return (
-      <div className="relative">
-        <img
-          src="/images/svg/my-page/none-profile.svg"
-          width={116}
-          height={116}
-          alt="유저 프로필"
-        />
+const MyProfileImage = ({
+  userProfile,
+  setUserProfile,
+  handleError,
+}: Props) => {
+  const { mutateAsync } = useMutationGetProfileImagePresignedUrl();
+
+  const handleUpdateUserProfile = async () => {
+    const selectedImageUrl = '/'; // TODO: 브릿지로 가져오기
+
+    if (!selectedImageUrl || selectedImageUrl.length === 0) {
+      return;
+    }
+
+    const fileName = extractFileNameFromUrl(selectedImageUrl);
+
+    try {
+      const { presignedUrl } = await mutateAsync({ fileName });
+      await uploadFileToS3(selectedImageUrl, presignedUrl);
+      setUserProfile(selectedImageUrl);
+    } catch (error: any) {
+      handleError(error as ApiResponseError);
+    }
+  };
+
+  return (
+    <div className="relative">
+      <img src={userProfile} width={116} height={116} alt="유저 프로필" />
+      <button
+        className="absolute bottom-0 right-0"
+        onClick={handleUpdateUserProfile}
+      >
         <img
           src="/images/svg/my-page/icon-system-camera-button.svg"
           width={32}
           height={32}
           alt="프로필 등록"
-          className="absolute bottom-0 right-0"
         />
-      </div>
-    );
-
-  return <div></div>;
+      </button>
+    </div>
+  );
 };
 
 export default MyProfileImage;

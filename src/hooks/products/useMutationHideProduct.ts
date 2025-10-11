@@ -2,11 +2,6 @@ import { useMutation } from '@tanstack/react-query';
 import fetchClient, { ApiResponseError } from 'modules/fetch/fetchClient';
 import { API_PRODUCT_HIDE } from 'modules/keyFactory/product';
 
-export interface ApiError {
-  code: string;
-  message: string;
-}
-
 interface HideProductParams {
   productId: number;
 }
