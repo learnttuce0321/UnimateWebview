@@ -14,7 +14,8 @@ const LoginWrapper = ({ children }: Props) => {
   if (!isLogin) {
     return (
       <>
-        <p className="h-[100px] w-full break-all">{accessToken}</p> {'잘못된 접근입니다.'}
+        <p className="h-[100px] w-full break-all">{accessToken}</p>{' '}
+        {'잘못된 접근입니다.'}
       </>
     );
   }

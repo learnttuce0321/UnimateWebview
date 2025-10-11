@@ -123,9 +123,11 @@ export default function RegisterForm() {
       className="flex flex-col gap-[30px] bg-gray-50 p-[16px] first-letter:bg-gray-50"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <RegisterImageForm 
-        setValue={setValue} 
-        initialImages={isEditMode && productDetail ? productDetail.imageUrls : []}
+      <RegisterImageForm
+        setValue={setValue}
+        initialImages={
+          isEditMode && productDetail ? productDetail.imageUrls : []
+        }
       />
       <RegisterInput
         type="textarea"

@@ -9,7 +9,9 @@ interface TagConfig {
   tagBackgroundColor: string;
 }
 
-const TAG_CONFIG_BY_TRADE_STATUS: Record<TradeStatus, TagConfig> = {
+type ConfigTradeStatus = Extract<TradeStatus, 'RESERVED' | 'SOLD_OUT'>;
+
+const TAG_CONFIG_BY_TRADE_STATUS: Record<ConfigTradeStatus, TagConfig> = {
   RESERVED: {
     tagTitle: '예약중',
     tagBackgroundColor: 'bg-orange-400',
@@ -21,7 +23,8 @@ const TAG_CONFIG_BY_TRADE_STATUS: Record<TradeStatus, TagConfig> = {
 } as const;
 
 const LocalizedProductTradeStatusTag = ({ tradeStatus }: Props) => {
-  const tagConfig = TAG_CONFIG_BY_TRADE_STATUS[tradeStatus];
+  const tagConfig =
+    TAG_CONFIG_BY_TRADE_STATUS[tradeStatus as ConfigTradeStatus];
 
   if (!tagConfig) {
     return null;

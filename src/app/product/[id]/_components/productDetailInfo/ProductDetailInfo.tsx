@@ -2,9 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
-import Divider from '../Divider';
 import { useMutationLikeProduct } from 'hooks/products/useMutationLikeProduct';
 import { useMutationUnlikeProduct } from 'hooks/products/useMutationUnlikeProduct';
+import Divider from '../Divider';
 import ProductDetailInfoHeader from './ProductDetailInfoHeader';
 import ProductDetailInfoLikeShare from './ProductDetailInfoLikeShare';
 import { TradeStatus } from '../../page';
