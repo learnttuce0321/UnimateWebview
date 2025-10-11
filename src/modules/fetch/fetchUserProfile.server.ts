@@ -1,6 +1,6 @@
 import { API_MY_PROFILE } from 'modules/keyFactory/user';
 import { SSRFetchQuery } from 'modules/react-query/queryClient.server';
-import { User } from 'types/User';
+import { MyProfile } from 'types/User';
 
 export const fetchUserProfile = async (
   fetchQuery: SSRFetchQuery,
@@ -10,10 +10,10 @@ export const fetchUserProfile = async (
     return undefined;
   }
 
-  let userProfile: User | undefined;
+  let userProfile: MyProfile | undefined;
 
   try {
-    userProfile = await fetchQuery<User>({
+    userProfile = await fetchQuery<MyProfile>({
       url: API_MY_PROFILE,
       accessToken,
     });
