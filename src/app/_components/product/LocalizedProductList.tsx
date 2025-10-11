@@ -1,23 +1,24 @@
 'use client';
 
 import { useRef } from 'react';
-import ProductCard from 'app/_components/product/ProductCard';
+import LocalizedProduct from 'app/_components/product/LocalizedProduct';
 import { MAIN_PAGE_UPDATE_PRODUCTS_LIKE } from 'constants/storageSyncKeyFactory/main';
 import { useInfiniteQueryWithObserver } from 'hooks/useInfiniteQueryWithObserver';
 import { useStorageSync } from 'hooks/useStorageSync';
 import { useUpdateQueryData } from 'hooks/useUpdateQueryData';
-import fetchClient from 'modules/fetch/fetchClient';
+import fetchClient, { ApiResponseError } from 'modules/fetch/fetchClient';
 import { API_PRODUCT } from 'modules/keyFactory/product';
 import { useAppStore } from 'providers/ZustandProvider';
 import { selectPrimaryRegion } from 'stores/selectors';
 import { ProductPost } from 'types/Product';
+import LocalizedProductListError from './LocalizedProductListError';
 
 interface ProductPostsResponse {
   contents: ProductPost[];
   hasNext: boolean;
 }
 
-const ProductList = () => {
+const LocalizedProductList = () => {
   const infiniteTarget = useRef<HTMLDivElement>(null);
   const primaryRegion = useAppStore(selectPrimaryRegion);
 
@@ -27,7 +28,8 @@ const ProductList = () => {
     data: productPosts,
     isLoading,
     isError,
-  } = useInfiniteQueryWithObserver<ProductPostsResponse>(
+    error,
+  } = useInfiniteQueryWithObserver<ProductPostsResponse, ApiResponseError>(
     infiniteTarget,
     {
       queryKey: [API_PRODUCT, primaryRegion?.regionId],
@@ -84,18 +86,24 @@ const ProductList = () => {
 
   const productPostsList = productPosts?.pages.flatMap((page) => page.contents);
 
-  if (isLoading || isError || !productPostsList || !productPostsList.length) {
+  if (isError) {
+    return <LocalizedProductListError error={error} />;
+  }
+
+  if (isLoading || !productPostsList || !productPostsList.length) {
     return null;
   }
 
   return (
     <main className="min-h-full_without_navigation bg-gray-50 p-[16px]">
-      {productPostsList.map((product) => {
-        return <ProductCard product={product} key={product.id} />;
-      })}
+      <ul>
+        {productPostsList.map((product) => {
+          return <LocalizedProduct product={product} key={product.id} />;
+        })}
+      </ul>
       <div ref={infiniteTarget} />
     </main>
   );
 };
 
-export default ProductList;
+export default LocalizedProductList;

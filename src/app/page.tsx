@@ -1,11 +1,11 @@
 import HomeHeader from 'app/_components/layout/HomeHeader';
-import ProductList from 'app/_components/product/ProductList';
+import LocalizedProductList from 'app/_components/product/LocalizedProductList';
 
 const Page = () => {
   return (
     <>
       <HomeHeader />
-      <ProductList />
+      <LocalizedProductList />
     </>
   );
 };

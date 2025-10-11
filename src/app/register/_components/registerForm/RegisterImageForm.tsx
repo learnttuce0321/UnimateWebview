@@ -30,14 +30,24 @@ const MAX_IMAGES_COUNT = 10;
 
 interface RegisterImageFormProps {
   setValue: UseFormSetValue<FormDataType>;
+  initialImages?: string[];
 }
 
 export default function RegisterImageForm({
   setValue,
+  initialImages = [],
 }: RegisterImageFormProps) {
   const [images, setImages] = useState<string[]>([]);
   const [imageKeys, setImageKeys] = useState<string[]>([]);
   const [isUploading, setIsUploading] = useState(false);
+
+  // 초기 이미지 설정
+  useEffect(() => {
+    if (initialImages.length > 0) {
+      setImages(initialImages);
+      setImageKeys(initialImages); // URL을 key로 사용
+    }
+  }, [initialImages]);
 
   useEffect(() => {
     setValue('images', imageKeys);

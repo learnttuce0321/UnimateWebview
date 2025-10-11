@@ -2,7 +2,7 @@ interface Props {
   title: string;
 }
 
-const ProductTitle = ({ title }: Props) => {
+const LocalizedProductTitle = ({ title }: Props) => {
   return (
     <h2 className="h-[19px] text-[16px] font-medium leading-[19.2px]">
       {title}
@@ -10,4 +10,4 @@ const ProductTitle = ({ title }: Props) => {
   );
 };
 
-export default ProductTitle;
+export default LocalizedProductTitle;
