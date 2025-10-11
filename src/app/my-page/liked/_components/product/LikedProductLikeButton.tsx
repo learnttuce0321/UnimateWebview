@@ -2,15 +2,15 @@
 
 import { useState } from 'react';
 import { Toast, useToast } from 'components/toast';
+import { MAIN_PAGE_UPDATE_PRODUCTS_LIKE } from 'constants/storageSyncKeyFactory/main';
 import { useMutationLikeProduct } from 'hooks/products/useMutationLikeProduct';
 import { useMutationUnlikeProduct } from 'hooks/products/useMutationUnlikeProduct';
+import { setLocalStorageAndSync } from 'hooks/useStorageSync';
 import { useUpdateQueryData } from 'hooks/useUpdateQueryData';
 import { API_MY_LIKE_PRODUCTS, API_PRODUCT } from 'modules/keyFactory/product';
 import { useAppStore } from 'providers/ZustandProvider';
 import { selectPrimaryRegion } from 'stores/selectors';
 import { LikeProduct, ProductPost } from 'types/Product';
-import { setLocalStorageAndSync } from 'hooks/useStorageSync';
-import { MAIN_PAGE_UPDATE_PRODUCTS_LIKE } from 'constants/storageSyncKeyFactory/main';
 interface Props {
   productId: number;
   isLiked: boolean;
