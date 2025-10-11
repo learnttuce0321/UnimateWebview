@@ -49,3 +49,9 @@ export const API_PRODUCT_UNHIDE = (productId: number) =>
  */
 export const API_PRODUCT_DELETE = (productId: number) =>
   `/api/v1/product-posts/${productId}`;
+
+/**
+ * @GET 상품 상세 조회 API
+ */
+export const API_PRODUCT_DETAIL = (productId: string | number) =>
+  `/api/v1/product-posts/${productId}`;

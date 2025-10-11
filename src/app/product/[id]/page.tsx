@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Modal from 'components/modal/Modal';
 import { useModal } from 'components/modal/useModal';
 import { useQueryProductDetail } from 'hooks/products/useQueryProductDetail';
+import navigationScheme from 'utils/navigationScheme';
 import ProductBottomActions from './_components/ProductBottomActions';
 import ProductDescriptionSection from './_components/ProductDescriptionSection';
 import ProductDetailHeader from './_components/ProductDetailHeader';
@@ -28,6 +29,7 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
   const { modalState, openModal, closeModal, handleConfirm, handleCancel } =
     useModal();
   const [tradeStatus, setTradeStatus] = useState<TradeStatus>('FOR_SALE');
+  const { openWeb } = navigationScheme();
 
   // API 호출
   const {
@@ -92,13 +94,8 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
           tradeStatus={tradeStatus}
           isHidden={productDetail.isHidden}
           onEdit={() => {
-            // localStorage에 상품 데이터 저장
-            localStorage.setItem(
-              'editProductData',
-              JSON.stringify(productDetail)
-            );
             // 수정 모드로 등록 페이지 이동
-            window.location.href = '/register?mode=edit';
+            openWeb(`/register?productId=${productDetail.id}`);
           }}
         />
 

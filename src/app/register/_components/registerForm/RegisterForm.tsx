@@ -9,8 +9,8 @@ import RegisterImageForm from 'app/register/_components/registerForm/RegisterIma
 import RegisterInput from 'app/register/_components/registerForm/RegisterInput';
 import RegisterTradeInfo from 'app/register/_components/registerForm/trade/RegisterTradeInfo';
 import { useMutationUpdateProduct } from 'hooks/products/useMutationUpdateProduct';
+import { useQueryProductDetail } from 'hooks/products/useQueryProductDetail';
 import { FormDataType } from 'types/Product';
-import { ProductDetail } from 'types/Product';
 import { registerApi } from '../../_api/registerApi';
 import { convertFormDataToApiRequest } from '../../_utils/formDataConverter';
 import { convertProductDetailToFormData } from '../../_utils/productDataConverter';
@@ -18,7 +18,8 @@ import { convertProductDetailToFormData } from '../../_utils/productDataConverte
 export default function RegisterForm() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const isEditMode = searchParams.get('mode') === 'edit';
+  const productId = searchParams.get('productId');
+  const isEditMode = !!productId;
 
   const {
     register,
@@ -34,37 +35,40 @@ export default function RegisterForm() {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [editProductId, setEditProductId] = useState<number | null>(null);
   const updateMutation = useMutationUpdateProduct();
   const hasLoadedData = useRef(false);
 
-  // 수정 모드일 때 localStorage에서 데이터 로드
+  // 수정 모드일 때 상품 상세 정보 조회
+  const {
+    data: productDetail,
+    isLoading: isLoadingProduct,
+    error: productError,
+  } = useQueryProductDetail(isEditMode && productId ? productId : '');
+
+  // 수정 모드일 때 API 데이터로 폼 초기화
   useEffect(() => {
-    if (isEditMode && !hasLoadedData.current) {
+    if (isEditMode && productDetail && !hasLoadedData.current) {
       hasLoadedData.current = true;
 
-      const editData = localStorage.getItem('editProductData');
-      if (editData) {
-        try {
-          const productDetail: ProductDetail = JSON.parse(editData);
-          const formData = convertProductDetailToFormData(productDetail);
-
-          setEditProductId(productDetail.id);
-          reset(formData);
-
-          // localStorage 정리
-          localStorage.removeItem('editProductData');
-        } catch (error) {
-          console.error('수정 데이터 로드 실패:', error);
-          alert('수정 데이터를 불러올 수 없습니다.');
-          router.push('/');
-        }
-      } else {
-        alert('수정할 상품 정보를 찾을 수 없습니다.');
+      try {
+        const formData = convertProductDetailToFormData(productDetail);
+        reset(formData);
+      } catch (error) {
+        console.error('상품 데이터 로드 실패:', error);
+        alert('상품 정보를 불러올 수 없습니다.');
         router.push('/');
       }
     }
-  }, [isEditMode, reset, router]);
+  }, [isEditMode, productDetail, reset, router]);
+
+  // 에러 처리
+  useEffect(() => {
+    if (isEditMode && productError) {
+      console.error('상품 조회 실패:', productError);
+      alert('상품 정보를 불러올 수 없습니다.');
+      router.back();
+    }
+  }, [isEditMode, productError, router]);
 
   const onSubmit = async (data: FormDataType) => {
     if (isSubmitting) return;
@@ -79,14 +83,14 @@ export default function RegisterForm() {
     try {
       const requestData = convertFormDataToApiRequest(data, data.images);
 
-      if (isEditMode && editProductId) {
+      if (isEditMode && productId) {
         // 수정 모드: PATCH API 사용
         await updateMutation.mutateAsync({
-          productId: editProductId,
+          productId: Number(productId),
           requestData,
         });
         alert('상품이 성공적으로 수정되었습니다!');
-        router.push(`/product/${editProductId}`);
+        router.push(`/product/${productId}`);
       } else {
         // 등록 모드: POST API 사용
         await registerApi.createProductPost(requestData);
@@ -105,12 +109,24 @@ export default function RegisterForm() {
     }
   };
 
+  // 수정 모드 로딩 중일 때
+  if (isEditMode && isLoadingProduct) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <div className="text-lg">상품 정보를 불러오는 중...</div>
+      </div>
+    );
+  }
+
   return (
     <form
       className="flex flex-col gap-[30px] bg-gray-50 p-[16px] first-letter:bg-gray-50"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <RegisterImageForm setValue={setValue} />
+      <RegisterImageForm 
+        setValue={setValue} 
+        initialImages={isEditMode && productDetail ? productDetail.imageUrls : []}
+      />
       <RegisterInput
         type="textarea"
         placeholder="글 제목을 입력해주세요."

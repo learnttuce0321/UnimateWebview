@@ -27,7 +27,6 @@ export const setLocalStorageAndSync = (
  * 이 함수가 호출된 후, localStorage 항목을 삭제
  *
  * @param {string} eventKey - 감지할 localStorage의 키
- * @param {(newValue?: Record<string, any>) => void} onStorageChange - localStorage 변경 시 호출될 콜백 함수
  *        새로운 값(`newValue`)이 파라미터로 전달
  */
 
