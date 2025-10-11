@@ -5,7 +5,7 @@ const Page = () => {
   return (
     <>
       <NavigationBar title="설정" className="bg-white" />
-      <div className="min-h-[calc(100vh-50px)] w-full bg-gray-50 px-[16px] pt-[16px]">
+      <div className="min-h-full_without_navigation w-full bg-gray-50 px-[16px] pt-[16px]">
         <section className="mb-[8px]">
           <MyPageListSection sectionId="PROFILE_SETTING" />
         </section>

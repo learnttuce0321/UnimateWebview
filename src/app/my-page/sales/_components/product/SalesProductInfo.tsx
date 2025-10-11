@@ -2,7 +2,6 @@ import { SalesProduct } from 'types/Product';
 import SalesProductMetadata from './SalesProductMetadata';
 import SalesProductPrice from './SalesProductPrice';
 import SalesProductTitle from './SalesProductTitle';
-import SalesProductTradeStatusTag from './SalesProductTradeStatusTag';
 import SalesProductUserReaction from './SalesProductUserReaction';
 
 interface Props {
@@ -20,6 +19,7 @@ const SalesProductInfo = ({ product }: Props) => {
     likeCount,
     chatRoomCount,
   } = product;
+
   return (
     <div className="flex w-[calc(100%-108px-12px)] flex-col justify-between">
       <div>

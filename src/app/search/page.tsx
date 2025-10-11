@@ -24,7 +24,7 @@ const Page = ({ searchParams }: Props) => {
           setSearchKeyword(enteredKeyword)
         }
       />
-      <div className="min-h-[calc(100vh-50px)] w-full px-[16px] pt-[16px]">
+      <div className="min-h-full_without_navigation w-full px-[16px] pt-[16px]">
         <RecentSearches />
       </div>
     </>

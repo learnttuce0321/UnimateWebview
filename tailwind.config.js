@@ -34,11 +34,8 @@ module.exports = {
         },
         'outline-black-light': 'rgba(0, 0, 0, 0.05)',
       },
-      height: {
-        navigation: '54px',
-      },
       minHeight: {
-        full_without_navigation: 'calc(100vh - 54px)',
+        full_without_navigation: 'calc(100vh - 50px)',
       },
       fontFamily: {
         pretendard: ['Pretendard', 'sans-serif'],

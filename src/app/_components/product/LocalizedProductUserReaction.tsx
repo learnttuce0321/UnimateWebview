@@ -2,7 +2,7 @@ interface Props {
   likeCount: number;
   chatRoomCount: number;
 }
-const ProductUserReaction = ({ likeCount, chatRoomCount }: Props) => {
+const LocalizedProductUserReaction = ({ likeCount, chatRoomCount }: Props) => {
   return (
     <div className="flex w-full justify-end gap-[5px]">
       <span className="flex h-[12px] gap-[3.5px] text-[12px] leading-[12px] text-blue_gray-600">
@@ -27,4 +27,4 @@ const ProductUserReaction = ({ likeCount, chatRoomCount }: Props) => {
   );
 };
 
-export default ProductUserReaction;
+export default LocalizedProductUserReaction;
