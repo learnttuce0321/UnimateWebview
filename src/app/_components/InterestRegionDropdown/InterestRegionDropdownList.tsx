@@ -1,11 +1,11 @@
 'use client';
 
 import InterestRegionItem from 'app/_components/InterestRegionDropdown/InterestRegionItem';
+import { MODAL_OR_BOTTOM_SHEET_CONTENT_Z_INDEX } from 'constants/zIndex';
 import { useMutationChangePrimaryRegion } from 'hooks/users/useMutationChangePrimaryRegion';
 import { useAppStore } from 'providers/ZustandProvider';
 import { selectInterestRegions } from 'stores/selectors';
 import navigationScheme from '../../../utils/navigationScheme';
-import { MODAL_OR_BOTTOM_SHEET_CONTENT_Z_INDEX } from 'constants/zIndex';
 
 interface Props {
   onClose: () => void;
