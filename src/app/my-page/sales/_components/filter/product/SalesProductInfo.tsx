@@ -21,7 +21,7 @@ const SalesProductInfo = ({ product }: Props) => {
     chatRoomCount,
   } = product;
   return (
-    <div className="flex w-[calc(100%-108px)] flex-col justify-between">
+    <div className="flex w-[calc(100%-108px-12px)] flex-col justify-between">
       <div>
         <SalesProductTitle title={title} />
         <SalesProductMetadata
