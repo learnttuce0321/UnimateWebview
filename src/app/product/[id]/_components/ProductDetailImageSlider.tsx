@@ -23,13 +23,14 @@ const ProductDetailImageSlider = ({ images }: Props) => {
   }
 
   return (
-    <div className="relative aspect-square">
+    <div className="relative aspect-square" style={{ zIndex: 1 }}>
       <Swiper
         modules={[Pagination]}
         spaceBetween={0}
         slidesPerView={1}
         onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
         className="h-full w-full"
+        style={{ zIndex: 1, position: 'relative' }}
       >
         {images.map((image, index) => (
           <SwiperSlide key={index}>

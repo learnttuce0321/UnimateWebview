@@ -239,7 +239,7 @@ export default function ProductMoreMenu({
                 className="block h-[30px] w-24 text-left"
                 role="menuitem"
               >
-                {isHidden ? '글 숨김해제' : '글 숨기기'}
+                {isHidden ? '글 공개하기' : '글 숨기기'}
               </button>
 
               <button
