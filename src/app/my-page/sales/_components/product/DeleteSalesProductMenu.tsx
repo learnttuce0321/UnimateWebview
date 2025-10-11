@@ -2,7 +2,6 @@
 
 import { MouseEvent } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
-import ErrorModalContent from 'components/modal/ErrorModalContent';
 import Modal from 'components/modal/Modal';
 import { useModal } from 'components/modal/useModal';
 import { useMutationDeleteProduct } from 'hooks/products/useMutationDeleteProduct';
@@ -10,6 +9,7 @@ import { API_MY_SALES_PRODUCTS } from 'modules/keyFactory/product';
 import { TradeStatus } from 'types/Product';
 import DeleteSalesProductConfirmModalContent from './DeleteSalesProductConfirmModalContent';
 import ReservedErrorModalContent from './ReservedErrorModalContent';
+import { Toast, useToast } from 'components/toast';
 
 interface Props {
   productId: number;
@@ -19,9 +19,10 @@ interface Props {
 const DeleteSalesProductMenu = ({ productId, tradeStatus }: Props) => {
   const { modalState, openModal, closeModal, handleConfirm, handleCancel } =
     useModal();
+  const { toast, showToast, hideToast } = useToast();
 
   const queryClient = useQueryClient();
-  const { mutate } = useMutationDeleteProduct();
+  const { mutateAsync } = useMutationDeleteProduct();
 
   const handleMenuClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
@@ -42,8 +43,8 @@ const DeleteSalesProductMenu = ({ productId, tradeStatus }: Props) => {
     });
   };
 
-  const handleDeleteProduct = () => {
-    mutate(
+  const handleDeleteProduct = async () => {
+    await mutateAsync(
       { productId },
       {
         onSuccess: () => {
@@ -52,13 +53,7 @@ const DeleteSalesProductMenu = ({ productId, tradeStatus }: Props) => {
           });
         },
         onError: (error) => {
-          openModal({
-            children: (
-              <ErrorModalContent
-                errorMessage={error.message || '오류가 발생했습니다.'}
-              />
-            ),
-          });
+          showToast(error.message, 'error');
         },
       }
     );
@@ -80,6 +75,13 @@ const DeleteSalesProductMenu = ({ productId, tradeStatus }: Props) => {
         onConfirm={handleConfirm}
         onCancel={handleCancel}
         onOverlayClick={closeModal}
+      />
+      <Toast
+        message={toast.message}
+        type={toast.type}
+        duration={toast.duration}
+        isVisible={toast.isVisible}
+        onClose={hideToast}
       />
     </>
   );
