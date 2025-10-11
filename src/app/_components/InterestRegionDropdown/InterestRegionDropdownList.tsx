@@ -5,6 +5,7 @@ import { useMutationChangePrimaryRegion } from 'hooks/users/useMutationChangePri
 import { useAppStore } from 'providers/ZustandProvider';
 import { selectInterestRegions } from 'stores/selectors';
 import navigationScheme from '../../../utils/navigationScheme';
+import { MODAL_OR_BOTTOM_SHEET_CONTENT_Z_INDEX } from 'constants/zIndex';
 
 interface Props {
   onClose: () => void;
@@ -39,7 +40,7 @@ const InterestRegionDropdownList = ({ onClose }: Props) => {
   };
 
   return (
-    <div className="absolute z-[11]">
+    <div className={`absolute z-[${MODAL_OR_BOTTOM_SHEET_CONTENT_Z_INDEX}]`}>
       <div className="w-[163px] rounded-[10px] bg-white py-[8px]">
         {userInterestRegions.map((region) => (
           <InterestRegionItem
