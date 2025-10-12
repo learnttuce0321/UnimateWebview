@@ -1,6 +1,6 @@
 import { ProductPost } from 'types/Product';
-import MateSalesProductThumbnail from './MateSalesProductThumbnail';
 import MateSalesProductInfo from './MateSalesProductInfo';
+import MateSalesProductThumbnail from './MateSalesProductThumbnail';
 
 interface Props {
   product: ProductPost;

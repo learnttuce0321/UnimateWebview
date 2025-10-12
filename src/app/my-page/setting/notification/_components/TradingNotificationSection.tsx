@@ -1,10 +1,10 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { API_NOTIFICATION_SETTING } from 'modules/keyFactory/notification';
-import NotificationListError from './NotificationListError';
 import { ApiResponseError } from 'modules/fetch/fetchClient';
+import { API_NOTIFICATION_SETTING } from 'modules/keyFactory/notification';
 import { Notification } from 'types/notification';
+import NotificationListError from './NotificationListError';
 import TradingNotificationList from './TradingNotificationList';
 
 const TradingNotificationSection = () => {
