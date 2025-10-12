@@ -1,7 +1,7 @@
 'use client';
 
 import NavigationBar from 'components/navigation/NavigationBar';
-import MateProfile from './_components/MateProfile';
+import MateProfile from './_components/profile/MateProfile';
 import { useQuery } from '@tanstack/react-query';
 import { API_USER_PROFILE } from 'modules/keyFactory/user';
 import { useParams } from 'next/navigation';
@@ -11,7 +11,8 @@ import { API_USER_SALES_PRODUCTS } from 'modules/keyFactory/product';
 import { ProductPost } from 'types/Product';
 import { useInfiniteQueryWithObserver } from 'hooks/useInfiniteQueryWithObserver';
 import { useRef } from 'react';
-import MateProfileError from './_components/MateProfileError';
+import MateProfileError from './_components/profile/MateProfileError';
+import MateSalesProductList from './_components/product/MateSalesProductList';
 
 interface MateSalesProductPostListsResponse {
   contents: ProductPost[];
@@ -105,6 +106,7 @@ const Page = () => {
         {!isLoading && (
           <>
             <MateProfile mateProfile={mateProfileData} />
+            <MateSalesProductList mateSalesProductList={mateSalesProductList} />
             <div ref={infiniteTarget} />
           </>
         )}
