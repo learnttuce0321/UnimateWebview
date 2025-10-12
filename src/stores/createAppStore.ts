@@ -12,6 +12,11 @@ const DEFAULT_PROFILE: MyProfile = {
   interestRegions: {
     interestRegions: [],
   },
+  reviewStats: {
+    isReviewReflected: false,
+    reviewCount: 0,
+    averageRating: 0.0,
+  },
 };
 
 export interface DeviceInfo {

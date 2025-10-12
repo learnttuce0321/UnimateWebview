@@ -11,6 +11,7 @@ interface DefaultUserInfo {
   nickname: string;
   profileImageUrl: string;
   university: UserUniversity;
+  reviewStats: UserReviewStats;
 }
 export interface MyProfile extends DefaultUserInfo {
   interestRegions: {
@@ -24,6 +25,5 @@ export interface UserReviewStats {
   isReviewReflected: boolean;
 }
 
-export interface MateUser extends DefaultUserInfo {
-  reviewStats: UserReviewStats;
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export interface MateUser extends DefaultUserInfo {}

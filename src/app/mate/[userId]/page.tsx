@@ -1,16 +1,16 @@
 'use client';
 
-import NavigationBar from 'components/navigation/NavigationBar';
-import MateProfile from './_components/MateProfile';
-import { useQuery } from '@tanstack/react-query';
-import { API_USER_PROFILE } from 'modules/keyFactory/user';
-import { useParams } from 'next/navigation';
-import fetchClient, { ApiResponseError } from 'modules/fetch/fetchClient';
-import { MateUser } from 'types/User';
-import { API_USER_SALES_PRODUCTS } from 'modules/keyFactory/product';
-import { ProductPost } from 'types/Product';
-import { useInfiniteQueryWithObserver } from 'hooks/useInfiniteQueryWithObserver';
 import { useRef } from 'react';
+import { useParams } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
+import NavigationBar from 'components/navigation/NavigationBar';
+import { useInfiniteQueryWithObserver } from 'hooks/useInfiniteQueryWithObserver';
+import fetchClient, { ApiResponseError } from 'modules/fetch/fetchClient';
+import { API_USER_SALES_PRODUCTS } from 'modules/keyFactory/product';
+import { API_USER_PROFILE } from 'modules/keyFactory/user';
+import { ProductPost } from 'types/Product';
+import { MateUser } from 'types/User';
+import MateProfile from './_components/MateProfile';
 import MateProfileError from './_components/MateProfileError';
 
 interface MateSalesProductPostListsResponse {

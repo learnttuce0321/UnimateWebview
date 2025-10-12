@@ -1,9 +1,9 @@
-import { Notification } from 'types/notification';
-import NotificationItem from './NotificationItem';
+import { Toast, useToast } from 'components/toast';
 import { useMutationUpdateNotification } from 'hooks/notification/useMutationUpdateNotification';
 import { useUpdateQueryData } from 'hooks/useUpdateQueryData';
 import { API_NOTIFICATION_SETTING } from 'modules/keyFactory/notification';
-import { Toast, useToast } from 'components/toast';
+import { Notification } from 'types/notification';
+import NotificationItem from './NotificationItem';
 
 interface Props {
   notification: Notification;
