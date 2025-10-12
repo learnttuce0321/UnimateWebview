@@ -109,7 +109,7 @@ export default function RegisterForm() {
     }
   };
 
-  // 수정 모드 로딩 중일 때
+  // 수정 모드 로딩 중일 때인데, 실제 디자인 시안으로 변경 예정 (TODO)
   if (isEditMode && isLoadingProduct) {
     return (
       <div className="flex h-screen items-center justify-center">
@@ -123,9 +123,11 @@ export default function RegisterForm() {
       className="flex flex-col gap-[30px] bg-gray-50 p-[16px] first-letter:bg-gray-50"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <RegisterImageForm 
-        setValue={setValue} 
-        initialImages={isEditMode && productDetail ? productDetail.imageUrls : []}
+      <RegisterImageForm
+        setValue={setValue}
+        initialImages={
+          isEditMode && productDetail ? productDetail.imageUrls : []
+        }
       />
       <RegisterInput
         type="textarea"
