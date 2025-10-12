@@ -137,7 +137,6 @@ export default function RegisterForm() {
         required={true}
         label="제목"
       />
-      {/* TODO: useForm의 메소드들을 따로 보내지말고 useFormContext()를 사용해서 보내도록 수정예정 */}
       <RegisterCategorySelector setValue={setValue} watch={watch} />
       <RegisterPriceInfo
         register={register}
