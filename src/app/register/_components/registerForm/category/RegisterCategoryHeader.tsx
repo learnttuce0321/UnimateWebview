@@ -4,7 +4,7 @@ type Props = {
 
 export default function RegisterCategoryHeader({ onClickCategory }: Props) {
   return (
-    <div className="relative flex h-[50px] items-center border border-gray-200 bg-white px-4">
+    <div className="relative flex h-[50px] items-center border border-t-0 border-gray-200 bg-white px-4">
       <img
         src="/images/svg/register/icon-arrow-back.svg"
         alt="닫기 버튼"
