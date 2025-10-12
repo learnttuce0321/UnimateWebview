@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, MouseEvent, useEffect, useRef } from 'react';
+import { MouseEvent } from 'react';
+import { Popup, usePopup } from 'components/popup';
 import { TradeStatus } from 'types/Product';
 import SalesProductMoreMenus from './SalesProductMoreMenus';
 
@@ -11,35 +12,23 @@ interface Props {
 }
 
 const SaleProductMore = ({ productId, isHidden, tradeStatus }: Props) => {
-  const [showPopup, setShowPopup] = useState<boolean>(false);
-  const popupRef = useRef<HTMLDivElement>(null);
+  const { popupState, openPopup, closePopup } = usePopup();
 
   const handleMoreButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    setShowPopup(true);
+
+    openPopup({
+      children: (
+        <SalesProductMoreMenus
+          productId={productId}
+          isHidden={isHidden}
+          tradeStatus={tradeStatus}
+          handlePopupClose={closePopup}
+        />
+      ),
+      position: { right: '12px', top: '32px' },
+    });
   };
-
-  const handlePopupClose = () => {
-    setShowPopup(false);
-  };
-  useEffect(() => {
-    const handleClickOutside = (event: globalThis.MouseEvent) => {
-      if (
-        popupRef.current &&
-        !popupRef.current.contains(event.target as Node)
-      ) {
-        handlePopupClose();
-      }
-    };
-
-    if (showPopup) {
-      document.addEventListener('click', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, [showPopup]);
 
   return (
     <>
@@ -54,16 +43,7 @@ const SaleProductMore = ({ productId, isHidden, tradeStatus }: Props) => {
           alt="더보기"
         />
       </button>
-      {showPopup && (
-        <div ref={popupRef} className="absolute right-[8px] top-[36px] z-40">
-          <SalesProductMoreMenus
-            productId={productId}
-            isHidden={isHidden}
-            tradeStatus={tradeStatus}
-            handlePopupClose={handlePopupClose}
-          />
-        </div>
-      )}
+      <Popup popupState={popupState} onClose={closePopup} />
     </>
   );
 };

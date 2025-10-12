@@ -13,6 +13,7 @@ import { useInfiniteQueryWithObserver } from 'hooks/useInfiniteQueryWithObserver
 import { useRef } from 'react';
 import MateProfileError from './_components/profile/MateProfileError';
 import MateSalesProductList from './_components/product/MateSalesProductList';
+import MateProfileMore from './_components/more/MateProfileMore';
 
 interface MateSalesProductPostListsResponse {
   contents: ProductPost[];
@@ -101,7 +102,11 @@ const Page = () => {
 
   return (
     <>
-      <NavigationBar title="프로필 설정" className="bg-white" />
+      <NavigationBar
+        title="프로필 설정"
+        className="bg-white"
+        renderOptionButtons={<MateProfileMore />}
+      />
       <div className="min-h-full_without_navigation w-full bg-gray-50 px-[16px] pt-[16px]">
         {!isLoading && (
           <>
