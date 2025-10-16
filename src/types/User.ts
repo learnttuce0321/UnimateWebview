@@ -27,3 +27,11 @@ export interface UserReviewStats {
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface MateUser extends DefaultUserInfo {}
+
+export interface BlockedUser {
+  userBlockId: number;
+  userId: number;
+  nickname: string;
+  profileImageUrl: string;
+  isBlocked: boolean;
+}

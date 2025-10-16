@@ -10,6 +10,7 @@ module.exports = {
     extend: {
       colors: {
         tomato_red: 'rgb(255, 26, 0)',
+        light_peach: 'rgb(255, 210, 205)',
         gray: {
           50: 'rgb(250, 250, 250)',
           500: 'rgb(158, 158, 158)',
