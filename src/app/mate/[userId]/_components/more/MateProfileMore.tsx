@@ -1,13 +1,13 @@
 import { MouseEvent } from 'react';
-import { Popup, usePopup } from 'components/popup';
-import MateProfileMoreMenus from './MateProfileMoreMenus';
+import { useParams } from 'next/navigation';
 import Modal from 'components/modal/Modal';
-import { Toast, useToast } from 'components/toast';
 import { useModal } from 'components/modal/useModal';
+import { Popup, usePopup } from 'components/popup';
+import { Toast, useToast } from 'components/toast';
 import { useMutationBlockMate } from 'hooks/users/useMutationBlockMate';
 import BlockMateConfirmModalContent from './BlockMateConfirmModalContent';
-import { useParams } from 'next/navigation';
 import BlockMateSuccessModalContent from './BlockMateSuccessModalContent';
+import MateProfileMoreMenus from './MateProfileMoreMenus';
 
 const MateProfileMore = () => {
   const params = useParams();

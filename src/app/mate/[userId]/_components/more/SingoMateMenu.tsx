@@ -7,7 +7,7 @@ const SingoMateMenu = ({ handleSingoMateClick }: Props) => {
     <>
       <p className="flex h-[30px] w-full items-center px-[16px] text-blue_gray-600">
         <button
-          className="w-full h-full text-left"
+          className="h-full w-full text-left"
           onClick={handleSingoMateClick}
         >
           신고하기

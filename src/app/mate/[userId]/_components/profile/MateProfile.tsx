@@ -1,9 +1,9 @@
 'use client';
 
 import { MateUser } from 'types/User';
-import MateProfileImage from './MateProfileImage';
-import MateNickname from './MateNickname';
 import MateMetaData from './MateMetaData';
+import MateNickname from './MateNickname';
+import MateProfileImage from './MateProfileImage';
 
 interface Props {
   mateProfile: MateUser;
