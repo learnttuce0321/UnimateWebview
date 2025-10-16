@@ -32,3 +32,10 @@ export const API_USER_PRIMARY_REGION = (regionId: string) =>
  */
 export const API_USER_DELETE_REGION = (regionId: string) =>
   `/api/v1/users/regions/${regionId}`;
+
+/**
+ * @POST 유저 차단 API
+ * @DELETE 유저 차단 해제 API
+ */
+export const API_USER_BLOCK = (userId: string) =>
+  `/api/v1/user-blocks/${userId}`;
