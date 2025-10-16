@@ -13,7 +13,7 @@ export const useMutationUpdateNotification = () => {
       priceChangedNotificationEnabled,
       saleEndedNotificationEnabled,
     }) =>
-      fetchClient.PUT({
+      fetchClient.PATCH({
         url: API_NOTIFICATION_SETTING,
         body: {
           priceChangedNotificationEnabled,

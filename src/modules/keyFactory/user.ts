@@ -45,8 +45,13 @@ export const API_USER_DELETE_REGION = (regionId: string) =>
   `/api/v1/users/regions/${regionId}`;
 
 /**
+ * @GET 차단한 유저 목록 조회 API
+ */
+export const API_BLOCKED_USERS = '/api/v1/user-blocks';
+
+/**
  * @POST 유저 차단 API
  * @DELETE 유저 차단 해제 API
  */
-export const API_USER_BLOCK = (userId: string) =>
+export const API_BLOCK_USER = (userId: number) =>
   `/api/v1/user-blocks/${userId}`;
