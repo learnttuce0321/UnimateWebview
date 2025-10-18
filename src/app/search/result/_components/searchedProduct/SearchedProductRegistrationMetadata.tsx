@@ -5,7 +5,10 @@ interface Props {
   universityName: string | null;
 }
 
-const LocalizedProductMetadata = ({ createdAt, universityName }: Props) => {
+const SearchedProductRegistrationMetadata = ({
+  createdAt,
+  universityName,
+}: Props) => {
   return (
     <p className="flex h-[12px] text-[12px] leading-[12px] text-blue_gray-600">
       <span className="mr-[5px]">{formatTimeAgo(createdAt)}</span>
@@ -13,7 +16,7 @@ const LocalizedProductMetadata = ({ createdAt, universityName }: Props) => {
         <>
           <span className="mr-[5px]"> · </span>
           <img
-            src="/images/svg/home/badge-verified.svg"
+            src="/images/svg/search/badge-verified.svg"
             alt="대학 인증 뱃지"
             width="12"
             height="12px"
@@ -25,4 +28,4 @@ const LocalizedProductMetadata = ({ createdAt, universityName }: Props) => {
   );
 };
 
-export default LocalizedProductMetadata;
+export default SearchedProductRegistrationMetadata;

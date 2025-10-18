@@ -1,11 +1,20 @@
+import PriceCurrency from 'components/price/PriceCurrency';
+import { CurrencyType, TradeStatus } from 'types/Product';
+import { formatNumber } from 'utils/formatNumber';
+import SearchedProductTradeStatusTag from './searchedProductTradeStatusTag';
+
 interface Props {
   price: number;
+  currencyType: CurrencyType;
+  tradeStatus: TradeStatus;
 }
 
-const SearchedProductPrice = ({ price }: Props) => {
+const SearchedProductPrice = ({ price, currencyType, tradeStatus }: Props) => {
   return (
     <p className="height-[18px] text-[18px] font-bold leading-[18px]">
-      15,000원
+      <SearchedProductTradeStatusTag tradeStatus={tradeStatus} />
+      <span>{formatNumber(price)}</span>
+      <PriceCurrency currencyType={currencyType} />
     </p>
   );
 };

@@ -17,6 +17,12 @@ export const API_PRODUCT = '/api/v1/product-posts';
 export const API_PRODUCTS_SEARCH = '/api/v1/product-posts/search';
 
 /**
+ * @GET 상품 게시글 대학 필터 API
+ */
+export const API_PRODUCT_FILTERING_UNIVERSITY_SEARCH =
+  '/api/v1/product-posts/universities/search';
+
+/**
  * @POST 상품 이미지 업로드를 위한 Presigned URL 발급 API
  */
 export const API_PRODUCT_POSTS_PRESIGNED_URL =
