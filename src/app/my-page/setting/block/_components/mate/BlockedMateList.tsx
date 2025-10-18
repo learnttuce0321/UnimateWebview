@@ -5,8 +5,8 @@ import { useInfiniteQueryWithObserver } from 'hooks/useInfiniteQueryWithObserver
 import fetchClient, { ApiResponseError } from 'modules/fetch/fetchClient';
 import { API_BLOCKED_USERS } from 'modules/keyFactory/user';
 import { BlockedUser } from 'types/User';
-import BlockedMateListError from './BlockedMateListError';
 import BlockedMate from './BlockedMate';
+import BlockedMateListError from './BlockedMateListError';
 
 interface BlockedUsersResponse {
   contents: BlockedUser[];

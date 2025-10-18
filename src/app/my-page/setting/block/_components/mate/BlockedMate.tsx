@@ -9,7 +9,7 @@ interface Props {
 const BlockedMate = ({ blockedUser }: Props) => {
   const { profileImageUrl, nickname, isBlocked } = blockedUser;
   return (
-    <li className="flex justify-between w-full">
+    <li className="flex w-full justify-between">
       <div className="flex gap-[16px]">
         <BlockedMateProfileImage
           nickname={nickname}

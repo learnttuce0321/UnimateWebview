@@ -53,5 +53,5 @@ export const API_BLOCKED_USERS = '/api/v1/user-blocks';
  * @POST 유저 차단 API
  * @DELETE 유저 차단 해제 API
  */
-export const API_BLOCK_USER = (userId: number) =>
+export const API_BLOCK_USER = (userId: number | string) =>
   `/api/v1/user-blocks/${userId}`;
