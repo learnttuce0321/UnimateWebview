@@ -1,4 +1,4 @@
-export interface Notification {
+export interface NotificationSetting {
   priceChangedNotificationEnabled: boolean;
   saleEndedNotificationEnabled: boolean;
 }

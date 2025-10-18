@@ -1,12 +1,12 @@
-import { Notification } from 'types/notification';
+import { NotificationSetting } from 'types/notification';
 import NotificationSwitch from './NotificationSwitch';
 
 interface Props {
-  notificationKey: keyof Notification;
+  notificationKey: keyof NotificationSetting;
   notificationName: string;
   value: boolean;
   handleChangeNotificationState: (
-    key: keyof Notification,
+    key: keyof NotificationSetting,
     value: boolean
   ) => void;
 }

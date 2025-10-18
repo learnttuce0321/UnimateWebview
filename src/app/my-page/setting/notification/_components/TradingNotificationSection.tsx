@@ -3,7 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { ApiResponseError } from 'modules/fetch/fetchClient';
 import { API_NOTIFICATION_SETTING } from 'modules/keyFactory/notification';
-import { Notification } from 'types/notification';
+import { NotificationSetting } from 'types/notification';
 import NotificationListError from './NotificationListError';
 import TradingNotificationList from './TradingNotificationList';
 
@@ -13,7 +13,7 @@ const TradingNotificationSection = () => {
     isLoading,
     isError,
     error,
-  } = useQuery<Notification, ApiResponseError>({
+  } = useQuery<NotificationSetting, ApiResponseError>({
     queryKey: [API_NOTIFICATION_SETTING],
   });
 
