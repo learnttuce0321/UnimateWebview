@@ -5,7 +5,7 @@ interface Props {
 const SearchedProductTitle = ({ title }: Props) => {
   return (
     <h2 className="h-[19px] text-[16px] font-medium leading-[19.2px]">
-      Rice Cooker for Sale
+      {title}
     </h2>
   );
 };

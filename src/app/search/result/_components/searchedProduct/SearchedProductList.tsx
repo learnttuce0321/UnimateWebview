@@ -19,6 +19,7 @@ interface SearchedProductPostsResponse {
 interface Props {
   currentFilteringUniversity: FilteringUniversity | null;
 }
+
 const SearchResultList = ({ currentFilteringUniversity }: Props) => {
   const searchParams = useSearchParams();
   const primaryRegion = useAppStore(selectPrimaryRegion);
@@ -35,7 +36,7 @@ const SearchResultList = ({ currentFilteringUniversity }: Props) => {
   const infiniteTarget = useRef<HTMLDivElement>(null);
 
   const {
-    data: searchedProduct,
+    data: searchedProductPosts,
     isLoading,
     isError,
   } = useInfiniteQueryWithObserver<SearchedProductPostsResponse>(
@@ -88,7 +89,7 @@ const SearchResultList = ({ currentFilteringUniversity }: Props) => {
     }
   );
 
-  const searchedProductPostsList = searchedProduct?.pages.flatMap(
+  const searchedProductPostsList = searchedProductPosts?.pages.flatMap(
     (page) => page.contents
   );
 
@@ -103,9 +104,9 @@ const SearchResultList = ({ currentFilteringUniversity }: Props) => {
 
   return (
     <ul className="h-[calc(100vh-100px)] w-full overflow-y-auto overflow-x-hidden bg-gray-50 p-[16px]">
-      <SearchedProduct product={{}} />
-      <SearchedProduct product={{}} />
-      <SearchedProduct product={{}} />
+      {searchedProductPostsList.map((product) => {
+        return <SearchedProduct key={product.id} product={product} />;
+      })}
     </ul>
   );
 };
