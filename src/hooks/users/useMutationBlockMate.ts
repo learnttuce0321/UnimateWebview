@@ -3,7 +3,7 @@ import fetchClient, { ApiResponseError } from 'modules/fetch/fetchClient';
 import { API_BLOCK_USER } from 'modules/keyFactory/user';
 
 interface BlockMateParams {
-  userId: number;
+  userId: number | string;
 }
 
 export const useMutationBlockMate = () => {
