@@ -22,15 +22,11 @@ export const getInitialCommonData: () => Promise<InitialData> = async () => {
   const cookieStore = cookies();
 
   const authHeader =
-    header.get('Authorization') ??
-    processEnvLocalAccessToken ??
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInByb3ZpZGVyIjoiS0FLQU8iLCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzYwMjQ5MDA1LCJleHAiOjE3NjI4NDEwMDV9.lZdKUV76vNSAfif0AmBGsZ3742vf0mzcl-o9HmJWLwI';
+    header.get('Authorization') ?? processEnvLocalAccessToken ?? '';
   const accessToken = authHeader?.startsWith('Bearer ')
     ? authHeader.substring(7)
     : authHeader;
 
-  // const accessToken =
-  //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInByb3ZpZGVyIjoiS0FLQU8iLCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzYwMjQ5MDA1LCJleHAiOjE3NjI4NDEwMDV9.lZdKUV76vNSAfif0AmBGsZ3742vf0mzcl-o9HmJWLwI';
   const isWebview = header.get('IsWebview') === 'true';
 
   // 쿠키에서 device_info 가져오기
