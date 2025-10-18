@@ -1,13 +1,17 @@
 import { BlockedUser } from 'types/User';
 import BlockedMateProfileImage from './BlockedMateProfileImage';
 import BlockMateButton from './BlockMateButton';
+import { ErrorModalData } from 'components/modal/useModal';
+import { ToastType } from 'components/toast';
 
 interface Props {
   blockedUser: BlockedUser;
+  openModal: (data: ErrorModalData) => void;
+  showToast: (message: string, type?: ToastType, duration?: number) => void;
 }
 
-const BlockedMate = ({ blockedUser }: Props) => {
-  const { profileImageUrl, nickname, isBlocked } = blockedUser;
+const BlockedMate = ({ blockedUser, openModal, showToast }: Props) => {
+  const { userId, profileImageUrl, nickname, isBlocked } = blockedUser;
   return (
     <li className="flex w-full justify-between">
       <div className="flex gap-[16px]">
@@ -19,7 +23,12 @@ const BlockedMate = ({ blockedUser }: Props) => {
           {nickname}
         </span>
       </div>
-      <BlockMateButton isBlocked={isBlocked} />
+      <BlockMateButton
+        isBlocked={isBlocked}
+        userId={userId}
+        openModal={openModal}
+        showToast={showToast}
+      />
     </li>
   );
 };
