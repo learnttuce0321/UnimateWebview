@@ -6,6 +6,6 @@
 
 /**
  * @GET 알림 설정 조회 API
- * @PATCH 알림 설정 업데이트 API
+ * @PUT 알림 설정 업데이트 API
  */
 export const API_NOTIFICATION_SETTING = '/api/v1/Notifications/settings';
