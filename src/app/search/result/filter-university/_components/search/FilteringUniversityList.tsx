@@ -3,7 +3,7 @@
 import { useRef } from 'react';
 import { useInfiniteQueryWithObserver } from 'hooks/useInfiniteQueryWithObserver';
 import fetchClient from 'modules/fetch/fetchClient';
-import { API_UNIVERSITY_SEARCH } from 'modules/keyFactory/university';
+import { API_PRODUCT_FILTERING_UNIVERSITY_SEARCH } from 'modules/keyFactory/product';
 import { normalizeString } from 'modules/normalize';
 import { University } from 'types/University';
 import SearchedUniversity from './SearchedUniversity';
@@ -33,15 +33,18 @@ const FilteringUniversityList = ({
   } = useInfiniteQueryWithObserver<SearchUniversityResponse>(
     infiniteTarget,
     {
-      queryKey: [API_UNIVERSITY_SEARCH, normalizeString(inputValue)],
+      queryKey: [
+        API_PRODUCT_FILTERING_UNIVERSITY_SEARCH,
+        normalizeString(inputValue),
+      ],
       initialPageParam: 1,
       queryFn: async ({ pageParam }) => {
         try {
           const res = await fetchClient.GET<SearchUniversityResponse>({
-            url: API_UNIVERSITY_SEARCH,
+            url: API_PRODUCT_FILTERING_UNIVERSITY_SEARCH,
             params: {
               pageNumber: pageParam,
-              name: normalizeString(inputValue),
+              searchKeyword: normalizeString(inputValue),
             },
           });
 
@@ -57,7 +60,6 @@ const FilteringUniversityList = ({
         }
         return null;
       },
-      // enabled: !!normalizeString(inputValue),
     },
     {
       rootMargin: '0px 0px 50% 0px',

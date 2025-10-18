@@ -5,11 +5,6 @@
  */
 
 /**
- * @GET 관심지역 리스트 조회 API
- */
-export const API_UNIVERSITY_SEARCH = '/api/v1/universities/search';
-
-/**
  * @POST 대학교 이메일 인증 코드 발송 API
  */
 export const API_UNIVERSITY_EMAIL_CODE =
