@@ -4,7 +4,7 @@ import { Region } from '../../../types/Region';
 
 interface Props {
   region: Region;
-  onClick: (cityId: string) => void;
+  onClick: (cityId: number) => void;
 }
 
 const InterestRegionItem = ({

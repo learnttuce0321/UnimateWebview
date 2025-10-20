@@ -34,14 +34,14 @@ export const API_USER_PROFILE = (userId: string) => `/api/v1/users/${userId}`;
 /**
  * @PATCH 기본 관심지역 설정 API
  */
-export const API_USER_PRIMARY_REGION = (regionId: string) =>
+export const API_USER_PRIMARY_REGION = (regionId: number) =>
   `/api/v1/users/regions/${regionId}/primary`;
 
 /**
  *
  * @DELETE 관심지역 삭제 API
  */
-export const API_USER_DELETE_REGION = (regionId: string) =>
+export const API_USER_DELETE_REGION = (regionId: number) =>
   `/api/v1/users/regions/${regionId}`;
 
 /**

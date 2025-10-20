@@ -3,7 +3,7 @@ import fetchClient from 'modules/fetch/fetchClient';
 import { API_USER_PRIMARY_REGION } from 'modules/keyFactory/user';
 
 interface ChangeInterestRegionParams {
-  regionId: string;
+  regionId: number;
 }
 
 const requestChangeInterestRegion = ({

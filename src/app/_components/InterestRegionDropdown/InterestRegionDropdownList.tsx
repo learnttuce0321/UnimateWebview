@@ -18,7 +18,7 @@ const InterestRegionDropdownList = ({ onClose }: Props) => {
   const userInterestRegions = useAppStore(selectInterestRegions);
   const changePrimaryRegion = useAppStore((state) => state.changePrimaryRegion);
 
-  const handleCityClick = (selectedCityId: string, regionPrimary: boolean) => {
+  const handleCityClick = (selectedCityId: number, regionPrimary: boolean) => {
     if (regionPrimary) {
       return onClose();
     }
