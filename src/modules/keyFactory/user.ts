@@ -55,3 +55,8 @@ export const API_BLOCKED_USERS = '/api/v1/user-blocks';
  */
 export const API_BLOCK_USER = (userId: number | string) =>
   `/api/v1/user-blocks/${userId}`;
+
+/**
+ * @DELETE 회원 탈퇴 API
+ */
+export const API_USER_WITHDRAWAL = '/api/v1/users/me';

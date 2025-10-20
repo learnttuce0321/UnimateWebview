@@ -3,16 +3,20 @@
 import React from 'react';
 import Modal from 'components/modal/Modal';
 import { useModal } from 'components/modal/useModal';
+import { useMutationWithdrawUser } from 'hooks/users/useMutationWithdrawUser';
+import navigationScheme from 'utils/navigationScheme';
 import WithdrawalHeader from './_components/WithdrawalHeader';
 
 const WithdrawalPage = () => {
   const { modalState, openModal, closeModal, handleConfirm, handleCancel } =
     useModal();
+  const { mutate: mutateWithdrawUser } = useMutationWithdrawUser();
+  const { closeWeb } = navigationScheme();
 
   const handleWithdrawalConfirm = () => {
     openModal({
       children: (
-        <div className="flex w-full flex-col items-start gap-2">
+        <div className="flex flex-col items-start w-full gap-2">
           <p className="text-[16px] font-bold leading-[22.4px] text-[#212121]">
             정말로 탈퇴하시겠어요?
           </p>
@@ -24,8 +28,21 @@ const WithdrawalPage = () => {
       confirmText: '확인',
       cancelText: '취소',
       onConfirm: () => {
-        // TODO: 탈퇴 API 호출
-        console.log('회원 탈퇴 진행');
+        handleWithdrawal();
+      },
+    });
+  };
+
+  const handleWithdrawal = () => {
+    mutateWithdrawUser(undefined, {
+      onSuccess: () => {
+        // 탈퇴 성공 시 웹뷰 닫기
+        closeWeb();
+      },
+      onError: (error) => {
+        console.error('회원 탈퇴 실패:', error);
+        // 에러 처리
+        alert('회원 탈퇴 중 오류가 발생했습니다. 다시 시도해주세요.');
       },
     });
   };
@@ -35,7 +52,7 @@ const WithdrawalPage = () => {
       <div className="min-h-screen bg-[#fafafa]">
         <WithdrawalHeader />
 
-        <div className="mx-2 my-4 flex flex-col justify-center bg-white">
+        <div className="flex flex-col justify-center mx-2 my-4 bg-white">
           {/* 안내 문구 */}
           <div>
             <h2 className="mb-6 px-2 text-[18px] font-bold text-[#212121]">
@@ -57,7 +74,7 @@ const WithdrawalPage = () => {
         </div>
 
         {/* 하단 고정 버튼 */}
-        <div className="fixed bottom-0 left-0 right-0 bg-white p-4">
+        <div className="fixed bottom-0 left-0 right-0 p-4 bg-white">
           <button
             onClick={handleWithdrawalConfirm}
             className="h-[50px] w-full rounded-[10px] bg-[#3c8dff] text-[16px] font-semibold text-white"
