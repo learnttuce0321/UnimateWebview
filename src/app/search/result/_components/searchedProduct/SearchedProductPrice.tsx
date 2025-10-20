@@ -1,7 +1,7 @@
 import PriceCurrency from 'components/price/PriceCurrency';
 import { CurrencyType, TradeStatus } from 'types/Product';
 import { formatNumber } from 'utils/formatNumber';
-import SearchedProductTradeStatusTag from './searchedProductTradeStatusTag';
+import SearchedProductTradeStatusTag from './SearchedProductTradeStatusTag';
 
 interface Props {
   price: number;
