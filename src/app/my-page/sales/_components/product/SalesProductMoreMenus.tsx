@@ -1,5 +1,6 @@
 import { TradeStatus } from 'types/Product';
 import DeleteSalesProductMenu from './DeleteSalesProductMenu';
+import EditSalesProductMenu from './EditSalesProductMenu';
 import HideSalesProductMenu from './HideSalesProductMenu';
 
 interface Props {
@@ -23,9 +24,7 @@ const SalesProductMoreMenus = ({
         tradeStatus={tradeStatus}
         handlePopupClose={handlePopupClose}
       />
-      <p className="flex h-[30px] w-full items-center px-[16px] text-blue_gray-600">
-        수정하기
-      </p>
+      <EditSalesProductMenu productId={productId} />
       <DeleteSalesProductMenu
         productId={productId}
         tradeStatus={tradeStatus}

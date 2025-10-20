@@ -1,41 +1,42 @@
 import SearchedProductPrice from 'app/search/result/_components/searchedProduct/SearchedProductPrice';
-import SearchedProductRegistrationMeta from 'app/search/result/_components/searchedProduct/SearchedProductRegistrationMeta';
+import SearchedProductRegistrationMeta from 'app/search/result/_components/searchedProduct/SearchedProductRegistrationMetadata';
 import SearchedProductTitle from 'app/search/result/_components/searchedProduct/SearchedProductTitle';
 import SearchedProductUserReaction from 'app/search/result/_components/searchedProduct/SearchedProductUserReaction';
+import { ProductPost } from 'types/Product';
 
 interface Props {
-  title: string;
-  createdAt: string;
-  price: number;
-  isVerified: boolean;
-  university: string;
-  likeCount: number;
-  chatCount: number;
+  product: ProductPost;
 }
 
-const SearchedProductInfo = ({
-  title,
-  createdAt,
-  price,
-  isVerified,
-  university,
-  likeCount,
-  chatCount,
-}: Props) => {
+const SearchedProductInfo = ({ product }: Props) => {
+  const {
+    title,
+    price,
+    universityName,
+    currencyType,
+    tradeStatus,
+    likeCount,
+    chatRoomCount,
+    createdAt,
+  } = product;
+
   return (
     <div className="flex w-[calc(100%-108px)] flex-col justify-between">
       <div className="flex w-full flex-col justify-start gap-[6px]">
         <SearchedProductTitle title={title} />
         <SearchedProductRegistrationMeta
           createdAt={createdAt}
-          isVerified={isVerified}
-          university={university}
+          universityName={universityName}
         />
-        <SearchedProductPrice price={price} />
+        <SearchedProductPrice
+          price={price}
+          currencyType={currencyType}
+          tradeStatus={tradeStatus}
+        />
       </div>
       <SearchedProductUserReaction
         likeCount={likeCount}
-        chatCount={chatCount}
+        chatRoomCount={chatRoomCount}
       />
     </div>
   );
