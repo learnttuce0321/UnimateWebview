@@ -1,11 +1,11 @@
 import { ErrorModalData } from 'components/modal/useModal';
+import { ToastType } from 'components/toast';
 import { useMutationBlockMate } from 'hooks/users/useMutationBlockMate';
 import { useMutationUnblockMate } from 'hooks/users/useMutationUnblockMate';
-import UnblockMateConfirmModalContent from './UnblockMateConfirmModalContent';
-import BlockMateConfirmModalContent from './BlockMateconfirmModalContent';
-import { ToastType } from 'components/toast';
+import BlockMateConfirmModalContent from './BlockMateConfirmModalContent';
 import SuccessBlockMateModalContent from './SuccessBlockMateModalContent';
 import SuccessUnblockMateModalContent from './SuccessUnblockMateModalContent';
+import UnblockMateConfirmModalContent from './UnblockMateConfirmModalContent';
 
 interface Props {
   isBlocked: boolean;
