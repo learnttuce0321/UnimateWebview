@@ -2,7 +2,7 @@
  * @description 유저가 선택한 지역정보 타입
  */
 export interface Region {
-  regionId: string;
+  regionId: number;
   regionName: string;
   isPrimary: boolean;
 }
@@ -11,7 +11,7 @@ export interface Region {
  * @description 관심도시 검색 시, 나오는 지역 정보
  */
 export interface SearchedRegion {
-  id: string;
+  id: number;
   name: string;
   countryCode: string;
   admin1Code: string;

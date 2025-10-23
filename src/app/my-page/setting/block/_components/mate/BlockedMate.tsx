@@ -1,8 +1,8 @@
+import { ErrorModalData } from 'components/modal/useModal';
+import { ToastType } from 'components/toast';
 import { BlockedUser } from 'types/User';
 import BlockedMateProfileImage from './BlockedMateProfileImage';
 import BlockMateButton from './BlockMateButton';
-import { ErrorModalData } from 'components/modal/useModal';
-import { ToastType } from 'components/toast';
 
 interface Props {
   blockedUser: BlockedUser;

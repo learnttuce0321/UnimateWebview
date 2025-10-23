@@ -3,7 +3,7 @@ import fetchClient, { ApiResponseError } from 'modules/fetch/fetchClient';
 import { API_USER_DELETE_REGION } from 'modules/keyFactory/user';
 
 interface DeleteInterestRegionParams {
-  regionId: string;
+  regionId: number;
 }
 
 export const useMutationDeleteInterestRegion = () => {

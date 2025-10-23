@@ -34,14 +34,14 @@ export const API_USER_PROFILE = (userId: string) => `/api/v1/users/${userId}`;
 /**
  * @PATCH 기본 관심지역 설정 API
  */
-export const API_USER_PRIMARY_REGION = (regionId: string) =>
+export const API_USER_PRIMARY_REGION = (regionId: number) =>
   `/api/v1/users/regions/${regionId}/primary`;
 
 /**
  *
  * @DELETE 관심지역 삭제 API
  */
-export const API_USER_DELETE_REGION = (regionId: string) =>
+export const API_USER_DELETE_REGION = (regionId: number) =>
   `/api/v1/users/regions/${regionId}`;
 
 /**
@@ -55,3 +55,8 @@ export const API_BLOCKED_USERS = '/api/v1/user-blocks';
  */
 export const API_BLOCK_USER = (userId: number | string) =>
   `/api/v1/user-blocks/${userId}`;
+
+/**
+ * @DELETE 회원 탈퇴 API
+ */
+export const API_USER_WITHDRAWAL = '/api/v1/users/me';

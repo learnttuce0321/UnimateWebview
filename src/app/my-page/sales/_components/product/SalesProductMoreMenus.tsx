@@ -1,7 +1,7 @@
 import { TradeStatus } from 'types/Product';
 import DeleteSalesProductMenu from './DeleteSalesProductMenu';
-import HideSalesProductMenu from './HideSalesProductMenu';
 import EditSalesProductMenu from './EditSalesProductMenu';
+import HideSalesProductMenu from './HideSalesProductMenu';
 
 interface Props {
   productId: number;
