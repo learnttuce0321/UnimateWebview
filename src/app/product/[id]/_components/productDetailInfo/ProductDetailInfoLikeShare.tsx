@@ -25,7 +25,7 @@ const ProductDetailInfoLikeShare = ({
               : '/images/svg/product/icon-toggle-favorite.svg'
           }
           alt="찜하기"
-          className="w-6 h-6"
+          className="h-6 w-6"
         />
         <span className="text-[14px] font-normal leading-[14px] text-[#464b52]">
           찜하기
@@ -37,13 +37,13 @@ const ProductDetailInfoLikeShare = ({
 
       {/* 공유하기 버튼 */}
       <button
-        className="flex items-center justify-center flex-1 gap-2 py-3 hover:bg-gray-50"
+        className="flex flex-1 items-center justify-center gap-2 py-3 hover:bg-gray-50"
         onClick={onShare}
       >
         <img
           src="/images/svg/product/shareIcon.svg"
           alt="공유하기"
-          className="w-6 h-6"
+          className="h-6 w-6"
         />
         <span className="text-[14px] font-normal leading-[14px] text-[#464b52]">
           공유하기

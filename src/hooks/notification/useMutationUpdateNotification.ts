@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import fetchClient, { ApiResponseError } from 'modules/fetch/fetchClient';
 import { API_NOTIFICATION_SETTING } from 'modules/keyFactory/notification';
+import { NotificationSetting } from 'types/notification';
 
 interface UpdateNotificationParams {
   priceChangedNotificationEnabled: boolean;
@@ -8,7 +9,11 @@ interface UpdateNotificationParams {
 }
 
 export const useMutationUpdateNotification = () => {
-  return useMutation<Notification, ApiResponseError, UpdateNotificationParams>({
+  return useMutation<
+    NotificationSetting,
+    ApiResponseError,
+    UpdateNotificationParams
+  >({
     mutationFn: ({
       priceChangedNotificationEnabled,
       saleEndedNotificationEnabled,

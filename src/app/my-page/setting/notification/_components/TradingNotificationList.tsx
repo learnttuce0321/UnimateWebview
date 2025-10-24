@@ -2,14 +2,14 @@ import { Toast, useToast } from 'components/toast';
 import { useMutationUpdateNotification } from 'hooks/notification/useMutationUpdateNotification';
 import { useUpdateQueryData } from 'hooks/useUpdateQueryData';
 import { API_NOTIFICATION_SETTING } from 'modules/keyFactory/notification';
-import { Notification } from 'types/notification';
+import { NotificationSetting } from 'types/notification';
 import NotificationItem from './NotificationItem';
 
 interface Props {
-  notification: Notification;
+  notification: NotificationSetting;
 }
 
-const NameByNotification: Record<keyof Notification, string> = {
+const NameByNotification: Record<keyof NotificationSetting, string> = {
   priceChangedNotificationEnabled: '가격 변동 알림',
   saleEndedNotificationEnabled: '판매 종료 알림',
 };
@@ -21,7 +21,7 @@ const TradingNotificationList = ({ notification }: Props) => {
   const { mutate } = useMutationUpdateNotification();
 
   const handleChangeNotificationState = (
-    key: keyof Notification,
+    key: keyof NotificationSetting,
     value: boolean
   ) => {
     mutate(
@@ -46,8 +46,10 @@ const TradingNotificationList = ({ notification }: Props) => {
           return (
             <NotificationItem
               key={key}
-              notificationKey={key as keyof Notification}
-              notificationName={NameByNotification[key as keyof Notification]}
+              notificationKey={key as keyof NotificationSetting}
+              notificationName={
+                NameByNotification[key as keyof NotificationSetting]
+              }
               value={value}
               handleChangeNotificationState={handleChangeNotificationState}
             />

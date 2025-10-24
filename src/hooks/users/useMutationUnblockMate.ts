@@ -7,7 +7,7 @@ interface BlockMateParams {
 }
 
 export const useMutationUnblockMate = () => {
-  return useMutation<Notification, ApiResponseError, BlockMateParams>({
+  return useMutation<void, ApiResponseError, BlockMateParams>({
     mutationFn: ({ userId }) =>
       fetchClient.DELETE({
         url: API_BLOCK_USER(userId),
