@@ -7,12 +7,13 @@ import { useQueryProductDetail } from 'hooks/products/useQueryProductDetail';
 import navigationScheme from 'utils/navigationScheme';
 import ProductBottomActions from './_components/ProductBottomActions';
 import ProductDescriptionSection from './_components/ProductDescriptionSection';
-import ProductDetailHeader from './_components/ProductDetailHeader';
 import ProductDetailImageSlider from './_components/ProductDetailImageSlider';
 import ProductDetailInfo from './_components/productDetailInfo/ProductDetailInfo';
 import ProductSellerSection from './_components/ProductSellerSection';
 import ProductStatusBottomSheet from './_components/ProductStatusBottomSheet';
 import ReportModalContent from './_components/ReportModalContent';
+import NavigationBar from 'components/navigation/NavigationBar';
+import ProductMoreMenu from './_components/ProductMoreMenu';
 
 export type TradeStatus = 'FOR_SALE' | 'RESERVED' | 'SOLD_OUT';
 
@@ -47,7 +48,7 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
 
   if (isLoading) {
     return (
-      <div className="flex h-screen items-center justify-center">
+      <div className="flex items-center justify-center h-screen">
         <div className="text-lg">로딩 중...</div>
       </div>
     );
@@ -55,7 +56,7 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
 
   if (error || !productDetail) {
     return (
-      <div className="flex h-screen items-center justify-center">
+      <div className="flex items-center justify-center h-screen">
         <div className="text-lg text-red-500">
           상품 정보를 불러올 수 없습니다.
         </div>
@@ -88,15 +89,21 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
     <>
       <div className="min-h-screen bg-white pb-[84px]">
         {/* 헤더 뒤로가기 및 더보기 버튼 */}
-        <ProductDetailHeader
-          productId={productDetail.id}
-          isSeller={isSeller}
-          tradeStatus={tradeStatus}
-          isHidden={productDetail.isHidden}
-          onEdit={() => {
-            // 수정 모드로 등록 페이지 이동
-            openWeb(`/register?productId=${productDetail.id}`);
-          }}
+        <NavigationBar
+          title={''}
+          renderOptionButtons={
+            isSeller ? (
+              <ProductMoreMenu
+                productId={productDetail.id}
+                tradeStatus={tradeStatus}
+                isHidden={productDetail.isHidden}
+                onEdit={() => {
+                  // 수정 모드로 등록 페이지 이동
+                  openWeb(`/register?productId=${productDetail.id}`);
+                }}
+              />
+            ) : null
+          }
         />
 
         {/* 상품 이미지 스와이프 */}
