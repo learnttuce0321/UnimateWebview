@@ -5,7 +5,18 @@
  */
 
 /**
+ * @GET 알림 목록 조회 API
+ * @DELETE 알림 삭제 API
+ */
+export const API_NOTIFICATIONS = '/api/v1/notifications';
+
+/**
+ * @DELETE 알림 전체 삭제 API
+ */
+export const API_DELETE_ALL_NOTIFICATIONS = '/api/v1/notifications/all';
+
+/**
  * @GET 알림 설정 조회 API
  * @PATCH 알림 설정 업데이트 API
  */
-export const API_NOTIFICATION_SETTING = '/api/v1/Notifications/settings';
+export const API_NOTIFICATION_SETTING = '/api/v1/notifications/settings';

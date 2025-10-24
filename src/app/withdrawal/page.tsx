@@ -16,7 +16,7 @@ const WithdrawalPage = () => {
   const handleWithdrawalConfirm = () => {
     openModal({
       children: (
-        <div className="flex flex-col items-start w-full gap-2">
+        <div className="flex w-full flex-col items-start gap-2">
           <p className="text-[16px] font-bold leading-[22.4px] text-[#212121]">
             정말로 탈퇴하시겠어요?
           </p>
@@ -52,7 +52,7 @@ const WithdrawalPage = () => {
       <div className="min-h-screen bg-[#fafafa]">
         <WithdrawalHeader />
 
-        <div className="flex flex-col justify-center mx-2 my-4 bg-white">
+        <div className="mx-2 my-4 flex flex-col justify-center bg-white">
           {/* 안내 문구 */}
           <div>
             <h2 className="mb-6 px-2 text-[18px] font-bold text-[#212121]">
@@ -74,7 +74,7 @@ const WithdrawalPage = () => {
         </div>
 
         {/* 하단 고정 버튼 */}
-        <div className="fixed bottom-0 left-0 right-0 p-4 bg-white">
+        <div className="fixed bottom-0 left-0 right-0 bg-white p-4">
           <button
             onClick={handleWithdrawalConfirm}
             className="h-[50px] w-full rounded-[10px] bg-[#3c8dff] text-[16px] font-semibold text-white"
