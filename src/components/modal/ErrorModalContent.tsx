@@ -2,7 +2,9 @@ interface Props {
   errorMessage: string;
 }
 
-const ErrorModalContent = ({ errorMessage }: Props) => {
+const ErrorModalContent = ({
+  errorMessage = '오류가 발생했습니다.',
+}: Props) => {
   return (
     <div className="flex w-full flex-col items-start gap-2">
       <p className="text-[16px] font-bold leading-[22.4px] text-custom_black-900">

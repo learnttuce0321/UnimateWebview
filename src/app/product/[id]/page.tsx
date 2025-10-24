@@ -3,17 +3,17 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'components/modal/Modal';
 import { useModal } from 'components/modal/useModal';
+import NavigationBar from 'components/navigation/NavigationBar';
 import { useQueryProductDetail } from 'hooks/products/useQueryProductDetail';
 import navigationScheme from 'utils/navigationScheme';
 import ProductBottomActions from './_components/ProductBottomActions';
 import ProductDescriptionSection from './_components/ProductDescriptionSection';
 import ProductDetailImageSlider from './_components/ProductDetailImageSlider';
 import ProductDetailInfo from './_components/productDetailInfo/ProductDetailInfo';
+import ProductMoreMenu from './_components/ProductMoreMenu';
 import ProductSellerSection from './_components/ProductSellerSection';
 import ProductStatusBottomSheet from './_components/ProductStatusBottomSheet';
 import ReportModalContent from './_components/ReportModalContent';
-import NavigationBar from 'components/navigation/NavigationBar';
-import ProductMoreMenu from './_components/ProductMoreMenu';
 
 export type TradeStatus = 'FOR_SALE' | 'RESERVED' | 'SOLD_OUT';
 
@@ -48,7 +48,7 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-screen">
+      <div className="flex h-screen items-center justify-center">
         <div className="text-lg">로딩 중...</div>
       </div>
     );
@@ -56,7 +56,7 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
 
   if (error || !productDetail) {
     return (
-      <div className="flex items-center justify-center h-screen">
+      <div className="flex h-screen items-center justify-center">
         <div className="text-lg text-red-500">
           상품 정보를 불러올 수 없습니다.
         </div>

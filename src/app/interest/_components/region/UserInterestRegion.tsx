@@ -1,15 +1,15 @@
 'use client';
 
+import { MouseEvent } from 'react';
 import ErrorModalContent from 'components/modal/ErrorModalContent';
 import { ErrorModalData } from 'components/modal/useModal';
 import { UPDATE_USER_INFO } from 'constants/storageSyncKeyFactory/main';
+import { useMutationChangePrimaryRegion } from 'hooks/users/useMutationChangePrimaryRegion';
 import { useMutationDeleteInterestRegion } from 'hooks/users/useMutationDeleteInterestRegion';
 import { setLocalStorageAndSync } from 'hooks/useStorageSync';
 import { useAppStore } from 'providers/ZustandProvider';
 import { Region } from 'types/Region';
 import DeleteInterestRegionModalContent from './DeleteInterestRegionModalContent';
-import { useMutationChangePrimaryRegion } from 'hooks/users/useMutationChangePrimaryRegion';
-import { MouseEvent } from 'react';
 
 interface Props {
   region: Region;
@@ -62,11 +62,7 @@ const UserInterestRegion = ({ region, openModal }: Props) => {
         },
         onError: (error) => {
           openModal({
-            children: (
-              <ErrorModalContent
-                errorMessage={error.message || '오류가 발생했습니다.'}
-              />
-            ),
+            children: <ErrorModalContent errorMessage={error.message} />,
           });
         },
       }
