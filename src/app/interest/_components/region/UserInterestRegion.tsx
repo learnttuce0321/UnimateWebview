@@ -10,6 +10,7 @@ import { setLocalStorageAndSync } from 'hooks/useStorageSync';
 import { useAppStore } from 'providers/ZustandProvider';
 import { Region } from 'types/Region';
 import DeleteInterestRegionModalContent from './DeleteInterestRegionModalContent';
+import DeletePrimaryInterestRegionErrorModalContent from './DeletePrimaryInterestRegionErrorModalContent';
 
 interface Props {
   region: Region;
@@ -60,9 +61,9 @@ const UserInterestRegion = ({ region, openModal }: Props) => {
           removeInterestRegion(regionId);
           setLocalStorageAndSync(UPDATE_USER_INFO, {});
         },
-        onError: (error) => {
+        onError: () => {
           openModal({
-            children: <ErrorModalContent errorMessage={error.message} />,
+            children: <DeletePrimaryInterestRegionErrorModalContent />,
           });
         },
       }
