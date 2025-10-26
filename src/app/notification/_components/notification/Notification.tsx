@@ -3,6 +3,9 @@ import { Notification as TNotification } from 'types/notification';
 import NotificationContent from './NotificationContent';
 import NotificationDeleteButton from './NotificationDeleteButton';
 import NotificationMetadata from './NotificationMetadata';
+import { useMutationReadNotification } from 'hooks/notification/useMutationReadNotification';
+import { useUpdateQueryData } from 'hooks/useUpdateQueryData';
+import { API_NOTIFICATIONS } from 'modules/keyFactory/notification';
 
 interface Props {
   isDeleting: boolean;
@@ -19,9 +22,38 @@ const Notification = ({ isDeleting, notification, showToast }: Props) => {
     content,
   } = notification;
 
+  const { infiniteQueryDataUpdater } = useUpdateQueryData();
+  const { mutate } = useMutationReadNotification();
+
+  const handleNotificationClick = () => {
+    mutate(
+      { notificationId },
+      {
+        onSuccess: () => {
+          infiniteQueryDataUpdater<TNotification>(
+            [API_NOTIFICATIONS],
+            (_notification) => {
+              if (_notification.id) {
+                return {
+                  ..._notification,
+                  isRead: true,
+                };
+              }
+              return _notification;
+            }
+          );
+        },
+        onError: (error) => {
+          showToast(error.message, 'error');
+        },
+      }
+    );
+  };
+
   return (
     <li
       className={`w-full rounded-[10px] ${isRead ? 'bg-gray-100' : 'bg-white'} relative flex flex-col gap-[10px] px-[18px] pb-[20px] pt-[16px]`}
+      onClick={handleNotificationClick}
     >
       <NotificationDeleteButton
         isDeleting={isDeleting}
