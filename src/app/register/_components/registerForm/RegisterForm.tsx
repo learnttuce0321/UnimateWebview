@@ -111,8 +111,9 @@ export default function RegisterForm() {
       } else {
         // 등록 모드: POST API 사용
         await registerApi.createProductPost(requestData);
-        closeWeb();
-        return;
+        setIsSubmitting(false);
+        console.log('게시글 등록 ');
+        openWeb('/');
       }
     } catch (error) {
       console.error(isEditMode ? '상품 수정 실패:' : '상품 등록 실패:', error);
