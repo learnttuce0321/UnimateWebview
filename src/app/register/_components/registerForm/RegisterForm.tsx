@@ -92,7 +92,7 @@ export default function RegisterForm() {
       } else {
         // 등록 모드: POST API 사용
         await registerApi.createProductPost(requestData);
-        openWeb('/');
+        closeWeb();
         return;
       }
     } catch (error) {
