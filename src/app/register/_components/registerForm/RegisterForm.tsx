@@ -11,10 +11,10 @@ import RegisterTradeInfo from 'app/register/_components/registerForm/trade/Regis
 import { useMutationUpdateProduct } from 'hooks/products/useMutationUpdateProduct';
 import { useQueryProductDetail } from 'hooks/products/useQueryProductDetail';
 import { FormDataType } from 'types/Product';
+import navigationScheme from 'utils/navigationScheme';
 import { registerApi } from '../../_api/registerApi';
 import { convertFormDataToApiRequest } from '../../_utils/formDataConverter';
 import { convertProductDetailToFormData } from '../../_utils/productDataConverter';
-import navigationScheme from 'utils/navigationScheme';
 
 export default function RegisterForm() {
   const searchParams = useSearchParams();
@@ -125,7 +125,7 @@ export default function RegisterForm() {
   // 수정 모드 로딩 중일 때
   if (isEditMode && isLoadingProduct) {
     return (
-      <div className="flex items-center justify-center h-screen">
+      <div className="flex h-screen items-center justify-center">
         <div className="text-lg">상품 정보를 불러오는 중...</div>
       </div>
     );
