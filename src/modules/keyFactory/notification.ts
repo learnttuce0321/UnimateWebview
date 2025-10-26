@@ -16,6 +16,12 @@ export const API_NOTIFICATIONS = '/api/v1/notifications';
 export const API_DELETE_ALL_NOTIFICATIONS = '/api/v1/notifications/all';
 
 /**
+ * @PATCH 알림 읽음 처리 API
+ */
+export const API_READ_NOTIFICATION = (notificationId: number) =>
+  `/api/v1/notifications/${notificationId}/read`;
+
+/**
  * @GET 알림 설정 조회 API
  * @PATCH 알림 설정 업데이트 API
  */
