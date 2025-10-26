@@ -90,14 +90,20 @@ export default function RegisterForm() {
           productId: Number(productId),
           requestData,
         });
+        setIsSubmitting(false);
         alert('상품이 성공적으로 수정되었습니다!');
-        openWeb(`/product/${productId}`);
+        setTimeout(() => {
+          openWeb(`/product/${productId}`);
+        }, 100);
         return;
       } else {
         // 등록 모드: POST API 사용
         await registerApi.createProductPost(requestData);
+        setIsSubmitting(false);
         alert('상품이 성공적으로 등록되었습니다!');
-        openWeb('/');
+        setTimeout(() => {
+          openWeb('/');
+        }, 100);
         return;
       }
     } catch (error) {
