@@ -74,7 +74,7 @@ const VerifyComponentsByStep = {
 const Page = () => {
   const university = useAppStore((state) => state.userProfile.university);
   const [verifyType, setVerifyType] = useState<VerifyType>(
-    university.name ? 'VERIFIED' : 'EMAIL'
+    university?.name ? 'VERIFIED' : 'EMAIL'
   );
   const { toast, showToast, hideToast } = useToast();
   const [inputUniversityEmail, setInputUniversityEmail] = useState<string>('');

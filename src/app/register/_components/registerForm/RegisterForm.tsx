@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import RegisterCategorySelector from 'app/register/_components/registerForm/category/RegisterCategorySelector';
 import RegisterPriceInfo from 'app/register/_components/registerForm/price/RegisterPriceInfo';
 import RegisterImageForm from 'app/register/_components/registerForm/RegisterImageForm';
@@ -14,12 +14,13 @@ import { FormDataType } from 'types/Product';
 import { registerApi } from '../../_api/registerApi';
 import { convertFormDataToApiRequest } from '../../_utils/formDataConverter';
 import { convertProductDetailToFormData } from '../../_utils/productDataConverter';
+import navigationScheme from 'utils/navigationScheme';
 
 export default function RegisterForm() {
   const searchParams = useSearchParams();
-  const router = useRouter();
   const productId = searchParams.get('productId');
   const isEditMode = !!productId;
+  const { openWeb, closeWeb } = navigationScheme();
 
   const {
     register,
@@ -38,6 +39,25 @@ export default function RegisterForm() {
   const updateMutation = useMutationUpdateProduct();
   const hasLoadedData = useRef(false);
 
+  const watchedValues = watch();
+
+  // 모든 필수 필드가 채워졌는지 확인
+  const isFormComplete =
+    watchedValues.images &&
+    watchedValues.images.length > 0 &&
+    watchedValues.title &&
+    watchedValues.title.trim() !== '' &&
+    watchedValues.category &&
+    watchedValues.category.trim() !== '' &&
+    watchedValues.priceInfo &&
+    (watchedValues.priceInfo.isForGiveaway ||
+      watchedValues.priceInfo.price > 0) &&
+    watchedValues.desc &&
+    watchedValues.desc.trim() !== '' &&
+    watchedValues.tradeInfo &&
+    watchedValues.tradeInfo.tradeLocation &&
+    watchedValues.tradeInfo.tradeLocation.trim() !== '';
+
   // 수정 모드일 때 상품 상세 정보 조회
   const {
     data: productDetail,
@@ -55,26 +75,23 @@ export default function RegisterForm() {
         reset(formData);
       } catch (error) {
         console.error('상품 데이터 로드 실패:', error);
-        alert('상품 정보를 불러올 수 없습니다.');
-        router.push('/');
+        openWeb(`/`);
       }
     }
-  }, [isEditMode, productDetail, reset, router]);
+  }, [isEditMode, productDetail, reset]);
 
   // 에러 처리
   useEffect(() => {
     if (isEditMode && productError) {
       console.error('상품 조회 실패:', productError);
-      alert('상품 정보를 불러올 수 없습니다.');
-      router.back();
+      closeWeb();
     }
-  }, [isEditMode, productError, router]);
+  }, [isEditMode, productError]);
 
   const onSubmit = async (data: FormDataType) => {
     if (isSubmitting) return;
 
     if (!data.images || data.images.length === 0) {
-      alert('이미지를 하나 이상 선택해주세요.');
       return;
     }
 
@@ -89,22 +106,18 @@ export default function RegisterForm() {
           productId: Number(productId),
           requestData,
         });
-        alert('상품이 성공적으로 수정되었습니다!');
-        router.push(`/product/${productId}`);
+        openWeb(`/product/${productId}`);
+        return;
       } else {
         // 등록 모드: POST API 사용
         await registerApi.createProductPost(requestData);
-        alert('상품이 성공적으로 등록되었습니다!');
-        router.push('/');
+        setIsSubmitting(false);
+        console.log('게시글 등록 ');
+        openWeb('/');
       }
     } catch (error) {
       console.error(isEditMode ? '상품 수정 실패:' : '상품 등록 실패:', error);
-      alert(
-        isEditMode
-          ? '상품 수정에 실패했습니다. 다시 시도해주세요.'
-          : '상품 등록에 실패했습니다. 다시 시도해주세요.'
-      );
-    } finally {
+
       setIsSubmitting(false);
     }
   };
@@ -112,7 +125,7 @@ export default function RegisterForm() {
   // 수정 모드 로딩 중일 때
   if (isEditMode && isLoadingProduct) {
     return (
-      <div className="flex h-screen items-center justify-center">
+      <div className="flex items-center justify-center h-screen">
         <div className="text-lg">상품 정보를 불러오는 중...</div>
       </div>
     );
@@ -137,7 +150,6 @@ export default function RegisterForm() {
         required={true}
         label="제목"
       />
-      {/* TODO: useForm의 메소드들을 따로 보내지말고 useFormContext()를 사용해서 보내도록 수정예정 */}
       <RegisterCategorySelector setValue={setValue} watch={watch} />
       <RegisterPriceInfo
         register={register}
@@ -159,7 +171,7 @@ export default function RegisterForm() {
       />
       <button
         type="submit"
-        disabled={!isValid || isSubmitting}
+        disabled={!isFormComplete || isSubmitting}
         className="mt-4 h-[50px] w-full rounded-[10px] bg-blue-600_P p-2 text-white disabled:bg-blue_gray-500"
       >
         {isSubmitting

@@ -8,7 +8,7 @@ import { immer } from 'zustand/middleware/immer';
 const DEFAULT_PROFILE: MyProfile = {
   nickname: '',
   profileImageUrl: '',
-  university: {},
+  university: undefined,
   interestRegions: {
     interestRegions: [],
   },
@@ -39,8 +39,8 @@ export interface VanillaAppState {
 export interface AppActions {
   // 관심도시 설정
   addInterestRegion: (region: Region) => void;
-  removeInterestRegion: (regionId: string) => void;
-  changePrimaryRegion: (regionId: string) => void;
+  removeInterestRegion: (regionId: number) => void;
+  changePrimaryRegion: (regionId: number) => void;
   setUserProfile: (user: MyProfile) => void;
 }
 

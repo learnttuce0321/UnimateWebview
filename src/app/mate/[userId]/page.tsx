@@ -10,8 +10,10 @@ import { API_USER_SALES_PRODUCTS } from 'modules/keyFactory/product';
 import { API_USER_PROFILE } from 'modules/keyFactory/user';
 import { ProductPost } from 'types/Product';
 import { MateUser } from 'types/User';
-import MateProfile from './_components/MateProfile';
-import MateProfileError from './_components/MateProfileError';
+import MateProfileMore from './_components/more/MateProfileMore';
+import MateSalesProductList from './_components/product/MateSalesProductList';
+import MateProfile from './_components/profile/MateProfile';
+import MateProfileError from './_components/profile/MateProfileError';
 
 interface MateSalesProductPostListsResponse {
   contents: ProductPost[];
@@ -100,11 +102,16 @@ const Page = () => {
 
   return (
     <>
-      <NavigationBar title="프로필 설정" className="bg-white" />
+      <NavigationBar
+        title="프로필 설정"
+        className="bg-white"
+        renderOptionButtons={<MateProfileMore />}
+      />
       <div className="min-h-full_without_navigation w-full bg-gray-50 px-[16px] pt-[16px]">
         {!isLoading && (
           <>
             <MateProfile mateProfile={mateProfileData} />
+            <MateSalesProductList mateSalesProductList={mateSalesProductList} />
             <div ref={infiniteTarget} />
           </>
         )}

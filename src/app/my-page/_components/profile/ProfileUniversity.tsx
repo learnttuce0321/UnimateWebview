@@ -4,7 +4,7 @@ import { UserUniversity } from 'types/User';
 import navigationScheme from 'utils/navigationScheme';
 
 interface Props {
-  university: UserUniversity;
+  university: UserUniversity | undefined;
 }
 
 const ProfileUniversity = ({ university }: Props) => {
@@ -12,7 +12,7 @@ const ProfileUniversity = ({ university }: Props) => {
 
   return (
     <>
-      {university.name ? (
+      {university?.name ? (
         <div className="flex items-center">
           <img
             src="/images/svg/my-page/checkbox-select.svg"

@@ -13,12 +13,12 @@ const LocalizedProduct = ({ product }: Props) => {
   const { id: productId, thumbnailUrl } = product;
   const { openWeb } = navigationScheme();
 
-  const handleProductCardClick = () => {
+  const handleProductClick = () => {
     openWeb(`/product/${productId}`);
   };
 
   return (
-    <li className="w-full" onClick={() => handleProductCardClick()}>
+    <li className="w-full" onClick={() => handleProductClick()}>
       <div className="mb-[8px] flex h-[140px] justify-between gap-[12px] rounded-[8px] bg-white p-[16px] shadow-[0px_0px_10px_rgba(0,0,0,0.05)]">
         <LocalizedProductThumbnail thumbnailUrl={thumbnailUrl} />
         <LocalizedProductInfo product={product} />

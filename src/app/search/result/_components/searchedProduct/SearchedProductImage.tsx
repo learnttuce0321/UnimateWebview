@@ -1,11 +1,11 @@
 interface Props {
-  imageUrl: string;
+  thumbnailUrl: string;
 }
 
-const SearchedProductImage = ({ imageUrl }: Props) => {
+const SearchedProductImage = ({ thumbnailUrl }: Props) => {
   return (
     <img
-      src="/images/test_images/product_example.png"
+      src={thumbnailUrl}
       width={108}
       height={108}
       alt="상품 이미지"

@@ -2,6 +2,7 @@ interface Props {
   likeCount: number;
   chatRoomCount: number;
 }
+
 const LocalizedProductUserReaction = ({ likeCount, chatRoomCount }: Props) => {
   return (
     <div className="flex w-full justify-end gap-[5px]">

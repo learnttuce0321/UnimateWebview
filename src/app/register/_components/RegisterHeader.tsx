@@ -1,12 +1,12 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import navigationScheme from 'utils/navigationScheme';
 
 export default function RegisterHeader() {
-  const router = useRouter();
+  const { closeWeb } = navigationScheme();
 
   const handleClickCloseButton = () => {
-    router.back();
+    closeWeb();
   };
 
   return (

@@ -1,10 +1,10 @@
-import { Notification } from 'types/notification';
+import { NotificationSetting } from 'types/notification';
 
 interface Props {
-  notificationKey: keyof Notification;
+  notificationKey: keyof NotificationSetting;
   value: boolean;
   handleChangeNotificationState: (
-    key: keyof Notification,
+    key: keyof NotificationSetting,
     value: boolean
   ) => void;
 }

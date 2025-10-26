@@ -18,6 +18,11 @@ const navigationScheme = () => {
 
       return (location.href = 'unimate://close');
     },
+    shareContent: (url: string, title: string, message: string) => {
+      if (!isWebview) return;
+
+      return (location.href = `unimate://share?url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}&message=${encodeURIComponent(message)}`);
+    },
   };
 };
 

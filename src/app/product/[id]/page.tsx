@@ -3,13 +3,14 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'components/modal/Modal';
 import { useModal } from 'components/modal/useModal';
+import NavigationBar from 'components/navigation/NavigationBar';
 import { useQueryProductDetail } from 'hooks/products/useQueryProductDetail';
 import navigationScheme from 'utils/navigationScheme';
 import ProductBottomActions from './_components/ProductBottomActions';
 import ProductDescriptionSection from './_components/ProductDescriptionSection';
-import ProductDetailHeader from './_components/ProductDetailHeader';
 import ProductDetailImageSlider from './_components/ProductDetailImageSlider';
 import ProductDetailInfo from './_components/productDetailInfo/ProductDetailInfo';
+import ProductMoreMenu from './_components/ProductMoreMenu';
 import ProductSellerSection from './_components/ProductSellerSection';
 import ProductStatusBottomSheet from './_components/ProductStatusBottomSheet';
 import ReportModalContent from './_components/ReportModalContent';
@@ -88,15 +89,21 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
     <>
       <div className="min-h-screen bg-white pb-[84px]">
         {/* 헤더 뒤로가기 및 더보기 버튼 */}
-        <ProductDetailHeader
-          productId={productDetail.id}
-          isSeller={isSeller}
-          tradeStatus={tradeStatus}
-          isHidden={productDetail.isHidden}
-          onEdit={() => {
-            // 수정 모드로 등록 페이지 이동
-            openWeb(`/register?productId=${productDetail.id}`);
-          }}
+        <NavigationBar
+          title={''}
+          renderOptionButtons={
+            isSeller ? (
+              <ProductMoreMenu
+                productId={productDetail.id}
+                tradeStatus={tradeStatus}
+                isHidden={productDetail.isHidden}
+                onEdit={() => {
+                  // 수정 모드로 등록 페이지 이동
+                  openWeb(`/register?productId=${productDetail.id}`);
+                }}
+              />
+            ) : null
+          }
         />
 
         {/* 상품 이미지 스와이프 */}

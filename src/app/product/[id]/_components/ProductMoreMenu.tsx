@@ -122,11 +122,7 @@ export default function ProductMoreMenu({
         },
         onError: (error) => {
           openModal({
-            children: (
-              <ErrorModalContent
-                errorMessage={error.message || '오류가 발생했습니다.'}
-              />
-            ),
+            children: <ErrorModalContent errorMessage={error.message} />,
           });
         },
       }
@@ -144,11 +140,7 @@ export default function ProductMoreMenu({
         },
         onError: (error) => {
           openModal({
-            children: (
-              <ErrorModalContent
-                errorMessage={error.message || '오류가 발생했습니다.'}
-              />
-            ),
+            children: <ErrorModalContent errorMessage={error.message} />,
           });
         },
       }
@@ -185,11 +177,7 @@ export default function ProductMoreMenu({
         },
         onError: (error) => {
           openModal({
-            children: (
-              <ErrorModalContent
-                errorMessage={error.message || '오류가 발생했습니다.'}
-              />
-            ),
+            children: <ErrorModalContent errorMessage={error.message} />,
           });
         },
       }

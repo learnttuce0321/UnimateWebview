@@ -8,7 +8,7 @@ const SalesProductThumbnail = ({ title, thumbnailUrl, isHidden }: Props) => {
   return (
     <div className="relative h-[108px] w-[108px]">
       <img
-        className="h-full w-full rounded-lg"
+        className="h-full w-full rounded-lg object-cover"
         src={thumbnailUrl}
         width={108}
         height={108}

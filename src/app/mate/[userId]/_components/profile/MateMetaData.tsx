@@ -3,7 +3,7 @@ import MateReviewStats from './MateReviewStats';
 import MateUniversity from './MateUniversity';
 
 interface Props {
-  university: UserUniversity;
+  university: UserUniversity | undefined;
   reviewStats: UserReviewStats;
 }
 

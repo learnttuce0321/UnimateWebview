@@ -11,7 +11,7 @@ export interface ProductPost {
   currencyType: CurrencyType;
   likeCount: number;
   chatRoomCount: number;
-  regionId: string;
+  regionId: number;
   regionName: string;
   tradeStatus: TradeStatus;
   isLiked: boolean;
@@ -104,7 +104,7 @@ export interface ProductDetail {
   sellerId: number;
   sellerNickname: string;
   sellerProfileImageUrl: string;
-  regionId: string;
+  regionId: number;
   regionName: string;
   universityId: string;
   universityName: string;

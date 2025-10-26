@@ -2,7 +2,6 @@
 
 import { ActionType } from 'app/interest/_types/search';
 import BottomFixedConfirmButton from 'components/button/BottomFixedConfirmButton';
-import ErrorModalContent from 'components/modal/ErrorModalContent';
 import Modal from 'components/modal/Modal';
 import { useModal } from 'components/modal/useModal';
 import { UPDATE_USER_INFO } from 'constants/storageSyncKeyFactory/main';
@@ -11,6 +10,7 @@ import { setLocalStorageAndSync } from 'hooks/useStorageSync';
 import { useAppStore } from 'providers/ZustandProvider';
 import { SearchedRegion } from 'types/Region';
 import AddInterestRegionModalContent from './AddInterestRegionModalContent';
+import MaximumInterestRegionErrorModalContent from '../region/MaximumInterestRegionErrorModalContent';
 
 interface Props {
   selectedRegion: SearchedRegion | null;
@@ -59,13 +59,9 @@ const AddInterestRegionButton = ({
           setLocalStorageAndSync(UPDATE_USER_INFO, {});
           handleChangeActionType('setting');
         },
-        onError: (error) => {
+        onError: () => {
           openModal({
-            children: (
-              <ErrorModalContent
-                errorMessage={error.message || '오류가 발생했습니다.'}
-              />
-            ),
+            children: <MaximumInterestRegionErrorModalContent />,
           });
         },
       }

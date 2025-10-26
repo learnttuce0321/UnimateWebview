@@ -3,9 +3,14 @@ import React from 'react';
 interface Props {
   isLiked: boolean;
   onLikeToggle: () => void;
+  onShare: () => void;
 }
 
-const ProductDetailInfoLikeShare = ({ isLiked, onLikeToggle }: Props) => {
+const ProductDetailInfoLikeShare = ({
+  isLiked,
+  onLikeToggle,
+  onShare,
+}: Props) => {
   return (
     <div className="flex justify-center rounded-[10px] border border-[#e3e9f1]">
       {/* 찜하기 버튼 */}
@@ -31,7 +36,10 @@ const ProductDetailInfoLikeShare = ({ isLiked, onLikeToggle }: Props) => {
       <div className="w-px bg-[#e3e9f1]" />
 
       {/* 공유하기 버튼 */}
-      <button className="flex flex-1 items-center justify-center gap-2 py-3 hover:bg-gray-50">
+      <button
+        className="flex flex-1 items-center justify-center gap-2 py-3 hover:bg-gray-50"
+        onClick={onShare}
+      >
         <img
           src="/images/svg/product/shareIcon.svg"
           alt="공유하기"

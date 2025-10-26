@@ -12,6 +12,7 @@ const DynamicInterestRegionDropdownButton = dynamic(
     loading: () => <div className="w-[180px]" />,
   }
 );
+
 const HomeHeader = () => {
   return (
     <header className="h-navigation flex w-full items-center justify-between bg-white py-[13px] pl-[16px] pr-[12px]">

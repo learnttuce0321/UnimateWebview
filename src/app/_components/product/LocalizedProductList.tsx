@@ -40,7 +40,9 @@ const LocalizedProductList = () => {
             url: API_PRODUCT,
             params: {
               pageNumber: pageParam,
-              regionId: primaryRegion?.regionId ?? '',
+              ...(primaryRegion?.regionId && {
+                regionId: primaryRegion.regionId,
+              }),
             },
           });
 

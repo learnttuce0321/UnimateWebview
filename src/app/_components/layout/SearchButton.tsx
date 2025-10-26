@@ -1,6 +1,6 @@
 'use client';
 
-import navigationScheme from '../../../utils/navigationScheme';
+import navigationScheme from 'utils/navigationScheme';
 
 const SearchButton = () => {
   const { openWeb } = navigationScheme();

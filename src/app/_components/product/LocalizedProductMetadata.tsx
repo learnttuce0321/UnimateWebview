@@ -13,7 +13,7 @@ const LocalizedProductMetadata = ({ createdAt, universityName }: Props) => {
         <>
           <span className="mr-[5px]"> · </span>
           <img
-            src="/images/svg/my-page/badge-verified.svg"
+            src="/images/svg/home/badge-verified.svg"
             alt="대학 인증 뱃지"
             width="12"
             height="12px"
