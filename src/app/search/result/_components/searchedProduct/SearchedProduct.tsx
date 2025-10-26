@@ -12,7 +12,7 @@ interface Props {
 const SearchedProduct = ({ product }: Props) => {
   const { openWeb } = navigationScheme();
   const handleClickProduct = () => {
-    openWeb(`/products/${product.id}`);
+    openWeb(`/product/${product.id}`);
   };
 
   return (
