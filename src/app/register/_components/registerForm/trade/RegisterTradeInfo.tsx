@@ -18,6 +18,9 @@ export default function RegisterTradeInfo({
   watch,
 }: Props) {
   const isRemote = watch('tradeInfo.isRemote');
+  const placeHolder = isRemote
+    ? '거래 방식에 대해 자세히 작성해주세요.'
+    : '거래 희망 장소를 입력해주세요.';
 
   const handleCurrencyChange = (isRemote: boolean) => {
     setValue('tradeInfo.isRemote', isRemote);
@@ -74,7 +77,7 @@ export default function RegisterTradeInfo({
 
         <RegisterInput
           type="textarea"
-          placeholder="거래 희망 장소를 입력해주세요."
+          placeholder={placeHolder}
           register={register}
           name="tradeInfo.tradeLocation"
           required={true}
