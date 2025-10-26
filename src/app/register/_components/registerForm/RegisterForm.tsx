@@ -56,7 +56,6 @@ export default function RegisterForm() {
         reset(formData);
       } catch (error) {
         console.error('상품 데이터 로드 실패:', error);
-        alert('상품 정보를 불러올 수 없습니다.');
         openWeb(`/`);
       }
     }
@@ -66,7 +65,6 @@ export default function RegisterForm() {
   useEffect(() => {
     if (isEditMode && productError) {
       console.error('상품 조회 실패:', productError);
-      alert('상품 정보를 불러올 수 없습니다.');
       closeWeb();
     }
   }, [isEditMode, productError]);
@@ -75,7 +73,6 @@ export default function RegisterForm() {
     if (isSubmitting) return;
 
     if (!data.images || data.images.length === 0) {
-      alert('이미지를 하나 이상 선택해주세요.');
       return;
     }
 
@@ -90,23 +87,17 @@ export default function RegisterForm() {
           productId: Number(productId),
           requestData,
         });
-        alert('상품이 성공적으로 수정되었습니다!');
         openWeb(`/product/${productId}`);
         return;
       } else {
         // 등록 모드: POST API 사용
         await registerApi.createProductPost(requestData);
-        alert('상품이 성공적으로 등록되었습니다!');
         openWeb('/');
         return;
       }
     } catch (error) {
       console.error(isEditMode ? '상품 수정 실패:' : '상품 등록 실패:', error);
-      alert(
-        isEditMode
-          ? '상품 수정에 실패했습니다. 다시 시도해주세요.'
-          : '상품 등록에 실패했습니다. 다시 시도해주세요.'
-      );
+
       setIsSubmitting(false);
     }
   };
