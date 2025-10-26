@@ -92,11 +92,13 @@ export default function RegisterForm() {
         });
         alert('상품이 성공적으로 수정되었습니다!');
         openWeb(`/product/${productId}`);
+        return;
       } else {
         // 등록 모드: POST API 사용
         await registerApi.createProductPost(requestData);
         alert('상품이 성공적으로 등록되었습니다!');
         openWeb('/');
+        return;
       }
     } catch (error) {
       console.error(isEditMode ? '상품 수정 실패:' : '상품 등록 실패:', error);
@@ -105,7 +107,6 @@ export default function RegisterForm() {
           ? '상품 수정에 실패했습니다. 다시 시도해주세요.'
           : '상품 등록에 실패했습니다. 다시 시도해주세요.'
       );
-    } finally {
       setIsSubmitting(false);
     }
   };
