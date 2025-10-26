@@ -8,7 +8,7 @@ import { immer } from 'zustand/middleware/immer';
 const DEFAULT_PROFILE: MyProfile = {
   nickname: '',
   profileImageUrl: '',
-  university: {},
+  university: undefined,
   interestRegions: {
     interestRegions: [],
   },

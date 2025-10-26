@@ -2,15 +2,13 @@ import { UserUniversity } from 'types/User';
 import MateTooltip from './MateTooltip';
 
 interface Props {
-  university: UserUniversity;
+  university: UserUniversity | undefined;
 }
 
 const MateUniversity = ({ university }: Props) => {
-  const { name } = university;
-
   return (
     <div>
-      {name && (
+      {university?.name && (
         <div className="flex gap-[22px]">
           <div className="flex w-[96px] items-center gap-[4px]">
             <p className="text-[14px] font-semibold leading-[14px] text-blue_gray-900">
@@ -34,7 +32,7 @@ const MateUniversity = ({ university }: Props) => {
               alt=""
             />
             <span className="mr-[4px] text-[14px] font-medium leading-[14px] text-blue_gray-600">
-              {name}
+              {university.name}
             </span>
           </div>
         </div>
