@@ -1,11 +1,11 @@
 import { ToastType } from 'components/toast';
+import { useMutationReadNotification } from 'hooks/notification/useMutationReadNotification';
+import { useUpdateQueryData } from 'hooks/useUpdateQueryData';
+import { API_NOTIFICATIONS } from 'modules/keyFactory/notification';
 import { Notification as TNotification } from 'types/notification';
 import NotificationContent from './NotificationContent';
 import NotificationDeleteButton from './NotificationDeleteButton';
 import NotificationMetadata from './NotificationMetadata';
-import { useMutationReadNotification } from 'hooks/notification/useMutationReadNotification';
-import { useUpdateQueryData } from 'hooks/useUpdateQueryData';
-import { API_NOTIFICATIONS } from 'modules/keyFactory/notification';
 
 interface Props {
   isDeleting: boolean;
