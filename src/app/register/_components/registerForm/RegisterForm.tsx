@@ -39,6 +39,25 @@ export default function RegisterForm() {
   const updateMutation = useMutationUpdateProduct();
   const hasLoadedData = useRef(false);
 
+  const watchedValues = watch();
+
+  // 모든 필수 필드가 채워졌는지 확인
+  const isFormComplete =
+    watchedValues.images &&
+    watchedValues.images.length > 0 &&
+    watchedValues.title &&
+    watchedValues.title.trim() !== '' &&
+    watchedValues.category &&
+    watchedValues.category.trim() !== '' &&
+    watchedValues.priceInfo &&
+    (watchedValues.priceInfo.isForGiveaway ||
+      watchedValues.priceInfo.price > 0) &&
+    watchedValues.desc &&
+    watchedValues.desc.trim() !== '' &&
+    watchedValues.tradeInfo &&
+    watchedValues.tradeInfo.tradeLocation &&
+    watchedValues.tradeInfo.tradeLocation.trim() !== '';
+
   // 수정 모드일 때 상품 상세 정보 조회
   const {
     data: productDetail,
@@ -92,8 +111,9 @@ export default function RegisterForm() {
       } else {
         // 등록 모드: POST API 사용
         await registerApi.createProductPost(requestData);
-        closeWeb();
-        return;
+        setIsSubmitting(false);
+        console.log('게시글 등록 ');
+        openWeb('/');
       }
     } catch (error) {
       console.error(isEditMode ? '상품 수정 실패:' : '상품 등록 실패:', error);
@@ -151,7 +171,7 @@ export default function RegisterForm() {
       />
       <button
         type="submit"
-        disabled={!isValid || isSubmitting}
+        disabled={!isFormComplete || isSubmitting}
         className="mt-4 h-[50px] w-full rounded-[10px] bg-blue-600_P p-2 text-white disabled:bg-blue_gray-500"
       >
         {isSubmitting
