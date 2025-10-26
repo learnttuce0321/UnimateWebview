@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import RegisterCategorySelector from 'app/register/_components/registerForm/category/RegisterCategorySelector';
 import RegisterPriceInfo from 'app/register/_components/registerForm/price/RegisterPriceInfo';
 import RegisterImageForm from 'app/register/_components/registerForm/RegisterImageForm';
@@ -14,12 +14,13 @@ import { FormDataType } from 'types/Product';
 import { registerApi } from '../../_api/registerApi';
 import { convertFormDataToApiRequest } from '../../_utils/formDataConverter';
 import { convertProductDetailToFormData } from '../../_utils/productDataConverter';
+import navigationScheme from 'utils/navigationScheme';
 
 export default function RegisterForm() {
   const searchParams = useSearchParams();
-  const router = useRouter();
   const productId = searchParams.get('productId');
   const isEditMode = !!productId;
+  const { openWeb, closeWeb } = navigationScheme();
 
   const {
     register,
@@ -56,19 +57,19 @@ export default function RegisterForm() {
       } catch (error) {
         console.error('상품 데이터 로드 실패:', error);
         alert('상품 정보를 불러올 수 없습니다.');
-        router.push('/');
+        openWeb(`/`);
       }
     }
-  }, [isEditMode, productDetail, reset, router]);
+  }, [isEditMode, productDetail, reset]);
 
   // 에러 처리
   useEffect(() => {
     if (isEditMode && productError) {
       console.error('상품 조회 실패:', productError);
       alert('상품 정보를 불러올 수 없습니다.');
-      router.back();
+      closeWeb();
     }
-  }, [isEditMode, productError, router]);
+  }, [isEditMode, productError]);
 
   const onSubmit = async (data: FormDataType) => {
     if (isSubmitting) return;
@@ -90,12 +91,12 @@ export default function RegisterForm() {
           requestData,
         });
         alert('상품이 성공적으로 수정되었습니다!');
-        router.push(`/product/${productId}`);
+        openWeb(`/product/${productId}`);
       } else {
         // 등록 모드: POST API 사용
         await registerApi.createProductPost(requestData);
         alert('상품이 성공적으로 등록되었습니다!');
-        router.push('/');
+        openWeb('/');
       }
     } catch (error) {
       console.error(isEditMode ? '상품 수정 실패:' : '상품 등록 실패:', error);
@@ -112,7 +113,7 @@ export default function RegisterForm() {
   // 수정 모드 로딩 중일 때
   if (isEditMode && isLoadingProduct) {
     return (
-      <div className="flex h-screen items-center justify-center">
+      <div className="flex items-center justify-center h-screen">
         <div className="text-lg">상품 정보를 불러오는 중...</div>
       </div>
     );
