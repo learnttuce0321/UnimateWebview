@@ -23,7 +23,7 @@ type MyPageConfigList = Record<MyPageConfigId, MyPageConfig>;
 const MY_TRADING_LIST_ITEMS: MyPageListItem[] = [
   { title: '찜한목록', targetUrl: '/my-page/liked' },
   { title: '판매내역', targetUrl: '/my-page/sales' },
-  { title: '구매내역', targetUrl: '/my-page/buy' },
+  { title: '구매내역', targetUrl: '/my-page/purchased' },
 ];
 
 const MY_CONFIG_LIST_ITEMS: MyPageListItem[] = [
