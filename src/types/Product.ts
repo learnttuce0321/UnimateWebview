@@ -1,27 +1,46 @@
 export type CurrencyType = 'KRW' | 'USD' | string;
 
 export type TradeStatus = 'FOR_SALE' | 'RESERVED' | 'SOLD_OUT';
-export interface ProductPost {
-  id: number;
+
+interface DefaultProductPost {
   title: string;
-  createdAt: string;
-  universityName: string | null;
   thumbnailUrl: string;
+  tradeStatus: TradeStatus;
+  universityName: string | null;
   price: number;
   currencyType: CurrencyType;
   likeCount: number;
   chatRoomCount: number;
-  regionId: number;
-  regionName: string;
-  tradeStatus: TradeStatus;
   isLiked: boolean;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export interface LikeProduct extends ProductPost {}
+export interface ProductPost extends DefaultProductPost {
+  id: number;
+  createdAt: string;
+  regionId: number;
+  regionName: string;
+}
 
-export interface SalesProduct extends ProductPost {
+export interface LikeProduct extends DefaultProductPost {
+  id: number;
+  createdAt: string;
+  regionId: number;
+  regionName: string;
+}
+
+export interface SalesProduct extends DefaultProductPost {
+  id: number;
+  createdAt: string;
+  regionId: number;
+  regionName: string;
   isHidden: boolean;
+}
+
+export interface PurchasedProduct extends DefaultProductPost {
+  purchaseHistoryId: number;
+  productPostId: number;
+  hasReview: boolean;
+  purchasedAt: string;
 }
 
 export interface PriceType {

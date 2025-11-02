@@ -73,3 +73,14 @@ export const API_PRODUCT_LIKE = (productId: number) => `
  */
 export const API_PRODUCT_DETAIL = (productId: string | number) =>
   `/api/v1/product-posts/${productId}`;
+
+/**
+ * @GET 나의 구매내역 목록 조회 API
+ */
+export const API_MY_PURCHASED_PRODUCTS = '/api/v1/product-posts/my/purchases';
+
+/**
+ * @DELETE 구매내역 삭제 API
+ */
+export const API_PURCHASED_PRODUCT_DELETE = (purchaseHistoryId: number) =>
+  `/api/v1/product-posts/my/purchases/${purchaseHistoryId}`;

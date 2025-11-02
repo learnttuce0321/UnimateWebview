@@ -1,7 +1,7 @@
 import { SalesProduct as TSalesProduct } from 'types/Product';
 import navigationScheme from 'utils/navigationScheme';
-import SaleProductMore from './SaleProductMore';
 import SalesProductInfo from './SalesProductInfo';
+import SalesProductMore from './SalesProductMore';
 import SalesProductThumbnail from './SalesProductThumbnail';
 
 interface Props {
@@ -28,7 +28,7 @@ const SalesProduct = ({ product }: Props) => {
         isHidden={isHidden}
       />
       <SalesProductInfo product={product} />
-      <SaleProductMore
+      <SalesProductMore
         productId={productId}
         isHidden={isHidden}
         tradeStatus={tradeStatus}

@@ -11,7 +11,7 @@ interface Props {
   tradeStatus: TradeStatus;
 }
 
-const SaleProductMore = ({ productId, isHidden, tradeStatus }: Props) => {
+const SalesProductMore = ({ productId, isHidden, tradeStatus }: Props) => {
   const { popupState, openPopup, closePopup } = usePopup();
 
   const handleMoreButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
@@ -48,4 +48,4 @@ const SaleProductMore = ({ productId, isHidden, tradeStatus }: Props) => {
   );
 };
 
-export default SaleProductMore;
+export default SalesProductMore;
