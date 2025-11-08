@@ -20,7 +20,7 @@ export default function RegisterForm() {
   const searchParams = useSearchParams();
   const productId = searchParams.get('productId');
   const isEditMode = !!productId;
-  const { openWeb, closeWeb } = navigationScheme();
+  const { openWeb, closeWeb, goHome } = navigationScheme();
 
   const {
     register,
@@ -113,7 +113,7 @@ export default function RegisterForm() {
         await registerApi.createProductPost(requestData);
         setIsSubmitting(false);
         console.log('게시글 등록 ');
-        openWeb('/');
+        goHome();
       }
     } catch (error) {
       console.error(isEditMode ? '상품 수정 실패:' : '상품 등록 실패:', error);
@@ -125,7 +125,7 @@ export default function RegisterForm() {
   // 수정 모드 로딩 중일 때
   if (isEditMode && isLoadingProduct) {
     return (
-      <div className="flex h-screen items-center justify-center">
+      <div className="flex items-center justify-center h-screen">
         <div className="text-lg">상품 정보를 불러오는 중...</div>
       </div>
     );

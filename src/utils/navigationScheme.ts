@@ -23,6 +23,9 @@ const navigationScheme = () => {
 
       return (location.href = `unimate://share?url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}&message=${encodeURIComponent(message)}`);
     },
+    goHome: () => {
+      return (location.href = 'unimate://home');
+    },
   };
 };
 
