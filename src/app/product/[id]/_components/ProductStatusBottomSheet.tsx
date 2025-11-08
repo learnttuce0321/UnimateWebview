@@ -1,10 +1,12 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import productScheme, { TradeStatus } from 'utils/productScheme';
 
 interface ProductStatusBottomSheetProps {
   isOpen: boolean;
   currentStatus: string;
+  productId: number;
   onClose: () => void;
   onStatusChange: (status: string) => void;
 }
@@ -21,6 +23,7 @@ const DEFAULT_ICON = '/images/svg/register/icon-toggle-radio-none.svg';
 const ProductStatusBottomSheet = ({
   isOpen,
   currentStatus,
+  productId,
   onClose,
   onStatusChange,
 }: ProductStatusBottomSheetProps) => {
@@ -43,6 +46,13 @@ const ProductStatusBottomSheet = ({
   }, [isOpen]);
 
   const handleConfirm = () => {
+    // 상태 변경 스킴 호출
+    const { changeTradeStatus } = productScheme();
+    changeTradeStatus({
+      productId,
+      currentStatus: selectedStatus as TradeStatus,
+    });
+
     if (selectedStatus !== currentStatus) onStatusChange(selectedStatus);
     onClose();
   };
@@ -75,7 +85,7 @@ const ProductStatusBottomSheet = ({
           </div>
 
           {/* status 선택지 */}
-          <div className="mb-4 flex flex-col gap-4">
+          <div className="flex flex-col gap-4 mb-4">
             {STATUS_OPTIONS.map((option) => {
               const selected = selectedStatus === option.value;
               return (
@@ -95,7 +105,7 @@ const ProductStatusBottomSheet = ({
                   <img
                     src={selected ? SELECTED_ICON : DEFAULT_ICON}
                     alt={selected ? '선택됨' : '선택 안 됨'}
-                    className="h-5 w-5 rounded-full"
+                    className="w-5 h-5 rounded-full"
                   />
 
                   <span
