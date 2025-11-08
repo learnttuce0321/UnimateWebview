@@ -9,6 +9,7 @@ import { useMutationAddInterestRegion } from 'hooks/users/useMutationAddInterest
 import { setLocalStorageAndSync } from 'hooks/useStorageSync';
 import { useAppStore } from 'providers/ZustandProvider';
 import { SearchedRegion } from 'types/Region';
+import { getDisplayRegionName } from 'utils/getDisplayRegionName';
 import AddInterestRegionModalContent from './AddInterestRegionModalContent';
 import MaximumInterestRegionErrorModalContent from '../region/MaximumInterestRegionErrorModalContent';
 
@@ -33,7 +34,7 @@ const AddInterestRegionButton = ({
     openModal({
       children: (
         <AddInterestRegionModalContent
-          selectedRegionName={selectedRegion?.name}
+          selectedRegionName={getDisplayRegionName(selectedRegion)}
         />
       ),
       confirmText: '예',
@@ -54,6 +55,7 @@ const AddInterestRegionButton = ({
           addInterestRegion({
             regionId: selectedRegion.id,
             regionName: selectedRegion.name,
+            admin1Code: selectedRegion.admin1Code,
             isPrimary: false,
           });
           setLocalStorageAndSync(UPDATE_USER_INFO, {});

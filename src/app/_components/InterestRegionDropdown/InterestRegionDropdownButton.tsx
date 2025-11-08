@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useAppStore } from 'providers/ZustandProvider';
 import { selectPrimaryRegion } from 'stores/selectors';
+import { getDisplayRegionName } from 'utils/getDisplayRegionName';
 import InterestRegionDropdown from './InterestRegionDropdown';
 
 const InterestRegionDropdownButton = () => {
@@ -16,7 +17,7 @@ const InterestRegionDropdownButton = () => {
         className="text-900 flex gap-[8px] text-[24px] font-bold"
         onClick={() => setOpenInterestRegionDropdown(true)}
       >
-        <p>{primaryRegion?.regionName ?? ''}</p>
+        <p>{getDisplayRegionName(primaryRegion)}</p>
         <img
           src="/images/svg/home/icon-arrow-chevron-down.svg"
           alt="관심 도시 설정 아이콘"

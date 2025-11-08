@@ -4,6 +4,7 @@
 export interface Region {
   regionId: number;
   regionName: string;
+  admin1Code: string;
   isPrimary: boolean;
 }
 
