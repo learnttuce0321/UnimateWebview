@@ -33,8 +33,8 @@ const FILTER_CONFIGS = {
     paramKey: 'sort',
     formatDisplayText: (value: string) => {
       const sortLabels = {
-        latest: '최신순',
-        oldest: '오래된순',
+        DESC: '최신순',
+        ASC: '오래된순',
       };
       return sortLabels[value as keyof typeof sortLabels] || value;
     },

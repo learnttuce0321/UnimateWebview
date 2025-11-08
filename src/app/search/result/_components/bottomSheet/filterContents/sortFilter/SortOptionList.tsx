@@ -13,8 +13,8 @@ type SortOptionItem = {
 };
 
 const sortOptions: SortOptionItem[] = [
-  { value: 'latest', label: '최신순' },
-  { value: 'oldest', label: '오래된순' },
+  { value: 'DESC', label: '최신순' },
+  { value: 'ASC', label: '오래된순' },
 ];
 
 const SortOptionList = ({ selectedSort, onSortSelect }: Props) => {

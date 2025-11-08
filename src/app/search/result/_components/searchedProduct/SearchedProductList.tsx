@@ -31,7 +31,7 @@ const SearchResultList = ({ currentFilteringUniversity }: Props) => {
   const currencyType = searchParams.get('currencyType') ?? '';
   const category = searchParams.get('category') ?? '';
   const tradeStatus = searchParams.get('tradeStatus') ?? '';
-  const sortDirection = searchParams.get('sortDirection') ?? '';
+  const sortDirection = searchParams.get('sort') ?? '';
 
   const infiniteTarget = useRef<HTMLDivElement>(null);
 
