@@ -138,6 +138,7 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
         <ProductStatusBottomSheet
           isOpen={isStatusModalOpen}
           currentStatus={tradeStatus}
+          productId={productDetail.id}
           onClose={() => setIsStatusModalOpen(false)}
           onStatusChange={(status) => {
             setTradeStatus(status as TradeStatus);
