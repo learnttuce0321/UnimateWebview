@@ -9,7 +9,7 @@ import ReportReasonSelection from './ReportReasonSelection';
 interface ReportBottomSheetProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit?: (data: any) => void;
+  onSubmit?: (reason: string, details: string) => void;
 }
 
 type Step = 'reason-selection' | 'detail-input';
@@ -44,7 +44,7 @@ const ReportBottomSheet = ({
     console.log('신고 데이터:', data);
 
     if (onSubmit) {
-      onSubmit(data);
+      onSubmit(data.reason.id, data.detail);
     }
 
     onClose();

@@ -84,3 +84,8 @@ export const API_MY_PURCHASED_PRODUCTS = '/api/v1/product-posts/my/purchases';
  */
 export const API_PURCHASED_PRODUCT_DELETE = (purchaseHistoryId: number) =>
   `/api/v1/product-posts/my/purchases/${purchaseHistoryId}`;
+
+/**
+ * @POST 신고하기 API
+ */
+export const API_REPORTS = '/api/v1/reports';
