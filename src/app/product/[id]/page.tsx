@@ -13,7 +13,9 @@ import ProductDetailInfo from './_components/productDetailInfo/ProductDetailInfo
 import ProductMoreMenu from './_components/ProductMoreMenu';
 import ProductSellerSection from './_components/ProductSellerSection';
 import ProductStatusBottomSheet from './_components/ProductStatusBottomSheet';
-import ReportModalContent from './_components/ReportModalContent';
+import ReportBottomSheet from './_components/ReportBottomSheet';
+import { useMutationReportProduct } from 'hooks/products/useMutationReportProduct';
+import ReportSuccessModal from './_components/ReportSuccessModal';
 
 export type TradeStatus = 'FOR_SALE' | 'RESERVED' | 'SOLD_OUT';
 
@@ -25,10 +27,10 @@ interface ProductDetailPageProps {
 
 const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
   const [isStatusModalOpen, setIsStatusModalOpen] = useState(false);
-  const [selectedReason, setSelectedReason] = useState('');
-  const [otherReason, setOtherReason] = useState('');
+  const [isReportModalOpen, setIsReportModalOpen] = useState(false);
   const { modalState, openModal, closeModal, handleConfirm, handleCancel } =
     useModal();
+  const { mutate: reportProduct } = useMutationReportProduct();
   const [tradeStatus, setTradeStatus] = useState<TradeStatus>('FOR_SALE');
   const { openWeb } = navigationScheme();
 
@@ -48,7 +50,7 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
 
   if (isLoading) {
     return (
-      <div className="flex h-screen items-center justify-center">
+      <div className="flex items-center justify-center h-screen">
         <div className="text-lg">로딩 중...</div>
       </div>
     );
@@ -56,7 +58,7 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
 
   if (error || !productDetail) {
     return (
-      <div className="flex h-screen items-center justify-center">
+      <div className="flex items-center justify-center h-screen">
         <div className="text-lg text-red-500">
           상품 정보를 불러올 수 없습니다.
         </div>
@@ -122,23 +124,7 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
         {/* 상품 상세 설명 영역 */}
         <ProductDescriptionSection
           {...productData}
-          onReportClick={() =>
-            openModal({
-              children: (
-                <ReportModalContent
-                  selectedReason={selectedReason}
-                  setSelectedReason={setSelectedReason}
-                  otherReason={otherReason}
-                  setOtherReason={setOtherReason}
-                />
-              ),
-              confirmText: '신고하기',
-              cancelText: '취소',
-              onConfirm: () => {
-                console.log('여기다가 신고하기 제출 로직 추가하기');
-              },
-            })
-          }
+          onReportClick={() => setIsReportModalOpen(true)}
         />
 
         {/* 고정 하단 액션 */}
@@ -159,6 +145,37 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
           }}
         />
       </div>
+
+      <ReportBottomSheet
+        isOpen={isReportModalOpen}
+        onClose={() => setIsReportModalOpen(false)}
+        onSubmit={(reason, details) => {
+          if (!productDetail) return;
+
+          reportProduct(
+            {
+              targetUserId: productDetail.sellerId,
+              reason: reason as any,
+              detail: details,
+            },
+            {
+              onSuccess: (data) => {
+                setIsReportModalOpen(false);
+                openModal({
+                  children: (
+                    <ReportSuccessModal userBlocked={data.userBlocked} />
+                  ),
+                  confirmText: '확인',
+                  onConfirm: () => closeModal(),
+                });
+              },
+              onError: (error) => {
+                console.error('신고 실패:', error);
+              },
+            }
+          );
+        }}
+      />
 
       <Modal
         modalState={modalState}

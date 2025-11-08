@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 
 const REPORT_REASONS = [
   {
-    id: 'bad_manner',
+    id: 'BAD_MANNER',
     label: '비매너 메이트',
     details: [
       '반말을 사용하거나 관련 없는 대화를 해요',
@@ -15,7 +15,7 @@ const REPORT_REASONS = [
     ],
   },
   {
-    id: 'fraud_suspicion',
+    id: 'SCAM_SUSPICION',
     label: '사기 의심',
     details: [
       '입금했는데 판매자가 물건을 주지 않아요',
@@ -25,26 +25,33 @@ const REPORT_REASONS = [
     ],
   },
   {
-    id: 'abusive_language',
-    label: '욕설, 비방, 혐오 표현 사용',
-    details: ['부적절한 언행으로 기분이 나쁜 말을 사용해요'],
+    id: 'HATE_SPEECH',
+    label: '욕설, 비방, 혐오 표현',
+    details: [
+      '욕설이나 비방을 해요',
+      '혐오 표현을 사용해요',
+      '부적절한 언행으로 기분이 나쁜 말을 사용해요',
+    ],
   },
   {
-    id: 'sexual_harassment',
+    id: 'SEXUAL_HARASSMENT',
     label: '부적절한 성적 행위',
     details: [
+      '부적절한 성적 행위나 내용이 포함되어 있어요',
       '이 항목으로 신고하면 자동으로 사용자를 차단해요',
       '차단 관리는 채팅방 > 설정 > 차단하기를 통해 관리할 수 있어요',
     ],
   },
   {
-    id: 'etc',
+    id: 'ETC',
     label: '기타',
     details: [
       '정치/종교적인 대화를 시도해요',
       '미성년자에게 부적절한 콘텐츠를 게시해요',
       '프로필 사진이 부적절해요',
       '닉네임이 부적절해요',
+      '상품과 관련 없는 광고나 홍보를 해요',
+      '법적으로 판매가 금지된 물품을 거래해요',
     ],
   },
 ];
