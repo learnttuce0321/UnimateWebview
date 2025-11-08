@@ -11,6 +11,7 @@ import { useAppStore } from 'providers/ZustandProvider';
 import { Region } from 'types/Region';
 import DeleteInterestRegionModalContent from './DeleteInterestRegionModalContent';
 import DeletePrimaryInterestRegionErrorModalContent from './DeletePrimaryInterestRegionErrorModalContent';
+import { getDisplayRegionName } from 'utils/getDisplayRegionName';
 
 interface Props {
   region: Region;
@@ -76,7 +77,9 @@ const UserInterestRegion = ({ region, openModal }: Props) => {
         className={`flex items-center justify-between px-[16px] py-[10px] ${isPrimary ? 'text-blue-600_P' : 'text-blue_gray-700'} ${isPrimary && 'bg-blue_gray-50'} ${isPrimary ? 'border-blue-600_P' : 'border-blue_gray-300'} rounded-[10px] border-[1px] border-solid`}
         onClick={handleCityClick}
       >
-        <p className="max-w-[calc(100%-24px)] truncate">{regionName}</p>
+        <p className="max-w-[calc(100%-24px)] truncate">
+          {getDisplayRegionName(region)}
+        </p>
         <button type="button" onClick={handleDeleteCityClick}>
           <img
             src="/images/svg/favorite/icon-system-close-small.svg"
