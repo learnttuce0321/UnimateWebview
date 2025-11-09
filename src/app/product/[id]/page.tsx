@@ -12,7 +12,6 @@ import ProductDetailImageSlider from './_components/ProductDetailImageSlider';
 import ProductDetailInfo from './_components/productDetailInfo/ProductDetailInfo';
 import ProductMoreMenu from './_components/ProductMoreMenu';
 import ProductSellerSection from './_components/ProductSellerSection';
-import ProductStatusBottomSheet from './_components/ProductStatusBottomSheet';
 import ReportBottomSheet from './_components/ReportBottomSheet';
 import { useMutationReportProduct } from 'hooks/products/useMutationReportProduct';
 import ReportSuccessModal from './_components/ReportSuccessModal';
@@ -26,7 +25,6 @@ interface ProductDetailPageProps {
 }
 
 const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
-  const [isStatusModalOpen, setIsStatusModalOpen] = useState(false);
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
   const { modalState, openModal, closeModal, handleConfirm, handleCancel } =
     useModal();
@@ -50,7 +48,7 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-screen">
+      <div className="flex h-screen items-center justify-center">
         <div className="text-lg">로딩 중...</div>
       </div>
     );
@@ -58,7 +56,7 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
 
   if (error || !productDetail) {
     return (
-      <div className="flex items-center justify-center h-screen">
+      <div className="flex h-screen items-center justify-center">
         <div className="text-lg text-red-500">
           상품 정보를 불러올 수 없습니다.
         </div>
@@ -132,18 +130,8 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
           isSeller={isSeller}
           onOpenChat={() => console.log('채팅하기')}
           onOpenChatList={() => console.log('채팅 목록 열기')}
-          onOpenStatus={() => setIsStatusModalOpen(true)}
-        />
-
-        <ProductStatusBottomSheet
-          isOpen={isStatusModalOpen}
-          currentStatus={tradeStatus}
           productId={productDetail.id}
-          onClose={() => setIsStatusModalOpen(false)}
-          onStatusChange={(status) => {
-            setTradeStatus(status as TradeStatus);
-            setIsStatusModalOpen(false);
-          }}
+          currentStatus={tradeStatus}
         />
       </div>
 

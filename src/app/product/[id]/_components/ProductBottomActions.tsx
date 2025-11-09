@@ -1,27 +1,39 @@
 'use client';
 
 import React from 'react';
+import productScheme, { TradeStatus } from 'utils/productScheme';
 
 type Props = {
   isSeller: boolean;
+  productId?: number; // 판매자일 때 필요
+  currentStatus?: TradeStatus; // 판매자일 때 필요
   onOpenChat?: () => void; // 구매자: "채팅하기"
   onOpenChatList?: () => void; // 판매자: "채팅 목록"
-  onOpenStatus?: () => void; // 판매자: "상태 변경"
 };
 
 export default function ProductBottomActions({
   isSeller,
+  productId,
+  currentStatus,
   onOpenChat,
   onOpenChatList,
-  onOpenStatus,
 }: Props) {
+  const handleStatusChange = () => {
+    if (!productId || !currentStatus) return;
+
+    const { changeTradeStatus } = productScheme();
+    changeTradeStatus({
+      productId,
+      currentStatus,
+    });
+  };
   return (
     <div className="z-5 fixed inset-x-0 bottom-0 mx-auto flex h-[70px] w-full max-w-screen-sm items-center justify-center bg-white p-4">
       {isSeller ? (
-        <div className="flex h-full w-full items-center gap-2">
+        <div className="flex items-center w-full h-full gap-2">
           <button
             type="button"
-            onClick={onOpenStatus}
+            onClick={handleStatusChange}
             className="h-[50px] flex-1 rounded-[10px] bg-[#e6f1ff] text-[18px] font-bold leading-[50px] text-[#3c8dff]"
           >
             상태 변경
