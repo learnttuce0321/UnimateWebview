@@ -25,7 +25,7 @@ const statusBadge = (status: TradeStatus) => {
           예약중
         </div>
       );
-    case 'SOLD_OUT':
+    case 'COMPLETED':
       return (
         <div className="flex items-center justify-center bg-[#a4a9b0] px-[6px] py-1 text-[12px] font-semibold leading-3 text-white">
           거래완료
@@ -85,7 +85,7 @@ const ProductDetailInfoHeader = ({
             <img
               src="/images/svg/product/icon-system-favorite-small.svg"
               alt="찜수"
-              className="h-3 w-3"
+              className="w-3 h-3"
             />
             <span className="text-[12px] font-normal leading-3 text-[#7a8086]">
               {likeCount}
@@ -96,7 +96,7 @@ const ProductDetailInfoHeader = ({
             <img
               src="/images/svg/product/icon-system-chat.svg"
               alt="채팅수"
-              className="h-3 w-3"
+              className="w-3 h-3"
             />
             <span className="text-[12px] font-normal leading-3 text-[#7a8086]">
               {chatRoomCount}

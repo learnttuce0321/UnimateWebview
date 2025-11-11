@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Modal from 'components/modal/Modal';
 import { useModal } from 'components/modal/useModal';
 import NavigationBar from 'components/navigation/NavigationBar';
+import { useMutationReportProduct } from 'hooks/products/useMutationReportProduct';
 import { useQueryProductDetail } from 'hooks/products/useQueryProductDetail';
 import navigationScheme from 'utils/navigationScheme';
 import ProductBottomActions from './_components/ProductBottomActions';
@@ -13,10 +14,9 @@ import ProductDetailInfo from './_components/productDetailInfo/ProductDetailInfo
 import ProductMoreMenu from './_components/ProductMoreMenu';
 import ProductSellerSection from './_components/ProductSellerSection';
 import ReportBottomSheet from './_components/ReportBottomSheet';
-import { useMutationReportProduct } from 'hooks/products/useMutationReportProduct';
 import ReportSuccessModal from './_components/ReportSuccessModal';
 
-export type TradeStatus = 'FOR_SALE' | 'RESERVED' | 'SOLD_OUT';
+export type TradeStatus = 'FOR_SALE' | 'RESERVED' | 'COMPLETED';
 
 interface ProductDetailPageProps {
   params: {
@@ -48,7 +48,7 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
 
   if (isLoading) {
     return (
-      <div className="flex h-screen items-center justify-center">
+      <div className="flex items-center justify-center h-screen">
         <div className="text-lg">로딩 중...</div>
       </div>
     );
@@ -56,7 +56,7 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
 
   if (error || !productDetail) {
     return (
-      <div className="flex h-screen items-center justify-center">
+      <div className="flex items-center justify-center h-screen">
         <div className="text-lg text-red-500">
           상품 정보를 불러올 수 없습니다.
         </div>

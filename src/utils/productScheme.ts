@@ -1,6 +1,6 @@
 import deviceInfoStore from 'stores/vanillaStore.deviceInfo';
 
-export type TradeStatus = 'FOR_SALE' | 'RESERVED' | 'SOLD_OUT';
+export type TradeStatus = 'FOR_SALE' | 'RESERVED' | 'COMPLETED';
 
 interface ChangeTradeStatusParams {
   productId: number;
@@ -32,7 +32,7 @@ const productScheme = () => {
           //   schemeUrl += `&buyerId=${buyerId}&conversationId=${conversationId}`;
           // }
           break;
-        case 'SOLD_OUT':
+        case 'COMPLETED':
           // 스킴에서는 COMPLETED 사용
           // TODO: 네이티브한테 수정해달라고 말한 상태
           schemeUrl += '&currentStatus=COMPLETED';
