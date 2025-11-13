@@ -17,6 +17,12 @@ export const API_PRODUCT = '/api/v1/product-posts';
 export const API_PRODUCTS_SEARCH = '/api/v1/product-posts/search';
 
 /**
+ * @GET 상품 게시글 가격 범위 조회 API
+ */
+export const API_PRODUCTS_SEARCH_PRICE_RANGE =
+  '/api/v1/product-posts/price-range';
+
+/**
  * @GET 상품 게시글 대학 필터 API
  */
 export const API_PRODUCT_FILTERING_UNIVERSITY_SEARCH =
