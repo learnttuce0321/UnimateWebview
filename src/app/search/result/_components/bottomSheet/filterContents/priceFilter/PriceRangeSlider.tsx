@@ -1,51 +1,77 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
-import { formatNumber } from '../../../../../../../utils/formatNumber';
 
 type Currency = 'KRW' | 'USD';
 
-// 가격 범위 상수
-const PRICE_RANGES = {
-  KRW: { min: 4000, max: 184000 },
-  USD: { min: 3, max: 123 },
-};
-
 interface PriceRangeSliderProps {
   currency: Currency;
-  onPriceChange: (minPrice: string, maxPrice: string) => void;
+  minPrice?: string;
+  maxPrice?: string;
+  onSliderChange?: (minPrice: number, maxPrice: number) => void;
 }
 
 const PriceRangeSlider = ({
   currency,
-  onPriceChange,
+  minPrice,
+  maxPrice,
+  onSliderChange,
 }: PriceRangeSliderProps) => {
+  // Input에서 입력된 값을 기준으로 동적 범위 계산
+  const getDynamicPriceRange = useCallback(() => {
+    const parsedMinPrice = minPrice
+      ? parseInt(minPrice.replace(/,/g, ''), 10)
+      : null;
+    const parsedMaxPrice = maxPrice
+      ? parseInt(maxPrice.replace(/,/g, ''), 10)
+      : null;
+
+    // 둘 다 입력된 경우, 입력된 값을 범위로 사용
+    if (
+      parsedMinPrice &&
+      parsedMaxPrice &&
+      !isNaN(parsedMinPrice) &&
+      !isNaN(parsedMaxPrice)
+    ) {
+      return {
+        min: parsedMinPrice,
+        max: parsedMaxPrice,
+      };
+    }
+
+    // 값이 없으면 null 반환
+    return null;
+  }, [minPrice, maxPrice]);
+
+  const priceRange = getDynamicPriceRange();
+
   const [minValue, setMinValue] = useState(0);
   const [maxValue, setMaxValue] = useState(100);
   const [isDragging, setIsDragging] = useState<'min' | 'max' | null>(null);
   const sliderRef = useRef<HTMLDivElement>(null);
 
-  const priceRange = PRICE_RANGES[currency];
+  // Input 값이 변경되면 슬라이더 초기화
+  useEffect(() => {
+    setMinValue(0);
+    setMaxValue(100);
+  }, [minPrice, maxPrice]);
 
   // 퍼센트를 실제 가격으로 변환
   const percentToPrice = useCallback(
     (percent: number) => {
+      if (!priceRange) return 0;
       const range = priceRange.max - priceRange.min;
       return Math.round(priceRange.min + (range * percent) / 100);
     },
     [priceRange]
   );
 
-  // 가격 변경 시 부모 컴포넌트에 알림
-  const notifyPriceChange = useCallback(
-    (minPercent: number, maxPercent: number) => {
-      const minPrice = percentToPrice(minPercent);
-      const maxPrice = percentToPrice(maxPercent);
-      onPriceChange(
-        formatNumber(minPrice.toString()),
-        formatNumber(maxPrice.toString())
-      );
-    },
-    [percentToPrice, onPriceChange]
-  );
+  // 슬라이더 값이 변경될 때 부모에게 계산된 가격 전달
+  useEffect(() => {
+    if (onSliderChange && priceRange) {
+      const calculatedMin = percentToPrice(minValue);
+      const calculatedMax = percentToPrice(maxValue);
+      onSliderChange(calculatedMin, calculatedMax);
+    }
+  }, [minValue, maxValue, percentToPrice, onSliderChange, priceRange]);
 
   // 마우스/터치 다운 이벤트
   const handleMouseDown = useCallback(
@@ -81,14 +107,14 @@ const PriceRangeSlider = ({
       if (isDragging === 'min') {
         const newMinValue = Math.min(snappedPercentage, maxValue - 10);
         setMinValue(newMinValue);
-        notifyPriceChange(newMinValue, maxValue);
+        // 슬라이더는 Input 값에 영향을 주지 않음
       } else if (isDragging === 'max') {
         const newMaxValue = Math.max(snappedPercentage, minValue + 10);
         setMaxValue(newMaxValue);
-        notifyPriceChange(minValue, newMaxValue);
+        // 슬라이더는 Input 값에 영향을 주지 않음
       }
     },
-    [isDragging, minValue, maxValue, notifyPriceChange]
+    [isDragging, minValue, maxValue]
   );
 
   // 마우스 이동 이벤트
@@ -142,6 +168,11 @@ const PriceRangeSlider = ({
     handleTouchMove,
     handleTouchEnd,
   ]);
+
+  // priceRange가 없으면 빈 공간 렌더링
+  if (!priceRange) {
+    return <div className="h-5 w-full" />;
+  }
 
   return (
     <div className="h-5 w-full">

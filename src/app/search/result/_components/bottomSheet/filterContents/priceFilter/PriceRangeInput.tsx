@@ -1,14 +1,28 @@
 import React from 'react';
 // 아니 이거 경로 왜이래 근데..
 import { formatNumber } from '../../../../../../../utils/formatNumber';
+import { useQuery } from '@tanstack/react-query';
+import { API_PRODUCTS_SEARCH_PRICE_RANGE } from 'modules/keyFactory/product';
+import { useSearchParams } from 'next/navigation';
 
 // TODO: 최저가, 최고가 데이터 받아오기
-const MIN_PRICE_KRW = '4,000';
-const MAX_PRICE_KRW = '184,000';
+const MIN_PRICE_KRW = '10,000';
+const MAX_PRICE_KRW = '100,000';
 const MIN_PRICE_USD = '3';
 const MAX_PRICE_USD = '123';
 
 type Currency = 'KRW' | 'USD';
+
+interface PriceRangeResponse {
+  krw: {
+    minPrice: number;
+    maxPrice: number;
+  };
+  usd: {
+    minPrice: number;
+    maxPrice: number;
+  };
+}
 
 interface PriceRangeInputProps {
   currency: Currency;
@@ -23,6 +37,21 @@ const PriceRangeInput = ({
   maxPrice,
   onPriceChange,
 }: PriceRangeInputProps) => {
+  const searchParams = useSearchParams();
+  const searchKeyword = searchParams.get('q') as string;
+
+  const { data, isLoading, isError } = useQuery<PriceRangeResponse>({
+    queryKey: [API_PRODUCTS_SEARCH_PRICE_RANGE, { searchKeyword }],
+  });
+
+  if (isLoading) {
+    return <div className="h-[40px]" />;
+  }
+
+  if (isError || !data) {
+    return null;
+  }
+
   const handleMinPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const formatted = formatNumber(e.target.value);
     onPriceChange(formatted, maxPrice);
@@ -35,8 +64,8 @@ const PriceRangeInput = ({
 
   const getPlaceholders = () => {
     return currency === 'USD'
-      ? { min: MIN_PRICE_USD, max: MAX_PRICE_USD }
-      : { min: MIN_PRICE_KRW, max: MAX_PRICE_KRW };
+      ? { min: data.usd.minPrice, max: data.usd.maxPrice }
+      : { min: data.krw.minPrice, max: data.krw.maxPrice };
   };
 
   const placeholders = getPlaceholders();
@@ -51,7 +80,7 @@ const PriceRangeInput = ({
           pattern="[0-9]*"
           value={minPrice}
           onChange={handleMinPriceChange}
-          placeholder={placeholders.min}
+          placeholder={placeholders.min.toString()}
           className="text-4 h-4 w-full pr-1 text-right font-normal leading-4 placeholder:text-blue_gray-500"
         />
         <span className="text-right text-[14px] font-semibold leading-[40px]">
@@ -70,7 +99,7 @@ const PriceRangeInput = ({
           pattern="[0-9]*"
           value={maxPrice}
           onChange={handleMaxPriceChange}
-          placeholder={placeholders.max}
+          placeholder={placeholders.max.toString()}
           className="text-4 h-4 w-full pr-1 text-right font-normal leading-4 placeholder:text-blue_gray-500"
         />
         <span className="text-right text-[14px] font-semibold leading-[40px]">
