@@ -17,6 +17,9 @@ const CategoryFilterContent = ({ closeSheet }: Props) => {
 
     if (selectedCategory) {
       currentUrl.searchParams.set('category', selectedCategory);
+    } else {
+      // 아무것도 선택하지 않았으면 카테고리 파라미터 제거
+      currentUrl.searchParams.delete('category');
     }
 
     router.replace(currentUrl.toString());
