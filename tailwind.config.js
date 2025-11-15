@@ -44,6 +44,10 @@ module.exports = {
       borderWidth: {
         0.5: '0.5px',
       },
+      zIndex: {
+        'overlay': '50',
+        'modal-content': '60',
+      },
     },
   },
   plugins: [],

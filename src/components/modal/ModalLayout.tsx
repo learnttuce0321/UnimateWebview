@@ -2,7 +2,6 @@
 
 import { MouseEvent } from 'react';
 import Overlay from 'components/modal/Overlay';
-import { MODAL_OR_BOTTOM_SHEET_CONTENT_Z_INDEX } from 'constants/zIndex';
 
 interface Props {
   isOpened: boolean;
@@ -46,7 +45,7 @@ const ModalLayout = ({
     <>
       <Overlay onClick={handleOverlayClick} />
       <div
-        className={`fixed left-1/2 top-1/2 w-[calc(100%-110px)] max-w-[400px] -translate-x-1/2 -translate-y-1/2 transform rounded-[10px] bg-white p-6 px-[20px] pb-[20px] pt-[30px] z-[${MODAL_OR_BOTTOM_SHEET_CONTENT_Z_INDEX}]`}
+        className="z-modal-content fixed left-1/2 top-1/2 w-[calc(100%-110px)] max-w-[400px] -translate-x-1/2 -translate-y-1/2 transform rounded-[10px] bg-white p-6 px-[20px] pb-[20px] pt-[30px]"
         onClick={(e) => {
           e.stopPropagation();
         }}
