@@ -32,7 +32,7 @@ const MY_CONFIG_LIST_ITEMS: MyPageListItem[] = [
 ];
 
 const MY_PROFILE_SETTING_LIST_ITEMS: MyPageListItem[] = [
-  { title: '프로필 수정', targetUrl: '/my-page/setting/profile' },
+  { title: '프로필 설정', targetUrl: '/my-page/setting/profile' },
   { title: '학교 인증하기', targetUrl: '/my-page/setting/verify' },
 ];
 
