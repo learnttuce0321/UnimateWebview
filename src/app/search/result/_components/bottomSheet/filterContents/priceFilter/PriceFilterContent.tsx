@@ -40,7 +40,9 @@ const PriceFilterContent = ({ closeSheet }: Props) => {
     queryKey: [API_PRODUCTS_SEARCH_PRICE_RANGE, { searchKeyword }],
   });
 
-  const [currency, setCurrency] = useState<Currency>('KRW');
+  // 쿼리 파라미터에서 currencyType 읽어오기
+  const queryCurrencyType = searchParams.get('currencyType') as Currency | null;
+  const [currency, setCurrency] = useState<Currency>(queryCurrencyType || 'KRW');
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
   // 슬라이더 범위를 고정하기 위한 기준 값 (Input으로 설정한 원본 값)
@@ -82,6 +84,9 @@ const PriceFilterContent = ({ closeSheet }: Props) => {
 
   const handleApplyPriceFilter = () => {
     const currentUrl = new URL(window.location.href);
+
+    // 선택된 통화 타입 추가
+    currentUrl.searchParams.set('currencyType', currency);
 
     if (minPrice) {
       // 콤마 제거하고 숫자만 추출

@@ -17,8 +17,31 @@ interface Props {
 // 필터별 설정 객체
 const FILTER_CONFIGS = {
   price: {
-    paramKey: 'minPrice',
-    formatDisplayText: (value: string) => `${formatNumber(value)}원 이상`,
+    paramKey: ['minPrice', 'maxPrice'],
+    formatDisplayText: (
+      minPrice: string,
+      maxPrice?: string,
+      currencyType?: string
+    ) => {
+      const isUSD = currencyType === 'USD';
+
+      if (minPrice && maxPrice) {
+        return isUSD
+          ? `$${formatNumber(minPrice)}-$${formatNumber(maxPrice)}`
+          : `${formatNumber(minPrice)}원-${formatNumber(maxPrice)}원`;
+      }
+      if (minPrice) {
+        return isUSD
+          ? `$${formatNumber(minPrice)} 이상`
+          : `${formatNumber(minPrice)}원 이상`;
+      }
+      if (maxPrice) {
+        return isUSD
+          ? `$${formatNumber(maxPrice)} 이하`
+          : `${formatNumber(maxPrice)}원 이하`;
+      }
+      return '';
+    },
   },
   category: {
     paramKey: 'category',
@@ -61,16 +84,72 @@ const FilterButton = ({ filterName }: Props) => {
   const filterConfig =
     FILTER_CONFIGS[filterName as keyof typeof FILTER_CONFIGS];
 
+  // 필터 활성화 여부 및 값 확인
+  const getParamValues = () => {
+    if (!filterConfig) return null;
+
+    // price 필터는 두 개의 파라미터 확인
+    if (filterName === 'price') {
+      const minPrice = searchParams.get('minPrice');
+      const maxPrice = searchParams.get('maxPrice');
+      return { minPrice, maxPrice };
+    }
+
+    // 다른 필터는 단일 파라미터
+    const paramKey = filterConfig.paramKey as string;
+    const value = searchParams.get(paramKey);
+    return value;
+  };
+
+  const paramValues = getParamValues();
+
   // 필터 활성화 여부 확인
-  const paramValue = filterConfig
-    ? searchParams.get(filterConfig.paramKey)
-    : null;
-  const isFilterActive = Boolean(paramValue);
+  const isFilterActive =
+    filterName === 'price'
+      ? Boolean(
+          (
+            paramValues as {
+              minPrice: string | null;
+              maxPrice: string | null;
+            }
+          )?.minPrice ||
+            (
+              paramValues as {
+                minPrice: string | null;
+                maxPrice: string | null;
+              }
+            )?.maxPrice
+        )
+      : Boolean(paramValues);
 
   const getDisplayText = () => {
-    if (filterConfig && paramValue) {
-      return filterConfig.formatDisplayText(paramValue);
+    if (!filterConfig || !paramValues) {
+      return FilterTypeLabel[filterName];
     }
+
+    // price 필터 처리
+    if (filterName === 'price') {
+      const { minPrice, maxPrice } = paramValues as {
+        minPrice: string | null;
+        maxPrice: string | null;
+      };
+      if (minPrice || maxPrice) {
+        // currencyType 파라미터 가져오기
+        const currencyType = searchParams.get('currencyType') || 'KRW';
+        return filterConfig.formatDisplayText(
+          minPrice || '',
+          maxPrice || undefined,
+          currencyType
+        );
+      }
+      return FilterTypeLabel[filterName];
+    }
+
+    // 다른 필터 처리
+    if (paramValues && typeof paramValues === 'string') {
+      return filterConfig.formatDisplayText(paramValues);
+    }
+
     return FilterTypeLabel[filterName];
   };
 
