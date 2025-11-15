@@ -21,7 +21,7 @@ const SearchedProductInfo = ({ product }: Props) => {
   } = product;
 
   return (
-    <div className="flex w-[calc(100%-108px)] flex-col justify-between">
+    <div className="flex w-[calc(100%-120px)] flex-col justify-between">
       <div className="flex w-full flex-col justify-start gap-[6px]">
         <SearchedProductTitle title={title} />
         <SearchedProductRegistrationMeta

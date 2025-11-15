@@ -9,7 +9,7 @@ const SearchedProductImage = ({ thumbnailUrl }: Props) => {
       width={108}
       height={108}
       alt="상품 이미지"
-      className="rounded-[8px]"
+      className="h-[108px] w-[108px] rounded-[8px] object-cover"
     />
   );
 };
