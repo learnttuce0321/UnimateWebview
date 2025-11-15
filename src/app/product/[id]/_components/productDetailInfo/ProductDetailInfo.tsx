@@ -9,6 +9,8 @@ import Divider from '../Divider';
 import ProductDetailInfoHeader from './ProductDetailInfoHeader';
 import ProductDetailInfoLikeShare from './ProductDetailInfoLikeShare';
 import { TradeStatus } from '../../page';
+import { setLocalStorageAndSync } from 'hooks/useStorageSync';
+import { MAIN_PAGE_UPDATE_PRODUCTS_LIKE } from 'constants/storageSyncKeyFactory/main';
 
 interface Props {
   id: number;
@@ -66,6 +68,10 @@ const ProductDetailInfo = ({
               queryClient.invalidateQueries({
                 queryKey: ['products'],
               });
+              setLocalStorageAndSync(MAIN_PAGE_UPDATE_PRODUCTS_LIKE, {
+                productId: id,
+                updateType: 'unlike',
+              });
             },
           }
         );
@@ -81,8 +87,9 @@ const ProductDetailInfo = ({
                 queryKey: ['product-detail', productId.toString()],
               });
               // 상품 목록 캐시도 무효화 (찜 수가 변경되어야 함)
-              queryClient.invalidateQueries({
-                queryKey: ['products'],
+              setLocalStorageAndSync(MAIN_PAGE_UPDATE_PRODUCTS_LIKE, {
+                productId: id,
+                updateType: 'like',
               });
             },
           }
