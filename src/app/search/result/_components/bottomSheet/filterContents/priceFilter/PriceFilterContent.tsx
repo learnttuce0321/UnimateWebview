@@ -4,10 +4,12 @@ import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { API_PRODUCTS_SEARCH_PRICE_RANGE } from 'modules/keyFactory/product';
+import PriceFilterErrorContent from './PriceFilterErrorContent';
 import PriceRangeInput from './PriceRangeInput';
 import PriceRangeSlider from './PriceRangeSlider';
 import PriceUnitToggle from './PriceUnitToggle';
 import TitleBottomSheet from './TitleBottomSheet';
+import { ApiResponseError } from 'modules/fetch/fetchClient';
 
 type Currency = 'KRW' | 'USD';
 
@@ -31,7 +33,10 @@ const PriceFilterContent = ({ closeSheet }: Props) => {
   const searchParams = useSearchParams();
   const searchKeyword = searchParams.get('q') as string;
 
-  const { data, isLoading, isError } = useQuery<PriceRangeResponse>({
+  const { data, isLoading, isError, error } = useQuery<
+    PriceRangeResponse,
+    ApiResponseError
+  >({
     queryKey: [API_PRODUCTS_SEARCH_PRICE_RANGE, { searchKeyword }],
   });
 
@@ -64,8 +69,15 @@ const PriceFilterContent = ({ closeSheet }: Props) => {
     return <div className="h-[200px]" />;
   }
 
-  if (isError || !data) {
-    return null;
+  if (isError) {
+    const errorMessage = error.message;
+
+    return (
+      <PriceFilterErrorContent
+        errorMessage={errorMessage}
+        closeSheet={closeSheet}
+      />
+    );
   }
 
   const handleApplyPriceFilter = () => {
