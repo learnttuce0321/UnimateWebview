@@ -38,7 +38,13 @@ const MyProfileImage = ({
 
   return (
     <div className="relative">
-      <img src={userProfile} width={116} height={116} alt="유저 프로필" />
+      <img
+        src={userProfile}
+        width={116}
+        height={116}
+        alt="유저 프로필"
+        className="h-[116px] w-[116px] rounded-full object-cover"
+      />
       <button
         className="absolute bottom-0 right-0"
         onClick={handleUpdateUserProfile}
