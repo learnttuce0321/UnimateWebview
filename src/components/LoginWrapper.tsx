@@ -10,7 +10,7 @@ const LoginWrapper = ({ children }: Props) => {
   const isLogin = useAppStore((state) => state.isLogin);
 
   if (!isLogin) {
-    return '잘못된 접근입니다.';
+    return null;
   }
 
   return <>{children}</>;
