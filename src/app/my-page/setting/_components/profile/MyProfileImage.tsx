@@ -2,7 +2,7 @@
 
 import { useMutationGetProfileImagePresignedUrl } from 'hooks/users/useMutationGetProfileImagePresignedUrl';
 import { ApiResponseError } from 'modules/fetch/fetchClient';
-import { extractFileNameFromUrl } from 'utils/bridge';
+import { extractFileNameFromUrl, selectImagesFromDevice } from 'utils/bridge';
 import { uploadFileToS3 } from 'utils/fileUpload';
 
 interface Props {
@@ -19,12 +19,13 @@ const MyProfileImage = ({
   const { mutateAsync } = useMutationGetProfileImagePresignedUrl();
 
   const handleUpdateUserProfile = async () => {
-    const selectedImageUrl = '/'; // TODO: 브릿지로 가져오기
+    const selectedImageUrls = await selectImagesFromDevice([], 1);
 
-    if (!selectedImageUrl || selectedImageUrl.length === 0) {
+    if (!selectedImageUrls || selectedImageUrls.length === 0) {
       return;
     }
 
+    const selectedImageUrl = selectedImageUrls[0];
     const fileName = extractFileNameFromUrl(selectedImageUrl);
 
     try {

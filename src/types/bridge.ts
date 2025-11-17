@@ -7,6 +7,7 @@ declare global {
 
 export interface PickImageOptions {
   excludedImageUrls?: string[];
+  count?: number;
 }
 
 export interface IOSBridge {
