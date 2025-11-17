@@ -27,10 +27,9 @@ const productScheme = () => {
           break;
         case 'RESERVED':
           schemeUrl += '&currentStatus=RESERVED';
-          // TODO: buyerId와 conversationId는 추후 구현 필요
-          // if (buyerId && conversationId) {
-          //   schemeUrl += `&buyerId=${buyerId}&conversationId=${conversationId}`;
-          // }
+          if (buyerId && conversationId) {
+            schemeUrl += `&buyerId=${buyerId}&conversationId=${conversationId}`;
+          }
           break;
         case 'COMPLETED':
           // 스킴에서는 COMPLETED 사용

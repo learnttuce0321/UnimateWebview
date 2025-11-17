@@ -129,3 +129,10 @@ export interface ProductDetail {
   universityName: string;
   isHidden?: boolean;
 }
+
+export interface TradeProgressResponse {
+  buyerId: number;
+  buyerNickname: string;
+  conversationId: number;
+  status: 'RESERVED';
+}

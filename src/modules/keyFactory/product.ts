@@ -95,3 +95,9 @@ export const API_PURCHASED_PRODUCT_DELETE = (purchaseHistoryId: number) =>
  * @POST 신고하기 API
  */
 export const API_REPORTS = '/api/v1/reports';
+
+/**
+ * @GET 상품 거래 진행 상태 조회 API
+ */
+export const API_PRODUCT_TRADE_PROGRESS = (productId: string | number) =>
+  `/api/v1/product-posts/${productId}/trade-progress`;

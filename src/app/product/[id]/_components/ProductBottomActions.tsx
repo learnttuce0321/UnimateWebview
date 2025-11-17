@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useQueryProductTradeProgress } from 'hooks/products/useQueryProductTradeProgress';
 import productScheme, { TradeStatus } from 'utils/productScheme';
 
 type Props = {
@@ -18,19 +19,45 @@ export default function ProductBottomActions({
   onOpenChat,
   onOpenChatList,
 }: Props) {
-  const handleStatusChange = () => {
+  const { refetch: fetchTradeProgress } = useQueryProductTradeProgress(
+    productId || 0
+  );
+
+  const handleStatusChange = async () => {
     if (!productId || !currentStatus) return;
 
     const { changeTradeStatus } = productScheme();
-    changeTradeStatus({
-      productId,
-      currentStatus,
-    });
+
+    // 예약중 상태일 때 거래 진행 정보 조회
+    if (currentStatus === 'RESERVED') {
+      try {
+        const { data } = await fetchTradeProgress();
+        if (data) {
+          changeTradeStatus({
+            productId,
+            currentStatus,
+            buyerId: data.buyerId,
+            conversationId: data.conversationId,
+          });
+        }
+      } catch (error) {
+        console.error('Failed to fetch trade progress:', error);
+        changeTradeStatus({
+          productId,
+          currentStatus,
+        });
+      }
+    } else {
+      changeTradeStatus({
+        productId,
+        currentStatus,
+      });
+    }
   };
   return (
     <div className="z-5 fixed inset-x-0 bottom-0 mx-auto flex h-[70px] w-full max-w-screen-sm items-center justify-center bg-white p-4">
       {isSeller ? (
-        <div className="flex items-center w-full h-full gap-2">
+        <div className="flex h-full w-full items-center gap-2">
           <button
             type="button"
             onClick={handleStatusChange}
