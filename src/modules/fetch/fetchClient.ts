@@ -160,7 +160,21 @@ export const generateURLWithParams = ({
   params,
 }: GeneratedUrlWithParams) => {
   if (params && Object.keys(params).length > 0) {
-    const searchParams = new URLSearchParams(params);
+    const searchParams = new URLSearchParams();
+
+    // 각 파라미터를 순회하면서 배열인 경우 여러 번 추가
+    Object.entries(params).forEach(([key, value]) => {
+      if (Array.isArray(value)) {
+        // 배열인 경우 각 항목을 개별적으로 추가
+        value.forEach((item) => {
+          searchParams.append(key, String(item));
+        });
+      } else if (value !== undefined && value !== null) {
+        // 일반 값인 경우 그대로 추가
+        searchParams.append(key, String(value));
+      }
+    });
+
     return `${url}?${searchParams.toString()}`;
   }
 

@@ -4,7 +4,7 @@ interface Props {
   category: string;
   englishName: string;
   isSelected: boolean;
-  onSelect: (englishName: string | null) => void;
+  onSelect: (englishName: string) => void;
 }
 
 const CategoryItem = ({
@@ -18,8 +18,7 @@ const CategoryItem = ({
     : '/images/svg/search/iconToggleCheckNone.svg';
 
   const handleCategoryClick = () => {
-    // 이미 선택된 카테고리를 클릭하면 해제, 아니면 선택
-    onSelect(isSelected ? null : englishName);
+    onSelect(englishName);
   };
 
   return (
@@ -29,7 +28,13 @@ const CategoryItem = ({
       onClick={handleCategoryClick}
     >
       <button type="button">
-        <img src={toggleImgUrl} alt="버튼" />
+        <img
+          src={toggleImgUrl}
+          alt="버튼"
+          width={20}
+          height={20}
+          className="h-[20px] w-[20px]"
+        />
       </button>
       <p>{category}</p>
     </li>

@@ -10,27 +10,30 @@ interface Props {
 const CategoryFilterContent = ({ closeSheet }: Props) => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
   const handleApplyCategoryFilter = () => {
     const currentUrl = new URL(window.location.href);
 
-    if (selectedCategory) {
-      currentUrl.searchParams.set('category', selectedCategory);
-    } else {
-      // 아무것도 선택하지 않았으면 카테고리 파라미터 제거
-      currentUrl.searchParams.delete('category');
+    // 기존 categories 파라미터 모두 제거
+    currentUrl.searchParams.delete('categories');
+
+    if (selectedCategories.length > 0) {
+      // 선택된 카테고리들을 각각 추가
+      selectedCategories.forEach((category) => {
+        currentUrl.searchParams.append('categories', category);
+      });
     }
 
     router.replace(currentUrl.toString());
     closeSheet();
   };
 
-  // URL에서 카테고리 파라미터를 가져와서 초기값으로 설정
+  // URL에서 카테고리 파라미터들을 가져와서 초기값으로 설정
   useEffect(() => {
-    const categoryParam = searchParams.get('category');
-    if (categoryParam) {
-      setSelectedCategory(categoryParam);
+    const categoryParams = searchParams.getAll('categories');
+    if (categoryParams.length > 0) {
+      setSelectedCategories(categoryParams);
     }
   }, [searchParams]);
 
@@ -38,8 +41,8 @@ const CategoryFilterContent = ({ closeSheet }: Props) => {
     <div className="flex h-full w-full flex-col">
       <TitleBottomSheet title="카테고리" />
       <CategoryListWrapper
-        selectedCategory={selectedCategory}
-        onCategorySelect={setSelectedCategory}
+        selectedCategories={selectedCategories}
+        onCategorySelect={setSelectedCategories}
       />
 
       <div className="-mx-4 w-[calc(100%+32px)] px-4 py-[10px] shadow-[0px_-1px_10px_2px_rgba(0,0,0,0.08)]">

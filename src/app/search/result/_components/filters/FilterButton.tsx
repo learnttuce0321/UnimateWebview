@@ -43,13 +43,18 @@ const FILTER_CONFIGS = {
       return '';
     },
   },
-  category: {
-    paramKey: 'category',
-    formatDisplayText: (value: string) => {
-      const categoryItem = categoryData.find(
-        (item) => item.categoryEN === value
-      );
-      return categoryItem ? categoryItem.category : value;
+  categories: {
+    paramKey: 'categories',
+    formatDisplayText: (values: string[]) => {
+      if (values.length === 0) return '카테고리';
+      if (values.length === 1) {
+        const categoryItem = categoryData.find(
+          (item) => item.categoryEN === values[0]
+        );
+        return categoryItem ? categoryItem.category : values[0];
+      }
+      // 여러 개 선택된 경우
+      return `카테고리 ${values.length}개`;
     },
   },
   latest: {
@@ -95,6 +100,13 @@ const FilterButton = ({ filterName }: Props) => {
       return { minPrice, maxPrice };
     }
 
+    // categories 필터는 여러 개의 파라미터 확인
+    if (filterName === 'categories') {
+      const paramKey = filterConfig.paramKey as string;
+      const values = searchParams.getAll(paramKey);
+      return values;
+    }
+
     // 다른 필터는 단일 파라미터
     const paramKey = filterConfig.paramKey as string;
     const value = searchParams.get(paramKey);
@@ -120,7 +132,9 @@ const FilterButton = ({ filterName }: Props) => {
               }
             )?.maxPrice
         )
-      : Boolean(paramValues);
+      : filterName === 'categories'
+        ? (paramValues as string[]).length > 0
+        : Boolean(paramValues);
 
   const getDisplayText = () => {
     if (!filterConfig || !paramValues) {
@@ -141,6 +155,15 @@ const FilterButton = ({ filterName }: Props) => {
           maxPrice || undefined,
           currencyType
         );
+      }
+      return FilterTypeLabel[filterName];
+    }
+
+    // categories 필터 처리
+    if (filterName === 'categories') {
+      const categories = paramValues as string[];
+      if (categories.length > 0) {
+        return (filterConfig as typeof FILTER_CONFIGS.categories).formatDisplayText(categories);
       }
       return FilterTypeLabel[filterName];
     }

@@ -29,7 +29,7 @@ const SearchResultList = ({ currentFilteringUniversity }: Props) => {
   const minPrice = searchParams.get('minPrice') ?? '';
   const maxPrice = searchParams.get('maxPrice') ?? '';
   const currencyType = searchParams.get('currencyType') ?? '';
-  const category = searchParams.get('category') ?? '';
+  const categories = searchParams.getAll('categories');
   const tradeStatus = searchParams.get('tradeStatus') ?? '';
   const sortDirection = searchParams.get('sort') ?? '';
 
@@ -48,7 +48,7 @@ const SearchResultList = ({ currentFilteringUniversity }: Props) => {
         minPrice,
         maxPrice,
         currencyType,
-        category,
+        categories,
         tradeStatus,
         sortDirection,
       ],
@@ -65,7 +65,7 @@ const SearchResultList = ({ currentFilteringUniversity }: Props) => {
               ...(minPrice && { minPrice }),
               ...(maxPrice && { maxPrice }),
               ...(currencyType && { currencyType }),
-              ...(category && { category }),
+              ...(categories.length > 0 && { categories }),
               ...(tradeStatus && { tradeStatus }),
               ...(sortDirection && { sortDirection }),
             },

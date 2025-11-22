@@ -19,7 +19,7 @@ const SearchFilterBottomSheetContainer = () => {
     switch (openedFilter) {
       case 'price':
         return <PriceFilterContent closeSheet={closeSheet} />;
-      case 'category':
+      case 'categories':
         return <CategoryFilterContent closeSheet={closeSheet} />;
       case 'latest':
         return <SortFilterContent closeSheet={closeSheet} />;
