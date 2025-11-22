@@ -85,7 +85,7 @@ const ProductDetailInfoHeader = ({
             <img
               src="/images/svg/product/icon-system-favorite-small.svg"
               alt="찜수"
-              className="w-3 h-3"
+              className="h-3 w-3"
             />
             <span className="text-[12px] font-normal leading-3 text-[#7a8086]">
               {likeCount}
@@ -96,7 +96,7 @@ const ProductDetailInfoHeader = ({
             <img
               src="/images/svg/product/icon-system-chat.svg"
               alt="채팅수"
-              className="w-3 h-3"
+              className="h-3 w-3"
             />
             <span className="text-[12px] font-normal leading-3 text-[#7a8086]">
               {chatRoomCount}

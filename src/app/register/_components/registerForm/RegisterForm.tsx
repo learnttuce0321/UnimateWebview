@@ -125,7 +125,7 @@ export default function RegisterForm() {
   // 수정 모드 로딩 중일 때
   if (isEditMode && isLoadingProduct) {
     return (
-      <div className="flex items-center justify-center h-screen">
+      <div className="flex h-screen items-center justify-center">
         <div className="text-lg">상품 정보를 불러오는 중...</div>
       </div>
     );

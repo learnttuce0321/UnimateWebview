@@ -9,9 +9,9 @@ import { useMutationDeleteInterestRegion } from 'hooks/users/useMutationDeleteIn
 import { setLocalStorageAndSync } from 'hooks/useStorageSync';
 import { useAppStore } from 'providers/ZustandProvider';
 import { Region } from 'types/Region';
+import { getDisplayRegionName } from 'utils/getDisplayRegionName';
 import DeleteInterestRegionModalContent from './DeleteInterestRegionModalContent';
 import DeletePrimaryInterestRegionErrorModalContent from './DeletePrimaryInterestRegionErrorModalContent';
-import { getDisplayRegionName } from 'utils/getDisplayRegionName';
 
 interface Props {
   region: Region;

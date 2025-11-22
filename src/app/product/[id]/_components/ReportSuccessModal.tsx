@@ -8,7 +8,7 @@ interface ReportSuccessModalProps {
 
 const ReportSuccessModal = ({ userBlocked }: ReportSuccessModalProps) => {
   return (
-    <div className="flex flex-col items-start w-full gap-2">
+    <div className="flex w-full flex-col items-start gap-2">
       <p className="text-[16px] font-bold leading-[22.4px] text-[#212121]">
         이 메이트를 신고했어요.
       </p>

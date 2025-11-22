@@ -13,7 +13,7 @@ const Overlay = ({
 }: Props) => {
   return (
     <div
-      className="z-overlay fixed left-0 top-0 h-screen w-screen"
+      className="fixed left-0 top-0 z-overlay h-screen w-screen"
       style={{ backgroundColor }}
       onClick={onClick}
     >

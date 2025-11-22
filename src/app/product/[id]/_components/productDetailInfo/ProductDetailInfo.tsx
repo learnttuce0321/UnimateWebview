@@ -2,15 +2,15 @@
 
 import React, { useState, useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
+import { MAIN_PAGE_UPDATE_PRODUCTS_LIKE } from 'constants/storageSyncKeyFactory/main';
 import { useMutationLikeProduct } from 'hooks/products/useMutationLikeProduct';
 import { useMutationUnlikeProduct } from 'hooks/products/useMutationUnlikeProduct';
+import { setLocalStorageAndSync } from 'hooks/useStorageSync';
 import navigationScheme from 'utils/navigationScheme';
 import Divider from '../Divider';
 import ProductDetailInfoHeader from './ProductDetailInfoHeader';
 import ProductDetailInfoLikeShare from './ProductDetailInfoLikeShare';
 import { TradeStatus } from '../../page';
-import { setLocalStorageAndSync } from 'hooks/useStorageSync';
-import { MAIN_PAGE_UPDATE_PRODUCTS_LIKE } from 'constants/storageSyncKeyFactory/main';
 
 interface Props {
   id: number;

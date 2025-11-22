@@ -1,9 +1,9 @@
 import React from 'react';
 // 아니 이거 경로 왜이래 근데..
-import { formatNumber } from '../../../../../../../utils/formatNumber';
+import { useSearchParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { API_PRODUCTS_SEARCH_PRICE_RANGE } from 'modules/keyFactory/product';
-import { useSearchParams } from 'next/navigation';
+import { formatNumber } from '../../../../../../../utils/formatNumber';
 
 // TODO: 최저가, 최고가 데이터 받아오기
 const MIN_PRICE_KRW = '10,000';

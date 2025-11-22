@@ -39,7 +39,7 @@ const InterestRegionDropdownList = ({ onClose }: Props) => {
   };
 
   return (
-    <div className="z-modal-content absolute">
+    <div className="absolute z-modal-content">
       <div className="w-[163px] rounded-[10px] bg-white py-[8px]">
         {userInterestRegions.map((region) => (
           <InterestRegionItem

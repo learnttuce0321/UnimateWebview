@@ -11,7 +11,7 @@ const BottomSheetDimmed = ({ closeSheet }: Props) => {
 
   return (
     <div
-      className="z-overlay fixed left-0 top-0 h-screen w-screen bg-black bg-opacity-50"
+      className="fixed left-0 top-0 z-overlay h-screen w-screen bg-black bg-opacity-50"
       onClick={closeSheet}
       onTouchMove={handleTouchMove}
       style={{ touchAction: 'none' }}

@@ -7,6 +7,7 @@ import NavigationBar from 'components/navigation/NavigationBar';
 import { useMutationReportProduct } from 'hooks/products/useMutationReportProduct';
 import { useQueryProductDetail } from 'hooks/products/useQueryProductDetail';
 import navigationScheme from 'utils/navigationScheme';
+import productScheme from 'utils/productScheme';
 import ProductBottomActions from './_components/ProductBottomActions';
 import ProductDescriptionSection from './_components/ProductDescriptionSection';
 import ProductDetailImageSlider from './_components/ProductDetailImageSlider';
@@ -15,7 +16,6 @@ import ProductMoreMenu from './_components/ProductMoreMenu';
 import ProductSellerSection from './_components/ProductSellerSection';
 import ReportBottomSheet from './_components/ReportBottomSheet';
 import ReportSuccessModal from './_components/ReportSuccessModal';
-import productScheme from 'utils/productScheme';
 
 export type TradeStatus = 'FOR_SALE' | 'RESERVED' | 'COMPLETED';
 

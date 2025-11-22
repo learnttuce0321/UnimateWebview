@@ -21,8 +21,14 @@ interface ReportProductResponse {
 }
 
 export const useMutationReportProduct = () => {
-  return useMutation<ReportProductResponse, ApiResponseError, ReportProductParams>({
-    mutationFn: async (params: ReportProductParams): Promise<ReportProductResponse> => {
+  return useMutation<
+    ReportProductResponse,
+    ApiResponseError,
+    ReportProductParams
+  >({
+    mutationFn: async (
+      params: ReportProductParams
+    ): Promise<ReportProductResponse> => {
       return await fetchClient.POST({
         url: API_REPORTS,
         body: params,

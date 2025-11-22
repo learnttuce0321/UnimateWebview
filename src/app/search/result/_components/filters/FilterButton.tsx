@@ -150,7 +150,7 @@ const FilterButton = ({ filterName }: Props) => {
       if (minPrice || maxPrice) {
         // currencyType 파라미터 가져오기
         const currencyType = searchParams.get('currencyType') || 'KRW';
-        return filterConfig.formatDisplayText(
+        return (filterConfig as typeof FILTER_CONFIGS.price).formatDisplayText(
           minPrice || '',
           maxPrice || undefined,
           currencyType
@@ -163,14 +163,20 @@ const FilterButton = ({ filterName }: Props) => {
     if (filterName === 'categories') {
       const categories = paramValues as string[];
       if (categories.length > 0) {
-        return (filterConfig as typeof FILTER_CONFIGS.categories).formatDisplayText(categories);
+        return (
+          filterConfig as typeof FILTER_CONFIGS.categories
+        ).formatDisplayText(categories);
       }
       return FilterTypeLabel[filterName];
     }
 
-    // 다른 필터 처리
+    // 다른 필터 처리 (latest, excludeSold)
     if (paramValues && typeof paramValues === 'string') {
-      return filterConfig.formatDisplayText(paramValues);
+      return (
+        filterConfig as
+          | typeof FILTER_CONFIGS.latest
+          | typeof FILTER_CONFIGS.excludeSold
+      ).formatDisplayText(paramValues);
     }
 
     return FilterTypeLabel[filterName];

@@ -3,13 +3,13 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
+import { ApiResponseError } from 'modules/fetch/fetchClient';
 import { API_PRODUCTS_SEARCH_PRICE_RANGE } from 'modules/keyFactory/product';
 import PriceFilterErrorContent from './PriceFilterErrorContent';
 import PriceRangeInput from './PriceRangeInput';
 import PriceRangeSlider from './PriceRangeSlider';
 import PriceUnitToggle from './PriceUnitToggle';
 import TitleBottomSheet from './TitleBottomSheet';
-import { ApiResponseError } from 'modules/fetch/fetchClient';
 
 type Currency = 'KRW' | 'USD';
 
@@ -42,7 +42,9 @@ const PriceFilterContent = ({ closeSheet }: Props) => {
 
   // 쿼리 파라미터에서 currencyType 읽어오기
   const queryCurrencyType = searchParams.get('currencyType') as Currency | null;
-  const [currency, setCurrency] = useState<Currency>(queryCurrencyType || 'KRW');
+  const [currency, setCurrency] = useState<Currency>(
+    queryCurrencyType || 'KRW'
+  );
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
   // 슬라이더 범위를 고정하기 위한 기준 값 (Input으로 설정한 원본 값)
