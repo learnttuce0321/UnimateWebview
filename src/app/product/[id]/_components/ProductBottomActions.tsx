@@ -8,15 +8,15 @@ type Props = {
   isSeller: boolean;
   productId?: number; // 판매자일 때 필요
   currentStatus?: TradeStatus; // 판매자일 때 필요
-  onOpenChat?: () => void; // 구매자: "채팅하기"
-  onOpenChatList?: () => void; // 판매자: "채팅 목록"
+  onConnectChatRoom: () => void; // 구매자: "채팅하기"
+  onOpenChatList: () => void; // 판매자: "채팅 목록"
 };
 
 export default function ProductBottomActions({
   isSeller,
   productId,
   currentStatus,
-  onOpenChat,
+  onConnectChatRoom,
   onOpenChatList,
 }: Props) {
   const { refetch: fetchTradeProgress } = useQueryProductTradeProgress(
@@ -76,7 +76,7 @@ export default function ProductBottomActions({
       ) : (
         <button
           type="button"
-          onClick={onOpenChat}
+          onClick={onConnectChatRoom}
           className="h-[50px] w-full rounded-[10px] bg-[#3c8dff] text-[18px] font-bold leading-[50px] text-white"
         >
           채팅하기

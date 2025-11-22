@@ -15,6 +15,7 @@ import ProductMoreMenu from './_components/ProductMoreMenu';
 import ProductSellerSection from './_components/ProductSellerSection';
 import ReportBottomSheet from './_components/ReportBottomSheet';
 import ReportSuccessModal from './_components/ReportSuccessModal';
+import productScheme from 'utils/productScheme';
 
 export type TradeStatus = 'FOR_SALE' | 'RESERVED' | 'COMPLETED';
 
@@ -31,6 +32,7 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
   const { mutate: reportProduct } = useMutationReportProduct();
   const [tradeStatus, setTradeStatus] = useState<TradeStatus>('FOR_SALE');
   const { openWeb } = navigationScheme();
+  const { connectChatroom, openChatList } = productScheme();
 
   // API 호출
   const {
@@ -48,7 +50,7 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-screen">
+      <div className="flex h-screen items-center justify-center">
         <div className="text-lg">로딩 중...</div>
       </div>
     );
@@ -56,7 +58,7 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
 
   if (error || !productDetail) {
     return (
-      <div className="flex items-center justify-center h-screen">
+      <div className="flex h-screen items-center justify-center">
         <div className="text-lg text-red-500">
           상품 정보를 불러올 수 없습니다.
         </div>
@@ -128,8 +130,8 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
         {/* 고정 하단 액션 */}
         <ProductBottomActions
           isSeller={isSeller}
-          onOpenChat={() => console.log('채팅하기')}
-          onOpenChatList={() => console.log('채팅 목록 열기')}
+          onConnectChatRoom={() => connectChatroom(productData.id)}
+          onOpenChatList={() => openChatList()}
           productId={productDetail.id}
           currentStatus={tradeStatus}
         />

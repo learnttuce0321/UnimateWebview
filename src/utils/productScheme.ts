@@ -43,6 +43,12 @@ const productScheme = () => {
 
       window.location.href = schemeUrl;
     },
+    connectChatroom: (productId: number) => {
+      return (location.href = `unimate://openOrCreateChat?productId=${productId}`);
+    },
+    openChatList: () => {
+      return (location.href = 'unimate://chatList');
+    },
   };
 };
 
