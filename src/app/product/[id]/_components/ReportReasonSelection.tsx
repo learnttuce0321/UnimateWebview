@@ -161,7 +161,7 @@ const ReportReasonSelection = ({
           disabled={!selectedReasonId}
           className="w-full rounded-[10px] bg-[#3c8dff] text-white disabled:bg-gray-500"
         >
-          확인
+          다음
         </button>
       </div>
     </div>
