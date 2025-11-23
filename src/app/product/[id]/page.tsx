@@ -84,6 +84,7 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
       name: productDetail.sellerNickname,
       profileImage: productDetail.sellerProfileImageUrl,
     },
+    sellerId: productDetail.sellerId,
     category: productDetail.category,
   };
 
