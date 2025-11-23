@@ -103,7 +103,7 @@ const Page = () => {
   return (
     <>
       <NavigationBar
-        title="프로필 설정"
+        title="프로필"
         className="bg-white"
         renderOptionButtons={<MateProfileMore />}
       />

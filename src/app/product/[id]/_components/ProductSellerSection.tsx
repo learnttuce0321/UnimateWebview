@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
 type Seller = {
@@ -10,12 +11,16 @@ type Seller = {
 type Props = {
   seller: Seller;
   universityName?: string;
+  sellerId: number;
 };
 
 export default function ProductSellerSection({
   seller,
   universityName,
+  sellerId,
 }: Props) {
+  const router = useRouter();
+
   return (
     <section className="px-4 pt-4">
       <div className="flex flex-col justify-center gap-4 border-b border-[#e3e9f1] pb-4">
@@ -31,7 +36,8 @@ export default function ProductSellerSection({
               seller.profileImage ?? '/images/svg/default/default_profile.svg'
             }
             alt={`${seller.name} 프로필 이미지`}
-            className="h-12 w-12"
+            className="w-12 h-12"
+            onClick={()=> router.push(`/mate/${sellerId}`)}
           />
 
           {/* 유저 이름 & 대학 정보 */}
