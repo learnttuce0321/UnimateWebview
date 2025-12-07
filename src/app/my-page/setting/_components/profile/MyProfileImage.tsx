@@ -33,7 +33,7 @@ const MyProfileImage = ({
     try {
       const { presignedUrl, key } = await mutateAsync({ fileName });
       await uploadFileToS3(selectedImageUrl, presignedUrl);
-      setUserProfile(selectedImageUrl); // 화면에 표시할 로컬 URL
+      // 업로드 완료 후 기존 서버 URL 유지 (새로운 이미지는 저장 후 반영)
       if (setUserProfileKey) {
         setUserProfileKey(key); // 서버에 전송할 key
       }
