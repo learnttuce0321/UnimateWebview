@@ -29,9 +29,9 @@ const MyProfileImage = ({
     const fileName = extractFileNameFromUrl(selectedImageUrl);
 
     try {
-      const { presignedUrl } = await mutateAsync({ fileName });
+      const { presignedUrl, key } = await mutateAsync({ fileName });
       await uploadFileToS3(selectedImageUrl, presignedUrl);
-      setUserProfile(selectedImageUrl);
+      setUserProfile(key);
     } catch (error: any) {
       handleError(error as ApiResponseError);
     }
