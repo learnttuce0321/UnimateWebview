@@ -4,17 +4,17 @@ import { API_MY_PROFILE } from 'modules/keyFactory/user';
 
 interface UpdateUserProfileParams {
   nickname: string;
-  profileImageUrl: string;
+  profileImageKey: string;
 }
 
 export const useMutationUpdateUserProfile = () => {
   return useMutation<void, ApiResponseError, UpdateUserProfileParams>({
-    mutationFn: ({ nickname, profileImageUrl }: UpdateUserProfileParams) => {
+    mutationFn: ({ nickname, profileImageKey }: UpdateUserProfileParams) => {
       return fetchClient.PATCH({
         url: API_MY_PROFILE,
         body: {
           nickname,
-          profileImageUrl,
+          profileImageKey,
         },
       });
     },

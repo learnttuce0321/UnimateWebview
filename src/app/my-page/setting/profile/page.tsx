@@ -40,7 +40,7 @@ const Page = () => {
     }
 
     mutate(
-      { nickname: userNickname, profileImageUrl: userProfile },
+      { nickname: userNickname, profileImageKey: userProfile },
       {
         onSuccess: () => {
           setLocalStorageAndSync(UPDATE_USER_INFO, {});
