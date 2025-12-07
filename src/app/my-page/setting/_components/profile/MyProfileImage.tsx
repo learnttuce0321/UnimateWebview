@@ -8,12 +8,14 @@ import { uploadFileToS3 } from 'utils/fileUpload';
 interface Props {
   userProfile: string;
   setUserProfile: React.Dispatch<React.SetStateAction<string>>;
+  setUserProfileKey?: React.Dispatch<React.SetStateAction<string>>;
   handleError: (error: ApiResponseError) => void;
 }
 
 const MyProfileImage = ({
   userProfile,
   setUserProfile,
+  setUserProfileKey,
   handleError,
 }: Props) => {
   const { mutateAsync } = useMutationGetProfileImagePresignedUrl();
@@ -31,7 +33,10 @@ const MyProfileImage = ({
     try {
       const { presignedUrl, key } = await mutateAsync({ fileName });
       await uploadFileToS3(selectedImageUrl, presignedUrl);
-      setUserProfile(key);
+      setUserProfile(selectedImageUrl); // 화면에 표시할 로컬 URL
+      if (setUserProfileKey) {
+        setUserProfileKey(key); // 서버에 전송할 key
+      }
     } catch (error: any) {
       handleError(error as ApiResponseError);
     }

@@ -20,6 +20,7 @@ const Page = () => {
   );
   const nickname = useAppStore((state) => state.userProfile.nickname);
   const [userProfile, setUserProfile] = useState<string>(profileImageUrl);
+  const [userProfileKey, setUserProfileKey] = useState<string>('');
   const [userNickname, setUserNickname] = useState<string>(nickname);
   const { toast, showToast, hideToast } = useToast();
 
@@ -40,7 +41,7 @@ const Page = () => {
     }
 
     mutate(
-      { nickname: userNickname, profileImageKey: userProfile },
+      { nickname: userNickname, profileImageKey: userProfileKey },
       {
         onSuccess: () => {
           setLocalStorageAndSync(UPDATE_USER_INFO, {});
@@ -65,6 +66,7 @@ const Page = () => {
           <MyProfileImage
             userProfile={userProfile}
             setUserProfile={setUserProfile}
+            setUserProfileKey={setUserProfileKey}
             handleError={handleError}
           />
         </div>
