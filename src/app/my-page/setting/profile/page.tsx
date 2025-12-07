@@ -32,9 +32,7 @@ const Page = () => {
       const { exists } = await mutateAsync({ nickname: userNickname });
 
       if (exists) {
-        throw {
-          message: '동일한 닉네임이 존재합니다.',
-        };
+        throw { message: '동일한 닉네임이 존재합니다.' };
       }
     } catch (error: any) {
       handleError(error);
@@ -80,7 +78,6 @@ const Page = () => {
           isActive={!!userNickname}
         />
       </div>
-
       <Toast
         message={toast.message}
         type={toast.type}
