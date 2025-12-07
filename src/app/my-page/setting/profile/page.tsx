@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import BottomFixedConfirmButton from 'components/button/BottomFixedConfirmButton';
 import NavigationBar from 'components/navigation/NavigationBar';
 import { Toast, useToast } from 'components/toast';
@@ -9,20 +10,32 @@ import { useMutationCheckNicknameExist } from 'hooks/users/useMutationCheckNickn
 import { useMutationUpdateUserProfile } from 'hooks/users/useMutationUpdateUserProfile';
 import { setLocalStorageAndSync } from 'hooks/useStorageSync';
 import { ApiResponseError } from 'modules/fetch/fetchClient';
+import fetchClient from 'modules/fetch/fetchClient';
+import { API_MY_PROFILE } from 'modules/keyFactory/user';
 import { useAppStore } from 'providers/ZustandProvider';
 import navigationScheme from 'utils/navigationScheme';
+import { MyProfile } from 'types/User';
 import MyNickname from '../_components/profile/MyNickname';
 import MyProfileImage from '../_components/profile/MyProfileImage';
 
 const Page = () => {
-  const profileImageUrl = useAppStore(
-    (state) => state.userProfile.profileImageUrl
-  );
-  const nickname = useAppStore((state) => state.userProfile.nickname);
-  const [userProfile, setUserProfile] = useState<string>(profileImageUrl);
+  const { data: currentUserProfile, isLoading } = useQuery<MyProfile>({
+    queryKey: [API_MY_PROFILE, 'current'],
+    queryFn: () => fetchClient.GET({ url: API_MY_PROFILE }),
+    staleTime: 0,
+  });
+
+  const [userProfile, setUserProfile] = useState<string>('');
   const [userProfileKey, setUserProfileKey] = useState<string>('');
-  const [userNickname, setUserNickname] = useState<string>(nickname);
+  const [userNickname, setUserNickname] = useState<string>('');
   const { toast, showToast, hideToast } = useToast();
+
+  useEffect(() => {
+    if (currentUserProfile) {
+      setUserProfile(currentUserProfile.profileImageUrl || '');
+      setUserNickname(currentUserProfile.nickname || '');
+    }
+  }, [currentUserProfile]);
 
   const { mutateAsync } = useMutationCheckNicknameExist();
   const { mutate } = useMutationUpdateUserProfile();
@@ -45,23 +58,31 @@ const Page = () => {
       updateData.profileImageKey = userProfileKey;
     }
 
-    mutate(
-      updateData,
-      {
-        onSuccess: () => {
-          setLocalStorageAndSync(UPDATE_USER_INFO, {});
-          closeWeb();
-        },
-        onError: (error) => {
-          handleError(error);
-        },
-      }
-    );
+    mutate(updateData, {
+      onSuccess: () => {
+        setLocalStorageAndSync(UPDATE_USER_INFO, {});
+        closeWeb();
+      },
+      onError: (error) => {
+        handleError(error);
+      },
+    });
   };
 
   const handleError = (error: ApiResponseError) => {
     showToast(error.message, 'error');
   };
+
+  if (isLoading) {
+    return (
+      <>
+        <NavigationBar title="프로필 설정" className="bg-white" />
+        <div className="flex min-h-full_without_navigation w-full items-center justify-center bg-gray-50 px-[16px] pt-[16px]">
+          <div>로딩 중...</div>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
