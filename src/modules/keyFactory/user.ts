@@ -24,7 +24,7 @@ export const API_PROFILE_PRESIGNED_URL = '/api/v1/users/presigned-url';
 /**
  * @GET 닉네임 중복 검사 API
  */
-export const API_PROFILE_NICKNAME_EXIST = '/api/v1/users/nickname/exist';
+export const API_PROFILE_NICKNAME_EXIST = '/api/v1/users/nickname/exists';
 
 /**
  * @GET 유저 프로필 조회 API
