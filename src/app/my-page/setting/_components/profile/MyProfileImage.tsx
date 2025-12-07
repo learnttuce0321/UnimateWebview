@@ -46,7 +46,7 @@ const MyProfileImage = ({
     <div className="relative">
       <img
         src={userProfile}
-        key={userProfile} // React key를 사용해서 캐싱 방지
+        key={userProfile}
         width={116}
         height={116}
         alt="유저 프로필"
