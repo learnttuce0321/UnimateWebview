@@ -42,17 +42,11 @@ const MyProfileImage = ({
     }
   };
 
-  // 캐싱 방지를 위한 URL 처리
-  const getImageSrc = (url: string) => {
-    if (!url) return url;
-    const separator = url.includes('?') ? '&' : '?';
-    return `${url}${separator}t=${Date.now()}`;
-  };
-
   return (
     <div className="relative">
       <img
-        src={getImageSrc(userProfile)}
+        src={userProfile}
+        key={userProfile} // React key를 사용해서 캐싱 방지
         width={116}
         height={116}
         alt="유저 프로필"
