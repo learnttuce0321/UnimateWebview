@@ -7,6 +7,7 @@ import { API_MY_LIKE_PRODUCTS } from 'modules/keyFactory/product';
 import { LikeProduct } from 'types/Product';
 import LikedProduct from './LikedProduct';
 import LikedProductListError from './LikedProductListError';
+import ScreenLoading from 'components/loading/ScreenLoading';
 
 interface LikedProductPostListResponse {
   contents: LikeProduct[];
@@ -63,7 +64,11 @@ const LikedProductList = () => {
     return <LikedProductListError error={error} />;
   }
 
-  if (isLoading || !likedProductList || !likedProductList.length) {
+  if (isLoading) {
+    return <ScreenLoading />;
+  }
+
+  if (!likedProductList || !likedProductList.length) {
     return null;
   }
 

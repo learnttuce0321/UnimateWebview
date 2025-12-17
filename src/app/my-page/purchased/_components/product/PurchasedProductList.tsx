@@ -7,6 +7,7 @@ import { API_MY_PURCHASED_PRODUCTS } from 'modules/keyFactory/product';
 import { PurchasedProduct as TPurchasedProduct } from 'types/Product';
 import PurchasedProduct from './PurchasedProduct';
 import PurchasedProductListError from './PurchasedProductListError';
+import ScreenLoading from 'components/loading/ScreenLoading';
 
 interface PurchasedProductPostListResponse {
   contents: TPurchasedProduct[];
@@ -61,6 +62,10 @@ const PurchasedProductList = () => {
 
   if (isError) {
     return <PurchasedProductListError error={error} />;
+  }
+
+  if (isLoading) {
+    return <ScreenLoading />;
   }
 
   if (isLoading || !purchasedProductList || !purchasedProductList.length) {

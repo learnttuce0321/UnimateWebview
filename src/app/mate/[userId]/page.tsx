@@ -14,6 +14,7 @@ import MateProfileMore from './_components/more/MateProfileMore';
 import MateSalesProductList from './_components/product/MateSalesProductList';
 import MateProfile from './_components/profile/MateProfile';
 import MateProfileError from './_components/profile/MateProfileError';
+import ScreenLoading from 'components/loading/ScreenLoading';
 
 interface MateSalesProductPostListsResponse {
   contents: ProductPost[];
@@ -89,7 +90,7 @@ const Page = () => {
     !mateSalesProductList.length;
 
   if (isLoading) {
-    return null;
+    return <ScreenLoading />;
   }
 
   if (isMateProfileQueryError) {

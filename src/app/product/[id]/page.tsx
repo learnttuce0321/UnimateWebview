@@ -16,6 +16,7 @@ import ProductMoreMenu from './_components/ProductMoreMenu';
 import ProductSellerSection from './_components/ProductSellerSection';
 import ReportBottomSheet from './_components/ReportBottomSheet';
 import ReportSuccessModal from './_components/ReportSuccessModal';
+import ScreenLoading from 'components/loading/ScreenLoading';
 
 export type TradeStatus = 'FOR_SALE' | 'RESERVED' | 'COMPLETED';
 
@@ -49,11 +50,7 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
   }, [productDetail]);
 
   if (isLoading) {
-    return (
-      <div className="flex h-screen items-center justify-center">
-        <div className="text-lg">로딩 중...</div>
-      </div>
-    );
+    return <ScreenLoading />;
   }
 
   if (error || !productDetail) {

@@ -11,6 +11,7 @@ import { useAppStore } from 'providers/ZustandProvider';
 import { selectPrimaryRegion } from 'stores/selectors';
 import { ProductPost } from 'types/Product';
 import { FilteringUniversity } from '../../page';
+import ScreenLoading from 'components/loading/ScreenLoading';
 
 interface SearchedProductPostsResponse {
   contents: ProductPost[];
@@ -93,8 +94,11 @@ const SearchResultList = ({ currentFilteringUniversity }: Props) => {
     (page) => page.contents
   );
 
+  if (isLoading) {
+    return <ScreenLoading />;
+  }
+
   if (
-    isLoading ||
     isError ||
     !searchedProductPostsList ||
     !searchedProductPostsList.length

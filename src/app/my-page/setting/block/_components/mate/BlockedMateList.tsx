@@ -10,6 +10,7 @@ import { API_BLOCKED_USERS } from 'modules/keyFactory/user';
 import { BlockedUser } from 'types/User';
 import BlockedMate from './BlockedMate';
 import BlockedMateListError from './BlockedMateListError';
+import ScreenLoading from 'components/loading/ScreenLoading';
 
 interface BlockedUsersResponse {
   contents: BlockedUser[];
@@ -67,7 +68,11 @@ const BlockedMateList = () => {
     return <BlockedMateListError error={error} />;
   }
 
-  if (isLoading || !blockedUserList || !blockedUserList.length) {
+  if (isLoading) {
+    return <ScreenLoading />;
+  }
+
+  if (!blockedUserList || !blockedUserList.length) {
     return null;
   }
 

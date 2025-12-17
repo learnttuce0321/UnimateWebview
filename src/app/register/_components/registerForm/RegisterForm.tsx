@@ -15,6 +15,7 @@ import navigationScheme from 'utils/navigationScheme';
 import { registerApi } from '../../_api/registerApi';
 import { convertFormDataToApiRequest } from '../../_utils/formDataConverter';
 import { convertProductDetailToFormData } from '../../_utils/productDataConverter';
+import ScreenLoading from 'components/loading/ScreenLoading';
 
 export default function RegisterForm() {
   const searchParams = useSearchParams();
@@ -124,11 +125,7 @@ export default function RegisterForm() {
 
   // 수정 모드 로딩 중일 때
   if (isEditMode && isLoadingProduct) {
-    return (
-      <div className="flex h-screen items-center justify-center">
-        <div className="text-lg">상품 정보를 불러오는 중...</div>
-      </div>
-    );
+    return <ScreenLoading />;
   }
 
   return (

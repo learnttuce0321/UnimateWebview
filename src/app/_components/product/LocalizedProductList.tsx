@@ -12,6 +12,7 @@ import { useAppStore } from 'providers/ZustandProvider';
 import { selectPrimaryRegion } from 'stores/selectors';
 import { ProductPost } from 'types/Product';
 import LocalizedProductListError from './LocalizedProductListError';
+import ScreenLoading from 'components/loading/ScreenLoading';
 
 interface ProductPostsResponse {
   contents: ProductPost[];
@@ -92,7 +93,11 @@ const LocalizedProductList = () => {
     return <LocalizedProductListError error={error} />;
   }
 
-  if (isLoading || !productPostsList || !productPostsList.length) {
+  if (isLoading) {
+    return <ScreenLoading />;
+  }
+
+  if (!productPostsList || !productPostsList.length) {
     return null;
   }
 

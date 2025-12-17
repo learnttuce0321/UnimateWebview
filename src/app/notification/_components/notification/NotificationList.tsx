@@ -10,6 +10,7 @@ import NoneNotification from './NoneNotification';
 import Notification from './Notification';
 import NotificationDeleteMenu from './NotificationDeleteMenu';
 import NotificationListError from './NotificationListError';
+import ScreenLoading from 'components/loading/ScreenLoading';
 
 interface NotificationsResponse {
   contents: TNotification[];
@@ -72,7 +73,7 @@ const NotificationList = ({ isDeleting, setIsDeleting }: Props) => {
   }
 
   if (isLoading) {
-    return null;
+    return <ScreenLoading />;
   }
 
   if (!notificationList || !notificationList.length) {

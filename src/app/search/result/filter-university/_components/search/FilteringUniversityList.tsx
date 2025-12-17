@@ -7,6 +7,7 @@ import { API_PRODUCT_FILTERING_UNIVERSITY_SEARCH } from 'modules/keyFactory/prod
 import { normalizeString } from 'modules/normalize';
 import { University } from 'types/University';
 import SearchedUniversity from './SearchedUniversity';
+import ScreenLoading from 'components/loading/ScreenLoading';
 
 interface SearchUniversityResponse {
   contents: University[];
@@ -70,12 +71,11 @@ const FilteringUniversityList = ({
     (page) => page.contents
   );
 
-  if (
-    isLoading ||
-    isError ||
-    !searchedUniversityList ||
-    !searchedUniversityList.length
-  ) {
+  if (isLoading) {
+    return <ScreenLoading />;
+  }
+
+  if (isError || !searchedUniversityList || !searchedUniversityList.length) {
     return null;
   }
 

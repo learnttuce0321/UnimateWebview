@@ -6,6 +6,7 @@ import { API_NOTIFICATION_SETTING } from 'modules/keyFactory/notification';
 import { NotificationSetting } from 'types/notification';
 import NotificationListError from './NotificationListError';
 import TradingNotificationList from './TradingNotificationList';
+import ScreenLoading from 'components/loading/ScreenLoading';
 
 const TradingNotificationSection = () => {
   const {
@@ -17,12 +18,16 @@ const TradingNotificationSection = () => {
     queryKey: [API_NOTIFICATION_SETTING],
   });
 
-  if (isLoading || !notification) {
-    return null;
-  }
-
   if (isError) {
     return <NotificationListError error={error} />;
+  }
+
+  if (isLoading) {
+    return <ScreenLoading />;
+  }
+
+  if (!notification) {
+    return null;
   }
 
   return (

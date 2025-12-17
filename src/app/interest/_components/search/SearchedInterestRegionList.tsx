@@ -7,6 +7,7 @@ import fetchClient from 'modules/fetch/fetchClient';
 import { API_REGION_SEARCH } from 'modules/keyFactory/region';
 import { normalizeString } from 'modules/normalize';
 import { SearchedRegion, SearchRegionResponse } from 'types/Region';
+import ScreenLoading from 'components/loading/ScreenLoading';
 
 interface Props {
   inputValue: string;
@@ -63,12 +64,11 @@ const SearchedInterestRegionList = ({
     (page) => page.contents
   );
 
-  if (
-    isLoading ||
-    isError ||
-    !searchedRegionList ||
-    !searchedRegionList.length
-  ) {
+  if (isLoading) {
+    return <ScreenLoading />;
+  }
+
+  if (isError || !searchedRegionList || !searchedRegionList.length) {
     return null;
   }
 
