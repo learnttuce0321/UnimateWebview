@@ -49,7 +49,7 @@ const EmailCodeInput = ({
       <RetryEmailCodeButton onRetry={handleRetryCodeClick} />
       <BottomFixedConfirmButton
         buttonText="인증하기"
-        onClick={handleVerifyEmailCode}
+        onClick={() => handleVerifyEmailCode(_code)}
         isActive={_code.length === 6}
       />
       <Toast
