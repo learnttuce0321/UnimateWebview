@@ -15,17 +15,12 @@ const MateReviewStats = ({ reviewStats }: Props) => {
       <div className="flex items-center gap-[8px]">
         {isReviewReflected ? (
           <>
-            {Array.from({ length: Math.floor(averageRating) }).map(
-              (_, index) => (
-                <img
-                  key={index}
-                  src="/images/svg/mate/star-on.svg"
-                  width={14}
-                  height={14}
-                  alt=""
-                />
-              )
-            )}
+            <img
+              src="/images/svg/mate/star-on.svg"
+              width={14}
+              height={14}
+              alt=""
+            />
             <span className="mr-[4px] text-[14px] font-medium leading-[14px] text-blue_gray-500">
               {averageRating?.toFixed(1)}
             </span>
