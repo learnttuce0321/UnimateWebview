@@ -7,6 +7,7 @@ import { NotificationSetting } from 'types/notification';
 import NotificationListError from './NotificationListError';
 import TradingNotificationList from './TradingNotificationList';
 import ScreenLoading from 'components/loading/ScreenLoading';
+import ScreenError from 'components/error/ScreenError';
 
 const TradingNotificationSection = () => {
   const {
@@ -19,7 +20,12 @@ const TradingNotificationSection = () => {
   });
 
   if (isError) {
-    return <NotificationListError error={error} />;
+    return (
+      <>
+        <ScreenError />
+        <NotificationListError error={error} />
+      </>
+    );
   }
 
   if (isLoading) {

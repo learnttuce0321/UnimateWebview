@@ -10,6 +10,7 @@ import SalesProduct from './SalesProduct';
 import SalesProductListError from './SalesProductListError';
 import { TradeFilterStatus } from '../../page';
 import ScreenLoading from 'components/loading/ScreenLoading';
+import ScreenError from 'components/error/ScreenError';
 
 interface SalesProductPostsResponse {
   contents: TSalesProduct[];
@@ -69,7 +70,12 @@ const SalesList = () => {
   );
 
   if (isError) {
-    return <SalesProductListError error={error} />;
+    return (
+      <>
+        <ScreenError />
+        <SalesProductListError error={error} />
+      </>
+    );
   }
 
   if (isLoading) {

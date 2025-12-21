@@ -11,6 +11,7 @@ import Notification from './Notification';
 import NotificationDeleteMenu from './NotificationDeleteMenu';
 import NotificationListError from './NotificationListError';
 import ScreenLoading from 'components/loading/ScreenLoading';
+import ScreenError from 'components/error/ScreenError';
 
 interface NotificationsResponse {
   contents: TNotification[];
@@ -69,7 +70,12 @@ const NotificationList = ({ isDeleting, setIsDeleting }: Props) => {
   );
 
   if (isError) {
-    return <NotificationListError error={error} />;
+    return (
+      <>
+        <ScreenError />
+        <NotificationListError error={error} />
+      </>
+    );
   }
 
   if (isLoading) {

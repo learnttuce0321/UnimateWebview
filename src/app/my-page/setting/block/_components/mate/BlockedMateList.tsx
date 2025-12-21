@@ -11,6 +11,7 @@ import { BlockedUser } from 'types/User';
 import BlockedMate from './BlockedMate';
 import BlockedMateListError from './BlockedMateListError';
 import ScreenLoading from 'components/loading/ScreenLoading';
+import ScreenError from 'components/error/ScreenError';
 
 interface BlockedUsersResponse {
   contents: BlockedUser[];
@@ -65,7 +66,12 @@ const BlockedMateList = () => {
   const blockedUserList = blockedUsers?.pages.flatMap((page) => page.contents);
 
   if (isError) {
-    return <BlockedMateListError error={error} />;
+    return (
+      <>
+        <ScreenError />
+        <BlockedMateListError error={error} />
+      </>
+    );
   }
 
   if (isLoading) {

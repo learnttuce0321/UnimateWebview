@@ -17,6 +17,7 @@ import ProductSellerSection from './_components/ProductSellerSection';
 import ReportBottomSheet from './_components/ReportBottomSheet';
 import ReportSuccessModal from './_components/ReportSuccessModal';
 import ScreenLoading from 'components/loading/ScreenLoading';
+import ScreenError from 'components/error/ScreenError';
 
 export type TradeStatus = 'FOR_SALE' | 'RESERVED' | 'COMPLETED';
 
@@ -54,13 +55,7 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
   }
 
   if (error || !productDetail) {
-    return (
-      <div className="flex h-screen items-center justify-center">
-        <div className="text-lg text-red-500">
-          상품 정보를 불러올 수 없습니다.
-        </div>
-      </div>
-    );
+    return <ScreenError />;
   }
 
   const isSeller = productDetail.isOwner;

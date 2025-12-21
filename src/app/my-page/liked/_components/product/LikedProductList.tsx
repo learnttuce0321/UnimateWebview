@@ -8,6 +8,7 @@ import { LikeProduct } from 'types/Product';
 import LikedProduct from './LikedProduct';
 import LikedProductListError from './LikedProductListError';
 import ScreenLoading from 'components/loading/ScreenLoading';
+import ScreenError from 'components/error/ScreenError';
 
 interface LikedProductPostListResponse {
   contents: LikeProduct[];
@@ -61,7 +62,12 @@ const LikedProductList = () => {
     likedProductPosts?.pages.flatMap((page) => page.contents) ?? [];
 
   if (isError) {
-    return <LikedProductListError error={error} />;
+    return (
+      <>
+        <ScreenError />
+        <LikedProductListError error={error} />
+      </>
+    );
   }
 
   if (isLoading) {

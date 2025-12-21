@@ -13,6 +13,7 @@ import { selectPrimaryRegion } from 'stores/selectors';
 import { ProductPost } from 'types/Product';
 import LocalizedProductListError from './LocalizedProductListError';
 import ScreenLoading from 'components/loading/ScreenLoading';
+import ScreenError from 'components/error/ScreenError';
 
 interface ProductPostsResponse {
   contents: ProductPost[];
@@ -90,7 +91,12 @@ const LocalizedProductList = () => {
   const productPostsList = productPosts?.pages.flatMap((page) => page.contents);
 
   if (isError) {
-    return <LocalizedProductListError error={error} />;
+    return (
+      <>
+        <ScreenError />
+        <LocalizedProductListError error={error} />
+      </>
+    );
   }
 
   if (isLoading) {

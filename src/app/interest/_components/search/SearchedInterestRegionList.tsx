@@ -8,6 +8,7 @@ import { API_REGION_SEARCH } from 'modules/keyFactory/region';
 import { normalizeString } from 'modules/normalize';
 import { SearchedRegion, SearchRegionResponse } from 'types/Region';
 import ScreenLoading from 'components/loading/ScreenLoading';
+import ScreenError from 'components/error/ScreenError';
 
 interface Props {
   inputValue: string;
@@ -64,11 +65,15 @@ const SearchedInterestRegionList = ({
     (page) => page.contents
   );
 
+  if (isError) {
+    return <ScreenError />;
+  }
+
   if (isLoading) {
     return <ScreenLoading />;
   }
 
-  if (isError || !searchedRegionList || !searchedRegionList.length) {
+  if (!searchedRegionList || !searchedRegionList.length) {
     return null;
   }
 

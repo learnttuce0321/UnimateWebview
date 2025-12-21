@@ -8,6 +8,7 @@ import { PurchasedProduct as TPurchasedProduct } from 'types/Product';
 import PurchasedProduct from './PurchasedProduct';
 import PurchasedProductListError from './PurchasedProductListError';
 import ScreenLoading from 'components/loading/ScreenLoading';
+import ScreenError from 'components/error/ScreenError';
 
 interface PurchasedProductPostListResponse {
   contents: TPurchasedProduct[];
@@ -61,7 +62,12 @@ const PurchasedProductList = () => {
     purchasedProductPosts?.pages.flatMap((page) => page.contents) ?? [];
 
   if (isError) {
-    return <PurchasedProductListError error={error} />;
+    return (
+      <>
+        <ScreenError />
+        <PurchasedProductListError error={error} />
+      </>
+    );
   }
 
   if (isLoading) {

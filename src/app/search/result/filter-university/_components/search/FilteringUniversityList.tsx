@@ -8,6 +8,7 @@ import { normalizeString } from 'modules/normalize';
 import { University } from 'types/University';
 import SearchedUniversity from './SearchedUniversity';
 import ScreenLoading from 'components/loading/ScreenLoading';
+import ScreenError from 'components/error/ScreenError';
 
 interface SearchUniversityResponse {
   contents: University[];
@@ -71,11 +72,15 @@ const FilteringUniversityList = ({
     (page) => page.contents
   );
 
+  if (isError) {
+    return <ScreenError />;
+  }
+
   if (isLoading) {
     return <ScreenLoading />;
   }
 
-  if (isError || !searchedUniversityList || !searchedUniversityList.length) {
+  if (!searchedUniversityList || !searchedUniversityList.length) {
     return null;
   }
 
