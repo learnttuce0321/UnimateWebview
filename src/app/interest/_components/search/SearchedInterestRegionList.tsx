@@ -83,7 +83,7 @@ const SearchedInterestRegionList = ({
 
   return (
     <>
-      <ul className="flex flex-col gap-[10px]">
+      <ul className="flex flex-col gap-[10px] pb-[66px]">
         {searchedRegionList.map((region) => (
           <SearchedCity
             key={region.id}
