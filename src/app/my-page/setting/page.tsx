@@ -1,5 +1,6 @@
 import NavigationBar from 'components/navigation/NavigationBar';
 import MyPageListSection from '../_components/MyPageListSection';
+import AccountActions from './_components/AccountActions';
 
 const Page = () => {
   return (
@@ -9,8 +10,11 @@ const Page = () => {
         <section className="mb-[8px]">
           <MyPageListSection sectionId="PROFILE_SETTING" />
         </section>
-        <section>
+        <section className="mb-[8px]">
           <MyPageListSection sectionId="SETTING" />
+        </section>
+        <section>
+          <AccountActions />
         </section>
       </div>
     </>
