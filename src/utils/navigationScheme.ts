@@ -26,6 +26,9 @@ const navigationScheme = () => {
     goHome: () => {
       return (location.href = 'unimate://home');
     },
+    logout: () => {
+      return (location.href = 'unimate://logout');
+    },
   };
 };
 
