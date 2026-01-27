@@ -52,22 +52,26 @@ const WithdrawalPage = () => {
       <div className="min-h-screen bg-[#fafafa]">
         <WithdrawalHeader />
 
-        <div className="mx-2 my-4 flex flex-col justify-center bg-white">
-          {/* 안내 문구 */}
-          <div>
-            <h2 className="mb-6 px-2 text-[18px] font-bold text-[#212121]">
-              탈퇴전에 꼭 확인해주세요!
+        {/* 안내 문구 */}
+        <div className="px-4 pt-4">
+          <div className="rounded-2xl bg-white px-5 py-6">
+            <h2 className="mb-4 text-[18px] font-bold text-[#212121]">
+              탈퇴 전에 꼭 확인해주세요!
             </h2>
 
-            <ul className="flex flex-col items-start justify-center gap-[10px] px-2 text-[14px] font-normal text-[#464b52]">
-              <li className="flex items-start justify-center gap-[10px] leading-[16.8px]">
-                <span className="m-auto h-1 w-1 flex-shrink-0 rounded-full bg-[#464b52]"></span>
-                회원 탈퇴가 완료되면 회원님의 개인정보는 즉시 파기됩니다.
+            <ul className="flex flex-col items-start gap-2 text-[14px] font-normal leading-[20px] text-[#464b52]">
+              <li className="flex items-start gap-2">
+                <span className="mt-[8px] h-[4px] w-[4px] flex-shrink-0 rounded-full bg-[#464b52]"></span>
+                <span>
+                  회원 탈퇴가 완료되면 회원님의 개인정보는
+                  <br />
+                  즉시 파기됩니다.
+                </span>
               </li>
 
-              <li className="flex items-start justify-center gap-[10px] leading-[16.8px]">
-                <span className="m-auto h-1 w-1 flex-shrink-0 rounded-full bg-[#464b52]"></span>
-                활동 이력도 모두 삭제되며, 복구할 수 없습니다.
+              <li className="flex items-start gap-2">
+                <span className="mt-[8px] h-[4px] w-[4px] flex-shrink-0 rounded-full bg-[#464b52]"></span>
+                <span>활동 이력도 모두 삭제되며, 복구할 수 없습니다.</span>
               </li>
             </ul>
           </div>
