@@ -29,6 +29,9 @@ const navigationScheme = () => {
     logout: () => {
       return (location.href = 'unimate://logout');
     },
+    deleteAccount: () => {
+      return (location.href = 'unimate://deleteAccount');
+    },
   };
 };
 
