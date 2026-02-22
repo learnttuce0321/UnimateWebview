@@ -20,7 +20,15 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "app/*": ["./src/app/*"],
+      "modules/*": ["./src/modules/*"],
+      "utils/*": ["./src/utils/*"],
+      "components/*": ["./src/components/*"],
+      "constants/*": ["./src/constants/*"],
+      "hooks/*": ["./src/hooks/*"],
+      "stores/*": ["./src/stores/*"],
+      "types/*": ["./src/types/*"],
+      "providers/*": ["./src/providers/*"]
     }
   },
   "include": [
@@ -29,7 +37,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "./.next/types/**/*.ts",
-    "dev-server.js"
+    "dev-server.js",
+    "src/constants/storageSyncKeyFactory"
   ],
   "exclude": ["node_modules"]
 }

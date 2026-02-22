@@ -1,4 +1,11 @@
+import React from 'react';
 import type { Metadata, Viewport } from 'next';
+import { getInitialCommonData } from 'modules/fetch/getInitialCommonData';
+import './global.css';
+import ReactQueryProvider from 'providers/ReactQueryProvider';
+import ZustandProvider from 'providers/ZustandProvider';
+import LoginWrapper from 'components/LoginWrapper';
+import UserProfileUpdater from 'components/UserProfileUpdater';
 
 export const metadata: Metadata = {
   title: '유니메이트 - UniMate',
@@ -12,14 +19,25 @@ export const viewport: Viewport = {
   userScalable: false,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { initialData, dehydratedState } = await getInitialCommonData();
+
   return (
     <html>
-      <body>{children}</body>
+      <body>
+        <ReactQueryProvider dehydratedState={dehydratedState}>
+          <ZustandProvider initialState={initialData}>
+            <LoginWrapper>
+              {children}
+              <UserProfileUpdater />
+            </LoginWrapper>
+          </ZustandProvider>
+        </ReactQueryProvider>
+      </body>
     </html>
   );
 }

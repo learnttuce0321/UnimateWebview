@@ -5,8 +5,9 @@ const nextConfig = {
   swcMinify: true,
 
   env: {
-    UNIMATE_NODE_ENV: process.env.UNIMATE_NODE_ENV,
-    BASE_API_URL: process.env.BASE_API_URL,
+    UNIMATE_NODE_ENV: process.env.NEXT_PUBLIC_UNIMATE_NODE_ENV,
+    BASE_API_URL: process.env.NEXT_PUBLIC_UNIMATE_BASE_API_URL,
+    LOCAL_ACCESS_TOKEN: process.env.LOCAL_ACCESS_TOKEN,
   },
 
   webpack: (config) => {
@@ -44,6 +45,21 @@ const nextConfig = {
         ],
       },
     ];
+  },
+
+  rewrites: async () => {
+    if (process.env.NEXT_PUBLIC_UNIMATE_NODE_ENV === 'development') {
+      return {
+        beforeFiles: [
+          {
+            source: '/robots.txt',
+            destination: '/robots-test.txt',
+          },
+        ],
+      };
+    }
+
+    return {};
   },
 
   images: {

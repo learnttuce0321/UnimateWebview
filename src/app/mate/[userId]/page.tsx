@@ -1,0 +1,135 @@
+'use client';
+
+import { useRef } from 'react';
+import { useParams } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
+import NavigationBar from 'components/navigation/NavigationBar';
+import { useInfiniteQueryWithObserver } from 'hooks/useInfiniteQueryWithObserver';
+import fetchClient, { ApiResponseError } from 'modules/fetch/fetchClient';
+import { API_USER_SALES_PRODUCTS } from 'modules/keyFactory/product';
+import { API_USER_PROFILE } from 'modules/keyFactory/user';
+import { ProductPost } from 'types/Product';
+import { MateUser } from 'types/User';
+import MateProfileMore from './_components/more/MateProfileMore';
+import MateSalesProductList from './_components/product/MateSalesProductList';
+import MateProfile from './_components/profile/MateProfile';
+import MateProfileError from './_components/profile/MateProfileError';
+import ScreenLoading from 'components/loading/ScreenLoading';
+import ScreenError from 'components/error/ScreenError';
+
+interface MateSalesProductPostListsResponse {
+  contents: ProductPost[];
+  hasNext: boolean;
+}
+
+const Page = () => {
+  const infiniteTarget = useRef<HTMLDivElement>(null);
+
+  const params = useParams();
+  const userId = params.userId as string;
+
+  const {
+    data: mateProfileData,
+    isLoading: isMateProfileQueryLoading,
+    isError: isMateProfileQueryError,
+    error: mateProfileError,
+  } = useQuery<MateUser, ApiResponseError>({
+    queryKey: [API_USER_PROFILE(userId)],
+    enabled: !!userId,
+  });
+
+  const {
+    data: mateSalesProductPosts,
+    isLoading: isMateSalesProductPostsLoading,
+    isError: isMateSalesProductPostsError,
+    error: mateSalesProductPostsError,
+  } = useInfiniteQueryWithObserver<
+    MateSalesProductPostListsResponse,
+    ApiResponseError
+  >(
+    infiniteTarget,
+    {
+      queryKey: [API_USER_SALES_PRODUCTS(userId)],
+      initialPageParam: 1,
+      queryFn: async ({ pageParam }) => {
+        try {
+          const res = await fetchClient.GET<MateSalesProductPostListsResponse>({
+            url: API_USER_SALES_PRODUCTS(userId),
+            params: {
+              pageNumber: pageParam,
+            },
+          });
+
+          return res;
+        } catch (error) {
+          console.log('search interest region', error);
+          throw error;
+        }
+      },
+      getNextPageParam: (lastPage, allPages) => {
+        if (lastPage.hasNext) {
+          return allPages.length + 1;
+        }
+        return null;
+      },
+      enabled: !!userId,
+    },
+    {
+      rootMargin: '0px 0px 50% 0px',
+    }
+  );
+
+  const mateSalesProductList = mateSalesProductPosts?.pages.flatMap(
+    (page) => page.contents
+  );
+
+  const isLoading =
+    isMateProfileQueryLoading ||
+    !mateProfileData ||
+    isMateSalesProductPostsLoading ||
+    !mateSalesProductList ||
+    !mateSalesProductList.length;
+
+  if (isLoading) {
+    return <ScreenLoading />;
+  }
+
+  if (isMateProfileQueryError) {
+    return (
+      <>
+        <ScreenError />
+        <MateProfileError error={mateProfileError} />
+      </>
+    );
+  }
+
+  if (isMateSalesProductPostsError) {
+    return (
+      <>
+        <ScreenError />
+        <MateProfileError error={mateSalesProductPostsError} />
+      </>
+    );
+  }
+
+  return (
+    <>
+      <NavigationBar
+        title="프로필"
+        className="bg-white"
+        renderOptionButtons={<MateProfileMore />}
+      />
+      <div className="min-h-full_without_navigation w-full bg-gray-50 px-[16px] pt-[16px]">
+        {!isLoading && (
+          <>
+            <MateProfile mateProfile={mateProfileData} />
+            <MateSalesProductList mateSalesProductList={mateSalesProductList} />
+            <div ref={infiniteTarget} />
+          </>
+        )}
+      </div>
+    </>
+  );
+};
+
+export default Page;
